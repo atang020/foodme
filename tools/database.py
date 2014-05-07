@@ -33,7 +33,7 @@ def help(s):
 def action_import(structure, data, paths):
 	if structure:
 		verbose("Will import structure")
-		cmd = "mysql --user root --password foodme < \"" + paths["structure"] + "\""
+		cmd = "mysql --user root --password < \"" + paths["structure"] + "\""
 		verbose("  Running command: " + cmd)
 		os.system(cmd)
 		verbose("  Done running import")
