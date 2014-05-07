@@ -66,7 +66,7 @@ def main(file_path):
 	data = True
 
 	# Get options
-	for i in xrange(2, argc):
+	for i in range(2, argc):
 		arg = sys.argv[i]
 		if arg == "-s" or arg == "--structure":
 			data = False
