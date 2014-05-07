@@ -33,13 +33,13 @@ def help(s):
 def action_import(structure, data, paths):
 	if structure:
 		verbose("Will import structure")
-		cmd = "mysql --user root --password foodme < " + paths["structure"]
+		cmd = "mysql --user root --password foodme < \"" + paths["structure"] + "\""
 		verbose("  Running command: " + cmd)
 		os.system(cmd)
 		verbose("  Done running import")
 	if data:
 		verbose("Will import data")
-		cmd = "mysql --user root --password foodme < " + paths["data"]
+		cmd = "mysql --user root --password foodme < \"" + paths["data"] + "\""
 		verbose("  Running command: " + cmd)
 		os.system(cmd)
 		verbose("  Done running command")
@@ -49,7 +49,7 @@ def action_export(structure, data, paths):
 		stderr("Sorry, but exporting structure is not allowed\n")
 	if data:
 		verbose("Will export data")
-		cmd = "mysqldump foodme --user root --password --no-create-info --skip-add-drop-table --result-file " + paths["data"]
+		cmd = "mysqldump foodme --user root --password --no-create-info --skip-add-drop-table --result-file \"" + paths["data"] + "\""
 		verbose("  Running command: " + cmd)
 		os.system(cmd)
 		verbose("  Done running export")
