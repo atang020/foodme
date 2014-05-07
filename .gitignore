@@ -10,3 +10,6 @@
 
 # Mac
 .DS_Store
+
+# Debug logs
+npm-debug.log
