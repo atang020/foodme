@@ -16,6 +16,12 @@ exports.getAll = function (callback) {
 	});
 };
 
+/**
+* Gets the order_item with the specified id
+* @param orderId 
+* @param callback
+*
+*/
 exports.get = function (orderId, callback) {
 	database.query('SELECT * FROM order_item WHERE order_item_id = ?', [orderId], function (err, rows, fields) {
 		if (err) {
@@ -32,6 +38,12 @@ exports.get = function (orderId, callback) {
 	});
 };
 
+/**
+* Gets the order_items that match the given parameters
+* @param params
+* @param callback
+*
+*/
 exports.search = function (params, callback) {
 	var y = database.query('SELECT * FROM order_item WHERE ?', params, function (err, rows, fields) {
 		if (err) {
