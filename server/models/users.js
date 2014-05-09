@@ -17,6 +17,14 @@ exports.getAll = function (callback) {
 	});
 };
 
+data.phone = data.phone === undefined ? null : data.phone;
+
+/**
+ * Returns a user selected by userId. The callback gets two arguments (err, data).
+ *
+ * @param userId the user ID to search by
+ * @param callback a function called upon getting the data
+ */
 exports.get = function (userId, callback) {
 	database.query('SELECT * FROM user WHERE user_id = ?', [userId], function (err, rows, fields) {
 		if (err) {
@@ -33,6 +41,13 @@ exports.get = function (userId, callback) {
 	});
 };
 
+/**
+ *
+ *
+ * @param params an object of params to search. The keys refer to the column name and the values
+ * refer to the value.
+ * @param callback
+ */
 exports.search = function (params, callback) {
 	var y = database.query('SELECT * FROM user WHERE ?', params, function (err, rows, fields) {
 		if (err) {
