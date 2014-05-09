@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `order` ;
 CREATE TABLE `order` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `table_number` INT NOT NULL,
-  `order_date` DATETIME NOT NULL,
+  `order_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `checked_out` TINYINT NOT NULL,
   `call_waiter_status` TINYINT NOT NULL,
   PRIMARY KEY (`order_id`))
@@ -92,7 +92,7 @@ CREATE TABLE `review` (
   `reviewer` VARCHAR(45) NULL,
   `rating` TINYINT NOT NULL,
   `review_text` TEXT NULL,
-  `review_date` DATETIME NULL,
+  `review_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`review_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
 ENGINE = InnoDB;
