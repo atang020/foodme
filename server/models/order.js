@@ -42,7 +42,9 @@ exports.get = function (orderId, callback) {
 /**
  * Returns data for all users under specified condition. The callback gets two arguments (err, data).
  *
+ * @param params
  * @param callback
+ *
  */
 exports.search = function (params, callback) {
 	var y = database.query('SELECT * FROM user WHERE ?', params, function (err, rows, fields) {

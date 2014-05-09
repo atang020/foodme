@@ -2,7 +2,7 @@ var mysql = require('mysql');
 var database = require('./database');
 
 /**
- * Returns data for all order items. The callback gets two arguments (err, data).
+ * Returns data for all menu items. The callback gets two arguments (err, data).
  *
  * @param callback
  */
@@ -17,13 +17,13 @@ exports.getAll = function (callback) {
 };
 
 /**
-* Gets the order_item with the specified id
+* Gets the menu_item with the specified id
 * @param orderId 
 * @param callback
 *
 */
 exports.get = function (orderId, callback) {
-	database.query('SELECT * FROM order_item WHERE order_item_id = ?', [orderId], function (err, rows, fields) {
+	database.query('SELECT * FROM menu_item WHERE order_item_id = ?', [orderId], function (err, rows, fields) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -39,13 +39,13 @@ exports.get = function (orderId, callback) {
 };
 
 /**
-* Gets the order_items that match the given parameters
+* Gets the menu_items that match the given parameters
 * @param params
 * @param callback
 *
 */
 exports.search = function (params, callback) {
-	var y = database.query('SELECT * FROM order_item WHERE ?', params, function (err, rows, fields) {
+	var y = database.query('SELECT * FROM menu_item WHERE ?', params, function (err, rows, fields) {
 		if (err) {
 			callback(err, null);
 			return;
