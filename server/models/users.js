@@ -17,20 +17,11 @@ exports.getAll = function (callback) {
 	});
 };
 
-<<<<<<< HEAD
-/**
- * Returns data for specific userId. The callback gets two arguments (err, data).
- *
- * @param callback
-=======
-data.phone = data.phone === undefined ? null : data.phone;
-
 /**
  * Returns a user selected by userId. The callback gets two arguments (err, data).
  *
  * @param userId the user ID to search by
  * @param callback a function called upon getting the data
->>>>>>> e720e65d94771a6dcd7704ddf7819cc21d7fc69d
  */
 exports.get = function (userId, callback) {
 	database.query('SELECT * FROM user WHERE user_id = ?', [userId], function (err, rows, fields) {
@@ -49,15 +40,10 @@ exports.get = function (userId, callback) {
 };
 
 /**
-<<<<<<< HEAD
  * Returns data for specific condition. The callback gets two arguments (err, data).
- *
-=======
- *
  *
  * @param params an object of params to search. The keys refer to the column name and the values
  * refer to the value.
->>>>>>> e720e65d94771a6dcd7704ddf7819cc21d7fc69d
  * @param callback
  */
 exports.search = function (params, callback) {
@@ -115,4 +101,4 @@ exports.add = function (data, callback) {
             callback(null, result.insertId);
         });
     });
-}
+};
