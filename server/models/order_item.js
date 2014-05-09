@@ -18,7 +18,7 @@ exports.getAll = function (callback) {
 
 /**
 * Gets the order_item with the specified id
-* @param orderId 
+* @param orderId
 * @param callback
 *
 */
@@ -52,4 +52,51 @@ exports.search = function (params, callback) {
 		}
 		callback(null, rows);
 	});
+};
+
+/**
+ * Inserts a new order_item. The callback gets two arguments (err, data).
+ *
+ * @param data the data to be inserted into the order_item table
+ * @param callback
+ */
+exports.add = function (data, callback) {
+    // order_id, menu_item_id, and quantity must be NOT NULL
+    if (data.quantity === undefined || data.quantity === null) {
+        callback(new Error("Quantity must be defined."));
+        return;
+    }
+    if (data.orderId === undefined || data.orderId === null) {
+        callback(new Error("Order ID must be defined."));
+        return;
+    }
+    if (data.menuItemId === undefined || data.menuItemId === null) {
+        callback(new Error("Menu Item ID must be defined."));
+        return;
+    }
+
+    // if kitchenStatus is undefined, set to 0
+    // WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN
+    data.kitchenStatus = data.kitchenStatus === undefined ? 0 : data.kitchenStatus;
+
+    database.query('INSERT INTO order_item (order_id, menu_item_id, quantity, notes, kitchen_status)' +
+                   'VALUES (?, ?, ?, ?, ?)', [data.orderId, data.menuItemId, data.quantity, data.notes, data.kitchenStatus],
+                    function (err, result) {
+        if (err) {
+            database.rollback(function () {
+                callback(err);
+                return;
+            });
+        }
+
+        database.commit(function(err) {
+            if (err) {
+                connection.rollback(function() {
+                    callback(err);
+                    return;
+                });
+            }
+            callback(null, result.insertId);
+        });
+    });
 };

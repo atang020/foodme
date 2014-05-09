@@ -18,7 +18,8 @@ exports.getAll = function (callback) {
 
 /**
 * Gets the menu_item with the specified id
-* @param orderId 
+*
+* @param orderId the ID of the order to search for
 * @param callback
 *
 */
@@ -40,7 +41,8 @@ exports.get = function (orderId, callback) {
 
 /**
 * Gets the menu_items that match the given parameters
-* @param params
+*
+* @param params the specifications to search by
 * @param callback
 *
 */
@@ -52,4 +54,51 @@ exports.search = function (params, callback) {
 		}
 		callback(null, rows);
 	});
+};
+
+/**
+ * Inserts a new menu_item. The callback gets two arguments (err, data).
+ *
+ * @param data the data to be inserted into the menu_item table
+ * @param callback
+ */
+exports.add = function (data, callback) {
+    // name, description, and price must be NOT NULL
+    if (data.name === undefined || data.name === null) {
+        callback(new Error("Name must be defined."));
+        return;
+    }
+    if (data.description === undefined || data.description === null) {
+        callback(new Error("Description must be defined."));
+        return;
+    }
+    if (data.price === undefined || data.price === null) {
+        callback(new Error("Description must be defined."));
+        return;
+    }
+
+    // If data.picturePath is undefined set to null
+    data.picturePath = data.picturePath === undefined ? null : data.picturePath;
+
+    database.query('INSERT INTO menu_item (subcategory_id, name, description, picture_path, price) ' +
+                    'VALUES (?, ?, ?, ?, ?)',
+                    [data.subcategoryId, data.name, data.description, data.picturePath, data.price],
+                    function (err, result) {
+        if (err) {
+            database.rollback(function () {
+                callback(err);
+                return;
+            });
+        }
+
+        database.commit(function(err) {
+            if (err) {
+                connection.rollback(function() {
+                    callback(err);
+                    return;
+                });
+            }
+            callback(null, result.insertId);
+        });
+    });
 };
