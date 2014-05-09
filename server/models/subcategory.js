@@ -7,7 +7,7 @@ var database = require('./database');
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM order', function (err, rows, fields) {
+	database.query('SELECT * FROM subcategory', function (err, rows, fields) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -17,14 +17,8 @@ exports.getAll = function (callback) {
 	});
 };
 
-/**
- * Returns data for all specific user. The callback gets two arguments (err, data).
- *
- * @param orderId
- * @param callback
- */
-exports.get = function (orderId, callback) {
-	database.query('SELECT * FROM order WHERE order_id = ?', [orderId], function (err, rows, fields) {
+exports.get = function (subcategoryId, callback) {
+	database.query('SELECT * FROM subcategory WHERE subcategory_id = ?', [subcategoryId], function (err, rows, fields) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -39,13 +33,8 @@ exports.get = function (orderId, callback) {
 	});
 };
 
-/**
- * Returns data for all users under specified condition. The callback gets two arguments (err, data).
- *
- * @param callback
- */
 exports.search = function (params, callback) {
-	var y = database.query('SELECT * FROM user WHERE ?', params, function (err, rows, fields) {
+	var y = database.query('SELECT * FROM subcategory WHERE ?', params, function (err, rows, fields) {
 		if (err) {
 			callback(err, null);
 			return;
