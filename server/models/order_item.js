@@ -68,7 +68,7 @@ exports.add = function (data, callback) {
     }
 
     // if kitchenStatus is undefined, set to 0
-    // WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN
+    //TODO: WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN
     data.kitchenStatus = data.kitchenStatus === undefined ? 0 : data.kitchenStatus;
     data.notes = data.notes === undefined ? "" : data.notes;
 
