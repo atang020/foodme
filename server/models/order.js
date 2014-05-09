@@ -56,3 +56,42 @@ exports.search = function (params, callback) {
 		callback(null, rows);
 	});
 };
+
+/**
+ * Inserts a new order into the database. The callback gets two arguments (err, data).
+ *
+ * @param data the data to be inserted into the order table
+ * @param callback
+ */
+exports.add = function (data, callback) {
+    // table_number must be NOT NULL
+    if (data.tableNumber === undefined || data.tableNumber === null) {
+        callback(new Error("Table number must be defined."));
+        return;
+    }
+
+    // if checked_out or call_waiter_status are undefined, set to 0
+    data.checkedOut = data.checkedOut === undefined ? 0 : data.checkedOut;
+    data.callWaiterStatus = data.callWaiterStatus === undefined ? 0 : data.callWaiterStatus;
+
+    database.query('INSERT INTO order (table_number, checked_out, call_waiter_status)' +
+                   'VALUES (?, ?, ?)', [data.tableNumber, data.checkedOut, data.callWaiterStatus],
+                    function (err, result) {
+        if (err) {
+            database.rollback(function () {
+                callback(err);
+                return;
+            });
+        }
+
+        database.commit(function(err) {
+            if (err) {
+                connection.rollback(function() {
+                    callback(err);
+                    return;
+                });
+            }
+            callback(null, result.insertId);
+        });
+    });
+};

@@ -66,18 +66,11 @@ exports.add = function (data, callback) {
         callback(new Error("Quantity must be defined."));
         return;
     }
-    if (data.orderId === undefined || data.orderId === null) {
-        callback(new Error("Order ID must be defined."));
-        return;
-    }
-    if (data.menuItemId === undefined || data.menuItemId === null) {
-        callback(new Error("Menu Item ID must be defined."));
-        return;
-    }
 
     // if kitchenStatus is undefined, set to 0
     // WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN
     data.kitchenStatus = data.kitchenStatus === undefined ? 0 : data.kitchenStatus;
+    data.notes = data.notes === undefined ? "" : data.notes;
 
     database.query('INSERT INTO order_item (order_id, menu_item_id, quantity, notes, kitchen_status)' +
                    'VALUES (?, ?, ?, ?, ?)', [data.orderId, data.menuItemId, data.quantity, data.notes, data.kitchenStatus],

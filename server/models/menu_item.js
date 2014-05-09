@@ -68,12 +68,20 @@ exports.add = function (data, callback) {
         callback(new Error("Name must be defined."));
         return;
     }
+    if (data.name > 100) {
+        callback(new Error("Name must be less than 100 characters."));
+        return;
+    }
     if (data.description === undefined || data.description === null) {
         callback(new Error("Description must be defined."));
         return;
     }
     if (data.price === undefined || data.price === null) {
-        callback(new Error("Description must be defined."));
+        callback(new Error("Price must be defined."));
+        return;
+    }
+    if (data.picturePath > 256) {
+        callback(new Error("Picture path must be less than 256 characters."));
         return;
     }
 
