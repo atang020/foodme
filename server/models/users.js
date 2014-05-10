@@ -65,42 +65,42 @@ exports.search = function (params, callback) {
  * @param callback
  */
 exports.add = function (data, callback) {
-    if (data.password === undefined || data.password === null) {
-        callback(new Error("Password must be defined."));
-        return;
-    }
-    if (data.password.length > 256) {
-        callback(new Error("Password must be less than 256 characters."));
-        return;
-    }
-    if (data.email === undefined || data.email === null) {
-        callback(new Error("Password must be defined."));
-        return;
-    }
-    if (data.email.length > 256) {
-        callback(new Error("Email must be less than 256 characters."));
-        return;
-    }
-    // If data.phone is undefined set to null
-    data.phone = data.phone === undefined ? null : data.phone;
+	if (data.password === undefined || data.password === null) {
+		callback(new Error("Password must be defined."));
+		return;
+	}
+	if (data.password.length > 256) {
+		callback(new Error("Password must be less than 256 characters."));
+		return;
+	}
+	if (data.email === undefined || data.email === null) {
+		callback(new Error("Password must be defined."));
+		return;
+	}
+	if (data.email.length > 256) {
+		callback(new Error("Email must be less than 256 characters."));
+		return;
+	}
+	// If data.phone is undefined set to null
+	data.phone = data.phone === undefined ? null : data.phone;
 
-    database.query('INSERT INTO user (password, email, phone) VALUES (?, ?, ?)',
-                   [data.password, data.email, data.phone], function (err, result) {
-        if (err) {
-            database.rollback(function () {
-                callback(err);
-                return;
-            });
-        }
+	database.query('INSERT INTO user (password, email, phone) VALUES (?, ?, ?)',
+		[data.password, data.email, data.phone], function (err, result) {
+			if (err) {
+				database.rollback(function () {
+					callback(err);
+					return;
+				});
+			}
 
-        database.commit(function(err) {
-            if (err) {
-                connection.rollback(function() {
-                    callback(err);
-                    return;
-                });
-            }
-            callback(null, result.insertId);
-        });
-    });
+			database.commit(function (err) {
+				if (err) {
+					database.rollback(function () {
+						callback(err);
+						return;
+					});
+				}
+				callback(null, result.insertId);
+			});
+		});
 };

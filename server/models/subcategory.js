@@ -63,37 +63,37 @@ exports.search = function (params, callback) {
  * @param callback
  */
 exports.add = function (data, callback) {
-    //  name and category must be NOT NULL
-    if (data.name === undefined || data.name === null) {
-        callback(new Error("Name must be defined."));
-        return;
-    }
-    if (data.name > 32) {
-        callback(new Error("Name must be less than 32 characters"));
-        return;
-    }
-    if (data.category === undefined || data.category === null) {
-        callback(new Error("Category must be defined."));
-        return;
-    }
+	//  name and category must be NOT NULL
+	if (data.name === undefined || data.name === null) {
+		callback(new Error("Name must be defined."));
+		return;
+	}
+	if (data.name > 32) {
+		callback(new Error("Name must be less than 32 characters"));
+		return;
+	}
+	if (data.category === undefined || data.category === null) {
+		callback(new Error("Category must be defined."));
+		return;
+	}
 
-    database.query('INSERT INTO subcategory (name, category) VALUES (?, ?)', [data.name, data.category],
-                    function (err, result) {
-        if (err) {
-            database.rollback(function () {
-                callback(err);
-                return;
-            });
-        }
+	database.query('INSERT INTO subcategory (name, category) VALUES (?, ?)', [data.name, data.category],
+		function (err, result) {
+			if (err) {
+				database.rollback(function () {
+					callback(err);
+					return;
+				});
+			}
 
-        database.commit(function(err) {
-            if (err) {
-                connection.rollback(function() {
-                    callback(err);
-                    return;
-                });
-            }
-            callback(null, result.insertId);
-        });
-    });
+			database.commit(function (err) {
+				if (err) {
+					database.rollback(function () {
+						callback(err);
+						return;
+					});
+				}
+				callback(null, result.insertId);
+			});
+		});
 };
