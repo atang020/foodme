@@ -30,12 +30,18 @@ def help(s):
 	stderr("  -h, --help       print this message\n")
 	sys.exit(-1)
 
+def test_create(paths):
+	cmd = "sed 's/foodme/foodme_test/g' " + paths["structure"] + " | mysql --user root --password"
+	verbose("  Running command: " + cmd)
+	os.system(cmd)
+
 def action_import(structure, data, paths):
 	if structure:
 		verbose("Will import structure")
 		cmd = "mysql --user root --password < \"" + paths["structure"] + "\""
 		verbose("  Running command: " + cmd)
 		os.system(cmd)
+		test_create(paths)
 		verbose("  Done running import")
 	if data:
 		verbose("Will import data")
