@@ -14,6 +14,17 @@
 		"debug": "~0.7.4",
 		"jade": "~1.3.0",
 		"mysql": "~2.2.0",
-		"jasmine-core": "~2.0.0"
+		"jshint": "~2.5.0"
+	},
+	"jshintConfig": {
+		"camelcase": true,
+		"curly": true,
+		"eqeqeq": true,
+		"quotmark": "single",
+		"undef": true,
+		"unused": true,
+		"jquery": true,
+		"node": true,
+		"devel": true
 	}
 }
