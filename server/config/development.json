@@ -1,0 +1,9 @@
+{
+	"mode": "development",
+	"database": {
+		"host": "localhost",
+		"user": "root",
+		"password": "admin",
+		"db": "foodme"
+	}
+}
