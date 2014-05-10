@@ -1,7 +1,24 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	include inc/header
+		body
+	.navbar.navbar-default.navbar-static-top(role='navigation')
+		.container
+			.navbar-header
+				button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.navbar-brand(href='#') #{brand}
+			.navbar-collapse.collapse
+				ul.nav.navbar-nav
+					- var obj = { 'home':'Home', 'about':'About' }
+						- each val, key in obj
+							- if (id == key)
+								li.active
+									a(href='#{key}') #{val}
+							- else
+								li
+									a(href='#{key}') #{val}
+	block content
