@@ -15,7 +15,7 @@ function verify(order) {
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM order', function (err, rows) {
+	database.query('SELECT * FROM order', null, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -77,6 +77,7 @@ exports.add = function (order, callback) {
 		callback(err);
 		return;
 	}
+
 
 	// if checked_out or call_waiter_status are undefined, set to 0
 	order.checked_out = order.checked_out === undefined ? 0 : order.checked_out;

@@ -20,7 +20,7 @@ function verify(subcategory) {
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM subcategory', function (err, rows) {
+	database.query('SELECT * FROM subcategory', null, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;

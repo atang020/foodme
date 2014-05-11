@@ -22,7 +22,7 @@ function verify(user) {
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM user', function (err, rows) {
+	database.query('SELECT * FROM user', null, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -76,7 +76,7 @@ exports.search = function (params, callback) {
 /**
  * Inserts a new user into database. The callback gets two arguments (err, data).
  *
- * @param data the data to be inserted into the user table
+ * @param user the data to be inserted into the user table
  * @param callback
  */
 exports.add = function (user, callback) {
@@ -110,10 +110,10 @@ exports.update = function (user, callback) {
 	database.query('UPDATE user SET password = ?, email = ?, phone = ? WHERE user_id = ?',
 		[user.password, user.email, user.phone, user.user_id], function (err) {
 
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(null);
+		});
 };

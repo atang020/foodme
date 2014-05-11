@@ -18,7 +18,7 @@ function verify(review) {
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM review', function (err, rows) {
+	database.query('SELECT * FROM review', null, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -67,6 +67,7 @@ exports.add = function (review, callback) {
 		callback(err);
 		return;
 	}
+
 
 	// if reviewer is undefined, set to 'Anonymous:
 	review.reviewer = review.reviewer === undefined ? 'Anonymous' : review.reviewer;

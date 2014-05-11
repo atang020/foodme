@@ -23,7 +23,7 @@ function verify(orderItem) {
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM order_item', function (err, rows) {
+	database.query('SELECT * FROM order_item', null, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -82,6 +82,7 @@ exports.add = function (orderItem, callback) {
 		callback(err);
 		return;
 	}
+
 
 	// if kitchenStatus is undefined, set to 0
 	//TODO: WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN

@@ -27,7 +27,7 @@ function verify(menuItem) {
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM order_item', function (err, rows) {
+	database.query('SELECT * FROM order_item', null, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -88,6 +88,7 @@ exports.add = function (menuItem, callback) {
 		callback(err);
 		return;
 	}
+
 
 	// If data.picturePath is undefined set to null
 	menuItem.picture_path = menuItem.picture_path === undefined ? null : menuItem.picture_path;
