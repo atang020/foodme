@@ -1,5 +1,14 @@
 var database = require('./database');
 
+function verify(order) {
+	// table_number must be NOT NULL
+	if (order.table_number === undefined || order.table_number === null) {
+		return new Error('No table number specified.');
+	}
+
+	return null;
+}
+
 /**
  * Returns data for all users. The callback gets two arguments (err, data).
  *
@@ -63,18 +72,18 @@ exports.search = function (params, callback) {
  * @param callback
  */
 exports.add = function (data, callback) {
-	// table_number must be NOT NULL
-	if (data.tableNumber === undefined || data.tableNumber === null) {
-		callback(new Error('Table number must be defined.'));
+	var err = verify(data);
+	if (err) {
+		callback(err);
 		return;
 	}
 
 	// if checked_out or call_waiter_status are undefined, set to 0
-	data.checkedOut = data.checkedOut === undefined ? 0 : data.checkedOut;
-	data.callWaiterStatus = data.callWaiterStatus === undefined ? 0 : data.callWaiterStatus;
+	data.checked_out = data.checked_out === undefined ? 0 : data.checked_out;
+	data.call_waiter_status = data.call_waiter_status === undefined ? 0 : data.call_waiter_status;
 
 	database.query('INSERT INTO order (table_number, checked_out, call_waiter_status)' +
-			'VALUES (?, ?, ?)', [data.tableNumber, data.checkedOut, data.callWaiterStatus],
+			'VALUES (?, ?, ?)', [data.table_number, data.checked_out, data.call_waiter_status],
 		function (err, result) {
 			if (err) {
 				callback(err);

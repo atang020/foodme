@@ -1,5 +1,26 @@
 var database = require('./database');
 
+function verify(menuItem) {
+	// name, description, and price must be NOT NULL
+	if (menuItem.name === undefined || menuItem.name === null) {
+		return new Error('A name must be provided.');
+	}
+	if (menuItem.name > 100) {
+		return new Error('Item name must be less than 100 characters.');
+	}
+	if (menuItem.description === undefined || menuItem.description === null) {
+		return new Error('Description must be provided.');
+	}
+	if (menuItem.price === undefined || menuItem.price === null) {
+		return new Error('Price must be provided.');
+	}
+	if (menuItem.picture_path > 256) {
+		return new Error('Picture path must be less than 256 characters.');
+	}
+
+	return null;
+}
+
 /**
  * Returns data for all menu items. The callback gets two arguments (err, data).
  *
@@ -62,34 +83,18 @@ exports.search = function (params, callback) {
  * @param callback
  */
 exports.add = function (data, callback) {
-	// name, description, and price must be NOT NULL
-	if (data.name === undefined || data.name === null) {
-		callback(new Error('Name must be defined.'));
-		return;
-	}
-	if (data.name > 100) {
-		callback(new Error('Name must be less than 100 characters.'));
-		return;
-	}
-	if (data.description === undefined || data.description === null) {
-		callback(new Error('Description must be defined.'));
-		return;
-	}
-	if (data.price === undefined || data.price === null) {
-		callback(new Error('Price must be defined.'));
-		return;
-	}
-	if (data.picturePath > 256) {
-		callback(new Error('Picture path must be less than 256 characters.'));
+	var err = verify(data);
+	if (err) {
+		callback(err);
 		return;
 	}
 
 	// If data.picturePath is undefined set to null
-	data.picturePath = data.picturePath === undefined ? null : data.picturePath;
+	data.picture_path = data.picture_path === undefined ? null : data.picture_path;
 
 	database.query('INSERT INTO menu_item (subcategory_id, name, description, picture_path, price) ' +
 			'VALUES (?, ?, ?, ?, ?)',
-		[data.subcategoryId, data.name, data.description, data.picturePath, data.price],
+		[data.subcategory_id, data.name, data.description, data.picture_path, data.price],
 		function (err, result) {
 			if (err) {
 				callback(err);

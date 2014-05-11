@@ -1,5 +1,19 @@
 var database = require('./database');
 
+function verify(subcategory) {
+	//  name and category must be NOT NULL
+	if (subcategory.name === undefined || subcategory.name === null) {
+		return new Error('Subcategory must have a name.');
+	}
+	if (subcategory.name > 32) {
+		return new Error('Subcategory name must be less than 32 characters.');
+	}
+	if (subcategory.category === undefined || subcategory.category === null) {
+		return new Error('Category must be defined.');
+	}
+	return null;
+}
+
 /**
  * Returns data for all subcategories. The callback gets two arguments (err, data).
  *
@@ -62,17 +76,9 @@ exports.search = function (params, callback) {
  * @param callback
  */
 exports.add = function (data, callback) {
-	//  name and category must be NOT NULL
-	if (data.name === undefined || data.name === null) {
-		callback(new Error('Name must be defined.'));
-		return;
-	}
-	if (data.name > 32) {
-		callback(new Error('Name must be less than 32 characters'));
-		return;
-	}
-	if (data.category === undefined || data.category === null) {
-		callback(new Error('Category must be defined.'));
+	var err = verify(data);
+	if (err) {
+		callback(err);
 		return;
 	}
 

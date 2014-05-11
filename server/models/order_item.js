@@ -1,5 +1,22 @@
 var database = require('./database');
 
+function verify(orderItem) {
+	// order_id, menu_item_id, and quantity must be NOT NULL
+	if (orderItem.quantity === undefined || orderItem.quantity === null) {
+		return new Error('A quantity must be provided.');
+	}
+
+	if (orderItem.order_id === undefined || orderItem.order_id === null) {
+		return new Error('Order ID not specified.');
+	}
+
+	if (orderItem.menu_item_id === undefined || orderItem.menu_item_id === null) {
+		return new Error('Menu Item ID not specified.');
+	}
+
+	return null;
+}
+
 /**
  * Returns data for all order items. The callback gets two arguments (err, data).
  *
@@ -60,19 +77,19 @@ exports.search = function (params, callback) {
  * @param callback
  */
 exports.add = function (data, callback) {
-	// order_id, menu_item_id, and quantity must be NOT NULL
-	if (data.quantity === undefined || data.quantity === null) {
-		callback(new Error('Quantity must be defined.'));
+	var err = verify(data);
+	if (err) {
+		callback(err);
 		return;
 	}
 
 	// if kitchenStatus is undefined, set to 0
 	//TODO: WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN
-	data.kitchenStatus = data.kitchenStatus === undefined ? 0 : data.kitchenStatus;
+	data.kitchen_status = data.kitchen_status === undefined ? 0 : data.kitchen_status;
 	data.notes = data.notes === undefined ? '' : data.notes;
 
 	database.query('INSERT INTO order_item (order_id, menu_item_id, quantity, notes, kitchen_status)' +
-			'VALUES (?, ?, ?, ?, ?)', [data.orderId, data.menuItemId, data.quantity, data.notes, data.kitchenStatus],
+			'VALUES (?, ?, ?, ?, ?)', [data.order_id, data.menu_item_id, data.quantity, data.notes, data.kitchen_status],
 		function (err, result) {
 			if (err) {
 				callback(err);

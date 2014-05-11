@@ -115,5 +115,5 @@ exports.update = function (user, callback) {
 			return;
 		}
 		callback(null);
-	})
+	});
 };
