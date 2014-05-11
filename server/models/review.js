@@ -84,3 +84,21 @@ exports.add = function (review, callback) {
 			callback(null, result.insertId);
 		});
 };
+
+exports.update = function (review, callback) {
+	var err = verify(review);
+	if (err) {
+		callback(err);
+		return;
+	}
+
+	database.query('UPDATE review SET menu_item = ?, reviewer = ?, rating = ?, review_text = ?, review_date = ? WHERE review_id = ?',
+		[review.menu_item, review.reviewer, review.rating, review.review_text, review.review_date, review.review_id], function (err) {
+
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(null);
+		});
+};

@@ -93,3 +93,21 @@ exports.add = function (order, callback) {
 			callback(null, result.insertId);
 		});
 };
+
+exports.update = function (order, callback) {
+	var err = verify(order);
+	if (err) {
+		callback(err);
+		return;
+	}
+
+	database.query('UPDATE order SET table_number = ?, order_date = ?, checked_out = ?, call_waiter_status = ? WHERE order_id = ?',
+		[order.table_number, order.order_date, order.checked_out, order.call_waiter_status, order.order_id], function (err) {
+
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(null);
+		});
+};

@@ -99,3 +99,21 @@ exports.add = function (orderItem, callback) {
 			callback(null, result.insertId);
 		});
 };
+
+exports.update = function (orderItem, callback) {
+	var err = verify(orderItem);
+	if (err) {
+		callback(err);
+		return;
+	}
+
+	database.query('UPDATE order_item order_id = ?, menu_item_id = ?, quantity = ?, notes = ?, kitchen_status = ? WHERE order_item_id = ?',
+		[orderItem.order_id, orderItem.menu_item_id, orderItem.quantity, orderItem.notes, orderItem.kitchen_status, orderItem.order_item_id], function (err) {
+
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(null);
+		});
+};

@@ -104,3 +104,21 @@ exports.add = function (menuItem, callback) {
 			callback(null, result.insertId);
 		});
 };
+
+exports.update = function (menuItem, callback) {
+	var err = verify(menuItem);
+	if (err) {
+		callback(err);
+		return;
+	}
+
+	database.query('UPDATE menu_item SET subcategory_id = ?, name = ?, description = ?, picture_path = ?, price = ? WHERE menu_item_id = ?',
+		[menuItem.subcategory_id, menuItem.name, menuItem.description, menuItem.picture_path, menuItem.price, menuItem.menu_item_id], function (err) {
+
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(null);
+		});
+};

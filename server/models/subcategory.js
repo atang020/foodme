@@ -92,3 +92,22 @@ exports.add = function (subcategory, callback) {
 			callback(null, result.insertId);
 		});
 };
+
+exports.update = function (subcategory, callback) {
+	var err = verify(subcategory);
+	if (err) {
+		callback(err);
+		return;
+	}
+
+	database.query('UPDATE subcategory SET name = ?, category = ? WHERE subcategory_id = ?',
+		[subcategory.name, subcategory.category, subcategory.subcategory_id], function (err) {
+
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(null);
+		});
+};
+
