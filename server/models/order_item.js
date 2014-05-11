@@ -73,11 +73,11 @@ exports.search = function (params, callback) {
 /**
  * Inserts a new order_item. The callback gets two arguments (err, data).
  *
- * @param data the data to be inserted into the order_item table
+ * @param orderItem the data to be inserted into the order_item table
  * @param callback
  */
-exports.add = function (data, callback) {
-	var err = verify(data);
+exports.add = function (orderItem, callback) {
+	var err = verify(orderItem);
 	if (err) {
 		callback(err);
 		return;
@@ -85,11 +85,11 @@ exports.add = function (data, callback) {
 
 	// if kitchenStatus is undefined, set to 0
 	//TODO: WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN
-	data.kitchen_status = data.kitchen_status === undefined ? 0 : data.kitchen_status;
-	data.notes = data.notes === undefined ? '' : data.notes;
+	orderItem.kitchen_status = orderItem.kitchen_status === undefined ? 0 : orderItem.kitchen_status;
+	orderItem.notes = orderItem.notes === undefined ? '' : orderItem.notes;
 
 	database.query('INSERT INTO order_item (order_id, menu_item_id, quantity, notes, kitchen_status)' +
-			'VALUES (?, ?, ?, ?, ?)', [data.order_id, data.menu_item_id, data.quantity, data.notes, data.kitchen_status],
+			'VALUES (?, ?, ?, ?, ?)', [orderItem.order_id, orderItem.menu_item_id, orderItem.quantity, orderItem.notes, orderItem.kitchen_status],
 		function (err, result) {
 			if (err) {
 				callback(err);

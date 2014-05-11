@@ -72,17 +72,17 @@ exports.search = function (params, callback) {
 /**
  * Inserts a new subcategory into the database. The callback gets two arguments (err, data).
  *
- * @param data the data to be inserted into the subcategory table
+ * @param subcategory the data to be inserted into the subcategory table
  * @param callback
  */
-exports.add = function (data, callback) {
-	var err = verify(data);
+exports.add = function (subcategory, callback) {
+	var err = verify(subcategory);
 	if (err) {
 		callback(err);
 		return;
 	}
 
-	database.query('INSERT INTO subcategory (name, category) VALUES (?, ?)', [data.name, data.category],
+	database.query('INSERT INTO subcategory (name, category) VALUES (?, ?)', [subcategory.name, subcategory.category],
 		function (err, result) {
 			if (err) {
 				callback(err);

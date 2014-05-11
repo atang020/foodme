@@ -79,22 +79,22 @@ exports.search = function (params, callback) {
 /**
  * Inserts a new menu_item. The callback gets two arguments (err, data).
  *
- * @param data the data to be inserted into the menu_item table
+ * @param menuItem the data to be inserted into the menu_item table
  * @param callback
  */
-exports.add = function (data, callback) {
-	var err = verify(data);
+exports.add = function (menuItem, callback) {
+	var err = verify(menuItem);
 	if (err) {
 		callback(err);
 		return;
 	}
 
 	// If data.picturePath is undefined set to null
-	data.picture_path = data.picture_path === undefined ? null : data.picture_path;
+	menuItem.picture_path = menuItem.picture_path === undefined ? null : menuItem.picture_path;
 
 	database.query('INSERT INTO menu_item (subcategory_id, name, description, picture_path, price) ' +
 			'VALUES (?, ?, ?, ?, ?)',
-		[data.subcategory_id, data.name, data.description, data.picture_path, data.price],
+		[menuItem.subcategory_id, menuItem.name, menuItem.description, menuItem.picture_path, menuItem.price],
 		function (err, result) {
 			if (err) {
 				callback(err);

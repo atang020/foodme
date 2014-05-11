@@ -68,22 +68,22 @@ exports.search = function (params, callback) {
 /**
  * Inserts a new order into the database. The callback gets two arguments (err, data).
  *
- * @param data the data to be inserted into the order table
+ * @param order the data to be inserted into the order table
  * @param callback
  */
-exports.add = function (data, callback) {
-	var err = verify(data);
+exports.add = function (order, callback) {
+	var err = verify(order);
 	if (err) {
 		callback(err);
 		return;
 	}
 
 	// if checked_out or call_waiter_status are undefined, set to 0
-	data.checked_out = data.checked_out === undefined ? 0 : data.checked_out;
-	data.call_waiter_status = data.call_waiter_status === undefined ? 0 : data.call_waiter_status;
+	order.checked_out = order.checked_out === undefined ? 0 : order.checked_out;
+	order.call_waiter_status = order.call_waiter_status === undefined ? 0 : order.call_waiter_status;
 
 	database.query('INSERT INTO order (table_number, checked_out, call_waiter_status)' +
-			'VALUES (?, ?, ?)', [data.table_number, data.checked_out, data.call_waiter_status],
+			'VALUES (?, ?, ?)', [order.table_number, order.checked_out, order.call_waiter_status],
 		function (err, result) {
 			if (err) {
 				callback(err);

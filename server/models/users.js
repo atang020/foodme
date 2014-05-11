@@ -79,18 +79,18 @@ exports.search = function (params, callback) {
  * @param data the data to be inserted into the user table
  * @param callback
  */
-exports.add = function (data, callback) {
-	var err = verify(data);
+exports.add = function (user, callback) {
+	var err = verify(user);
 	if (err) {
 		callback(err);
 		return;
 	}
 
 	// If data.phone is undefined set to null
-	data.phone = data.phone === undefined ? null : data.phone;
+	user.phone = user.phone === undefined ? null : user.phone;
 
 	database.query('INSERT INTO user (password, email, phone) VALUES (?, ?, ?)',
-		[data.password, data.email, data.phone], function (err, result) {
+		[user.password, user.email, user.phone], function (err, result) {
 			if (err) {
 				callback(err);
 				return;

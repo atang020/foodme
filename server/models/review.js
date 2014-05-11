@@ -58,23 +58,23 @@ exports.search = function (params, callback) {
 /**
  * Inserts a new review into the database. The callback gets two arguments (err, data).
  *
- * @param data the data to be inserted into the review table
+ * @param review the data to be inserted into the review table
  * @param callback
  */
-exports.add = function (data, callback) {
-	var err = verify(data);
+exports.add = function (review, callback) {
+	var err = verify(review);
 	if (err) {
 		callback(err);
 		return;
 	}
 
 	// if reviewer is undefined, set to 'Anonymous:
-	data.reviewer = data.reviewer === undefined ? 'Anonymous' : data.reviewer;
+	review.reviewer = review.reviewer === undefined ? 'Anonymous' : review.reviewer;
 	// if no review text, set to null
-	data.review_text = data.review_text === undefined ? null : data.review_text;
+	review.review_text = review.review_text === undefined ? null : review.review_text;
 
 	database.query('INSERT INTO review (menu_item_id, reviewer, rating, review_text)' +
-			'VALUES (?, ?, ?, ?)', [data.menu_item_id, data.reviewer, data.rating, data.review_text],
+			'VALUES (?, ?, ?, ?)', [review.menu_item_id, review.reviewer, review.rating, review.review_text],
 		function (err, result) {
 			if (err) {
 				callback(err);
