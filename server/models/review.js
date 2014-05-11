@@ -1,4 +1,3 @@
-var mysql = require('mysql');
 var database = require('./database');
 
 /**
@@ -7,7 +6,7 @@ var database = require('./database');
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM review', function (err, rows, fields) {
+	database.query('SELECT * FROM review', function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -18,7 +17,7 @@ exports.getAll = function (callback) {
 };
 
 exports.get = function (reviewId, callback) {
-	database.query('SELECT * FROM review WHERE review_id = ?', [reviewId], function (err, rows, fields) {
+	database.query('SELECT * FROM review WHERE review_id = ?', [reviewId], function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -34,7 +33,7 @@ exports.get = function (reviewId, callback) {
 };
 
 exports.search = function (params, callback) {
-	var y = database.query('SELECT * FROM review WHERE ?', params, function (err, rows, fields) {
+	database.query('SELECT * FROM review WHERE ?', params, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -53,16 +52,16 @@ exports.search = function (params, callback) {
 exports.add = function (data, callback) {
 	// rating must be NOT NULL
 	if (data.rating === undefined || data.rating === null) {
-		callback(new Error("Rating must be defined."));
+		callback(new Error('Rating must be defined.'));
 		return;
 	}
 	if (data.reviewer > 45) {
-		callback(new Error("Reviewer must be less than 45 characters"));
+		callback(new Error('Reviewer must be less than 45 characters'));
 		return;
 	}
 
-	// if reviewer is undefined, set to "Anonymous:
-	data.reviewer = data.reviewer === undefined ? "Anonymous" : data.reviewer;
+	// if reviewer is undefined, set to 'Anonymous:
+	data.reviewer = data.reviewer === undefined ? 'Anonymous' : data.reviewer;
 	// if no review text, set to null
 	data.reviewText = data.reviewText === undefined ? null : data.reviewText;
 

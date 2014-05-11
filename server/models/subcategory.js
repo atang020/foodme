@@ -1,4 +1,3 @@
-var mysql = require('mysql');
 var database = require('./database');
 
 /**
@@ -7,7 +6,7 @@ var database = require('./database');
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM subcategory', function (err, rows, fields) {
+	database.query('SELECT * FROM subcategory', function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -24,7 +23,7 @@ exports.getAll = function (callback) {
  * @param callback
  */
 exports.get = function (subcategoryId, callback) {
-	database.query('SELECT * FROM subcategory WHERE subcategory_id = ?', [subcategoryId], function (err, rows, fields) {
+	database.query('SELECT * FROM subcategory WHERE subcategory_id = ?', [subcategoryId], function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -46,7 +45,7 @@ exports.get = function (subcategoryId, callback) {
  * @param callback
  */
 exports.search = function (params, callback) {
-	var y = database.query('SELECT * FROM subcategory WHERE ?', params, function (err, rows, fields) {
+	database.query('SELECT * FROM subcategory WHERE ?', params, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -65,15 +64,15 @@ exports.search = function (params, callback) {
 exports.add = function (data, callback) {
 	//  name and category must be NOT NULL
 	if (data.name === undefined || data.name === null) {
-		callback(new Error("Name must be defined."));
+		callback(new Error('Name must be defined.'));
 		return;
 	}
 	if (data.name > 32) {
-		callback(new Error("Name must be less than 32 characters"));
+		callback(new Error('Name must be less than 32 characters'));
 		return;
 	}
 	if (data.category === undefined || data.category === null) {
-		callback(new Error("Category must be defined."));
+		callback(new Error('Category must be defined.'));
 		return;
 	}
 

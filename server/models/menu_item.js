@@ -1,4 +1,3 @@
-var mysql = require('mysql');
 var database = require('./database');
 
 /**
@@ -7,7 +6,7 @@ var database = require('./database');
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM order_item', function (err, rows, fields) {
+	database.query('SELECT * FROM order_item', function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -24,7 +23,7 @@ exports.getAll = function (callback) {
  *
  */
 exports.get = function (orderId, callback) {
-	database.query('SELECT * FROM menu_item WHERE order_item_id = ?', [orderId], function (err, rows, fields) {
+	database.query('SELECT * FROM menu_item WHERE order_item_id = ?', [orderId], function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -47,7 +46,7 @@ exports.get = function (orderId, callback) {
  *
  */
 exports.search = function (params, callback) {
-	var y = database.query('SELECT * FROM menu_item WHERE ?', params, function (err, rows, fields) {
+	database.query('SELECT * FROM menu_item WHERE ?', params, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -65,23 +64,23 @@ exports.search = function (params, callback) {
 exports.add = function (data, callback) {
 	// name, description, and price must be NOT NULL
 	if (data.name === undefined || data.name === null) {
-		callback(new Error("Name must be defined."));
+		callback(new Error('Name must be defined.'));
 		return;
 	}
 	if (data.name > 100) {
-		callback(new Error("Name must be less than 100 characters."));
+		callback(new Error('Name must be less than 100 characters.'));
 		return;
 	}
 	if (data.description === undefined || data.description === null) {
-		callback(new Error("Description must be defined."));
+		callback(new Error('Description must be defined.'));
 		return;
 	}
 	if (data.price === undefined || data.price === null) {
-		callback(new Error("Price must be defined."));
+		callback(new Error('Price must be defined.'));
 		return;
 	}
 	if (data.picturePath > 256) {
-		callback(new Error("Picture path must be less than 256 characters."));
+		callback(new Error('Picture path must be less than 256 characters.'));
 		return;
 	}
 

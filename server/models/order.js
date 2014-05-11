@@ -1,4 +1,3 @@
-var mysql = require('mysql');
 var database = require('./database');
 
 /**
@@ -7,7 +6,7 @@ var database = require('./database');
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM order', function (err, rows, fields) {
+	database.query('SELECT * FROM order', function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -24,7 +23,7 @@ exports.getAll = function (callback) {
  * @param callback
  */
 exports.get = function (orderId, callback) {
-	database.query('SELECT * FROM order WHERE order_id = ?', [orderId], function (err, rows, fields) {
+	database.query('SELECT * FROM order WHERE order_id = ?', [orderId], function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -47,7 +46,7 @@ exports.get = function (orderId, callback) {
  *
  */
 exports.search = function (params, callback) {
-	var y = database.query('SELECT * FROM user WHERE ?', params, function (err, rows, fields) {
+	database.query('SELECT * FROM user WHERE ?', params, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -66,7 +65,7 @@ exports.search = function (params, callback) {
 exports.add = function (data, callback) {
 	// table_number must be NOT NULL
 	if (data.tableNumber === undefined || data.tableNumber === null) {
-		callback(new Error("Table number must be defined."));
+		callback(new Error('Table number must be defined.'));
 		return;
 	}
 

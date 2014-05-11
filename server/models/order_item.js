@@ -1,4 +1,3 @@
-var mysql = require('mysql');
 var database = require('./database');
 
 /**
@@ -7,7 +6,7 @@ var database = require('./database');
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM order_item', function (err, rows, fields) {
+	database.query('SELECT * FROM order_item', function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -23,7 +22,7 @@ exports.getAll = function (callback) {
  *
  */
 exports.get = function (orderId, callback) {
-	database.query('SELECT * FROM order_item WHERE order_item_id = ?', [orderId], function (err, rows, fields) {
+	database.query('SELECT * FROM order_item WHERE order_item_id = ?', [orderId], function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -45,7 +44,7 @@ exports.get = function (orderId, callback) {
  *
  */
 exports.search = function (params, callback) {
-	var y = database.query('SELECT * FROM order_item WHERE ?', params, function (err, rows, fields) {
+	database.query('SELECT * FROM order_item WHERE ?', params, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -63,14 +62,14 @@ exports.search = function (params, callback) {
 exports.add = function (data, callback) {
 	// order_id, menu_item_id, and quantity must be NOT NULL
 	if (data.quantity === undefined || data.quantity === null) {
-		callback(new Error("Quantity must be defined."));
+		callback(new Error('Quantity must be defined.'));
 		return;
 	}
 
 	// if kitchenStatus is undefined, set to 0
 	//TODO: WE NEED TO DECIDE WHAT THE DIFFERENT KITCHEN STATUS VALUES MEAN
 	data.kitchenStatus = data.kitchenStatus === undefined ? 0 : data.kitchenStatus;
-	data.notes = data.notes === undefined ? "" : data.notes;
+	data.notes = data.notes === undefined ? '' : data.notes;
 
 	database.query('INSERT INTO order_item (order_id, menu_item_id, quantity, notes, kitchen_status)' +
 			'VALUES (?, ?, ?, ?, ?)', [data.orderId, data.menuItemId, data.quantity, data.notes, data.kitchenStatus],
