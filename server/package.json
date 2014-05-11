@@ -22,7 +22,7 @@
 		"better-assert": "~1.0.0"
 	},
 	"jshintConfig": {
-		"camelcase": true,
+		"camelcase": false,
 		"curly": true,
 		"eqeqeq": true,
 		"quotmark": "single",
