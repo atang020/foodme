@@ -4,5 +4,7 @@
     <string name="app_name">foodme</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-
+    <string name="main">Main Page???</string>
+    <string name="splashMessage">Touch Anywhere to Continue</string>
+    
 </resources>
