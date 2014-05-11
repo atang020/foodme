@@ -79,20 +79,10 @@ exports.add = function (data, callback) {
 	database.query('INSERT INTO subcategory (name, category) VALUES (?, ?)', [data.name, data.category],
 		function (err, result) {
 			if (err) {
-				database.rollback(function () {
-					callback(err);
-					return;
-				});
+				callback(err);
+				return;
 			}
 
-			database.commit(function (err) {
-				if (err) {
-					database.rollback(function () {
-						callback(err);
-						return;
-					});
-				}
-				callback(null, result.insertId);
-			});
+			callback(null, result.insertId);
 		});
 };

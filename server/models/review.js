@@ -69,20 +69,10 @@ exports.add = function (data, callback) {
 			'VALUES (?, ?, ?, ?)', [data.menuItemId, data.reviewer, data.rating, data.reviewText],
 		function (err, result) {
 			if (err) {
-				database.rollback(function () {
-					callback(err);
-					return;
-				});
+				callback(err);
+				return;
 			}
 
-			database.commit(function (err) {
-				if (err) {
-					database.rollback(function () {
-						callback(err);
-						return;
-					});
-				}
-				callback(null, result.insertId);
-			});
+			callback(null, result.insertId);
 		});
 };

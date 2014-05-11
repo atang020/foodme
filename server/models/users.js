@@ -1,5 +1,21 @@
 var database = require('./database');
 
+function verify(user) {
+	if (user.password === undefined || user.password === null) {
+		return new Error('The password field is required.');
+	}
+	if (user.password.length > 256) {
+		return new Error('Password must be less than 256 characters.');
+	}
+	if (user.email === undefined || user.email === null) {
+		return new Error('The email field is required.');
+	}
+	if (user.email.length > 256) {
+		return new Error('Email must be less than 256 characters.');
+	}
+	return null;
+}
+
 /**
  * Returns data for all users. The callback gets two arguments (err, data).
  *
@@ -64,42 +80,40 @@ exports.search = function (params, callback) {
  * @param callback
  */
 exports.add = function (data, callback) {
-	if (data.password === undefined || data.password === null) {
-		callback(new Error('Password must be defined.'));
+	var err = verify(data);
+	if (err) {
+		callback(err);
 		return;
 	}
-	if (data.password.length > 256) {
-		callback(new Error('Password must be less than 256 characters.'));
-		return;
-	}
-	if (data.email === undefined || data.email === null) {
-		callback(new Error('Password must be defined.'));
-		return;
-	}
-	if (data.email.length > 256) {
-		callback(new Error('Email must be less than 256 characters.'));
-		return;
-	}
+
 	// If data.phone is undefined set to null
 	data.phone = data.phone === undefined ? null : data.phone;
 
 	database.query('INSERT INTO user (password, email, phone) VALUES (?, ?, ?)',
 		[data.password, data.email, data.phone], function (err, result) {
 			if (err) {
-				database.rollback(function () {
-					callback(err);
-					return;
-				});
+				callback(err);
+				return;
 			}
 
-			database.commit(function (err) {
-				if (err) {
-					database.rollback(function () {
-						callback(err);
-						return;
-					});
-				}
-				callback(null, result.insertId);
-			});
+			callback(null, result.insertId);
 		});
+};
+
+exports.update = function (user, callback) {
+	var err = verify(user);
+	if (err) {
+		callback(err);
+		return;
+	}
+
+	database.query('UPDATE user SET password = ?, email = ?, phone = ? WHERE user_id = ?',
+		[user.password, user.email, user.phone, user.user_id], function (err) {
+
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	})
 };

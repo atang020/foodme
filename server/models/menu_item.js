@@ -92,20 +92,10 @@ exports.add = function (data, callback) {
 		[data.subcategoryId, data.name, data.description, data.picturePath, data.price],
 		function (err, result) {
 			if (err) {
-				database.rollback(function () {
-					callback(err);
-					return;
-				});
+				callback(err);
+				return;
 			}
 
-			database.commit(function (err) {
-				if (err) {
-					database.rollback(function () {
-						callback(err);
-						return;
-					});
-				}
-				callback(null, result.insertId);
-			});
+			callback(null, result.insertId);
 		});
 };

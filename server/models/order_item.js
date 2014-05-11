@@ -75,20 +75,10 @@ exports.add = function (data, callback) {
 			'VALUES (?, ?, ?, ?, ?)', [data.orderId, data.menuItemId, data.quantity, data.notes, data.kitchenStatus],
 		function (err, result) {
 			if (err) {
-				database.rollback(function () {
-					callback(err);
-					return;
-				});
+				callback(err);
+				return;
 			}
 
-			database.commit(function (err) {
-				if (err) {
-					database.rollback(function () {
-						callback(err);
-						return;
-					});
-				}
-				callback(null, result.insertId);
-			});
+			callback(null, result.insertId);
 		});
 };
