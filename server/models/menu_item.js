@@ -19,7 +19,7 @@ function verify(menuItem) {
 	}
 
 	return null;
-}
+};
 
 /**
  * Returns data for all menu items. The callback gets two arguments (err, data).
@@ -122,4 +122,25 @@ exports.update = function (menuItem, callback) {
 			}
 			callback(null);
 		});
+};
+
+/**
+ * Deletes a menu_item. The callback gets two arguments (err, data).
+ *
+ * @param menuItem the data to be deleted from the menu_item table
+ * @param callback
+ */
+exports.delete = function (menuItem, callback) {
+    if (menuItem.menu_item_id === null) {
+        callback(new error ('Invalid menu item: no id present'));
+        return;
+    }
+
+    database.query('DELETE FROM menu_item WHERE menu_item_id = ?', menuItem.menu_item_id, function (err) {
+        if (err) {
+            callback(err);
+            return;
+        }
+        callback(null);
+    });
 };

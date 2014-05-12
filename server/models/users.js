@@ -14,7 +14,7 @@ function verify(user) {
 		return new Error('Email must be less than 256 characters.');
 	}
 	return null;
-}
+};
 
 /**
  * Returns data for all users. The callback gets two arguments (err, data).
@@ -116,4 +116,25 @@ exports.update = function (user, callback) {
 			}
 			callback(null);
 		});
+};
+
+/**
+ * Deletes a user. The callback gets two arguments (err, data).
+ *
+ * @param user the data to be deleted from the user table
+ * @param callback
+ */
+exports.delete = function (user, callback) {
+    if (user.user_id === null) {
+        callback(new error ('Invalid user: no id present'));
+        return;
+    }
+
+    database.query('DELETE FROM user WHERE user_id = ?', user.user_id, function (err) {
+        if (err) {
+            callback(err);
+            return;
+        }
+        callback(null);
+    });
 };

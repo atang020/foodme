@@ -12,7 +12,7 @@ function verify(subcategory) {
 		return new Error('Category must be defined.');
 	}
 	return null;
-}
+};
 
 /**
  * Returns data for all subcategories. The callback gets two arguments (err, data).
@@ -111,3 +111,23 @@ exports.update = function (subcategory, callback) {
 		});
 };
 
+/**
+ * Deletes a subcategory. The callback gets two arguments (err, data).
+ *
+ * @param subcategory the data to be deleted from the subcategory table
+ * @param callback
+ */
+exports.delete = function (subcategory, callback) {
+    if (subcategory.subcategory_id === null) {
+        callback(new error ('Invalid subcategory: no id present'));
+        return;
+    }
+
+    database.query('DELETE FROM subcategory WHERE subcategory_id = ?', subcategory.subcategory_id, function (err) {
+        if (err) {
+            callback(err);
+            return;
+        }
+        callback(null);
+    });
+};

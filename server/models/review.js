@@ -10,7 +10,7 @@ function verify(review) {
 	}
 
 	return null;
-}
+};
 
 /**
  * Returns data for review database. The callback gets two arguments (err, data).
@@ -102,4 +102,25 @@ exports.update = function (review, callback) {
 			}
 			callback(null);
 		});
+};
+
+/**
+ * Deletes a review. The callback gets two arguments (err, data).
+ *
+ * @param review the data to be deleted from the review table
+ * @param callback
+ */
+exports.delete = function (review, callback) {
+    if (review.review_id === null) {
+        callback(new error ('Invalid review: no id present'));
+        return;
+    }
+
+    database.query('DELETE FROM reivew WHERE review_id = ?', review.review_id, function (err) {
+        if (err) {
+            callback(err);
+            return;
+        }
+        callback(null);
+    });
 };
