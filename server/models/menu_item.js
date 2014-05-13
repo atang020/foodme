@@ -5,7 +5,6 @@ var menuItem = function(name, description, price) {
 	this.name = name;
 	this.description = description;
 	this.price = price;
-	console.log('hi');
 	//needs picture path
 };
 module.exports.verify = function(menuItem) {
