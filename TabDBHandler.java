@@ -29,7 +29,7 @@ import android.util.Log;
 
 public class TabletDBAdapter {
 	// constants for menu_item and subcategory tables
-	public static final String KEY_MENU_ITEM_ID = "menu_item_id";
+	public static final String KEY_ID = "_ID";
 	public static final String KEY_SUBCATEGORY_ID = "subcategory_id";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_DESCRIPTION = "description";
@@ -46,7 +46,7 @@ public class TabletDBAdapter {
 	// SQL Statement to create new menu_item table.
 	private static final String MENU_ITEM_CREATE =
 			"CREATE TABLE " + DB_MENU_ITEM_TABLE + " (" +
-			KEY_MENU_ITEM_ID + " INT NOT NULL, " +
+			KEY_ID + " INT NOT NULL, " +
 			KEY_SUBCATEGORY_ID + " INT NOT NULL, " +
 			KEY_NAME + " VARCHAR(100) NOT NULL, " +
 			KEY_DESCRIPTION + " TEXT NOT NULL, " +
@@ -59,7 +59,7 @@ public class TabletDBAdapter {
 	// SQL Statement to create new subcategory table
 	private static final String SUBCATEGORY_CREATE =
 			"CREATE TABLE " + DB_SUBCATEGORY_TABLE + " (" +
-			KEY_SUBCATEGORY_ID + " INT NOT NULL, " +
+			KEY_ID + " INT NOT NULL, " +
 			KEY_NAME + " VARCHAR(32) NOT NULL, " +
 			KEY_CATEGORY + " INT NOT NULL, " +
 			"PRIMARY KEY (" + KEY_SUBCATEGORY_ID + "));";
@@ -96,7 +96,7 @@ public class TabletDBAdapter {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// Log version upgrade
-			Log.w(DBOpenHelper.class.getName(), "Upgrading from bersion " +
+			Log.w(DBOpenHelper.class.getName(), "Upgrading from version " +
 					oldVersion + " to " + newVersion +
 					", which will destroy all old data");
 
@@ -121,7 +121,7 @@ public class TabletDBAdapter {
 	public long insertMenuItem (int menuItemId, int subcategoryId, String name,
 								String description, String picturePath, BigDecimal price) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(KEY_MENU_ITEM_ID, menuItemId);
+		initialValues.put(KEY_ID, menuItemId);
 		initialValues.put(KEY_SUBCATEGORY_ID, subcategoryId);
 		initialValues.put(KEY_NAME, name);
 		initialValues.put(KEY_DESCRIPTION, description);
@@ -133,7 +133,7 @@ public class TabletDBAdapter {
 	// Insert a subcategory into the database
 	public long insertSubcategoryItem (int subcategory_id, String name, int category) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(KEY_SUBCATEGORY_ID, subcategory_id);
+		initialValues.put(KEY_ID, subcategory_id);
 		initialValues.put(KEY_NAME, name);
 		initialValues.put(KEY_CATEGORY, category);
 		return db.insert(DB_SUBCATEGORY_TABLE, null, initialValues);
@@ -141,9 +141,9 @@ public class TabletDBAdapter {
 
 	// Retrieves a particular menuItem
 	public Cursor getMenuItem (int menuItemId) throws SQLException {
-		Cursor cursor = db.query(true, DB_MENU_ITEM_TABLE,new String[] {KEY_MENU_ITEM_ID,
+		Cursor cursor = db.query(true, DB_MENU_ITEM_TABLE, new String[] {KEY_ID,
 				KEY_SUBCATEGORY_ID, KEY_NAME, KEY_DESCRIPTION, KEY_PICTURE_PATH,
-				KEY_PRICE}, KEY_MENU_ITEM_ID + "=" + menuItemId,
+				KEY_PRICE}, KEY_ID + "=" + menuItemId,
 				null, null, null, null, null, null);
 		if (cursor != null) {
 			cursor.moveToFirst();
@@ -151,7 +151,17 @@ public class TabletDBAdapter {
 		return cursor;
 	}
 
-	//TODO: getSubcategoryItem
+    // Retrieves a particular subcategory
+	public Cursor getSubcategory (int subcategoryId) throws SQLException {
+		Cursor cursor = db.query(true, DB_SUBCATEGORY_TABLE, new String[] {KEY_ID,
+                KEY_NAME, KEY_CATEGORY}, KEY_ID + "=" + subcategoryId,
+				null, null, null, null, null, null);
+		if (cursor != null) {
+			cursor.moveToFirst();
+		}
+		return cursor;
+    }
+
 	//TODO: updateMenuItem
 	//TODO: updateSubcategoryItem
 }
