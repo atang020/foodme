@@ -7,7 +7,7 @@ function verify(order) {
 	}
 
 	return null;
-};
+}
 
 /**
  * Returns data for all users. The callback gets two arguments (err, data).
@@ -119,9 +119,9 @@ exports.update = function (order, callback) {
  * @param order the data to be deleted from the order table
  * @param callback
  */
-exports.delete = function (order, callback) {
+exports.remove = function (order, callback) {
     if (order.order_id === null) {
-        callback(new error ('Invalid order: no id present'));
+        callback(new Error('Invalid order: no id present'));
         return;
     }
 

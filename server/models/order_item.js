@@ -15,7 +15,7 @@ function verify(orderItem) {
 	}
 
 	return null;
-};
+}
 
 /**
  * Returns data for all order items. The callback gets two arguments (err, data).
@@ -125,9 +125,9 @@ exports.update = function (orderItem, callback) {
  * @param orderItem the data to be deleted from the order_item table
  * @param callback
  */
-exports.delete = function (orderItem, callback) {
+exports.remove = function (orderItem, callback) {
     if (orderItem.order_item_id === null) {
-        callback(new error ('Invalid order item: no id present'));
+        callback(new Error('Invalid order item: no id present'));
         return;
     }
 

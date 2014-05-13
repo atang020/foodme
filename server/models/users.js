@@ -14,7 +14,7 @@ function verify(user) {
 		return new Error('Email must be less than 256 characters.');
 	}
 	return null;
-};
+}
 
 /**
  * Returns data for all users. The callback gets two arguments (err, data).
@@ -124,9 +124,9 @@ exports.update = function (user, callback) {
  * @param user the data to be deleted from the user table
  * @param callback
  */
-exports.delete = function (user, callback) {
+exports.remove = function (user, callback) {
     if (user.user_id === null) {
-        callback(new error ('Invalid user: no id present'));
+        callback(new Error('Invalid user: no id present'));
         return;
     }
 

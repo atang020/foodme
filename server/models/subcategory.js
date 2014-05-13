@@ -12,7 +12,7 @@ function verify(subcategory) {
 		return new Error('Category must be defined.');
 	}
 	return null;
-};
+}
 
 /**
  * Returns data for all subcategories. The callback gets two arguments (err, data).
@@ -117,9 +117,9 @@ exports.update = function (subcategory, callback) {
  * @param subcategory the data to be deleted from the subcategory table
  * @param callback
  */
-exports.delete = function (subcategory, callback) {
+exports.remove = function (subcategory, callback) {
     if (subcategory.subcategory_id === null) {
-        callback(new error ('Invalid subcategory: no id present'));
+        callback(new Error('Invalid subcategory: no id present'));
         return;
     }
 

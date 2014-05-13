@@ -19,7 +19,7 @@ function verify(menuItem) {
 	}
 
 	return null;
-};
+}
 
 /**
  * Returns data for all menu items. The callback gets two arguments (err, data).
@@ -130,9 +130,9 @@ exports.update = function (menuItem, callback) {
  * @param menuItem the data to be deleted from the menu_item table
  * @param callback
  */
-exports.delete = function (menuItem, callback) {
+exports.remove = function (menuItem, callback) {
     if (menuItem.menu_item_id === null) {
-        callback(new error ('Invalid menu item: no id present'));
+        callback(new Error('Invalid menu item: no id present'));
         return;
     }
 
