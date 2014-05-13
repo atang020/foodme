@@ -11,15 +11,6 @@
         android:layout_centerVertical="true"
         android:src="@drawable/logo" />
  
-    <ProgressBar
-        android:id="@+id/ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/LogoImage"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
-    </ProgressBar>
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
