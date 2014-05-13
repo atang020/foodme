@@ -1,13 +1,6 @@
 var database = require('./database');
 
-//added new 'constructor' so test can access menuItem
-var menuItem = function(name, description, price) {
-	this.name = name;
-	this.description = description;
-	this.price = price;
-	//needs picture path
-};
-module.exports.verify = function(menuItem) {
+function verify(menuItem) {
 	// name, description, and price must be NOT NULL
 	if (menuItem.name === undefined || menuItem.name === null) {
 		return new Error('A name must be provided.');
@@ -21,11 +14,10 @@ module.exports.verify = function(menuItem) {
 	if (menuItem.price === undefined || menuItem.price === null) {
 		return new Error('Price must be provided.');
 	}
-	/*
 	if (menuItem.picture_path > 256) {
 		return new Error('Picture path must be less than 256 characters.');
 	}
-*/
+
 	return null;
 }
 
@@ -139,19 +131,16 @@ exports.update = function (menuItem, callback) {
  * @param callback
  */
 exports.remove = function (menuItem, callback) {
-    if (menuItem.menu_item_id === null) {
-        callback(new Error('Invalid menu item: no id present'));
-        return;
-    }
+	if (menuItem.menu_item_id === null) {
+		callback(new Error('Invalid menu item: no id present'));
+		return;
+	}
 
-    database.query('DELETE FROM menu_item WHERE menu_item_id = ?', menuItem.menu_item_id, function (err) {
-        if (err) {
-            callback(err);
-            return;
-        }
-        callback(null);
-    });
+	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', menuItem.menu_item_id, function (err) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
 };
-
-module.exports.menuItem = menuItem;
-//module.exports.verify = verify;	
