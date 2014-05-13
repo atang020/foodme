@@ -5,7 +5,8 @@ var pool = mysql.createPool({
 	host: config.database.host,
 	user: config.database.user,
 	password: config.database.password,
-	database: config.database.db
+	database: config.database.db,
+	multipleStatements: config.database.multipleStatements || false
 });
 
 var getConnection = function (callback) {
@@ -28,5 +29,16 @@ var query = function (sql, data, callback) {
 	});
 };
 
+var truncate = function (password, callback) {
+	if (password === 'do not use in production') {
+		query('SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `menu_item`;TRUNCATE `order`;TRUNCATE `order_item`;TRUNCATE `review`;TRUNCATE `subcategory`;TRUNCATE `user`;SET FOREIGN_KEY_CHECKS = 1;', null, function (err) {
+			callback(err);
+		});
+	} else {
+		callback(null);
+	}
+};
+
 exports.getConnection = getConnection;
 exports.query = query;
+exports.truncate = truncate;

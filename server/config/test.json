@@ -4,6 +4,7 @@
 		"host": "localhost",
 		"user": "root",
 		"password": "admin",
-		"db": "foodme_test"
+		"db": "foodme_test",
+		"multipleStatements": true
 	}
 }
