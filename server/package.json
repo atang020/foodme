@@ -30,6 +30,7 @@
 		"unused": true,
 		"jquery": true,
 		"node": true,
-		"devel": true
+		"devel": true,
+		"predef": ["describe", "it", "before", "beforeEach", "after", "afterEach"]
 	}
 }
