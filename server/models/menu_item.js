@@ -1,6 +1,14 @@
 var database = require('./database');
 
-function verify(menuItem) {
+//added new 'constructor' so test can access menuItem
+var menuItem = function(name, description, price) {
+	this.name = name;
+	this.description = description;
+	this.price = price;
+	console.log('hi');
+	//needs picture path
+};
+module.exports.verify = function(menuItem) {
 	// name, description, and price must be NOT NULL
 	if (menuItem.name === undefined || menuItem.name === null) {
 		return new Error('A name must be provided.');
@@ -14,10 +22,11 @@ function verify(menuItem) {
 	if (menuItem.price === undefined || menuItem.price === null) {
 		return new Error('Price must be provided.');
 	}
+	/*
 	if (menuItem.picture_path > 256) {
 		return new Error('Picture path must be less than 256 characters.');
 	}
-
+*/
 	return null;
 }
 
@@ -144,3 +153,6 @@ exports.remove = function (menuItem, callback) {
         callback(null);
     });
 };
+
+module.exports.menuItem = menuItem;
+//module.exports.verify = verify;	
