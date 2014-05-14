@@ -1,17 +1,20 @@
-package com.androidbegin.splashtutorial;
+package org.segfault.foodme;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 
-public class SplashScreenActivity extends Activity {
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+public class SplashScreenActivity extends Activity{
 
 	// Set Duration of the Splash Screen
-	long Delay = 16000;
+	long Delay = 8000;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -21,25 +24,25 @@ public class SplashScreenActivity extends Activity {
 
 		// Get the view from splash_screen.xml
 		setContentView(R.layout.splash_screen);
+		
+		View decorView = getWindow().getDecorView();
+		
+	    int mUIFlag = 
+                View.SYSTEM_UI_FLAG_FULLSCREEN
+               | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+               | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-		// Create a Timer
-		Timer RunSplash = new Timer();
-
-		// Task to do when the timer ends
-		TimerTask ShowSplash = new TimerTask() {
-			@Override
-			public void run() {
-				// Close SplashScreenActivity.class
-				finish();
-
-				// Start MainActivity.class
-				Intent myIntent = new Intent(SplashScreenActivity.this,
-						MainActivity.class);
-				startActivity(myIntent);
-			}
-		};
-
-		// Start the timer
-		RunSplash.schedule(ShowSplash, Delay);
+	    decorView.setSystemUiVisibility(mUIFlag);
+	   
+	    decorView.setOnTouchListener(new OnTouchListener() {
+	        @Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	    		Intent myIntent = new Intent(SplashScreenActivity.this,
+						MainMenuActivity.class);
+	    		startActivity(myIntent);
+	    		return true;
+	        }
+	    });
 	}
+	
 }
