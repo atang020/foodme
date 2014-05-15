@@ -23,14 +23,22 @@ public class TabletContentProvider extends ContentProvider {
 	public static final Uri SUBCATEGORY_CONTENT_URI =
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/subcategory");
 	
+	// constants for menu_item and subcategory tables
+	public static final String KEY_ID = "_id";
+	public static final String KEY_SUBCATEGORY_ID = "subcategory_id";
+	public static final String KEY_NAME = "name";
+	public static final String KEY_DESCRIPTION = "description";
+	public static final String KEY_PICTURE_PATH = "picture_path";
+	public static final String KEY_PRICE = "price";
+	public static final String KEY_CATEGORY = "category";
+	
 	// Constants used to differentiate between the different URI requests
+	// Table name indicates an all rows query.  Appended with _ID indicates
+	// a single row query
 	private static final int MENU_ITEM = 1;
 	private static final int MENU_ITEM_ID = 2;
 	private static final int SUBCATEGORY = 3;
 	private static final int SUBCATEGORY_ID = 4;
-	
-	// The index (key) column name for use in where clauses
-	private static final String KEY_ID = "_id";
 	
 	private static final UriMatcher uriMatcher;
 	private DBOpenHelper myOpenHelper;
@@ -68,17 +76,11 @@ public class TabletContentProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, 
 			String[] selectionArgs, String sortOrder) {
-		
-		SQLiteDatabase db;
 		// Used if executing a single row query
-		String rowID;		
-		
+		String rowID;
 		// Open the database
-		try {
-			db = myOpenHelper.getWritableDatabase();
-		} catch (SQLiteException ex) {
-			db = myOpenHelper.getReadableDatabase();
-		}
+		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
+		
 		
 		// Replace these with valid SQL statements if necessary
 		String groupBy = null;
@@ -125,6 +127,7 @@ public class TabletContentProvider extends ContentProvider {
 		// Used if executing a single row query
 		String rowID;
 		int deleteCount = 0;
+		// A selection value of 1 indicates to delete the entire table
 		if (selection==null)
 			selection = "1";
 		
@@ -269,19 +272,11 @@ public class TabletContentProvider extends ContentProvider {
 	
 	// Deals with creating and opening the database
 	private static class DBOpenHelper extends SQLiteOpenHelper {
-		// constants for menu_item and subcategory tables
-		public static final String KEY_ID = "_id";
-		public static final String KEY_SUBCATEGORY_ID = "subcategory_id";
-		public static final String KEY_NAME = "name";
-		public static final String KEY_DESCRIPTION = "description";
-		public static final String KEY_PICTURE_PATH = "picture_path";
-		public static final String KEY_PRICE = "price";
-		public static final String KEY_CATEGORY = "category";
+
 		
 		public static final String DB_NAME = "tabDatabase.db";
 		public static final String DB_MENU_ITEM_TABLE = "menu_item";
 		public static final String DB_SUBCATEGORY_TABLE = "subcategory";
-		
 		public static final int DB_VERSION = 1;
 		
 		// SQL Statement to create new menu_item table.
