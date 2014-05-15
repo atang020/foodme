@@ -4,8 +4,6 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mysql = require('mysql');
-var config = require('./config')();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -46,6 +44,7 @@ if (app.get('env') === 'development') {
 			message: err.message,
 			error: err
 		});
+		next();
 	});
 }
 
@@ -57,6 +56,7 @@ app.use(function (err, req, res, next) {
 		message: err.message,
 		error: {}
 	});
+	next();
 });
 
 
