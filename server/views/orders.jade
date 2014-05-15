@@ -1,0 +1,23 @@
+extends layout
+
+block content
+	div.container
+		div.jumbotron
+			h1 Active Orders
+			div.jumbotron
+				table.table
+					thead
+						tr
+							th	ID#
+							th	Table
+							th	item
+							th	Notes
+							th	Status
+					tbody
+						- for order in orders
+							tr
+								td	#{order.id}
+								td	#{order.table}
+								td	#{order.item}
+								td	#{order.notes}
+								td	#{order.status}

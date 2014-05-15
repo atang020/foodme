@@ -2,7 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res){
-  res.send('This is the order page.');
+  res.render('orders', {orders: [
+  {id: 1, table: 5, item: 'Ritz Crackers and Salami', status: 'ERROR: guest starved to death'},
+  {id: 2, table: 2, item: 'Fried Cheerios', status: 'definitely not on fire'},
+  {id: 2, table: 2, item: 'Coffee', notes: 'no cyannide', status: 'pretty good'},
+  {id: 2, table: 2, item: 'Essential Amino Acids', status: 'undergoing mitosis'}
+  
+  ]});
 });
 
 router.get('/active', function(req, res){
