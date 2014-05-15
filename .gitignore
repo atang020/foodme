@@ -20,6 +20,7 @@ local.properties
 
 # Debug logs
 npm-debug.log
+err.log
 
 # Node
 node_modules/
