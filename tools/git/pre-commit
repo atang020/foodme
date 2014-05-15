@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys, time, subprocess
+import os, sys, time, subprocess, urllib2
 
 """
 Checks your git commit with JSHint. Only checks staged files
@@ -36,14 +36,30 @@ def jshint():
 
 
 def serverStart():
-    return True
     errors = []
-    subprocess.call(["npm", "start"], cwd=".\\server\\", shell=True)
+    
+    # Removes any leftover err.log files
+    subprocess.call(["rm", "err.log"], cwd=".\\server\\", shell=True)
+    
+    # Creates a err.log and redirect stderr from server start
+    with open('err.log', "w", cwd=".\\server\\") at errOut:
+    	subprocess.call(["npm", "start"], cwd=".\\server\\", stderr=errOut, shell=True)
+    
+    # Wait for command to finish outputting
+    time.sleep(2)
 
-    # g = subprocess.call(['npm', 'start'], cwd='.\\server')
-    # time.sleep(2)
-    # returnVal = g.close()
-    # print(returnVal)
+    # Closes server
+    urllib2.urlopen("http://localhost:3000/debug/close")
+
+    # Stats err.log file
+    statErr = os.stat('.\\server\\err.log')
+
+    # Checks files size and passes test if no stderr output
+    if statErr.st_size > 0:
+      return False
+    else:
+      return True
+
     
 if __name__ == '__main__':
     if jshint():
