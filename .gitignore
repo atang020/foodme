@@ -2,6 +2,13 @@
 .classpath
 .project
 .settings/
+.metadata
+*.tmp
+*.bak
+*.swp
+local.properties
+.loadpath
+.launch
 
 # Intellij
 .idea/
@@ -14,4 +21,15 @@
 # Debug logs
 npm-debug.log
 
+# Node
 node_modules/
+
+# Android
+*.apk
+*.ap_
+*.dex
+*.class
+
+# Java generated files
+bin/
+gen/
