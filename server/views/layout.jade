@@ -2,6 +2,7 @@ doctype html
 html
 	include inc/header
 		body
+			img#title-image(src='/foodme.png')
 	.navbar.navbar-default.navbar-static-top(role='navigation')
 		.container
 			.navbar-header
@@ -13,6 +14,7 @@ html
 				a.navbar-brand(href='#') #{brand}
 			.navbar-collapse.collapse
 				ul.nav.navbar-nav
+					
 					- var obj = { 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics', 'about':'About' }
 						- each val, key in obj
 							- if (id == key)
@@ -21,4 +23,5 @@ html
 							- else
 								li
 									a(href='#{key}') #{val}
+
 	block content
