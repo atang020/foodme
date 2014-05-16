@@ -1,6 +1,12 @@
 package org.segfault.foodme;
 
+
+
+
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -11,12 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-public class MainMenuActivity extends Activity {
+public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
-	private ViewPager testViewPager;
+	private ViewPager mViewPager;
+	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,19 +44,78 @@ public class MainMenuActivity extends Activity {
        subcategoryNames = getResources().getStringArray(R.array.test_names);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
-
        
+      // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+
+       // Set up the action bar.
+       final ActionBar actionBar = getActionBar();
+
+       // Specify that the Home/Up button should not be enabled, since there is no hierarchical
+       // parent.
+       actionBar.setHomeButtonEnabled(false);
+
+       // Specify that we will be displaying tabs in the action bar.
+       actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+       
+    // Create a tab listener that is called when the user changes tabs.
+       ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+           public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+               // show the given tab
+           }
+
+           public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+               // hide the given tab
+           }
+
+           public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+               // probably ignore this event
+           }
+       };
+
+       // Add 3 tabs, specifying the tab's text and TabListener
+       for (int i = 0; i < 7; i++) {
+           actionBar.addTab(
+                   actionBar.newTab()
+                           .setText("Tab " + (i + 1))
+                           .setTabListener(tabListener));
+       }
+
+       mViewPager = (ViewPager) findViewById(R.id.pager);
+
        // Set the adapter for the list view
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
                R.layout.test_layout, subcategoryNames));
        
 	}
 	
-	@Override
+	
+/*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.main_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
+	}*/
+
+
+	@Override
+	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
 	}
+
+
+	@Override
+	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
