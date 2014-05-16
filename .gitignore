@@ -32,7 +32,7 @@ node_modules/
 *.class
 
 # Java generated files
-bin/
+tablet/foodme/bin/
 gen/
 
 # Internal update file
