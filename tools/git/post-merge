@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+
+import subprocess, sys
+
+def main():
+	sys.exit(subprocess.call(['.\\tools\\update.py'], shell=True))
+
+if __name__ == '__main__':
+	main()

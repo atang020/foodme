@@ -28,6 +28,7 @@ def runUpdate(f):
 	addUpdatedFile(f)
 
 def main():
+	print "Checking for updates"
 	updates = getUpdates()
 	for u in updates:
 		print "Running " + u
