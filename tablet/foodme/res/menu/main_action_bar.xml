@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/action_entree"
+          android:icon="@drawable/entree"
+          android:title="@string/entree_button"
+          android:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_appetizer"
+          android:icon="@drawable/appetizer"
+          android:title="@string/appetizer_button"
+          android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_drink"
+          android:icon="@drawable/appetizer"
+          android:title="@string/drink_button"/>
+    <item android:id="@+id/action_dessert"
+          android:icon="@drawable/dessert"
+          android:title="@string/dessert_button"
+          android:showAsAction="ifRoom" />
+  	<item android:id="@+id/action_home"
+          android:icon="@drawable/home"
+          android:title="@string/home_button"
+          android:showAsAction="ifRoom" />
+	<item android:id="@+id/action_call_waiter"
+          android:icon="@drawable/call_waiter"
+          android:title="@string/call_waiter_button"
+          android:showAsAction="ifRoom" />
+	<item android:id="@+id/action_my_orders"
+          android:icon="@drawable/my_order"
+          android:title="@string/my_order_button"
+          android:showAsAction="ifRoom" />
+    
+</menu>
