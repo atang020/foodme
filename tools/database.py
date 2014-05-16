@@ -33,7 +33,7 @@ def help(s):
 	sys.exit(-1)
 
 def test_create(paths):
-	cmd = "sed 's/foodme/foodme_test/g' " + paths["structure"] + " | mysql --user root --password"
+	cmd = "sed 's/foodme/foodme_test/g' \"" + paths["structure"] + "\" | mysql --user root --password"
 	verbose("  Running command: " + cmd)
 	os.system(cmd)
 
