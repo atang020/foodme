@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
-import subprocess, sys
+import subprocess, sys, os
+
+foodmeDir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+toolsDir = os.path.join(foodmeDir, 'tools')
+
 
 def main():
-	sys.exit(subprocess.call(['.\\tools\\update.py'], shell=True))
+	sys.exit(subprocess.call([os.path.join(toolsDir, 'update.py')], shell=True))
 
 if __name__ == '__main__':
 	main()

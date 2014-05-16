@@ -7,7 +7,7 @@ toolsDir = os.path.dirname(updatesDir)
 databaseTool = os.path.join(toolsDir, 'database.py')
 
 def main():
-	print "NOTICE: Please enter your MySQL root password"
+	print("NOTICE: Please enter your MySQL root password")
 	subprocess.call([databaseTool, 'import', '-s'], shell=True)
 
 if __name__ == '__main__':

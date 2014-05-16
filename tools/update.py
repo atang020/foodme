@@ -5,7 +5,7 @@ import subprocess
 
 toolsDir = os.path.dirname(os.path.realpath(__file__))
 updateStatusLog = os.path.join(toolsDir, 'update_status.log')
-updatesDir = os.path.join(toolsDir, 'updates\\')
+updatesDir = os.path.join(toolsDir, 'updates')
 
 def addUpdatedFile(name):
 	with open(updateStatusLog, 'a') as f:
@@ -28,10 +28,10 @@ def runUpdate(f):
 	addUpdatedFile(f)
 
 def main():
-	print "Checking for updates"
+	print("Checking for updates")
 	updates = getUpdates()
 	for u in updates:
-		print "Running " + u
+		print("Running " + u)
 		runUpdate(u)
 	
 
