@@ -73,12 +73,14 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
        };
 
        // Add 3 tabs, specifying the tab's text and TabListener
-       for (int i = 0; i < 7; i++) {
-           actionBar.addTab(
-                   actionBar.newTab()
-                           .setText("Tab " + (i + 1))
-                           .setTabListener(tabListener));
-       }
+       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(tabListener));
+       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(tabListener));
+       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(tabListener));
+       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(tabListener));
+       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(tabListener));
+       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(tabListener));
+       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(tabListener));
+       
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
 
