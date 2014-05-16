@@ -2,7 +2,16 @@ doctype html
 html
 	include inc/header
 		body
+		a(href='/')
 			img#title-image(src='/foodme.png')
+		div#userbox
+			- if(user)
+				p signed in as ${user.name}
+				button(class='btn btn-default', type='button', onClick=signOut) sign out
+			- else
+				p not signed in
+				button(class='btn btn-default', type='button', onClick=signIn) sign in
+				
 	.navbar.navbar-default.navbar-static-top(role='navigation')
 		.container
 			.navbar-header
@@ -15,7 +24,7 @@ html
 			.navbar-collapse.collapse
 				ul.nav.navbar-nav
 					
-					- var obj = { 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics', 'about':'About' }
+					- var obj = {'/': 'Home', 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics', 'about':'About' }
 						- each val, key in obj
 							- if (id == key)
 								li.active
