@@ -22,8 +22,10 @@ public class TabletContentProvider extends ContentProvider {
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/menuItem");
 	public static final Uri SUBCATEGORY_CONTENT_URI =
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/subcategory");
+	public static final Uri SETTING_CONTENT_URI = 
+			Uri.parse("content://org.segfault.foodme.tabdbprovider/setting");
 	
-	// constants for menu_item and subcategory tables
+	// constants for menu_item, subcategory, and setting tables
 	public static final String KEY_ID = "_id";
 	public static final String KEY_SUBCATEGORY_ID = "subcategory_id";
 	public static final String KEY_NAME = "name";
@@ -31,6 +33,8 @@ public class TabletContentProvider extends ContentProvider {
 	public static final String KEY_PICTURE_PATH = "picture_path";
 	public static final String KEY_PRICE = "price";
 	public static final String KEY_CATEGORY = "category";
+	public static final String KEY_TABLE = "table";
+	public static final String KEY_VERSION = "version";
 	
 	// Constants used to differentiate between the different URI requests
 	// Table name indicates an all rows query.  Appended with _ID indicates
@@ -39,6 +43,8 @@ public class TabletContentProvider extends ContentProvider {
 	private static final int MENU_ITEM_ID = 2;
 	private static final int SUBCATEGORY = 3;
 	private static final int SUBCATEGORY_ID = 4;
+	private static final int SETTING = 5;
+	private static final int SETTING_ID = 6;
 	
 	private static final UriMatcher uriMatcher;
 	private DBOpenHelper myOpenHelper;
@@ -56,6 +62,10 @@ public class TabletContentProvider extends ContentProvider {
 						  "subcategory", SUBCATEGORY);
 		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
 						  "subcategory/#", SUBCATEGORY_ID);
+		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
+						  "setting", SETTING);
+		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
+						  "setting/#", SETTING_ID);
 	}
 	
 	public TabletContentProvider() {

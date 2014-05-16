@@ -84,7 +84,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 		if (cursor.moveToFirst()) {
 			do {
 				long subcategoryId = cursor.getLong(0);
-				contentProviderClient.delete (PREFIX + "/subcategory/" + subcategoryId, 
+				contentProviderClient.delete (
+					Uri.parse(PREFIX + "/subcategory/" + subcategoryId), 
 					null, null);
 			} while (cursor.moveToNext());
 		}
