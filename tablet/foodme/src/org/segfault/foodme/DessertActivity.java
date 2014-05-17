@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class MainMenuActivity extends Activity implements ActionBar.TabListener{
+public class DessertActivity extends Activity implements ActionBar.TabListener{
 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
