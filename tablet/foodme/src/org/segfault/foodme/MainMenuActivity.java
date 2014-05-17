@@ -25,6 +25,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
+	private String strName;
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
