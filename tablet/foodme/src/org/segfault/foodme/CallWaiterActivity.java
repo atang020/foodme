@@ -1,8 +1,5 @@
 package org.segfault.foodme;
 
-
-
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -11,15 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
-public class MainMenuActivity extends Activity implements ActionBar.TabListener{
-
+public class CallWaiterActivity extends Activity implements ActionBar.TabListener{
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
@@ -31,7 +24,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 		super.onCreate(savedInstanceState);
 	
 		// Get the view from activity_main.xml
-		setContentView(R.layout.activity_fullscreen);
+		setContentView(R.layout.activity_call_waiter);
 		
 		View decorView = getWindow().getDecorView();
 		
@@ -61,7 +54,17 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
     // Create a tab listener that is called when the user changes tabs.
        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+       		String tabChosen = tab.getText().toString();
+    		switch(tabChosen) {
+    		case "Home":System.out.println("hisss");
+    		case "Drinks":
+    		case "Appetizer":
+    		case "Entree":
+    		case "Dessert":
+    		case "My Orders":
+    		case "Call Waiter":
+    		}
+    		
            }
 
            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -80,7 +83,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
        actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(tabListener));
        actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(tabListener));
        actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(tabListener));
-       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(tabListener));
        
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -110,20 +113,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
 	@Override
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
-   		String tabChosen = arg0.getText().toString();
-		switch(tabChosen) {
-		case "Home": System.out.println("hi");
-		case "Drinks":
-		case "Appetizer":
-		case "Entree":
-		case "Dessert":
-		case "My Orders":
-		case "Call Waiter":Intent myIntent = new Intent(MainMenuActivity.this,
-				CallWaiterActivity.class);
-				startActivity(myIntent);
-		default: System.out.println("do nothing");
-		}
-		
+
 	}
 
 
