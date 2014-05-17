@@ -101,7 +101,9 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 	@Override
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
+   		//System.out.println(tabChosen);
 		switch(tabChosen) {
+		case "Home": break;
 		case "Drinks":	Intent drinkIntent = new Intent(MainMenuActivity.this,
 						DrinkActivity.class);
 						startActivity(drinkIntent);
@@ -118,9 +120,11 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 						DessertActivity.class);
 						startActivity(dessertIntent);
 						break;
-		case "My Orders":
-		case "Call Waiter":	callWaiterPress();
+		case "My Orders": break;
+		case "Call Waiter":	System.out.println(tabChosen);
+							callWaiterPress();
 							break;
+		default: break;
 		}
 		
 	}
