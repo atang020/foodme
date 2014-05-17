@@ -61,7 +61,9 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
     // Create a tab listener that is called when the user changes tabs.
        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+           		if(tab.getText().equals("Call Waiter")){
+        		   callWaiterPress();
+        	   }
            }
 
            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -70,6 +72,9 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
                // probably ignore this event
+           	if(tab.getText().equals("Call Waiter")){
+        		   callWaiterPress();
+        	   }
            }
        };
 
@@ -131,6 +136,25 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	private void callWaiterPress()
+	{
+		dialogBuilder = new AlertDialog.Builder(this);
+		final EditText txtInput = new EditText(this);
+		strName = "Pizza Name: ";
+		
+		dialogBuilder.setTitle("Contact Waiter");
+		dialogBuilder.setMessage("Would you like to contact a waiter?");
+		dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Toast.makeText(getApplicationContext(),"Waiter has been contacted",Toast.LENGTH_SHORT);
+				
+			}
+		});
+		AlertDialog dialogPizzaName = dialogBuilder.create();
+		dialogPizzaName.show();
 	}
 	
 }
