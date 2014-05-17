@@ -35,7 +35,7 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 		super.onCreate(savedInstanceState);
 	
 		// Get the view from activity_main.xml
-		setContentView(R.layout.activity_fullscreen);
+		setContentView(R.layout.activity_drink);
 		
 		View decorView = getWindow().getDecorView();
 		
@@ -102,13 +102,17 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
 		switch(tabChosen) {
-		case "Home": System.out.println("hi");
+		case "Home": Intent homeIntent = new Intent(DrinkActivity.this,
+					MainMenuActivity.class);
+					startActivity(homeIntent);
+					break;
 		case "Drinks":
 		case "Appetizer":
 		case "Entree":
 		case "Dessert":
 		case "My Orders":
 		case "Call Waiter":callWaiterPress();
+							break;
 		}
 		
 	}

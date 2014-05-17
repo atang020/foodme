@@ -90,4 +90,46 @@ describe('User model', function () {
 			});
 		});
 	});
+
+	it('add() and update()', function (done) {
+		userModel.add(userA, function (err, id) {
+			assert.ifError(err);
+
+			userA.user_id = id;
+			userA.password = 'userAPassword2';
+			userA.email = 'userA2@example.com';
+			userA.phone = '593-349-4930';
+
+			userModel.update(userA, function (err) {
+				assert.ifError(err);
+
+				//Get the user now
+				userModel.get(userA.user_id, function (err, userA2) {
+					assert.ifError(err);
+					assert.equal(userA2.user_id, userA.user_id);
+					assert.equal(userA2.password, userA.password);
+					assert.equal(userA2.email, userA.email);
+					assert.equal(userA2.phone, userA.phone);
+					done();
+				});
+			});
+		});
+	});
+
+	it('add() and then remove()', function (done) {
+		userModel.add(userB, function (err, id) {
+			assert.ifError(err);
+			userB.user_id = id;
+			userModel.remove(userB, function (err) {
+				assert.ifError(err);
+
+				//Now try getting the user
+				userModel.get(id, function (err, result) {
+					assert.ifError(err);
+					assert.equal(result, null);
+					done();
+				});
+			});
+		});
+	});
 });
