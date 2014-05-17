@@ -14,6 +14,9 @@
     <string name="call_waiter_button">Call Waiter</string>
     <string name="dessert_button">Dessert</string>
     <string name="call_waiter">Call waiter hopefully</string>
-    
+    <string name="appetizer_activity">appetizer</string>
+    <string name="dessert_activity">dessert</string>
+    <string name="drink_activity">drink</string>
+    <string name="entree_activity">entree</string>
     
 </resources>

@@ -35,7 +35,7 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 		super.onCreate(savedInstanceState);
 	
 		// Get the view from activity_main.xml
-		setContentView(R.layout.activity_fullscreen);
+		setContentView(R.layout.activity_entree);
 		
 		View decorView = getWindow().getDecorView();
 		
@@ -109,6 +109,7 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 		case "Dessert":
 		case "My Orders":
 		case "Call Waiter":callWaiterPress();
+							break;
 		}
 		
 	}
