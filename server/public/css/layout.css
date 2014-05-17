@@ -4,15 +4,6 @@
   margin-bottom:5px;
 }
 
-#userbox{
-  float:right;
-  padding-right:10px;
-  padding-left:10px;
-  padding-top:3px;
-  padding-bottom:3px;
-  background-color:#b0e0e6;
-}
-
 .modal-dialog{
   background-color:white;
   border-radius: 5px;

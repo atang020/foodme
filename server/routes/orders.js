@@ -7,8 +7,7 @@ router.get('/', function(req, res){
   {id: 2, table: 2, item: 'Fried Cheerios', status: 'definitely not on fire'},
   {id: 3, table: 7, item: 'Coffee', notes: 'no cyannide', status: 'pretty good'},
   {id: 4, table: 15, item: 'Small Fries', status: 'undergoing mitosis'}
-  
-  ]});
+  ], user : {name: 'Phillip'}});
 });
 
 router.get('/active', function(req, res){
