@@ -109,7 +109,16 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
 	@Override
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
+		String tabChosen = arg0.getText().toString();
+		switch(tabChosen) {
+		case "Home":
+		case "Drinks":
+		case "Appetizer":
+		case "Entree":
+		case "Dessert":
+		case "My Orders":
+		case "Call Waiter":
+		}
 		
 	}
 
