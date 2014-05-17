@@ -45,7 +45,7 @@ exports.get = function (userId, callback) {
 			return;
 		}
 
-		if (rows === []) {
+		if (rows.length === 0) {
 			callback(null, null);
 			return;
 		}

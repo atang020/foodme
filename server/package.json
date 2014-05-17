@@ -17,10 +17,7 @@
 		"mysql": "~2.2.0",
 		"jshint": "~2.5.0",
 		"mocha": "~1.18.2",
-		"should": "~3.3.1",
-		"expect": "~0.1.1",
-		"chai": "~1.9.1",
-		"better-assert": "~1.0.0"
+		"async": "~0.9.0"
 	},
 	"jshintConfig": {
 		"camelcase": false,

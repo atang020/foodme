@@ -102,13 +102,25 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
 		switch(tabChosen) {
-		case "Home": System.out.println("hi");
-		case "Drinks":
-		case "Appetizer":
-		case "Entree":
-		case "Dessert":
+		case "Drinks":	Intent drinkIntent = new Intent(MainMenuActivity.this,
+						DrinkActivity.class);
+						startActivity(drinkIntent);
+						break;
+		case "Appetizer":	Intent appetizerIntent = new Intent(MainMenuActivity.this,
+							AppetizerActivity.class);
+							startActivity(appetizerIntent);
+							break;
+		case "Entree":	Intent entreeIntent = new Intent(MainMenuActivity.this,
+						EntreeActivity.class);
+						startActivity(entreeIntent);
+						break;
+		case "Dessert":	Intent dessertIntent = new Intent(MainMenuActivity.this,
+						DessertActivity.class);
+						startActivity(dessertIntent);
+						break;
 		case "My Orders":
-		case "Call Waiter":callWaiterPress();
+		case "Call Waiter":	callWaiterPress();
+							break;
 		}
 		
 	}
