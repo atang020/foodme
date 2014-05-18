@@ -1,20 +1,20 @@
 #title-image {
-  margin-left: 50px;
-  margin-top: 5px;
-  margin-bottom:5px;
+	margin-left: 50px;
+	margin-top: 5px;
+	margin-bottom:5px;
 }
 
 .modal-dialog{
-  background-color:white;
-  border-radius: 5px;
+	background-color:white;
+	border-radius: 5px;
 }
 
 #footerText{
-  color: #A9A9A9
+	color: #A9A9A9;
 }
 
 .signInInput{
-  margin: 5px;
-  border-radius: 3px;
+	margin: 5px;
+	border-radius: 3px;
 }
 
