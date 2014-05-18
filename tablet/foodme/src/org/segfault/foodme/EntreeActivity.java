@@ -70,13 +70,13 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
        
 
        // Add 3 tabs, specifying the tab's text and TabListener
-       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this),true);
+       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
        
 
        mViewPager = (ViewPager) findViewById(R.id.pager);

@@ -119,7 +119,7 @@ public class DessertActivity extends Activity implements ActionBar.TabListener{
 			break;
 		case "Entree":
 			Intent entreeIntent = new Intent(DessertActivity.this,
-					DessertActivity.class);
+					EntreeActivity.class);
 			startActivity(entreeIntent);
 			break;
 		case "My Orders":
