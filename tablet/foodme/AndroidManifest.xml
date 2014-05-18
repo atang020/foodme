@@ -18,13 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".MainMenuActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".EntreeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,21 +33,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-                <activity android:name=".DessertActivity" >
+        
+        <activity android:name=".DessertActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-                <activity android:name=".DrinkActivity" >
+        
+       	<activity android:name=".DrinkActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-                <activity android:name=".AppetizerActivity" >
+        
+       	<activity android:name=".AppetizerActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

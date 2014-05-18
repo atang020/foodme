@@ -70,13 +70,13 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
        
 
        // Add 3 tabs, specifying the tab's text and TabListener
-       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this),true);
+       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
        
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -108,14 +108,31 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
 		switch(tabChosen) {
-		case "Home": System.out.println("hi");
+		case "Home": 
+			Intent homeIntent = new Intent(EntreeActivity.this,
+					MainMenuActivity.class);
+			startActivity(homeIntent);
+			break;
 		case "Drinks":
+			Intent drinkIntent = new Intent(EntreeActivity.this,
+					DrinkActivity.class);
+			startActivity(drinkIntent);
+			break;
 		case "Appetizer":
-		case "Entree":
+			Intent appetizerIntent = new Intent(EntreeActivity.this,
+					AppetizerActivity.class);
+			startActivity(appetizerIntent);
+			break;
 		case "Dessert":
+			Intent dessertIntent = new Intent(EntreeActivity.this,
+					DessertActivity.class);
+			startActivity(dessertIntent);
+			break;
 		case "My Orders":
-		case "Call Waiter":callWaiterPress();
-							break;
+			break;
+		case "Call Waiter":
+			callWaiterPress();
+			break;
 		}
 		
 	}

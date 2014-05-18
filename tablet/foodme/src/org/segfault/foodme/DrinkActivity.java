@@ -33,7 +33,7 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
+		
 		// Get the view from activity_main.xml
 		setContentView(R.layout.activity_drink);
 		
@@ -64,13 +64,13 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
        
 
        // Add 3 tabs, specifying the tab's text and TabListener
-       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),true);
+       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
        
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -102,17 +102,31 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
 		switch(tabChosen) {
-		case "Home": Intent homeIntent = new Intent(DrinkActivity.this,
+		case "Home": 
+			Intent homeIntent = new Intent(DrinkActivity.this,
 					MainMenuActivity.class);
-					startActivity(homeIntent);
-					break;
-		case "Drinks":
-		case "Appetizer":
-		case "Entree":
-		case "Dessert":
-		case "My Orders":
-		case "Call Waiter":callWaiterPress();
-							break;
+			startActivity(homeIntent); 
+			break;
+		case "Appetizer": 
+			Intent appetizerIntent = new Intent(DrinkActivity.this,
+					AppetizerActivity.class);
+			startActivity(appetizerIntent);
+			break;
+		case "Entree": 
+			Intent entreeIntent = new Intent(DrinkActivity.this,
+					EntreeActivity.class);
+			startActivity(entreeIntent);
+			break;
+		case "Dessert": 
+			Intent dessertActivity = new Intent(DrinkActivity.this,
+					DrinkActivity.class);
+			startActivity(dessertActivity);
+			break;
+		case "My Orders": break;
+		case "Call Waiter":
+			callWaiterPress();
+			break;
+		default: break;
 		}
 		
 	}
