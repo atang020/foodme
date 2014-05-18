@@ -157,7 +157,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
 			{
-				Toast makeText = Toast.makeText(getApplicationContext(),"Waiter has been contacted",Toast.LENGTH_SHORT);
+				Toast makeText = Toast.makeText(getApplicationContext(),"A waiter has been contacted.",Toast.LENGTH_SHORT);
 				makeText.show();
 				
 			}

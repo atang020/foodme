@@ -28,7 +28,7 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
-	private String strName;
+	//private String strName;
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
@@ -147,8 +147,8 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
-		final EditText txtInput = new EditText(this);
-		strName = "Pizza Name: ";
+		//final EditText txtInput = new EditText(this);
+		//strName = "Pizza Name: ";
 		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
@@ -156,8 +156,8 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(getApplicationContext(),"Waiter has been contacted",Toast.LENGTH_SHORT);
-				
+				Toast waiterConfirm = Toast.makeText(getApplicationContext(),"A waiter has been contacted.",Toast.LENGTH_SHORT);
+				waiterConfirm.show();
 			}
 		});
 		AlertDialog dialogPizzaName = dialogBuilder.create();
