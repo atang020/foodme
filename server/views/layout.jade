@@ -16,7 +16,6 @@ html
 						a.navbar-brand(href='#') #{brand}
 					.navbar-collapse.collapse
 						ul.nav.navbar-nav
-						
 							- var obj = {'/': 'Home', 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics', 'about':'About' }
 								- each val, key in obj
 									- if (id == key)
