@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -49,6 +50,8 @@ public class DessertActivity extends Activity implements ActionBar.TabListener{
        subcategoryNames = getResources().getStringArray(R.array.test_names);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
+       
+       subcategoryLayout.openDrawer(Gravity.LEFT);
        
       // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 

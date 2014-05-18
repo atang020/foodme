@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 		// Get the view from activity_main.xml
 		setContentView(R.layout.activity_entree);
 		
+	
 		View decorView = getWindow().getDecorView();
 		
 	    int mUIFlag = 
@@ -56,6 +58,7 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
+       subcategoryLayout.openDrawer(Gravity.LEFT);
       // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
        // Set up the action bar.
@@ -95,6 +98,7 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 	    inflater.inflate(R.menu.main_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}*/
+
 
 
 	@Override
