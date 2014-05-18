@@ -2,8 +2,7 @@ doctype html
 html
 	include inc/header
 		body
-			a(href='/')
-				img#title-image(src='/foodme.png')
+			
 					
 			.navbar.navbar-default.navbar-static-top(role='navigation')
 				.container
@@ -16,6 +15,9 @@ html
 						a.navbar-brand(href='#') #{brand}
 					.navbar-collapse.collapse
 						ul.nav.navbar-nav
+							li
+								a(href='/')
+									img#title-image(src='/foodme2.png')
 							- var obj = {'/': 'Home', 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics', 'about':'About' }
 								- each val, key in obj
 									- if (id == key)
