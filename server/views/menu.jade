@@ -4,34 +4,34 @@ block content
 	div.container
 		div.jumbotron
 			h2 Edit Menu
+			
 			div.panel-group(id='accordion')
-				div.panel.panel-default
-					div.panel-heading
-						h4.panel-title
-							a(data-toggle='collapse', data-parent='#accordion', href='#drinkCat') drinks
-					div.panel-collapse.collapse(id='drinkCat')
-						div.panel-body
-							p drink drink drink
-				div.panel.panel-default
-					div.panel-heading
-						h4.panel-title
-							a(data-toggle='collapse', data-parent='#accordion', href='#appetizerCat') appetizers
-					div.panel-collapse.collapse(id='appetizerCat')
-						div.panel-body
-							p app app app
-				div.panel.panel-default
-					div.panel-heading
-						h4.panel-title
-							a(data-toggle='collapse', data-parent='#accordion', href='#entreeCat') entrees
-					div.panel-collapse.collapse(id='entreeCat')
-						div.panel-body
-							p entree entree entree
-				div.panel.panel-default
-					div.panel-heading
-						h4.panel-title
-							a(data-toggle='collapse', data-parent='#accordion', href='#dessertCat') desserts
-					div.panel-collapse.collapse(id='dessertCat')
-						div.panel-body
-							p dessert dessert dessert
+				- each categoryVal, categoryKey in categories
+					div.panel.panel-default
+						div.panel-heading
+							h4.panel-title
+								a(data-toggle='collapse', data-parent='#accordion', href='##{categoryKey}') #{categoryKey}
+						div.panel-collapse.collapse(id=categoryKey)
+							div.panel-body
+								div.panel-group(id='#{categoryKey}Accordion')
+									- for subcategory in categoryVal.subcategories
+										div.panel.panel-default
+											div.panel-heading
+												h4.panel-title
+													a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='##{subcategory.name}') #{subcategory.name}
+													button.btn.btn-primary(type='button') rename
+													button.btn.btn-danger(type='button') delete
+											div.panel-collapse.collapse(id='#{subcategory.name}')
+												div.panel-body
+													p #{subcategory.name} #{subcategory.name} #{subcategory.name} !!!!
+									div.panel.panel-default
+										div.panel-heading
+											h4.panel-title
+												a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='##{categoryKey}New') + new #{categoryKey} subcategory
+										div.panel-collapse.collapse(id='#{categoryKey}New')
+											div.panel-body
+												form
+													input(type='text', placeholder='subcategory name')
+													button(class='btn btn-primary', type='submit') add
 						
 						
