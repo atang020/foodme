@@ -102,26 +102,40 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
 		switch(tabChosen) {
-		case "Drinks":	Intent drinkIntent = new Intent(MainMenuActivity.this,
-						DrinkActivity.class);
-						startActivity(drinkIntent);
-						break;
-		case "Appetizer":	Intent appetizerIntent = new Intent(MainMenuActivity.this,
-							AppetizerActivity.class);
-							startActivity(appetizerIntent);
-							break;
-		case "Entree":	Intent entreeIntent = new Intent(MainMenuActivity.this,
-						EntreeActivity.class);
-						startActivity(entreeIntent);
-						break;
-		case "Dessert":	Intent dessertIntent = new Intent(MainMenuActivity.this,
-						DessertActivity.class);
-						startActivity(dessertIntent);
-						break;
+		case "Drinks":	
+			Intent drinkIntent = new Intent(MainMenuActivity.this,
+					DrinkActivity.class);
+			drinkIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(drinkIntent);
+			break;
+			
+		case "Appetizer":	
+			Intent appetizerIntent = new Intent(MainMenuActivity.this,
+					AppetizerActivity.class);
+			appetizerIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(appetizerIntent);
+			break;
+			
+		case "Entree":	
+			Intent entreeIntent = new Intent(MainMenuActivity.this,
+					EntreeActivity.class);
+			entreeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(entreeIntent);
+			break;
+			
+		case "Dessert":	
+			Intent dessertIntent = new Intent(MainMenuActivity.this,
+					DessertActivity.class);
+			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(dessertIntent);
+			break;
+			
 		case "My Orders":
 			break;
-		case "Call Waiter":	callWaiterPress();
-							break;
+			
+		case "Call Waiter":	
+			callWaiterPress();
+			break;
 		}
 		
 	}

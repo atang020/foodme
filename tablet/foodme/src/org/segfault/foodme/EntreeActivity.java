@@ -111,21 +111,25 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 		case "Home": 
 			Intent homeIntent = new Intent(EntreeActivity.this,
 					MainMenuActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(homeIntent);
 			break;
 		case "Drinks":
 			Intent drinkIntent = new Intent(EntreeActivity.this,
 					DrinkActivity.class);
+			drinkIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(drinkIntent);
 			break;
 		case "Appetizer":
 			Intent appetizerIntent = new Intent(EntreeActivity.this,
 					AppetizerActivity.class);
+			appetizerIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(appetizerIntent);
 			break;
 		case "Dessert":
 			Intent dessertIntent = new Intent(EntreeActivity.this,
 					DessertActivity.class);
+			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
 		case "My Orders":
