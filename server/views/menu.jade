@@ -3,5 +3,35 @@ extends layout
 block content
 	div.container
 		div.jumbotron
-			h1 Edit Menu
-			p your menu was deleted due to an error
+			h2 Edit Menu
+			div.panel-group(id='accordion')
+				div.panel.panel-default
+					div.panel-heading
+						h4.panel-title
+							a(data-toggle='collapse', data-parent='#accordion', href='#drinkCat') drinks
+					div.panel-collapse.collapse(id='drinkCat')
+						div.panel-body
+							p drink drink drink
+				div.panel.panel-default
+					div.panel-heading
+						h4.panel-title
+							a(data-toggle='collapse', data-parent='#accordion', href='#appetizerCat') appetizers
+					div.panel-collapse.collapse(id='appetizerCat')
+						div.panel-body
+							p app app app
+				div.panel.panel-default
+					div.panel-heading
+						h4.panel-title
+							a(data-toggle='collapse', data-parent='#accordion', href='#entreeCat') entrees
+					div.panel-collapse.collapse(id='entreeCat')
+						div.panel-body
+							p entree entree entree
+				div.panel.panel-default
+					div.panel-heading
+						h4.panel-title
+							a(data-toggle='collapse', data-parent='#accordion', href='#dessertCat') desserts
+					div.panel-collapse.collapse(id='dessertCat')
+						div.panel-body
+							p dessert dessert dessert
+						
+						
