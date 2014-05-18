@@ -60,10 +60,32 @@ def serverStart():
     else:
       return True
 
+
+def mochaTest():
+    errors = []
+
+     # Removes any leftover err.log files
+    subprocess.call(["rm", "err.log"], cwd=".\\server\\", shell=True)
     
+    # Creates a err.log and redirect stderr from mocha tests
+    with open('err.log', "w", cwd=".\\server\\") at errOut:
+    	subprocess.call(["npm", "test"], cwd=".\\server\\", stderr=errOut, shell=True)
+    
+    # Wait for command to finish outputting
+    time.sleep(2)
+
+    # Stats err.log file
+    statErr = os.stat('.\\server\\err.log')
+
+    # Checks files size and passes test if no stderr output
+    if statErr.st_size > 0:
+      return False
+    else:
+      return True
+
+
 if __name__ == '__main__':
     if jshint():
         if serverStart():
             sys.exit(0)
     sys.exit(1)
-
