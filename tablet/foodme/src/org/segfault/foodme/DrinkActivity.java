@@ -101,7 +101,6 @@ public class DrinkActivity extends Activity implements ActionBar.TabListener{
 	@Override
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
-   		System.out.println(tabChosen);
 		switch(tabChosen) {
 		case "Home": 
 			Intent homeIntent = new Intent(DrinkActivity.this,
