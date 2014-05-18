@@ -28,6 +28,8 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
 	private String strName;
+	//
+	private String[] entreeTest = new String[5];
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
@@ -45,8 +47,12 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
 	   decorView.setSystemUiVisibility(mUIFlag);
-	   
-       subcategoryNames = getResources().getStringArray(R.array.test_names);
+	   entreeTest[0] = "a";
+	   entreeTest[1] = "b";
+	   entreeTest[2] = "c";
+	   entreeTest[3] = "d";
+	   entreeTest[4] = "e";
+       subcategoryNames = entreeTest;
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        

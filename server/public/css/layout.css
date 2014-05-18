@@ -11,3 +11,10 @@
 
 #footerText{
   color: #A9A9A9
+}
+
+.signInInput{
+  margin: 5px;
+  border-radius: 3px;
+}
+
