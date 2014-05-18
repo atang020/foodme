@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class EntreeActivity extends Activity implements ActionBar.TabListener{
+public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
@@ -28,8 +28,6 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
 	private String strName;
-	//
-	private String[] entreeTest = new String[5];
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
@@ -37,7 +35,7 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 		super.onCreate(savedInstanceState);
 	
 		// Get the view from activity_main.xml
-		setContentView(R.layout.activity_entree);
+		setContentView(R.layout.activity_fullscreen);
 		
 		View decorView = getWindow().getDecorView();
 		
@@ -47,12 +45,8 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
 	   decorView.setSystemUiVisibility(mUIFlag);
-	   entreeTest[0] = "a";
-	   entreeTest[1] = "b";
-	   entreeTest[2] = "c";
-	   entreeTest[3] = "d";
-	   entreeTest[4] = "e";
-       subcategoryNames = entreeTest;
+	   
+       subcategoryNames = getResources().getStringArray(R.array.test_names);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
@@ -108,31 +102,26 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
    		String tabChosen = arg0.getText().toString();
 		switch(tabChosen) {
-		case "Home": 
-			Intent homeIntent = new Intent(EntreeActivity.this,
-					MainMenuActivity.class);
-			startActivity(homeIntent);
-			break;
-		case "Drinks":
-			Intent drinkIntent = new Intent(EntreeActivity.this,
-					DrinkActivity.class);
-			startActivity(drinkIntent);
-			break;
-		case "Appetizer":
-			Intent appetizerIntent = new Intent(EntreeActivity.this,
-					AppetizerActivity.class);
-			startActivity(appetizerIntent);
-			break;
-		case "Dessert":
-			Intent dessertIntent = new Intent(EntreeActivity.this,
-					DessertActivity.class);
-			startActivity(dessertIntent);
-			break;
+		case "Drinks":	Intent drinkIntent = new Intent(MainMenuActivity.this,
+						DrinkActivity.class);
+						startActivity(drinkIntent);
+						break;
+		case "Appetizer":	Intent appetizerIntent = new Intent(MainMenuActivity.this,
+							AppetizerActivity.class);
+							startActivity(appetizerIntent);
+							break;
+		case "Entree":	Intent entreeIntent = new Intent(MainMenuActivity.this,
+						EntreeActivity.class);
+						startActivity(entreeIntent);
+						break;
+		case "Dessert":	Intent dessertIntent = new Intent(MainMenuActivity.this,
+						DessertActivity.class);
+						startActivity(dessertIntent);
+						break;
 		case "My Orders":
 			break;
-		case "Call Waiter":
-			callWaiterPress();
-			break;
+		case "Call Waiter":	callWaiterPress();
+							break;
 		}
 		
 	}
@@ -146,16 +135,16 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
-		final EditText txtInput = new EditText(this);
-		strName = "Pizza Name: ";
 		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
 		dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(getApplicationContext(),"Waiter has been contacted",Toast.LENGTH_SHORT);
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				Toast makeText = Toast.makeText(getApplicationContext(),"Waiter has been contacted",Toast.LENGTH_SHORT);
+				makeText.show();
 				
 			}
 		});
