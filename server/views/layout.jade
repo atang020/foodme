@@ -19,13 +19,14 @@ html
 								a(href='/')
 									img#title-image(src='/foodme2.png')
 							- var obj = {'/': 'Home', 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics' }
-								- each val, key in obj
-									- if (id == key)
-										li.active
-											a(href='#{key}') #{val}
-									- else
-										li
-											a(href='#{key}') #{val}
+								- if(user)
+									- each val, key in obj
+										- if (id == key)
+											li.active
+												a(href='#{key}') #{val}
+										- else
+											li
+												a(href='#{key}') #{val}
 						ul.nav.navbar-nav.navbar-right
 							-if(user)
 								li
