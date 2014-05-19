@@ -27,7 +27,7 @@ block content
 			
 			div.panel-group(id='accordion')
 				- each categoryVal, categoryKey in categories
-					div.panel.panel-primary(style='width:700px')
+					div.panel.panel-primary
 						div.panel-heading
 							h4.panel-title
 								a(data-toggle='collapse', data-parent='#accordion', href='##{categoryKey}') #{categoryKey}
