@@ -11,6 +11,16 @@ block content
 			div(class='modal-footer')
 				button(class='btn btn-danger', type='submit') delete
 				button(class='btn btn-primary', type='button', data-dismiss='modal',aria-hidden='true') cancel
+	div(class='modal fade', id='inputModal', tabindex='-1', role='dialog', aria-labelledby='inputModalLabel',aria-hidden='true')
+		div(class='modal-dialog modal-sm')
+			div(class='modal-header')
+				button(type='button', class='close', data-dismiss='modal',aria-hidden='true') &times;
+				h4(class='modal-title', id='inputModalLabel') set field
+			div(class='modal-body')
+				input(class='signInInput', type='text')
+			div(class='modal-footer')
+				button(class='btn btn-primary', type='submit') submit
+				button(class='btn btn-default', type='button', data-dismiss='modal',aria-hidden='true') cancel
 	div.container
 		div.jumbotron
 			h2 Edit Menu
@@ -30,7 +40,7 @@ block content
 												h4.panel-title
 													a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='##{subcategory.name}') #{subcategory.name}
 													div.btn-group.pull-right
-														button.btn.btn-primary(type='button') rename
+														button.btn.btn-primary(type='button', data-toggle='modal', data-target='#inputModal') rename
 														button.btn.btn-danger(type='button', data-toggle='modal', data-target='#confirmModal') delete
 											div.panel-collapse.collapse(id='#{subcategory.name}')
 												div.panel-body(style='padding-bottom:40px')
@@ -39,6 +49,7 @@ block content
 																tr
 																	th name
 																	th price
+																	th photo
 																	th description
 															tbody
 																- for item in subcategory.items
@@ -48,11 +59,43 @@ block content
 																				a(data-toggle='dropdown', href='#') #{item.name}
 																				ul.dropdown-menu(role='menu')
 																					li
-																						a(href='#') edit
+																						a(href='#', data-toggle='modal', data-target='#inputModal') rename
 																					li
 																						a(href='#', data-toggle='modal', data-target='#confirmModal') delete
-																		td #{item.price}
+																		td
+																			div.dropdown
+																				a(data-toggle='dropdown', href='#') #{item.price}
+																				ul.dropdown-menu(role='menu')
+																					li
+																						a(href='#', data-toggle='modal', data-target='#inputModal') set price
+																		td
+																			div.dropdown
+																				- if(item.photo)
+																					a(data-toggle='dropdown', href='#') #{item.photo}
+																					ul.dropdown-menu(role='menu')
+																						li
+																							a(href='#', data-toggle='modal', data-target='#inputModal') change photo
+																						li
+																							a(href='#', data-toggle='modal', data-target='#confirmModal') delete photo
+																				- else
+																					a(data-toggle='dropdown', href='#') (none)
+																						ul.dropdown-menu(role='menu')
+																							li
+																								a(href='#', data-toggle='modal', data-target='#inputModal') upload photo
 																		td #{item.description}
+																				div.dropdown
+																					- if(item.description)
+																						a(data-toggle='dropdown', href='#') #{item.description}
+																						ul.dropdown-menu(role='menu')
+																							li
+																								a(href='#', data-toggle='modal', data-target='#inputModal') change description
+																							li
+																								a(href='#', data-toggle='modal', data-target='#confirmModal') delete description
+																					- else
+																						a(data-toggle='dropdown', href='#') (none)
+																							ul.dropdown-menu(role='menu')
+																								li
+																									a(href='#', data-toggle='modal', data-target='#inputModal') add description
 																tr
 														a + new item
 									div.panel.panel-success
