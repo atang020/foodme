@@ -7,7 +7,7 @@ block content
 			
 			div.panel-group(id='accordion')
 				- each categoryVal, categoryKey in categories
-					div.panel.panel-default
+					div.panel.panel-primary
 						div.panel-heading
 							h4.panel-title
 								a(data-toggle='collapse', data-parent='#accordion', href='##{categoryKey}') #{categoryKey}
@@ -16,11 +16,12 @@ block content
 								div.panel-group(id='#{categoryKey}Accordion')
 									- for subcategory in categoryVal.subcategories
 										div.panel.panel-default
-											div.panel-heading
+											div.panel-heading.clearfix
 												h4.panel-title
 													a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='##{subcategory.name}') #{subcategory.name}
-													button.btn.btn-primary(type='button') rename
-													button.btn.btn-danger(type='button') delete
+													div.btn-group.pull-right
+														button.btn.btn-primary(type='button') rename
+														button.btn.btn-danger(type='button') delete
 											div.panel-collapse.collapse(id='#{subcategory.name}')
 												div.panel-body
 													p #{subcategory.name} #{subcategory.name} #{subcategory.name} !!!!
