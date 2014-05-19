@@ -16,9 +16,10 @@ html
 					.navbar-collapse.collapse
 						ul.nav.navbar-nav
 							li
-								a(href='/')
-									img#title-image(src='/foodme2.png')
-							- var obj = {'/': 'Home', 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics' }
+								//
+									a(href='/')
+								img#title-image(src='/foodme2.png')
+							- var obj = {'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics' }
 								- if(user)
 									- each val, key in obj
 										- if (id == key)
