@@ -18,7 +18,7 @@ html
 							li
 								a(href='/')
 									img#title-image(src='/foodme2.png')
-							- var obj = {'/': 'Home', 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics', 'about':'About' }
+							- var obj = {'/': 'Home', 'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics' }
 								- each val, key in obj
 									- if (id == key)
 										li.active
