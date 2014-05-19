@@ -7,7 +7,7 @@ block content
 			
 			div.panel-group(id='accordion')
 				- each categoryVal, categoryKey in categories
-					div.panel.panel-primary
+					div.panel.panel-primary(style='width:600px')
 						div.panel-heading
 							h4.panel-title
 								a(data-toggle='collapse', data-parent='#accordion', href='##{categoryKey}') #{categoryKey}
@@ -23,8 +23,19 @@ block content
 														button.btn.btn-primary(type='button') rename
 														button.btn.btn-danger(type='button') delete
 											div.panel-collapse.collapse(id='#{subcategory.name}')
-												div.panel-body
-													p #{subcategory.name} #{subcategory.name} #{subcategory.name} !!!!
+												div.panel-body(style='padding-bottom:40px')
+													ul
+														li
+															div.dropdown
+																a(data-toggle='dropdown', href='#') #{subcategory.name}
+																ul.dropdown-menu(role='menu')
+																	li
+																		a(href='#') edit
+																	li
+																		a(href='#') delete
+														li
+															a add new item
+											
 									div.panel.panel-default
 										div.panel-heading
 											h4.panel-title
@@ -32,7 +43,8 @@ block content
 										div.panel-collapse.collapse(id='#{categoryKey}New')
 											div.panel-body
 												form
-													input(type='text', placeholder='subcategory name')
+													div.form-group
+														input(type='text', placeholder='subcategory name')
 													button(class='btn btn-primary', type='submit') add
 						
 						
