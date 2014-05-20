@@ -45,7 +45,7 @@ block content
 													a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='##{subcategory.name}') #{subcategory.name}
 													div.btn-group.pull-right
 														button.btn.btn-primary(type='button', data-toggle='modal', data-target='#inputModal') rename
-														button.btn.btn-danger(type='button', data-toggle='modal', data-target='#confirmModal', onclick='setConfirmModal(\'#{categoryKey}\', \'#{subcategory.name}\')') delete
+														button.btn.btn-danger(type='button', onclick='setConfirmModalSubcat(\'#{subcategory.name}\', \'#{categoryKey}\')') delete
 											div.panel-collapse.collapse(id='#{subcategory.name}')
 												div.panel-body(style='padding-bottom:40px')
 														table.table
@@ -74,7 +74,7 @@ block content
 																					li
 																						a(href='#', data-toggle='modal', data-target='#inputModal') rename
 																					li
-																						a(href='#', data-toggle='modal', data-target='#confirmModal', onclick='setConfirmModal(\'#{item.name}\',\'#{categoryKey}\', \'#{subcategory.name}\')') delete
+																						a(onclick='setConfirmModalItem(\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') delete
 																		td
 																			div.dropdown
 																				- if(item.price)
