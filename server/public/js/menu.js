@@ -6,26 +6,43 @@ function addItem(subcat, cat) {
 
 //prepares deletion of item
 function setConfirmModalItem(item, subcat, cat) {
-	var dialog = $('#confirmModal').find('.confirm-description');
-	dialog.text('are you sure you want to delete item ' + item + '?');
-	$('#confirmModal').modal();
+	showConfirmModal('are you sure you want to delete item ' + item + '?');
 }
 
 //prepares deletion of subcategory
 function setConfirmModalSubcat(subcat, cat) {
+	showConfirmModal('are you sure you want to delete subcategory ' + subcat + '?');
+}
+
+//shows the confirm modal with specified text
+function showConfirmModal(text)
+{
 	var dialog = $('#confirmModal').find('.confirm-description');
-	dialog.text('are you sure you want to delete subcategory ' + subcat + '?');
+	dialog.text(text);
 	$('#confirmModal').modal();
 }
 
 //prepares rename of item
-function setInputModal(item, subcat, cat) {
-	var dialog = $('#confirmModal').find('.confirm-description');
-	dialog.text('are you sure you want to delete item ' + item + '?');
+function setInputModalRenameItem(item, subcat, cat) {
+	showInputModal('rename item', item);
 }
 
 //prepares rename of subcategory
-function setInputModal(subcat, cat) {
-	var dialog = $('#confirmModal').find('.confirm-description');
-	dialog.text('are you sure you want to delete subcategory ' + subcat + '?');
+function setInputModalRenameSubcat(subcat, cat) {
+	showInputModal('rename subcategory', subcat);
+}
+
+//prepares setting item price
+function setInputModalPriceItem(price, item, subcat, cat) {
+	showInputModal('set price', price);
+}
+
+//shows the input modal with specified title and placeholder
+function showInputModal(title, placeholder)
+{
+	var text = $('#inputModal').find('#textField');
+	text.val(placeholder);
+	var header = $('#inputModal').find('#inputModalLabel');
+	header.text(title);
+	$('#inputModal').modal();
 }
