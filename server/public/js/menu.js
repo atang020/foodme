@@ -24,7 +24,12 @@ function showConfirmModal(text)
 
 //prepares rename of item
 function setInputModalRenameItem(item, subcat, cat) {
-	showInputModal('rename item', item);
+	if(item === 'undefined'){
+		showInputModal('rename item', 'name', true);
+	}
+	else{
+		showInputModal('rename item', item, false);
+	}
 }
 
 //prepares rename of subcategory
@@ -34,14 +39,35 @@ function setInputModalRenameSubcat(subcat, cat) {
 
 //prepares setting item price
 function setInputModalPriceItem(price, item, subcat, cat) {
-	showInputModal('set price', price);
+	if(price === 'undefined'){
+		showInputModal('set price', 'price', true);
+	}
+	else{
+		showInputModal('set price', price, false);
+	}
 }
 
-//shows the input modal with specified title and placeholder
-function showInputModal(title, placeholder)
+//prepares setting item description
+function setInputModalDescriptionItem(description, item, subcat, cat) {
+	if(description === 'undefined'){
+		showInputModal('set description', 'description', true);
+	}
+	else{
+		showInputModal('set description', description, false);
+	}
+}
+
+//shows the input modal with specified title and either placeholder or text
+function showInputModal(title, text, useAsPlaceholder)
 {
-	var text = $('#inputModal').find('#textField');
-	text.val(placeholder);
+	var textbox = $('#inputModal').find('#textField');
+	if(useAsPlaceholder){
+		textbox.val('');
+		textbox.attr('placeholder', text);
+	}
+	else
+		textbox.val(text);
+		
 	var header = $('#inputModal').find('#inputModalLabel');
 	header.text(title);
 	$('#inputModal').modal();
