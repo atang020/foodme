@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -33,8 +32,7 @@ public class TabletContentProvider extends ContentProvider {
 	public static final String KEY_PICTURE_PATH = "picture_path";
 	public static final String KEY_PRICE = "price";
 	public static final String KEY_CATEGORY = "category";
-	public static final String KEY_TABLE = "table";
-	public static final String KEY_VERSION = "version";
+	public static final String KEY_VALUE = "value";
 	
 	// Constants used to differentiate between the different URI requests
 	// Table name indicates an all rows query.  Appended with _ID indicates
@@ -119,6 +117,15 @@ public class TabletContentProvider extends ContentProvider {
 				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
 				queryBuilder.setTables(DBOpenHelper.DB_SUBCATEGORY_TABLE);
 				break;
+			case SETTING:
+				queryBuilder.setTables(DBOpenHelper.DB_SETTING_TABLE);
+				break;
+			case SETTING_ID:
+				// Since this is a row query, limit the result set to the passed in row
+				rowID = uri.getPathSegments().get(1);
+				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
+				queryBuilder.setTables(DBOpenHelper.DB_SETTING_TABLE);
+				break;
 			default: break;
 		}
 		
@@ -171,6 +178,20 @@ public class TabletContentProvider extends ContentProvider {
 				deleteCount = db.delete(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
 						selection, selectionArgs);
 				break;
+			case SETTING:
+				deleteCount = db.delete(DBOpenHelper.DB_SETTING_TABLE, 
+						selection, selectionArgs);
+				break;
+			case SETTING_ID:
+				// Since this is a row query, limit the result set to the passed in row
+				rowID = uri.getPathSegments().get(1);
+				selection = KEY_ID + "=" + rowID 
+						+ (!TextUtils.isEmpty(selection) ?
+						" AND (" + selection + ')' : "");
+				
+				deleteCount = db.delete(DBOpenHelper.DB_SETTING_TABLE, 
+						selection, selectionArgs);
+				break;
 			default: break;
 		}
 		
@@ -196,6 +217,9 @@ public class TabletContentProvider extends ContentProvider {
 			case SUBCATEGORY:
 				id = db.insert(DBOpenHelper.DB_SUBCATEGORY_TABLE, nullColumnHack, values);
 				break;
+			case SETTING:
+				id = db.insert(DBOpenHelper.DB_SETTING_TABLE, nullColumnHack, values);
+				break;
 			default: break;
 		}
 		
@@ -207,6 +231,9 @@ public class TabletContentProvider extends ContentProvider {
 					break;
 				case SUBCATEGORY:
 					insertedId = ContentUris.withAppendedId(SUBCATEGORY_CONTENT_URI, id);
+					break;
+				case SETTING:
+					insertedId = ContentUris.withAppendedId(SETTING_CONTENT_URI, id);
 					break;
 			}
 			// Notify any observers of the change in the data set
@@ -254,6 +281,20 @@ public class TabletContentProvider extends ContentProvider {
 				updateCount = db.update(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
 						values, selection, selectionArgs);
 				break;
+			case SETTING:
+				updateCount = db.update(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
+						values, selection, selectionArgs);
+				break;
+			case SETTING_ID:
+				// Since this is a row query, limit the result set to the passed in row
+				rowID = uri.getPathSegments().get(1);
+				selection = KEY_ID + "=" + rowID 
+						+ (!TextUtils.isEmpty(selection) ?
+						" AND (" + selection + ')' : "");
+				
+				updateCount = db.update(DBOpenHelper.DB_SETTING_TABLE, 
+						values, selection, selectionArgs);
+				break;
 			default: break;
 		}
 		
@@ -275,6 +316,10 @@ public class TabletContentProvider extends ContentProvider {
 				return "vnd.android.cursor.dir/vnd.segfault.foodme.subcategory";
 			case SUBCATEGORY_ID:
 				return "vnd.android.cursor.item/vnd.segfault.foodme.subcategory";
+			case SETTING:
+				return "vnd.android.cursor.dir/vnd.segfault.foodme.setting";
+			case SETTING_ID:
+				return "vnd.android.cursor.item/vnd.segfault.foodme.setting";
 			default:
 				throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
@@ -287,6 +332,7 @@ public class TabletContentProvider extends ContentProvider {
 		public static final String DB_NAME = "tabDatabase.db";
 		public static final String DB_MENU_ITEM_TABLE = "menu_item";
 		public static final String DB_SUBCATEGORY_TABLE = "subcategory";
+		public static final String DB_SETTING_TABLE = "setting";
 		public static final int DB_VERSION = 1;
 		
 		// SQL Statement to create new menu_item table.
@@ -308,7 +354,14 @@ public class TabletContentProvider extends ContentProvider {
 				KEY_ID + " INT NOT NULL, " +
 				KEY_NAME + " VARCHAR(32) NOT NULL, " +
 				KEY_CATEGORY + " INT NOT NULL, " +
-				"PRIMARY KEY (" + KEY_SUBCATEGORY_ID + "));";
+				"PRIMARY KEY (" + KEY_ID + "));";
+		
+		// SQL Statement to create new setting table
+				private static final String SETTING_CREATE =
+						"CREATE TABLE " + DB_SETTING_TABLE + " (" +
+						KEY_ID + " VARCHAR(45) NOT NULL, " +
+						KEY_VALUE + " VARCHAR(45) NOT NULL, " +
+						"PRIMARY KEY (" + KEY_ID + "));";
 		
 		public DBOpenHelper(Context context, String name, CursorFactory factory,
 				int version) {
@@ -321,6 +374,7 @@ public class TabletContentProvider extends ContentProvider {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(MENU_ITEM_CREATE);
 			db.execSQL(SUBCATEGORY_CREATE);
+			db.execSQL(SETTING_CREATE);
 		}
 
 		// Called when there is a database version mismatch meaning that the version 
@@ -334,6 +388,7 @@ public class TabletContentProvider extends ContentProvider {
 			
 			db.execSQL("DROP TABLE IF EXISTS" + DB_MENU_ITEM_TABLE);
 			db.execSQL("DROP TABLE IF EXISTS" + DB_SUBCATEGORY_TABLE);
+			db.execSQL("DROP TABLE IF EXISTS" + DB_SETTING_TABLE);
 			onCreate(db);
 		}
 	}
