@@ -3,10 +3,10 @@ var router = express.Router();
 
 router.get('/', function(req, res){
   res.render('orders', {orders: [
-  {id: 1, table: 5, item: 'Ritz Crackers and Salami', status: 'ERROR: guest starved to death'},
-  {id: 2, table: 2, item: 'Fried Cheerios', status: 'definitely not on fire'},
-  {id: 3, table: 7, item: 'Coffee', notes: 'no cyannide', status: 'pretty good'},
-  {id: 4, table: 15, item: 'Small Fries', status: 'undergoing mitosis'}
+  {id: 1, table: 5, time: 26, item: 'Ritz Crackers and Salami', status: 'undelivered'},
+  {id: 2, table: 2, time: 18, item: 'Cheerios', status: 'undelivered'},
+  {id: 3, table: 7, time: 6, item: 'Coffee', notes: 'lol', status: 'undelivered'},
+  {id: 4, table: 15, time: 5, item: 'Small Fries', status: 'undelivered'}
   ], user : {name: 'Phillip'}});
 });
 

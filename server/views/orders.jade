@@ -4,20 +4,26 @@ block content
 	div.container
 		div.jumbotron
 			h1 Active Orders
-			div.jumbotron
+			div.jumbotron(style='background-color:white;')
 				table.table
 					thead
 						tr
 							th ID#
 							th Table
+							th time waiting
 							th item
 							th Notes
 							th Status
+							th
 					tbody
 						- for order in orders
+							- var red = order.time * 10
 							tr
 								td #{order.id}
 								td #{order.table}
+								td(style='color:rgb(#{red},0,0);') #{order.time}m
 								td #{order.item}
 								td #{order.notes}
 								td #{order.status}
+								td
+									button.btn.btn-primary mark delivered
