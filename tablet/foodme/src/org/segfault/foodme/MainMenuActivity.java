@@ -162,6 +162,14 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 				
 			}
 		});
+		dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		AlertDialog dialogPizzaName = dialogBuilder.create();
 		dialogPizzaName.show();
 	}

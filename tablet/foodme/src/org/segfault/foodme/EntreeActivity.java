@@ -5,23 +5,22 @@ package org.segfault.foodme;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class EntreeActivity extends Activity implements ActionBar.TabListener{
+public class EntreeActivity extends FragmentActivity implements ActionBar.TabListener{
 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
@@ -89,7 +88,7 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
                R.layout.test_layout, subcategoryNames));
        
 	}
-	
+
 	
 /*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,6 +164,14 @@ public class EntreeActivity extends Activity implements ActionBar.TabListener{
 			public void onClick(DialogInterface dialog, int which) {
 				Toast waiterConfirm = Toast.makeText(getApplicationContext(),"A waiter has been contacted.",Toast.LENGTH_SHORT);
 				waiterConfirm.show();
+			}
+		});
+		dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		AlertDialog dialogPizzaName = dialogBuilder.create();
