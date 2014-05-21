@@ -48,6 +48,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			insertMenuItems(provider);
 			deleteSubcategories(provider);
 			insertSubcategories(provider);
+			deleteSettings(provider);
+			insertSettings(provider);
 		} catch (RemoteException | IOException e) {
 			syncResult.hasHardError();
 		}
@@ -56,7 +58,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	private void insertMenuItems(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
 		
-		URL url = new URL("http", "jdelaney.org", 80,"/api/menuItems");
+		URL url = new URL("http", "jdelaney.org", 8080,"/api/menuItems");
 		URLConnection conn = url.openConnection();
 		
 		try (
@@ -129,7 +131,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	private void insertSubcategories(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
-		URL url = new URL("http", "jdelaney.org", 80,"/api/menuItems");
+		URL url = new URL("http", "jdelaney.org", 8080,"/api/menuItems");
 		URLConnection conn = url.openConnection();
 		
 		try (
@@ -187,4 +189,61 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			} while (cursor.moveToNext());
 		}
 	}
+	
+	private void insertSettings(ContentProviderClient contentProviderClient)
+			throws RemoteException, IOException {
+			URL url = new URL("http", "jdelaney.org", 8080,"/api/menuItems");
+			URLConnection conn = url.openConnection();
+			
+			try (
+				BufferedReader bufReader = new BufferedReader (
+					new InputStreamReader (conn.getInputStream(), "UTF-8"));
+				JsonReader reader = new JsonReader(bufReader)
+			) {
+				reader.beginArray();
+				
+				String settingId = null;
+				String value = null;
+				
+				while (reader.hasNext()) {
+					reader.beginObject();
+					
+					while (reader.hasNext()) {
+						String name = reader.nextName();
+						if (name.equals("_id")) {
+							settingId = reader.nextString();
+						} else if (name.equals("value")) {
+							value = reader.nextString();
+						}
+					}
+					
+					reader.endObject();
+					
+					ContentValues contentValues = new ContentValues();
+					contentValues.put(TabletContentProvider.KEY_VALUE, value);
+					contentProviderClient.insert(
+						Uri.parse(PREFIX + "/setting/" + settingId), contentValues);
+				}
+				
+				reader.endArray();
+			}
+		}
+		
+		// Delete data currently in the setting table
+		private void deleteSettings(ContentProviderClient contentProviderClient)
+			throws RemoteException {
+			// The URI will be recognized by the content provider
+			Cursor cursor = contentProviderClient.query (
+				// Specify we only want the _id column
+				Uri.parse(PREFIX + "/setting"), new String[] {TabletContentProvider.KEY_ID},
+				null, null, null);
+			if (cursor.moveToFirst()) {
+				do {
+					long settingId = cursor.getLong(0);
+					contentProviderClient.delete (
+						Uri.parse(PREFIX + "/setting/" + settingId), 
+						null, null);
+				} while (cursor.moveToNext());
+			}
+		}
 }
