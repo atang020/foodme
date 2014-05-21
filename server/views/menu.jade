@@ -1,12 +1,16 @@
 extends layout
 
+block header
+	script(src='/js/menu.js')
+	
+
 block content
 	div(class='modal fade', id='confirmModal', tabindex='-1', role='dialog', aria-labelledby='confirmModalLabel',aria-hidden='true')
 		div(class='modal-dialog modal-sm')
 			div(class='modal-header')
 				button(type='button', class='close', data-dismiss='modal',aria-hidden='true') &times;
 				h4(class='modal-title', id='confirmModalLabel') are you sure?
-			div(class='modal-body')
+			div(class='modal-body confirm-description')
 				p Are you sure you want to delete this?
 			div(class='modal-footer')
 				button(class='btn btn-danger', type='submit') delete
@@ -17,13 +21,13 @@ block content
 				button(type='button', class='close', data-dismiss='modal',aria-hidden='true') &times;
 				h4(class='modal-title', id='inputModalLabel') set field
 			div(class='modal-body')
-				input(class='signInInput', type='text')
+				input(class='signInInput', id='textField' type='text')
 			div(class='modal-footer')
 				button(class='btn btn-primary', type='submit') submit
 				button(class='btn btn-default', type='button', data-dismiss='modal',aria-hidden='true') cancel
 	div.container
 		div.jumbotron
-			h2 Edit Menu
+			h1 Edit Menu
 			
 			div.panel-group(id='accordion')
 				- each categoryVal, categoryKey in categories
@@ -40,8 +44,8 @@ block content
 												h4.panel-title
 													a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='##{subcategory.name}') #{subcategory.name}
 													div.btn-group.pull-right
-														button.btn.btn-primary(type='button', data-toggle='modal', data-target='#inputModal') rename
-														button.btn.btn-danger(type='button', data-toggle='modal', data-target='#confirmModal') delete
+														button.btn.btn-primary(type='button', onclick='setInputModalRenameSubcat(\'#{subcategory.name}\', \'#{categoryKey}\')') rename
+														button.btn.btn-danger(type='button', onclick='setConfirmModalSubcat(\'#{subcategory.name}\', \'#{categoryKey}\')') delete
 											div.panel-collapse.collapse(id='#{subcategory.name}')
 												div.panel-body(style='padding-bottom:40px')
 														table.table
@@ -52,22 +56,34 @@ block content
 																	th photo
 																	th description
 															tbody
-																- for item in subcategory.items
-																	tr
+																- for (var i = 0; i < subcategory.items.length + 1; ++i)
+																	-var item=subcategory.items[i]
+																	-var visibility='visible'
+																	-var rowClass='normal'
+																	-if(!item)
+																		- var item={}
+																		-var rowClass='hidden'
+																	tr(class=rowClass)
 																		td
 																			div.dropdown
-																				a(data-toggle='dropdown', href='#') #{item.name}
+																				- if(item.name)
+																					a(data-toggle='dropdown', href='#') #{item.name}
+																				-else
+																					a(data-toggle='dropdown', href='#') (untitled)
 																				ul.dropdown-menu(role='menu')
 																					li
-																						a(href='#', data-toggle='modal', data-target='#inputModal') rename
+																						a(onclick='setInputModalRenameItem(\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') rename
 																					li
-																						a(href='#', data-toggle='modal', data-target='#confirmModal') delete
+																						a(onclick='setConfirmModalItem(\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') delete
 																		td
 																			div.dropdown
-																				a(data-toggle='dropdown', href='#') #{item.price}
+																				- if(item.price)
+																					a(data-toggle='dropdown', href='#') #{item.price}
+																				- else
+																					a(data-toggle='dropdown', href='#') (none)
 																				ul.dropdown-menu(role='menu')
 																					li
-																						a(href='#', data-toggle='modal', data-target='#inputModal') set price
+																						a(onclick='setInputModalPriceItem(\'#{item.price}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') set price
 																		td
 																			div.dropdown
 																				- if(item.photo)
@@ -88,16 +104,16 @@ block content
 																						a(data-toggle='dropdown', href='#') #{item.description}
 																						ul.dropdown-menu(role='menu')
 																							li
-																								a(href='#', data-toggle='modal', data-target='#inputModal') change description
+																								a(onclick='setInputModalPriceItem(\'#{item.description}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') change description
 																							li
 																								a(href='#', data-toggle='modal', data-target='#confirmModal') delete description
 																					- else
 																						a(data-toggle='dropdown', href='#') (none)
 																							ul.dropdown-menu(role='menu')
 																								li
-																									a(href='#', data-toggle='modal', data-target='#inputModal') add description
+																									a(onclick='setInputModalDescriptionItem(\'#{item.description}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') add description
 																tr
-														a + new item
+														a(onclick='addItem(\'#{categoryKey}\', \'#{subcategory.name}\')', rel='nofollow') + new item
 									div.panel.panel-success
 										div.panel-heading
 											h4.panel-title

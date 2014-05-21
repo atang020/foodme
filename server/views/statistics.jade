@@ -4,4 +4,38 @@ block content
 	div.container
 		div.jumbotron
 			h1 Statistics
-			p Your restaurant is soooo popular
+			div.panel.panel-default
+				div.panel-heading.clearfix
+					h4.panel-title
+						p menu items: 
+						div.button-group.pull-left
+							div.dropdown(id='sortingDropdown')
+								button.btn.btn-default(type='button',data-toggle='dropdown') most popular &#9660;
+								ul.dropdown-menu(role='menu')
+									li
+										a most popular
+									li
+										a top rated
+									li
+										a most profitable
+							div.dropdown(id='timeDropdown')
+								button.btn.btn-default(type='button',data-toggle='dropdown') this week &#9660;	
+								ul.dropdown-menu(role='menu')
+									li
+										a today
+									li
+										a this week
+									li
+										a this month
+									li
+										a this year
+				div.panel-body
+					table.table
+						thead
+							tr
+								th item
+								th # ordered
+								th average rating
+								th profit from item
+						tbody
+							

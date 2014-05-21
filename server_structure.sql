@@ -21,15 +21,15 @@ ENGINE=InnoDB;
 -- Table structure for table `order`
 -- Used to store orders that are being made by tables.
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `order` ;
+DROP TABLE IF EXISTS `ticket` ;
 
-CREATE TABLE `order` (
-  `order_id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ticket` (
+  `ticket_id` INT NOT NULL AUTO_INCREMENT,
   `table_number` INT NOT NULL,
-  `order_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `ticket_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `checked_out` TINYINT NOT NULL,
   `call_waiter_status` TINYINT NOT NULL,
-  PRIMARY KEY (`order_id`))
+  PRIMARY KEY (`ticket_id`))
 ENGINE = InnoDB;
 
 
@@ -66,17 +66,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table structure for table `order_item`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `order_item` ;
+DROP TABLE IF EXISTS `ticket_item` ;
 
-CREATE TABLE `order_item` (
-  `order_item_id` INT NOT NULL,
-  `order_id` INT NOT NULL,
+CREATE TABLE `ticket_item` (
+  `ticket_item_id` INT NOT NULL,
+  `ticket_id` INT NOT NULL,
   `menu_item_id` INT NOT NULL,
   `quantity` TINYINT NOT NULL,
   `notes` TEXT NOT NULL,
   `kitchen_status` TINYINT NOT NULL,
-  PRIMARY KEY (`order_item_id`),
-  FOREIGN KEY (`order_id`) REFERENCES `order`(`order_id`),
+  PRIMARY KEY (`ticket_item_id`),
+  FOREIGN KEY (`ticket_id`) REFERENCES `ticket`(`ticket_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
 ENGINE = InnoDB;
 
@@ -105,6 +105,5 @@ DROP TABLE IF EXISTS `setting` ;
 
 CREATE TABLE `setting` (
   `key` VARCHAR(45) NOT NULL,
-  `value` VARCHAR(45) NULL,
-  PRIMARY KEY (`review_id`))
+  `value` VARCHAR(45) NULL)
 ENGINE = InnoDB;

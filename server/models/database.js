@@ -22,10 +22,19 @@ var query = function (sql, data, callback) {
 			return;
 		}
 
-		connection.query(sql, data, function (err, result) {
-			callback(err, result);
-			connection.release();
-		});
+		if (arguments.length === 2) {
+			connection.query(sql, function (err, result) {
+				callback = data;
+				callback(err, result);
+				connection.release();
+			});
+		}
+		else {
+			connection.query(sql, data, function (err, result) {
+				callback(err, result);
+				connection.release();
+			});
+		}
 	});
 };
 
