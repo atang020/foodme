@@ -6,5 +6,5 @@
 		"password": "admin",
 		"db": "foodme"
 	},
-	"port": 80
+	"port": 8080
 }
