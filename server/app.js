@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var orders = require('./routes/orders');
 var menu = require('./routes/menu');
 var statistics = require('./routes/statistics');
+var ticketAPI = require('./routes/api/ticketAPI');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/users', users);
 app.use('/orders', orders);
 app.use('/menu', menu);
 app.use('/statistics', statistics);
+app.use('/api/tickets', ticketAPI);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

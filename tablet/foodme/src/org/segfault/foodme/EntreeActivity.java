@@ -3,6 +3,8 @@ package org.segfault.foodme;
 
 
 
+import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
@@ -20,7 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class EntreeActivity extends FragmentActivity implements ActionBar.TabListener{
+public class EntreeActivity extends FragmentActivity implements ActionBar.TabListener, onFoodItemSelectedListener{
 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
@@ -176,6 +178,13 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 		});
 		AlertDialog dialogPizzaName = dialogBuilder.create();
 		dialogPizzaName.show();
+	}
+
+
+	@Override
+	public void onFoodItemSelected(int position) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
