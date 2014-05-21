@@ -27,9 +27,23 @@
         android:dividerHeight="0dp"
         android:background="#111"/>
     
-	<FrameLayout  
-    	android:id="@+id/fragment_container"
-    	android:layout_width="match_parent"
-    	android:layout_height="match_parent" />
+ <LinearLayout 
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment android:name="org.segfault.foodme.FoodItemFragment"
+              android:id="@+id/fooditem_fragment"
+              android:layout_weight="1"
+              android:layout_width="0dp"
+              android:layout_height="match_parent" />
+
+    <fragment android:name="org.segfault.foodme.FoodDetailsFragment"
+              android:id="@+id/fooddetails_fragment"
+              android:layout_weight="2"
+              android:layout_width="0dp"
+              android:layout_height="match_parent" />
+
+</LinearLayout>
 </android.support.v4.widget.DrawerLayout>
 

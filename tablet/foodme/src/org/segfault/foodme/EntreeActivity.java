@@ -87,13 +87,8 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
                R.layout.test_layout, subcategoryNames));
        
-       FoodItemFragment firstFragment = new FoodItemFragment();
-       
-       getSupportFragmentManager().beginTransaction()
-       .add(R.id.fragment_container, firstFragment).commit();
-       
 	}
-	
+
 	
 /*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
