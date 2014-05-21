@@ -1,10 +1,15 @@
 package org.segfault.foodme;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends Activity {
+	public static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
+	public static final String ACCOUNT_TYPE = "org.segfault.foodme";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,5 +27,13 @@ public class MainActivity extends Activity {
 
 	   decorView.setSystemUiVisibility(mUIFlag);
 	   
+	   // SyncAdapter setup
+	   // Create the account type and default account
+	   Account newAccount = new Account ("myaccount", ACCOUNT_TYPE);
+	   AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
+	   // If the account already exists, a warning will be logged
+	   accountManager.addAccountExplicitly (newAccount, null, null);
+	   // Set the sync to happen as Android deems it necessary
+	   ContentResolver.setSyncAutomatically(newAccount, AUTHORITY, true);
 	}
 }
