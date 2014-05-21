@@ -158,6 +158,14 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 				waiterConfirm.show();
 			}
 		});
+		dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		AlertDialog dialogPizzaName = dialogBuilder.create();
 		dialogPizzaName.show();
 	}
