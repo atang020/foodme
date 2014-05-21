@@ -3,11 +3,17 @@ package org.segfault.foodme;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class FoodItemFragment extends ListFragment{
 	
+	onFoodItemSelectedListener callback;
+    public interface onFoodItemSelectedListener {
+        public void onFoodItemSelected(int position);
+    }
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,5 +36,14 @@ public class FoodItemFragment extends ListFragment{
         if (getFragmentManager().findFragmentById(R.id.fooddetails_fragment) != null) {
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
+    }
+    
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // Notify the parent activity of selected item
+        callback.onFoodItemSelected(position);
+        
+        // Set the item as checked to be highlighted when in two-pane layout
+        getListView().setItemChecked(position, true);
     }
 }
