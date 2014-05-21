@@ -1,6 +1,7 @@
 doctype html
 html
 	head
+		script(src='/js/layout.js')
 		include inc/header
 		link(rel='stylesheet', href='/css/layout.css')
 		block header
@@ -35,7 +36,7 @@ html
 								li
 									p.navbar-text signed in as #{user.name}
 								li
-									button(class='btn btn-default navbar-btn', type='button', onClick='signOut') sign out
+									button(class='btn btn-default navbar-btn', type='button', onClick='logout()') sign out
 							-else
 								li
 									p.navbar-text Not signed in
@@ -50,10 +51,11 @@ html
 						h4(class='modal-title', id='loginModalLabel') sign in
 					div(class='modal-body')
 						form
-							input(class='signInInput', type='text', placeholder='email')
-							input(class='signInInput', type='password' placeholder='password')
+							input(id='emailText', class='signInInput', type='text', placeholder='email')
+							input(id='passwordText', class='signInInput', type='password' placeholder='password')
+							p(id='loginStatus', class='hidden', style='color:red;') 
 					div(class='modal-footer')
-						button(class='btn btn-primary', type='submit') sign in
+						button(class='btn btn-primary', type='submit', onclick='loginClicked()') sign in
 						button(class='btn btn-default', type='button', data-dismiss='modal',aria-hidden='true') close
 		block content
 		block foot
