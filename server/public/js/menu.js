@@ -1,6 +1,6 @@
 //adds an item
 function addItem(subcat, cat) {
-    var row = $('#' + subcat).find('tbody').find('.hidden');
+	var row = $('#' + subcat).find('tbody').find('.hidden');
 	row.after('<tr>' + row.html() + '</tr>');
 }
 
@@ -15,8 +15,7 @@ function setConfirmModalSubcat(subcat, cat) {
 }
 
 //shows the confirm modal with specified text
-function showConfirmModal(text)
-{
+function showConfirmModal(text) {
 	var dialog = $('#confirmModal').find('.confirm-description');
 	dialog.text(text);
 	$('#confirmModal').modal();
@@ -24,10 +23,10 @@ function showConfirmModal(text)
 
 //prepares rename of item
 function setInputModalRenameItem(item, subcat, cat) {
-	if(item === 'undefined'){
+	if (item === 'undefined') {
 		showInputModal('rename item', 'name', true);
 	}
-	else{
+	else {
 		showInputModal('rename item', item, false);
 	}
 }
@@ -39,35 +38,34 @@ function setInputModalRenameSubcat(subcat, cat) {
 
 //prepares setting item price
 function setInputModalPriceItem(price, item, subcat, cat) {
-	if(price === 'undefined'){
+	if (price === 'undefined') {
 		showInputModal('set price', 'price', true);
 	}
-	else{
+	else {
 		showInputModal('set price', price, false);
 	}
 }
 
 //prepares setting item description
 function setInputModalDescriptionItem(description, item, subcat, cat) {
-	if(description === 'undefined'){
+	if (description === 'undefined') {
 		showInputModal('set description', 'description', true);
 	}
-	else{
+	else {
 		showInputModal('set description', description, false);
 	}
 }
 
 //shows the input modal with specified title and either placeholder or text
-function showInputModal(title, text, useAsPlaceholder)
-{
+function showInputModal(title, text, useAsPlaceholder) {
 	var textbox = $('#inputModal').find('#textField');
-	if(useAsPlaceholder){
+	if (useAsPlaceholder) {
 		textbox.val('');
 		textbox.attr('placeholder', text);
 	}
 	else
 		textbox.val(text);
-		
+
 	var header = $('#inputModal').find('#inputModalLabel');
 	header.text(title);
 	$('#inputModal').modal();
