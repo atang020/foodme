@@ -380,7 +380,7 @@ public class TabletContentProvider extends ContentProvider {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// Log version upgrade
-			Log.w(DBOpenHelper.class.getName(), "Upgrading from bersion " + 
+			Log.w(DBOpenHelper.class.getName(), "Upgrading from version " + 
 					oldVersion + " to " + newVersion + 
 					", which will destroy all old data");
 			

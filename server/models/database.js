@@ -16,13 +16,15 @@ var getConnection = function (callback) {
 };
 
 var query = function (sql, data, callback) {
+	var dataGiven = arguments.length !== 2;
+
 	getConnection(function (err, connection) {
 		if (err) {
 			callback(err);
 			return;
 		}
 
-		if (arguments.length === 2) {
+		if (!dataGiven) {
 			connection.query(sql, function (err, result) {
 				callback = data;
 				callback(err, result);
