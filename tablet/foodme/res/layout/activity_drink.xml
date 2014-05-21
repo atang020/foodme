@@ -11,16 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="46dp"
-        android:text="@string/drink_activity"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
          this as a sliding drawer on the left side for left-to-right
          languages and on the right side for right-to-left languages.
@@ -36,5 +26,10 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:background="#111"/>
+    
+    <FrameLayout  
+    	android:id="@+id/fragment_container"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent" />
 </android.support.v4.widget.DrawerLayout>
 

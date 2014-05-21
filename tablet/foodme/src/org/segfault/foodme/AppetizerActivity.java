@@ -81,6 +81,10 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
                R.layout.test_layout, subcategoryNames));
        
+       FoodItemFragment firstFragment = new FoodItemFragment();
+       
+       getSupportFragmentManager().beginTransaction()
+       .add(R.id.fragment_container, firstFragment).commit();
 	}
 	
 	

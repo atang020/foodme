@@ -18,5 +18,18 @@
     <string name="dessert_activity">dessert</string>
     <string name="drink_activity">drink</string>
     <string name="entree_activity">entree</string>
-    
+   	<string-array
+        name="test_names">
+        <item>test1</item>
+        <item>test2</item>
+        <item>test3</item>
+        <item>TESTFOUR</item>
+   	</string-array>
+   	
+   	<string-array
+   	    name ="test_fragments">
+   	    <item>fooditem1</item>
+   	    <item>fooditem2</item>
+   	    <item>fooditem3</item>
+   	</string-array>
 </resources>
