@@ -27,8 +27,8 @@ CREATE TABLE `ticket` (
   `ticket_id` INT NOT NULL AUTO_INCREMENT,
   `table_number` INT NOT NULL,
   `ticket_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `checked_out` TINYINT NOT NULL,
-  `call_waiter_status` TINYINT NOT NULL,
+  `checked_out` TINYINT NOT NULL DEFAULT 0,
+  `call_waiter_status` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`ticket_id`))
 ENGINE = InnoDB;
 
@@ -72,9 +72,9 @@ CREATE TABLE `ticket_item` (
   `ticket_item_id` INT NOT NULL,
   `ticket_id` INT NOT NULL,
   `menu_item_id` INT NOT NULL,
-  `quantity` TINYINT NOT NULL,
+  `quantity` TINYINT NOT NULL DEFAULT 1,
   `notes` TEXT NOT NULL,
-  `kitchen_status` TINYINT NOT NULL,
+  `kitchen_status` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`ticket_item_id`),
   FOREIGN KEY (`ticket_id`) REFERENCES `ticket`(`ticket_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
@@ -91,7 +91,7 @@ CREATE TABLE `review` (
   `menu_item_id` INT NOT NULL,
   `reviewer` VARCHAR(45) NULL,
   `rating` TINYINT NOT NULL,
-  `review_text` TEXT NULL,
+  `review_text` TEXT NOT NULL,
   `review_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`review_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
