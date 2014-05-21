@@ -96,3 +96,15 @@ CREATE TABLE `review` (
   PRIMARY KEY (`review_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table structure for table `setting`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `setting` ;
+
+CREATE TABLE `setting` (
+  `key` VARCHAR(45) NOT NULL,
+  `value` VARCHAR(45) NULL,
+  PRIMARY KEY (`review_id`))
+ENGINE = InnoDB;

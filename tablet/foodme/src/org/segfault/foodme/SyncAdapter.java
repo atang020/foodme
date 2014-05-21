@@ -55,9 +55,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	// Delete data currently in menuItems table
 	private void deleteMenuItems(ContentProviderClient contentProviderClient)
 		throws RemoteException {
-		/*// The URI will be recognized by the content provider
+		// The URI will be recognized by the content provider
 		Cursor cursor = contentProviderClient.query (
-			Uri.parse(PREFIX + "/menuItem"), new String[] {menuItem._id}, 
+			// Specify we only want the _id column
+			Uri.parse(PREFIX + "/menuItem"), new String[] {TabletContentProvider.KEY_ID}, 
 			null, null, null);
 		if (cursor.moveToFirst()) {
 			do {
@@ -66,7 +67,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					Uri.parse(PREFIX + "/menuItem/" + menuItemId),
 					null, null);
 			} while (cursor.moveToNext());
-		}*/
+		}
 	}
 	
 	private void insertSubcategories(ContentProviderClient contentProviderClient)
@@ -77,9 +78,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	// Delete data currently in the subcategories table
 	private void deleteSubcategories(ContentProviderClient contentProviderClient)
 		throws RemoteException {
-		/*// The URI will be recognized by the content provider
+		// The URI will be recognized by the content provider
 		Cursor cursor = contentProviderClient.query (
-			Uri.parse(PREFIX + "/subcategory"), new String[] {subcategory._id},
+			// Specify we only want the _id column
+			Uri.parse(PREFIX + "/subcategory"), new String[] {TabletContentProvider.KEY_ID},
 			null, null, null);
 		if (cursor.moveToFirst()) {
 			do {
@@ -88,6 +90,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					Uri.parse(PREFIX + "/subcategory/" + subcategoryId), 
 					null, null);
 			} while (cursor.moveToNext());
-		}*/
+		}
 	}
 }

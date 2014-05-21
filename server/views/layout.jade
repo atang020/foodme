@@ -1,6 +1,10 @@
 doctype html
 html
-	include inc/header
+	head
+		include inc/header
+		link(rel='stylesheet', href='/css/layout.css')
+		block header
+			
 		body(style='padding-top: 70px')
 			
 					
@@ -16,8 +20,6 @@ html
 					.navbar-collapse.collapse
 						ul.nav.navbar-nav
 							li
-								//
-									a(href='/')
 								img#title-image(src='/foodme2.png')
 							- var obj = {'orders':'Orders', 'menu':'Menu', 'statistics':'Statistics' }
 								- if(user)
