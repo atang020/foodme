@@ -70,10 +70,10 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
        // Add 3 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this),true);
-       actionBar.addTab(actionBar.newTab().setText("Entrees").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this),true);
+       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
        
 
@@ -118,19 +118,19 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 			drinkIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(drinkIntent);
 			break;
-		case "Entrees":
+		case "Entree":
 			Intent entreeIntent = new Intent(AppetizerActivity.this,
 					EntreeActivity.class);
 			entreeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(entreeIntent);
 			break;
-		case "Desserts":
+		case "Dessert":
 			Intent dessertIntent = new Intent(AppetizerActivity.this,
 					DessertActivity.class);
 			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
-		case "My Order":
+		case "My Orders":
 		case "Call Waiter":
 			callWaiterPress();
 			break;

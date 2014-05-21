@@ -27,7 +27,7 @@ function verify(menuItem) {
  * @param callback
  */
 exports.getAll = function (callback) {
-	database.query('SELECT * FROM menu_item', null, function (err, rows) {
+	database.query('SELECT * FROM order_item', null, function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;

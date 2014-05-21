@@ -10,13 +10,7 @@ var users = require('./routes/users');
 var orders = require('./routes/orders');
 var menu = require('./routes/menu');
 var statistics = require('./routes/statistics');
-
 var ticketAPI = require('./routes/api/ticketAPI');
-var menuItemAPI = require('./routes/api/menuItemAPI');
-var reviewAPI = require('./routes/api/reviewAPI');
-var subcategoryAPI = require('./routes/api/subcategoryAPI');
-var ticketItemAPI = require('./routes/api/ticketItemAPI');
-var userAPI = require('./routes/api/userAPI');
 
 var app = express();
 
@@ -32,20 +26,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//Website routes
 app.use('/',routes);
 app.use('/users', users);
 app.use('/orders', orders);
 app.use('/menu', menu);
 app.use('/statistics', statistics);
-
-//APIs
 app.use('/api/tickets', ticketAPI);
-app.use('/api/menuitems', menuItemAPI);
-app.use('/api/users', userAPI);
-app.use('/api/reviews', reviewAPI);
-app.use('/api/subcategories', subcategoryAPI);
-app.use('/api/ticketitems', ticketItemAPI);
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

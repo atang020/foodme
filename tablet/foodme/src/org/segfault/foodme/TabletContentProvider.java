@@ -24,12 +24,6 @@ public class TabletContentProvider extends ContentProvider {
 	public static final Uri SETTING_CONTENT_URI = 
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/setting");
 	
-	public static final String DB_NAME = "tabDatabase.db";
-	public static final String DB_MENU_ITEM_TABLE = "menu_item";
-	public static final String DB_SUBCATEGORY_TABLE = "subcategory";
-	public static final String DB_SETTING_TABLE = "setting";
-	public static int DB_VERSION = 1;
-	
 	// constants for menu_item, subcategory, and setting tables
 	public static final String KEY_ID = "_id";
 	public static final String KEY_SUBCATEGORY_ID = "subcategory_id";
@@ -81,7 +75,8 @@ public class TabletContentProvider extends ContentProvider {
 	public boolean onCreate() {
 		// Construct the underlying database.
 		myOpenHelper = new DBOpenHelper(getContext(),
-				DB_NAME, null,DB_VERSION);
+				DBOpenHelper.DB_NAME, null,
+				DBOpenHelper.DB_VERSION);
 		
 		return true;
 	}
@@ -105,31 +100,31 @@ public class TabletContentProvider extends ContentProvider {
 		// Specify the table on which to perform the query.
 		switch (uriMatcher.match(uri)) {
 			case MENU_ITEM:
-				queryBuilder.setTables(DB_MENU_ITEM_TABLE);
+				queryBuilder.setTables(DBOpenHelper.DB_MENU_ITEM_TABLE);
 				break;
 			case MENU_ITEM_ID:
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
-				queryBuilder.setTables(DB_MENU_ITEM_TABLE);
+				queryBuilder.setTables(DBOpenHelper.DB_MENU_ITEM_TABLE);
 				break;
 			case SUBCATEGORY:
-				queryBuilder.setTables(DB_SUBCATEGORY_TABLE);
+				queryBuilder.setTables(DBOpenHelper.DB_SUBCATEGORY_TABLE);
 				break;
 			case SUBCATEGORY_ID:
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
-				queryBuilder.setTables(DB_SUBCATEGORY_TABLE);
+				queryBuilder.setTables(DBOpenHelper.DB_SUBCATEGORY_TABLE);
 				break;
 			case SETTING:
-				queryBuilder.setTables(DB_SETTING_TABLE);
+				queryBuilder.setTables(DBOpenHelper.DB_SETTING_TABLE);
 				break;
 			case SETTING_ID:
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
-				queryBuilder.setTables(DB_SETTING_TABLE);
+				queryBuilder.setTables(DBOpenHelper.DB_SETTING_TABLE);
 				break;
 			default: break;
 		}
@@ -156,7 +151,7 @@ public class TabletContentProvider extends ContentProvider {
 		// Specify the table (and possibly row)on which to perform the deletion.
 		switch (uriMatcher.match(uri)) {
 			case MENU_ITEM:
-				deleteCount = db.delete(DB_MENU_ITEM_TABLE, 
+				deleteCount = db.delete(DBOpenHelper.DB_MENU_ITEM_TABLE, 
 						selection, selectionArgs);
 				break;
 			case MENU_ITEM_ID:
@@ -166,11 +161,11 @@ public class TabletContentProvider extends ContentProvider {
 						+ (!TextUtils.isEmpty(selection) ?
 						" AND (" + selection + ')' : "");
 				
-				deleteCount = db.delete(DB_MENU_ITEM_TABLE, 
+				deleteCount = db.delete(DBOpenHelper.DB_MENU_ITEM_TABLE, 
 						selection, selectionArgs);
 				break;
 			case SUBCATEGORY:
-				deleteCount = db.delete(DB_SUBCATEGORY_TABLE, 
+				deleteCount = db.delete(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
 						selection, selectionArgs);
 				break;
 			case SUBCATEGORY_ID:
@@ -180,11 +175,11 @@ public class TabletContentProvider extends ContentProvider {
 						+ (!TextUtils.isEmpty(selection) ?
 						" AND (" + selection + ')' : "");
 				
-				deleteCount = db.delete(DB_SUBCATEGORY_TABLE, 
+				deleteCount = db.delete(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
 						selection, selectionArgs);
 				break;
 			case SETTING:
-				deleteCount = db.delete(DB_SETTING_TABLE, 
+				deleteCount = db.delete(DBOpenHelper.DB_SETTING_TABLE, 
 						selection, selectionArgs);
 				break;
 			case SETTING_ID:
@@ -194,7 +189,7 @@ public class TabletContentProvider extends ContentProvider {
 						+ (!TextUtils.isEmpty(selection) ?
 						" AND (" + selection + ')' : "");
 				
-				deleteCount = db.delete(DB_SETTING_TABLE, 
+				deleteCount = db.delete(DBOpenHelper.DB_SETTING_TABLE, 
 						selection, selectionArgs);
 				break;
 			default: break;
@@ -217,13 +212,13 @@ public class TabletContentProvider extends ContentProvider {
 		// Insert the values into the table
 		switch (uriMatcher.match(uri)) {
 			case MENU_ITEM:
-				id = db.insert(DB_MENU_ITEM_TABLE, nullColumnHack, values);
+				id = db.insert(DBOpenHelper.DB_MENU_ITEM_TABLE, nullColumnHack, values);
 				break;
 			case SUBCATEGORY:
-				id = db.insert(DB_SUBCATEGORY_TABLE, nullColumnHack, values);
+				id = db.insert(DBOpenHelper.DB_SUBCATEGORY_TABLE, nullColumnHack, values);
 				break;
 			case SETTING:
-				id = db.insert(DB_SETTING_TABLE, nullColumnHack, values);
+				id = db.insert(DBOpenHelper.DB_SETTING_TABLE, nullColumnHack, values);
 				break;
 			default: break;
 		}
@@ -259,7 +254,7 @@ public class TabletContentProvider extends ContentProvider {
 		// Specify the table on which to perform the query.
 		switch (uriMatcher.match(uri)) {
 			case MENU_ITEM:
-				updateCount = db.update(DB_MENU_ITEM_TABLE, 
+				updateCount = db.update(DBOpenHelper.DB_MENU_ITEM_TABLE, 
 						values, selection, selectionArgs);
 				break;
 			case MENU_ITEM_ID:
@@ -269,11 +264,11 @@ public class TabletContentProvider extends ContentProvider {
 						+ (!TextUtils.isEmpty(selection) ?
 						" AND (" + selection + ')' : "");
 				
-				updateCount = db.update(DB_MENU_ITEM_TABLE, 
+				updateCount = db.update(DBOpenHelper.DB_MENU_ITEM_TABLE, 
 						values, selection, selectionArgs);
 				break;
 			case SUBCATEGORY:
-				updateCount = db.update(DB_SUBCATEGORY_TABLE, 
+				updateCount = db.update(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
 						values, selection, selectionArgs);
 				break;
 			case SUBCATEGORY_ID:
@@ -283,11 +278,11 @@ public class TabletContentProvider extends ContentProvider {
 						+ (!TextUtils.isEmpty(selection) ?
 						" AND (" + selection + ')' : "");
 				
-				updateCount = db.update(DB_SUBCATEGORY_TABLE, 
+				updateCount = db.update(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
 						values, selection, selectionArgs);
 				break;
 			case SETTING:
-				updateCount = db.update(DB_SUBCATEGORY_TABLE, 
+				updateCount = db.update(DBOpenHelper.DB_SUBCATEGORY_TABLE, 
 						values, selection, selectionArgs);
 				break;
 			case SETTING_ID:
@@ -297,7 +292,7 @@ public class TabletContentProvider extends ContentProvider {
 						+ (!TextUtils.isEmpty(selection) ?
 						" AND (" + selection + ')' : "");
 				
-				updateCount = db.update(DB_SETTING_TABLE, 
+				updateCount = db.update(DBOpenHelper.DB_SETTING_TABLE, 
 						values, selection, selectionArgs);
 				break;
 			default: break;
@@ -331,7 +326,14 @@ public class TabletContentProvider extends ContentProvider {
 	}
 	
 	// Deals with creating and opening the database
-	private static class DBOpenHelper extends SQLiteOpenHelper {		
+	private static class DBOpenHelper extends SQLiteOpenHelper {
+
+		
+		public static final String DB_NAME = "tabDatabase.db";
+		public static final String DB_MENU_ITEM_TABLE = "menu_item";
+		public static final String DB_SUBCATEGORY_TABLE = "subcategory";
+		public static final String DB_SETTING_TABLE = "setting";
+		public static final int DB_VERSION = 1;
 		
 		// SQL Statement to create new menu_item table.
 		private static final String MENU_ITEM_CREATE = 

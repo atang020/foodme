@@ -3,8 +3,6 @@ package org.segfault.foodme;
 
 
 
-import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
@@ -22,7 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class DessertActivity extends FragmentActivity implements ActionBar.TabListener, onFoodItemSelectedListener{
+public class DessertActivity extends FragmentActivity implements ActionBar.TabListener{
 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
@@ -70,10 +68,10 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
        // Add 3 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("Entrees").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),true);
-       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this),true);
+       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
        
 
@@ -119,19 +117,19 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 			drinkIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(drinkIntent);
 			break;
-		case "Appetizers":	
+		case "Appetizer":	
 			Intent appetizerIntent = new Intent(DessertActivity.this,
 					AppetizerActivity.class);
 			appetizerIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(appetizerIntent);
 			break;
-		case "Entrees":
+		case "Entree":
 			Intent entreeIntent = new Intent(DessertActivity.this,
 					EntreeActivity.class);
 			entreeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(entreeIntent);
 			break;
-		case "My Order":
+		case "My Orders":
 		case "Call Waiter":callWaiterPress();
 							break;
 		}
@@ -170,13 +168,6 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 		});
 		AlertDialog dialogPizzaName = dialogBuilder.create();
 		dialogPizzaName.show();
-	}
-
-
-	@Override
-	public void onFoodItemSelected(int position) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

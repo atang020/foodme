@@ -66,10 +66,10 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
        // Add 3 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Entrees").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
        
 
@@ -109,28 +109,28 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 			startActivity(drinkIntent);
 			break;
 			
-		case "Appetizers":	
+		case "Appetizer":	
 			Intent appetizerIntent = new Intent(MainMenuActivity.this,
 					AppetizerActivity.class);
 			appetizerIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(appetizerIntent);
 			break;
 			
-		case "Entrees":	
+		case "Entree":	
 			Intent entreeIntent = new Intent(MainMenuActivity.this,
 					EntreeActivity.class);
 			entreeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(entreeIntent);
 			break;
 			
-		case "Desserts":	
+		case "Dessert":	
 			Intent dessertIntent = new Intent(MainMenuActivity.this,
 					DessertActivity.class);
 			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
 			
-		case "My Order":
+		case "My Orders":
 			break;
 			
 		case "Call Waiter":	
