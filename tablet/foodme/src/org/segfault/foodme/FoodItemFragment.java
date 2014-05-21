@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class FoodItemFragment extends ListFragment{
 	
@@ -19,5 +20,15 @@ public class FoodItemFragment extends ListFragment{
         setListAdapter(new ArrayAdapter<String>(getActivity(), layout, getResources().getStringArray(R.array.test_fragments)));
         
     }
+    
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        // When in two-pane layout, set the listview to highlight the selected list item
+        // (We do this during onStart because at the point the listview is available.)
+        if (getFragmentManager().findFragmentById(R.id.fooddetails_fragment) != null) {
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        }
+    }
 }
