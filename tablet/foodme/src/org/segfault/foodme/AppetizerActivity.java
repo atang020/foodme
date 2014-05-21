@@ -5,23 +5,22 @@ package org.segfault.foodme;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class AppetizerActivity extends Activity implements ActionBar.TabListener{
+public class AppetizerActivity extends FragmentActivity implements ActionBar.TabListener{
 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
