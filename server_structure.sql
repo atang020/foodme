@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `ticket` ;
 CREATE TABLE `ticket` (
   `ticket_id` INT NOT NULL AUTO_INCREMENT,
   `table_number` INT NOT NULL,
-  `ticket_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `ticket_date` DATETIME,
   `checked_out` TINYINT NOT NULL,
   `call_waiter_status` TINYINT NOT NULL,
   PRIMARY KEY (`ticket_id`))
@@ -92,7 +92,7 @@ CREATE TABLE `review` (
   `reviewer` VARCHAR(45) NULL,
   `rating` TINYINT NOT NULL,
   `review_text` TEXT NULL,
-  `review_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `review_date` DATETIME,
   PRIMARY KEY (`review_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
 ENGINE = InnoDB;
