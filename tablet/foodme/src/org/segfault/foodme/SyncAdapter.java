@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
@@ -58,6 +59,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 		}
 	}
 	
+	// Insert data into menuItems table
 	private void insertMenuItems(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
 		
@@ -101,6 +103,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				reader.endObject();
 				
 				ContentValues contentValues = new ContentValues();
+				contentValues.put(TabletContentProvider.KEY_ID, menuItemId);
 				contentValues.put(TabletContentProvider.KEY_SUBCATEGORY_ID, subcategoryId);
 				contentValues.put(TabletContentProvider.KEY_NAME, itemName);
 				contentValues.put(TabletContentProvider.KEY_DESCRIPTION, description);
@@ -132,9 +135,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 		}
 	}
 	
+	// Insert data into subcategory table
 	private void insertSubcategories(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
-		URL url = new URL("http", "jdelaney.org", 8080,"/api/menuItems");
+		URL url = new URL("http", "jdelaney.org", 8080,"/api/subcategories");
 		URLConnection conn = url.openConnection();
 		
 		try (
@@ -165,6 +169,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				reader.endObject();
 				
 				ContentValues contentValues = new ContentValues();
+				contentValues.put(TabletContentProvider.KEY_ID, subcategoryId);
 				contentValues.put(TabletContentProvider.KEY_NAME, subcategoryName);
 				contentValues.put(TabletContentProvider.KEY_CATEGORY, category);
 				contentProviderClient.insert(
@@ -175,7 +180,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 		}
 	}
 	
-	// Delete data currently in the subcategories table
+	// Delete data currently in the subcategory table
 	private void deleteSubcategories(ContentProviderClient contentProviderClient)
 		throws RemoteException {
 		// The URI will be recognized by the content provider
@@ -193,9 +198,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 		}
 	}
 	
+	// Insert data into setting table
 	private void insertSettings(ContentProviderClient contentProviderClient)
 			throws RemoteException, IOException {
-			URL url = new URL("http", "jdelaney.org", 8080,"/api/menuItems");
+			URL url = new URL("http", "jdelaney.org", 8080,"/api/settings");
 			URLConnection conn = url.openConnection();
 			
 			try (
@@ -223,6 +229,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					reader.endObject();
 					
 					ContentValues contentValues = new ContentValues();
+					contentValues.put(TabletContentProvider.KEY_ID, settingId);
 					contentValues.put(TabletContentProvider.KEY_VALUE, value);
 					contentProviderClient.insert(
 						Uri.parse(PREFIX + "/setting/" + settingId), contentValues);
@@ -250,6 +257,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			}
 		}
 		
+		// Insert data into review table
 		private void insertReviews(ContentProviderClient contentProviderClient)
 				throws RemoteException, IOException {
 				
@@ -268,8 +276,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					String reviewer = null;
 					short rating = -1;
 					String reviewText = null;
-					Date reviewDate = null;
-					
+					String reviewDate = null;
 					
 					while (reader.hasNext()) {
 						reader.beginObject();
@@ -284,44 +291,46 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 								reviewer = reader.nextString();
 							} else if (name.equals("rating")) {
 								// TODO: Figure out how to grab short type with JsonReader
-								rating = reader.nextInt();
+								rating = (short)reader.nextInt();
 							} else if (name.equals("review_text")) {
 								reviewText = reader.nextString();
 							} else if (name.equals("review_date")) {
 								// TODO: Figure out how to grab Date type with JsonReader
-								reviewDate = reader.nextString().toDate();
+								// THIS WILL NOT WORK!! (I think...)
+								reviewDate = reader.nextString();
 							}
 						}
 						
 						reader.endObject();
 						
 						ContentValues contentValues = new ContentValues();
-						contentValues.put(TabletContentProvider.KEY_SUBCATEGORY_ID, subcategoryId);
-						contentValues.put(TabletContentProvider.KEY_NAME, itemName);
-						contentValues.put(TabletContentProvider.KEY_DESCRIPTION, description);
-						contentValues.put(TabletContentProvider.KEY_PICTURE_PATH, picturePath);
-						contentValues.put(TabletContentProvider.KEY_PRICE, price);
+						contentValues.put(TabletContentProvider.KEY_ID, reviewId);
+						contentValues.put(TabletContentProvider.KEY_MENU_ITEM_ID, menuItemId);
+						contentValues.put(TabletContentProvider.KEY_REVIEWER, reviewer);
+						contentValues.put(TabletContentProvider.KEY_RATING, rating);
+						contentValues.put(TabletContentProvider.KEY_REVIEW_TEXT, reviewText);
+						contentValues.put(TabletContentProvider.KEY_REVIEW_DATE, reviewDate);
 						contentProviderClient.insert(
-							Uri.parse(PREFIX + "/menuItem/" + menuItemId), contentValues);
+							Uri.parse(PREFIX + "/review/" + reviewId), contentValues);
 					}
 					
 					reader.endArray();
 				}
 			}
 			
-			// Delete data currently in menuItems table
-			private void deleteMenuItems(ContentProviderClient contentProviderClient)
+			// Delete data currently in review table
+			private void deleteReviews(ContentProviderClient contentProviderClient)
 				throws RemoteException {
 				// The URI will be recognized by the content provider
 				Cursor cursor = contentProviderClient.query (
 					// Specify we only want the _id column
-					Uri.parse(PREFIX + "/menuItem"), new String[] {TabletContentProvider.KEY_ID}, 
+					Uri.parse(PREFIX + "/review"), new String[] {TabletContentProvider.KEY_ID}, 
 					null, null, null);
 				if (cursor.moveToFirst()) {
 					do {
-						long menuItemId = cursor.getLong(0);
+						long reviewId = cursor.getLong(0);
 						contentProviderClient.delete(
-							Uri.parse(PREFIX + "/menuItem/" + menuItemId),
+							Uri.parse(PREFIX + "/review/" + reviewId),
 							null, null);
 					} while (cursor.moveToNext());
 				}
