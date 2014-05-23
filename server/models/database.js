@@ -42,7 +42,7 @@ var query = function (sql, data, callback) {
 
 var truncate = function (password, callback) {
 	if (password === 'do not use in production') {
-		query('SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `menu_item`;TRUNCATE `order`;TRUNCATE `order_item`;TRUNCATE `review`;TRUNCATE `subcategory`;TRUNCATE `user`;SET FOREIGN_KEY_CHECKS = 1;', null, function (err) {
+		query('SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `menu_item`;TRUNCATE `ticket`;TRUNCATE `ticket_item`;TRUNCATE `review`;TRUNCATE `subcategory`;TRUNCATE `user`;SET FOREIGN_KEY_CHECKS = 1;', null, function (err) {
 			callback(err);
 		});
 	} else {
