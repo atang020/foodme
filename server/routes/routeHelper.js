@@ -1,15 +1,17 @@
 var userModel = require('../models/userModel');
 
-exports.isValidUser = function (req) {
+exports.isValidUser = function (req, callback) {
 	if (req.cookies.id && req.cookies.password) {
 		userModel.get(req.cookies.id, function (err, user) {
 			if (err) {
-				return false;
+				callback(err);
+				return;
 			}
 
-			return user.password === req.cookies.password;
+			if(user.password === req.cookies.password) {
+				callback(null, true, user);
+			}
 		});
-	} else {
-		return false;
 	}
+	callback(null, false, null);
 };
