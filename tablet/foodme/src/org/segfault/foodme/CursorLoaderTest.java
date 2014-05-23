@@ -3,18 +3,18 @@ package org.segfault.foodme;
 import java.io.File;
 import java.util.ArrayList;
 
-import android.R.string;
+
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-public class CursorLoaderTest extends FragmentActivity implements
+public class CursorLoaderTest extends Fragment implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
 	ArrayList<menuItem> menuItems = new ArrayList<menuItem>();
@@ -39,7 +39,7 @@ public class CursorLoaderTest extends FragmentActivity implements
     {
 		// Grab URI corresponding with menuItem table
 		Uri CONTENT_URI = TabletContentProvider.MENU_ITEM_CONTENT_URI;
-		return new CursorLoader(this, CONTENT_URI, null, null, null, null);
+		return new CursorLoader(getActivity(), CONTENT_URI, null, null, null, null);
 	}
 
 	@Override
