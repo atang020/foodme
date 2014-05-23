@@ -119,4 +119,58 @@ describe('Ticket model', function () {
 			});
 		});
 	});
+
+	it('add() and then update() a ticket', function (done) {
+		//Adding multiple tickets to ensure no side-effects
+		async.waterfall([
+			function (callback) {
+				//Add ticketB, pass along B's id
+				ticketModel.add(ticketB, callback);
+			},
+			function (bId, callback) {
+				ticketB.ticket_id = bId;
+
+				//Add ticketC, pass along C's id
+				ticketModel.add(ticketC, callback);
+			},
+			//Both tickets are in the database, update the table_number for B
+			function (cId, callback) {
+				ticketC.ticket_id = cId;
+				ticketB.table_number += 100;
+
+				//Update, pass along nothing
+				ticketModel.update(ticketB, callback);
+			},
+			//Ensure the update worked
+			function (callback) {
+				ticketModel.get(ticketB.ticket_id, function (err, result) {
+					assert.ifError(err);
+					checkEqual(ticketB, result);
+					callback(null); //Pass along nothing
+				});
+			},
+			//Update C
+			function (callback) {
+				ticketC.table_number += 100;
+				ticketC.checked_out = 1;
+				ticketC.call_waiter_status = 1;
+				ticketC.ticket_date = new Date('2014-05-23 17:31:10');
+
+				//Update, pass along nothing
+				ticketModel.update(ticketC, callback);
+			},
+			//Ensure that the update worked
+			function (callback) {
+				ticketModel.get(ticketC.ticket_id, function (err, result) {
+					assert.ifError(err);
+
+					checkEqual(result, ticketC);
+					callback(null);
+				});
+			}
+		], function (err, result) {
+			assert.ifError(err);
+			done();
+		});
+	});
 });
