@@ -22,6 +22,8 @@ router.get('/:menuItemId', function (req, res) {
 });
 
 router.post('/', function (req, res) {
+	//req.body.picture_path = req.files.picture.path;
+	req.body.picture_path = 'sample.jpg';
 	menuItemModel.add(req.body, function (err, id) {
 		if (err) {
 			res.send(500);
