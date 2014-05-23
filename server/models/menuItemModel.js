@@ -131,12 +131,20 @@ exports.update = function (menuItem, callback) {
  * @param callback
  */
 exports.remove = function (menuItem, callback) {
-	if (menuItem.menu_item_id === null) {
+	var id = null;
+
+	if (typeof menuItem === 'object') {
+		id = menuItem.menu_item_id;
+	} else {
+		id = menuItem;
+	}
+
+	if (id === null) {
 		callback(new Error('Invalid menu item: no id present'));
 		return;
 	}
 
-	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', menuItem.menu_item_id, function (err) {
+	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', id, function (err) {
 		if (err) {
 			callback(err);
 			return;

@@ -126,16 +126,24 @@ exports.update = function (ticketItem, callback) {
  * @param callback
  */
 exports.remove = function (ticketItem, callback) {
-    if (ticketItem.ticket_item_id === null) {
-        callback(new Error('Invalid ticket item: no id present'));
-        return;
-    }
+	var id = null;
 
-    database.query('DELETE FROM ticket_item WHERE ticket_item_id = ?', ticketItem.ticket_item_id, function (err) {
-        if (err) {
-            callback(err);
-            return;
-        }
-        callback(null);
-    });
+	if (typeof ticketItem === 'object') {
+		id = ticketItem.ticket_item_id;
+	} else {
+		id = ticketItem;
+	}
+
+	if (id === null) {
+		callback(new Error('Invalid ticket item: no id present'));
+		return;
+	}
+
+	database.query('DELETE FROM ticket_item WHERE ticket_item_id = ?', id, function (err) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
 };

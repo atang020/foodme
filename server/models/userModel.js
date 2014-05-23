@@ -125,16 +125,24 @@ exports.update = function (user, callback) {
  * @param callback
  */
 exports.remove = function (user, callback) {
-    if (user.user_id === null) {
-        callback(new Error('Invalid user: no id present'));
-        return;
-    }
+	var id = null;
 
-    database.query('DELETE FROM user WHERE user_id = ?', user.user_id, function (err) {
-        if (err) {
-            callback(err);
-            return;
-        }
-        callback(null);
-    });
+	if (typeof user === 'object') {
+		id = user.user_id;
+	} else {
+		id = user;
+	}
+
+	if (id === null) {
+		callback(new Error('Invalid user: no id present'));
+		return;
+	}
+
+	database.query('DELETE FROM user WHERE user_id = ?', id, function (err) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
 };

@@ -68,12 +68,12 @@ exports.update = function (setting, callback) {
 	}
 
 	database.query('UPDATE setting SET value = ? WHERE key = ?', [setting.value, setting.key], function (err) {
-			if (err) {
-				callback(err);
-				return;
-			}
-			callback(null);
-		});
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
 };
 
 exports.remove = function (key, callback) {
