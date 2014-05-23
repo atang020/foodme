@@ -121,16 +121,16 @@ exports.update = function (ticket, callback) {
  * @param callback
  */
 exports.remove = function (ticket, callback) {
-    if (ticket.ticket_id === null) {
-        callback(new Error('Invalid ticket: no id present'));
-        return;
-    }
+	if (ticket.ticket_id === null) {
+		callback(new Error('Invalid ticket: no id present'));
+		return;
+	}
 
-    database.query('DELETE FROM ticket WHERE ticket_id = ?', ticket.ticket_id, function (err) {
-        if (err) {
-            callback(err);
-            return;
-        }
-        callback(null);
-    });
+	database.query('DELETE FROM ticket WHERE ticket_id = ?', ticket.ticket_id, function (err) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
 };
