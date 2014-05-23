@@ -56,7 +56,7 @@ CREATE TABLE `menu_item` (
   `subcategory_id` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `description` TEXT NOT NULL,
-  `picture_path` VARCHAR(256) NULL DEFAULT '',
+  `picture_path` VARCHAR(512) NULL DEFAULT '',
   `price` DECIMAL(6,2) NOT NULL,
   PRIMARY KEY (`menu_item_id`),
   FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory`(`subcategory_id`))
