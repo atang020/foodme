@@ -14,4 +14,8 @@ public class FoodDetailsFragment extends Fragment{
 
         return inflater.inflate(R.layout.test_layout, container, false);
     }
+    
+    public void updateFoodDetails(int position)
+    {
+    }
 }
