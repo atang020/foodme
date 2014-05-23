@@ -39,7 +39,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `subcategory` ;
 
 CREATE TABLE `subcategory` (
-  `subcategory_id` INT NOT NULL,
+  `subcategory_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(32) NOT NULL,
   `category` INT NOT NULL,
   PRIMARY KEY (`subcategory_id`))
@@ -52,7 +52,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `menu_item` ;
 
 CREATE TABLE `menu_item` (
-  `menu_item_id` INT NOT NULL,
+  `menu_item_id` INT NOT NULL AUTO_INCREMENT,
   `subcategory_id` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `description` TEXT NOT NULL,
@@ -69,7 +69,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ticket_item` ;
 
 CREATE TABLE `ticket_item` (
-  `ticket_item_id` INT NOT NULL,
+  `ticket_item_id` INT NOT NULL AUTO_INCREMENT,
   `ticket_id` INT NOT NULL,
   `menu_item_id` INT NOT NULL,
   `quantity` TINYINT NOT NULL DEFAULT 1,
@@ -87,7 +87,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `review` ;
 
 CREATE TABLE `review` (
-  `review_id` INT NOT NULL,
+  `review_id` INT NOT NULL AUTO_INCREMENT,
   `menu_item_id` INT NOT NULL,
   `reviewer` VARCHAR(45) NULL,
   `rating` TINYINT NOT NULL,
