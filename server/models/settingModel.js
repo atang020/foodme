@@ -11,6 +11,7 @@ function verify(setting) {
 	return null;
 }
 
+//Comment to fix a git thing
 exports.getAll = function (callback) {
 	database.query('SELECT * FROM setting', function (err, rows) {
 		if (err) {
