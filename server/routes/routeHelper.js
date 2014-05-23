@@ -10,6 +10,7 @@ exports.isValidUser = function (req, callback) {
 
 			if(user.password === req.cookies.password) {
 				callback(null, true, user);
+				return;
 			}
 		});
 	}
