@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `ticket` ;
 CREATE TABLE `ticket` (
   `ticket_id` INT NOT NULL AUTO_INCREMENT,
   `table_number` INT NOT NULL,
-  `ticket_date` DATETIME NOT NULL,
+  `ticket_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_out` TINYINT NOT NULL DEFAULT 0,
   `call_waiter_status` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`ticket_id`))
