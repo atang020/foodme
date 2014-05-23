@@ -82,9 +82,10 @@ exports.add = function (ticket, callback) {
 	// if checked_out or call_waiter_status are undefined, set to 0
 	ticket.checked_out = ticket.checked_out === undefined ? 0 : ticket.checked_out;
 	ticket.call_waiter_status = ticket.call_waiter_status === undefined ? 0 : ticket.call_waiter_status;
+	ticket.ticket_date = ticket.ticket_date === undefined ? null : ticket.ticket_date;
 
-	database.query('INSERT INTO ticket (table_number, checked_out, call_waiter_status)' +
-			'VALUES (?, ?, ?)', [ticket.table_number, ticket.checked_out, ticket.call_waiter_status],
+	database.query('INSERT INTO ticket (table_number, ticket_date, checked_out, call_waiter_status)' +
+			'VALUES (?, ?, ?, ?)', [ticket.table_number, ticket.ticket_date, ticket.checked_out, ticket.call_waiter_status],
 		function (err, result) {
 			if (err) {
 				callback(err);
