@@ -1,0 +1,71 @@
+ <TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/food_details"
+	android:layout_width="fill_parent"
+ 	android:layout_height="fill_parent">
+ 	<TableRow
+	android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:layout_marginRight="8dp" >
+	<ImageView
+	    android:id="@+id/food_image"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:gravity="center_vertical|center_horizontal"/>
+
+	<TextView
+	    android:id="@+id/food_description"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:fadingEdge="horizontal"
+	    android:paddingLeft="@dimen/abc_search_view_text_min_width" />
+
+	</TableRow>
+	<TableRow
+	    android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:layout_marginRight="8dp" >
+	    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"/>
+	    
+	    <EditText
+	        android:id="@+id/edit_review"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:paddingLeft="@dimen/abc_action_bar_stacked_max_height" >
+
+	    <requestFocus />
+		</EditText>
+	    
+	</TableRow>
+
+	
+	
+	<TableRow
+	    android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp" >
+
+	    <TextView
+	        android:id="@+id/text_review"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="@dimen/abc_action_bar_default_height"
+	        android:text=""
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	</TableRow>
+	
+	 
+</TableLayout> 

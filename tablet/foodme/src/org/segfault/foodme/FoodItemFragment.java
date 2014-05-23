@@ -1,5 +1,6 @@
 package org.segfault.foodme;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -38,9 +39,17 @@ public class FoodItemFragment extends ListFragment{
         }
     }
     
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception.
+            callback = (onFoodItemSelectedListener) activity;
+    }
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Notify the parent activity of selected item
+    	//System.out.println(position);
         callback.onFoodItemSelected(position);
         
         // Set the item as checked to be highlighted when in two-pane layout

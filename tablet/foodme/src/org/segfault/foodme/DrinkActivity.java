@@ -84,14 +84,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
                R.layout.test_layout, subcategoryNames));
 	}
 	
-	
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_action_bar, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}*/
 
 
 	@Override
@@ -176,12 +168,12 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	@Override
 	public void onFoodItemSelected(int position) {
 		//         ArticleFragment articleFrag = (ArticleFragment)
-    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
-    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
-    // If article frag is available, we're in two-pane layout...
-
-    // Call a method in the ArticleFragment to update its content
-    foodDetails.updateFoodDetails(position);
+	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
+	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
+	    // If article frag is available, we're in two-pane layout...
+	
+	    // Call a method in the ArticleFragment to update its content
+	    foodDetails.updateFoodDetails(position);
 		
 	}
 	
