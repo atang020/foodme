@@ -180,10 +180,15 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 		dialogPizzaName.show();
 	}
 
-
 	@Override
 	public void onFoodItemSelected(int position) {
-		// TODO Auto-generated method stub
+		//         ArticleFragment articleFrag = (ArticleFragment)
+	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
+	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
+	    // If article frag is available, we're in two-pane layout...
+	
+	    // Call a method in the ArticleFragment to update its content
+	    foodDetails.updateFoodDetails(position);
 		
 	}
 	
