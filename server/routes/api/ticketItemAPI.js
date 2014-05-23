@@ -18,7 +18,7 @@ router.get('/:ticketItemId', function (req, res) {
 			res.send(500);
 		}
 		res.json(ticket);
-	})
+	});
 });
 
 router.post('/', function (req, res) {
@@ -38,7 +38,17 @@ router.put('/', function (req, res) {
 		} else {
 			res.send(200);
 		}
-	})
+	});
+});
+
+router.delete('/:id', function (req, res) {
+	ticketItemModel.remove(id, function (err) {
+		if (err) {
+			res.send(500);
+		} else {
+			res.send(200);
+		}
+	});
 });
 
 module.exports = router;
