@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -28,6 +29,7 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(multer({dest: './uploads/'}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -65,7 +67,7 @@ if (app.get('env') === 'development') {
 			message: err.message,
 			error: err
 		});
-		next();
+		//next();
 	});
 }
 
@@ -77,7 +79,7 @@ app.use(function (err, req, res, next) {
 		message: err.message,
 		error: {}
 	});
-	next();
+	//next();
 });
 
 
