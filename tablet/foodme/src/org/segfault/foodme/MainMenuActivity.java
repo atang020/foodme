@@ -32,7 +32,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 		super.onCreate(savedInstanceState);
 	
 		// Get the view from activity_main.xml
-		setContentView(R.layout.activity_fullscreen);
+		setContentView(R.layout.activity_main);
 		
 		View decorView = getWindow().getDecorView();
 		
