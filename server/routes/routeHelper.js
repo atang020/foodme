@@ -13,6 +13,7 @@ exports.isValidUser = function (req, callback) {
 				return;
 			}
 		});
+	} else {
+		callback(null, false, null);
 	}
-	callback(null, false, null);
 };
