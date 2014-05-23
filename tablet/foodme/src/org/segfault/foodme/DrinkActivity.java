@@ -84,14 +84,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
                R.layout.test_layout, subcategoryNames));
 	}
 	
-	
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_action_bar, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}*/
 
 
 	@Override

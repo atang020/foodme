@@ -22,9 +22,6 @@ import android.widget.Toast;
 
 public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
-	private String[] subcategoryNames;
-	private DrawerLayout subcategoryLayout;
-	private ListView subcategoryList;
 	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
 	private String strName;
@@ -46,11 +43,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
 	   decorView.setSystemUiVisibility(mUIFlag);
 	   
-       subcategoryNames = getResources().getStringArray(R.array.test_names);
-       subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-       subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
-      // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
        // Set up the action bar.
        final ActionBar actionBar = getActionBar();
@@ -71,24 +64,9 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
-       
-
-       mViewPager = (ViewPager) findViewById(R.id.pager);
-
-       // Set the adapter for the list view
-       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
-               R.layout.test_layout, subcategoryNames));
-       
+              
 	}
 	
-	
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_action_bar, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}*/
 
 
 	@Override

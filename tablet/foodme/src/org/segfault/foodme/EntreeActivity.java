@@ -92,15 +92,6 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 	}
 
 	
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_action_bar, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}*/
-
-
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
