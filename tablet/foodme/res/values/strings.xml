@@ -21,6 +21,10 @@
     <string name="dummy1">dummy1</string>
    	<string name="dummy2">dummy2</string>
  	<string name="dummy3">dummy3</string>
+ 	<string name="some_description">adasdjasdj;adjl;jasd;ja;sd;ka`snd;kasdjkajdlj`jsknksdaufhowe`nflkcnlvwweofqweflskndvlsndfs
+ 	    `fnsdf
+ 	    sodjflsadjfasdfasdfj
+ 	    wpfp</string>
    	<string-array
         name="test_names">
         <item>test1</item>
