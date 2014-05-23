@@ -92,7 +92,7 @@ CREATE TABLE `review` (
   `reviewer` VARCHAR(45) NULL,
   `rating` TINYINT NOT NULL,
   `review_text` TEXT NULL,
-  `review_date` DATETIME,
+  `review_date` DATE DEFAULT GETDATE(),
   PRIMARY KEY (`review_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
 ENGINE = InnoDB;
