@@ -21,6 +21,7 @@
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
+INSERT INTO `menu_item` VALUES (1,1,'Curly Fries','Delicious curly fries that will make your mouth water.','sample.jpg',3.00),(2,1,'Seasoned Fries','They taste good','sample.jpg',4.00),(3,1,'Bad Fries','Really shitty','sample.jpg',1.25),(4,2,'Fancy Wings','Ping pong','sample.jpg',5.00),(5,2,'Hot Wings','SUPERHOT','sample.jpg',7.00),(6,2,'Great Wings','jkfjkasfdjklksfdk fsdfjnf jdfs jk sdfnfnasf dksf df asd asdf','sample.jpg',2.00);
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,4 +90,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-22 19:37:45
+-- Dump completed on 2014-05-22 20:16:26
