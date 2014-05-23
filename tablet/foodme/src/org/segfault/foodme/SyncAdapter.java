@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
@@ -276,7 +274,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					String reviewer = null;
 					short rating = -1;
 					String reviewText = null;
+					String reviewDateString = null;
 					String reviewDate = null;
+					
 					
 					while (reader.hasNext()) {
 						reader.beginObject();
@@ -290,14 +290,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 							} else if (name.equals("reviewer")) {
 								reviewer = reader.nextString();
 							} else if (name.equals("rating")) {
-								// TODO: Figure out how to grab short type with JsonReader
 								rating = (short)reader.nextInt();
 							} else if (name.equals("review_text")) {
 								reviewText = reader.nextString();
 							} else if (name.equals("review_date")) {
-								// TODO: Figure out how to grab Date type with JsonReader
-								// THIS WILL NOT WORK!! (I think...)
-								reviewDate = reader.nextString();
+								reviewDateString = reader.nextString();
 							}
 						}
 						
