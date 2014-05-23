@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 public class FoodDetailsFragment extends Fragment{
@@ -30,6 +30,8 @@ public class FoodDetailsFragment extends Fragment{
     public void updateFoodDetails(int position)
     {
 		final TextView tab1 = (TextView) getActivity().findViewById(R.id.food_description);
+        final ImageView im1 = (ImageView)getActivity().findViewById(R.id.food_image);
+        im1.setImageResource(R.drawable.dessert);
 		System.out.println(position);
     	switch(position)
     	{
