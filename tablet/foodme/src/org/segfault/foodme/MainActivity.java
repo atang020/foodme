@@ -10,7 +10,7 @@ import android.view.View;
 public class MainActivity extends Activity {
 	public static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	public static final String ACCOUNT_TYPE = "org.segfault.foodme";
-
+	public static final String ACCOUNT = "myaccount";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 	   
 	   // SyncAdapter setup
 	   // Create the account type and default account
-	   Account newAccount = new Account ("myaccount", ACCOUNT_TYPE);
+	   Account newAccount = new Account (ACCOUNT, ACCOUNT_TYPE);
 	   AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
 	   // If the account already exists, a warning will be logged
 	   accountManager.addAccountExplicitly (newAccount, null, null);
