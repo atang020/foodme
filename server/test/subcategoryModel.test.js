@@ -117,49 +117,4 @@ describe('Subcategory model', function () {
 			});
 		});
 	});
-
-	it('add() and then update() a subcategory', function (done) {
-		//Adding multiple subcategories to ensure no side-effects
-		async.waterfall([
-			function (callback) {
-				//Add subcategoryB, pass along B's id
-				subcategoryModel.add(subcategoryB, callback);
-			},
-			function (bId, callback) {
-				subcategoryB.subcategory_id = bId;
-
-				//Add subcategoryC, pass along C's id
-				subcategoryModel.add(subcategoryC, callback);
-			},
-			//Ensure the update worked
-			function (callback) {
-				subcategoryModel.get(subcategoryB.subcategory_id, function (err, result) {
-					assert.ifError(err);
-
-					checkEqual(subcategoryB, result);
-					callback(null); //Pass along nothing
-				});
-			},
-			//Update C
-			function (callback) {
-                subcategoryC.name = 'ensaladas';
-				subcategoryC.category = 30;
-
-				//Update, pass along nothing
-				subcategoryModel.update(subcategoryC, callback);
-			},
-			//Ensure that the update worked
-			function (callback) {
-				subcategoryModel.get(subcategoryC.subcategory_id, function (err, result) {
-					assert.ifError(err);
-
-					checkEqual(result, subcategoryC);
-					callback(null);
-				});
-			}
-		], function (err, result) {
-			assert.ifError(err);
-			done();
-		});
-	});
 });
