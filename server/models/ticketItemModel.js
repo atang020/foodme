@@ -13,7 +13,6 @@ function verify(ticketItem) {
 	if (ticketItem.menu_item_id === undefined || ticketItem.menu_item_id === null) {
 		return new Error('Menu Item ID not specified.');
 	}
-
 	return null;
 }
 
@@ -108,7 +107,7 @@ exports.update = function (ticketItem, callback) {
 		return;
 	}
 
-	database.query('UPDATE ticket_item ticket_id = ?, menu_item_id = ?, quantity = ?, notes = ?, kitchen_status = ? WHERE ticket_item_id = ?',
+	database.query('UPDATE ticket_item SET ticket_id = ?, menu_item_id = ?, quantity = ?, notes = ?, kitchen_status = ? WHERE ticket_item_id = ?',
 		[ticketItem.ticket_id, ticketItem.menu_item_id, ticketItem.quantity, ticketItem.notes, ticketItem.kitchen_status, ticketItem.ticket_item_id], function (err) {
 
 			if (err) {

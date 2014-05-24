@@ -2,6 +2,14 @@
 function addItem(subcat, cat) {
 	var row = $('#' + subcat).find('tbody').find('.hidden');
 	row.after('<tr>' + row.html() + '</tr>');
+	/*
+	$.get(
+    "/api/subcategories",
+    function(data) {
+       //alert(JSON.stringify(data));
+    }
+	*/
+);
 }
 
 //prepares deletion of item

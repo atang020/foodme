@@ -15,12 +15,12 @@ describe('Ticket item model', function () {
 		
 	var subcategoryA = {"name":"Fries","category":10};
 	
-	var menuItemA = {"subcategory_id":1,"name":"Seasoned Fries","description":"They taste good","picture_path":"sample.jpg","price":4};
-	var menuItemB = {"subcategory_id":1,"name":"Curly Fries","description":"curly","picture_path":"sample.jpg","price":1};
+	var menuItemA = {"subcategory_id":-1,"name":"Seasoned Fries","description":"They taste good","picture_path":"sample.jpg","price":4};
+	var menuItemB = {"subcategory_id":-1,"name":"Curly Fries","description":"curly","picture_path":"sample.jpg","price":1};
 		
-	var ticketItemA = {"ticket_id" : -1, "menu_item_id" : 2, "quantity" : 1, "notes" : "extra tomatoes", "kitchen_status" : 0};
-	var ticketItemB = {"ticket_id" : -1, "menu_item_id" : 2, "quantity" : 2, "notes" : "extra mushrooms", "kitchen_status" : 1};
-	var ticketItemC = {"ticket_id" : -1, "menu_item_id" : 2, "quantity" : 1, "notes" : "", "kitchen_status" : 2};
+	var ticketItemA = {"ticket_id" : -1, "menu_item_id" : -1, "quantity" : 1, "notes" : "extra tomatoes", "kitchen_status" : 0};
+	var ticketItemB = {"ticket_id" : -1, "menu_item_id" : -1, "quantity" : 2, "notes" : "extra mushrooms", "kitchen_status" : 1};
+	var ticketItemC = {"ticket_id" : -1, "menu_item_id" : -1, "quantity" : 1, "notes" : "", "kitchen_status" : 2};
 
 	function checkEqual(a, b) {
 		assert.equal(a.ticket_id, b.ticket_id);
@@ -40,10 +40,15 @@ describe('Ticket item model', function () {
 				ticketItemC.ticket_id = id;
 				subcategoryModel.add(subcategoryA, function (err, id) {
 					assert.ifError(err);
+					menuItemA.subcategory_id = id;
+					menuItemB.subcategory_id = id;
 					menuItemModel.add(menuItemA, function (err, id) {
 						assert.ifError(err);
+						ticketItemA.menu_item_id = id;
+						ticketItemB.menu_item_id = id;
 						menuItemModel.add(menuItemB, function (err, id) {
 							assert.ifError(err);
+							ticketItemC.menu_item_id = id;
 							done();
 						});
 					});
@@ -60,14 +65,14 @@ describe('Ticket item model', function () {
 	});
 
 	it('add() a ticket item and then get it', function (done) {
-		ticketItemModel.add(ticketItemA, function (err, id) {
+		ticketItemModel.add(ticketItemC, function (err, id) {
 			assert.ifError(err);
 
 			ticketItemModel.get(id, function (err, result) {
 				assert.ifError(err);
 
 				assert.equal(result.ticket_item_id, id);
-				checkEqual(result, ticketItemA);
+				checkEqual(result, ticketItemC);
 				done();
 			});
 		});
@@ -90,7 +95,7 @@ describe('Ticket item model', function () {
 	});
 	
 	
-	/*
+	
 	it('add() multiple ticket items and then getAll() to retrieve them', function (done) {
 		async.series([
 			function (callback) {
@@ -123,7 +128,7 @@ describe('Ticket item model', function () {
 			}
 		);
 	});
-	*/
+	
 	
 
 	it('add() and then remove() via id', function (done) {
@@ -141,17 +146,17 @@ describe('Ticket item model', function () {
 			});
 		});
 	});
-	/*
+	
 
 	it('add() and then remove() via object', function (done) {
-		ticketModel.add(ticketA, function (err, id) {
+		ticketItemModel.add(ticketItemA, function (err, id) {
 			assert.ifError(err);
-			ticketA.ticket_id = id;
+			ticketItemA.ticket_item_id = id;
 
-			ticketModel.remove(ticketA, function (err) {
+			ticketItemModel.remove(ticketItemA, function (err) {
 				assert.ifError(err);
 
-				ticketModel.get(id, function (err, result) {
+				ticketItemModel.get(id, function (err, result) {
 					assert.ifError(err);
 					assert.equal(result, null);
 					done();
@@ -160,51 +165,50 @@ describe('Ticket item model', function () {
 		});
 	});
 
-	it('add() and then update() a ticket', function (done) {
-		//Adding multiple tickets to ensure no side-effects
+	it('add() and then update() a ticket item', function (done) {
+		//Adding multiple ticket items to ensure no side-effects
 		async.waterfall([
 			function (callback) {
-				//Add ticketB, pass along B's id
-				ticketModel.add(ticketB, callback);
+				//Add ticketItemB, pass along B's id
+				ticketItemModel.add(ticketItemB, callback);
 			},
 			function (bId, callback) {
-				ticketB.ticket_id = bId;
+				ticketItemB.ticket_item_id = bId;
 
-				//Add ticketC, pass along C's id
-				ticketModel.add(ticketC, callback);
+				//Add ticketItemC, pass along C's id
+				ticketItemModel.add(ticketItemC, callback);
 			},
-			//Both tickets are in the database, update the table_number for B
+			//Both ticket items are in the database, update the quantity for B
 			function (cId, callback) {
-				ticketC.ticket_id = cId;
-				ticketB.table_number += 100;
+				ticketItemC.ticket_item_id = cId;
+				ticketItemB.quantity += 100;
 
 				//Update, pass along nothing
-				ticketModel.update(ticketB, callback);
+				ticketItemModel.update(ticketItemB, callback);
 			},
 			//Ensure the update worked
 			function (callback) {
-				ticketModel.get(ticketB.ticket_id, function (err, result) {
+				ticketItemModel.get(ticketItemB.ticket_item_id, function (err, result) {
 					assert.ifError(err);
-					checkEqual(ticketB, result);
+					checkEqual(ticketItemB, result);
+					
 					callback(null); //Pass along nothing
 				});
 			},
 			//Update C
 			function (callback) {
-				ticketC.table_number += 100;
-				ticketC.checked_out = 1;
-				ticketC.call_waiter_status = 1;
-				ticketC.ticket_date = new Date('2014-05-23 17:31:10');
+				ticketItemC.kitchen_status += 1;
+				ticketItemC.notes = "test";
 
 				//Update, pass along nothing
-				ticketModel.update(ticketC, callback);
+				ticketItemModel.update(ticketItemC, callback);
 			},
 			//Ensure that the update worked
 			function (callback) {
-				ticketModel.get(ticketC.ticket_id, function (err, result) {
+				ticketItemModel.get(ticketItemC.ticket_item_id, function (err, result) {
 					assert.ifError(err);
 
-					checkEqual(result, ticketC);
+					checkEqual(result, ticketItemC);
 					callback(null);
 				});
 			}
@@ -213,5 +217,4 @@ describe('Ticket item model', function () {
 			done();
 		});
 	});
-	*/
 });
