@@ -1,4 +1,6 @@
 var database = require('./database');
+var async = require('async');
+var subcategoryModel = require('./subcategoryModel');
 
 function verify(menuItem) {
 	// name, description, and price must be NOT NULL
@@ -44,7 +46,7 @@ exports.getAll = function (callback) {
  *
  */
 exports.get = function (orderId, callback) {
-	database.query('SELECT * FROM menu_item WHERE order_item_id = ?', [orderId], function (err, rows) {
+	database.query('SELECT * FROM menu_item WHERE menu_item_id = ?', [orderId], function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -56,6 +58,35 @@ exports.get = function (orderId, callback) {
 		}
 
 		callback(null, rows[0]);
+	});
+};
+
+exports.getSorted = function (callback) {
+	var results = {'appetizers': [], 'drinks': [], 'entrees': [], 'desserts': []};
+
+	subcategoryModel.getAll(function (err, subcategories) {
+		if (err) {
+			return callback(err);
+		}
+
+		async.eachLimit(subcategories, 5,
+			function (subcategory, asyncCallback) {
+				exports.search({subcategory_id: subcategory.subcategory_id}, function (err, menuItems) {
+					if (err) {
+						return asyncCallback(err);
+					}
+					subcategory.items = menuItems;
+					results[subcategoryModel.categories[subcategory.category.toString()]].push(subcategory);
+					return asyncCallback(null);
+				});
+			},
+			function (err) {
+				console.log("done");
+				if (err) {
+					return callback(err);
+				}
+				return callback(null, results);
+			});
 	});
 };
 

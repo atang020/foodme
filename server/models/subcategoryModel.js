@@ -14,6 +14,13 @@ function verify(subcategory) {
 	return null;
 }
 
+exports.categories = {
+	'0': 'appetizers',
+	'10': 'drinks',
+	'20': 'entrees',
+	'30': 'desserts'
+};
+
 /**
  * Returns data for all subcategories. The callback gets two arguments (err, data).
  *
