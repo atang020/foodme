@@ -274,7 +274,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					String reviewer = null;
 					short rating = -1;
 					String reviewText = null;
-					String reviewDateString = null;
 					String reviewDate = null;
 					
 					
@@ -294,7 +293,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 							} else if (name.equals("review_text")) {
 								reviewText = reader.nextString();
 							} else if (name.equals("review_date")) {
-								reviewDateString = reader.nextString();
+								reviewDate = reader.nextString();
 							}
 						}
 						
