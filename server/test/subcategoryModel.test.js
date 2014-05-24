@@ -6,9 +6,9 @@ var database = require('../models/database');
 var async = require('async');
 
 describe('Subcategory model', function () {
-	var subcategoryA = {name: meat, category: entrees},
-        subcategoryB = {name: beerCheeseDonuts, category: desserts},
-        subcategoryC = {name: salads, category: appetizers};
+	var subcategoryA = {name: 'meat', category: 30},
+        subcategoryB = {name: 'beerCheeseDonuts', category: 40},
+        subcategoryC = {name: 'salads', category: 20};
 
 	function checkEqual(a, b) {
 		assert.equal(a.name, b.name);
@@ -16,7 +16,7 @@ describe('Subcategory model', function () {
 	}
 
 	beforeEach(function (done) {
-		database.query('SET FOREIGN_KEY_CHECKS = 0;TRUNCATE TABLE subcategory;SET FOREIGN_KEY_CHECKS = 1;', function (err) {
+	    database.query('SET FOREIGN_KEY_CHECKS = 0;TRUNCATE TABLE subcategory;SET FOREIGN_KEY_CHECKS = 1', null, function (err) {
 			assert.ifError(err);
 			done();
 		});
@@ -52,7 +52,7 @@ describe('Subcategory model', function () {
 		});
 	});
 
-	it('add() multiple subcategorys and then getAll() to retrieve them', function (done) {
+	it('add() multiple subcategories and then getAll() to retrieve them', function (done) {
 		async.series([
 			function (callback) {
 				subcategoryModel.add(subcategoryA, callback);
@@ -119,7 +119,7 @@ describe('Subcategory model', function () {
 	});
 
 	it('add() and then update() a subcategory', function (done) {
-		//Adding multiple subcategorys to ensure no side-effects
+		//Adding multiple subcategories to ensure no side-effects
 		async.waterfall([
 			function (callback) {
 				//Add subcategoryB, pass along B's id
@@ -131,28 +131,19 @@ describe('Subcategory model', function () {
 				//Add subcategoryC, pass along C's id
 				subcategoryModel.add(subcategoryC, callback);
 			},
-			//Both subcategorys are in the database, update the table_number for B
-			function (cId, callback) {
-				subcategoryC.subcategory_id = cId;
-				subcategoryB.table_number += 100;
-
-				//Update, pass along nothing
-				subcategoryModel.update(subcategoryB, callback);
-			},
 			//Ensure the update worked
 			function (callback) {
 				subcategoryModel.get(subcategoryB.subcategory_id, function (err, result) {
 					assert.ifError(err);
+
 					checkEqual(subcategoryB, result);
 					callback(null); //Pass along nothing
 				});
 			},
 			//Update C
 			function (callback) {
-				subcategoryC.table_number += 100;
-				subcategoryC.checked_out = 1;
-				subcategoryC.call_waiter_status = 1;
-				subcategoryC.subcategory_date = new Date('2014-05-23 17:31:10');
+                subcategoryC.name = 'ensaladas';
+				subcategoryC.category = 30;
 
 				//Update, pass along nothing
 				subcategoryModel.update(subcategoryC, callback);
