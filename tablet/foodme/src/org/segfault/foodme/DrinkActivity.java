@@ -86,20 +86,13 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
        
 
        //mViewPager = (ViewPager) findViewById(R.id.pager);
-
-
-	    System.out.println("keke");
-       
 	}
 	
-
-
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
 		 subcategoryLayout.openDrawer(Gravity.LEFT);
 		
 	}
-
 
 	@Override
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {

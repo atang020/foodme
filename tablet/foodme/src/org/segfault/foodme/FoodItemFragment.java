@@ -26,13 +26,16 @@ public class FoodItemFragment extends ListFragment{
         if (this.getArguments() != null) {
         	Bundle test = this.getArguments();
         	int i = test.getInt(ARG_SUBCATEGORY_NUMBER);
-        	if(i == 0)
+        	
+        	String activityName = this.getActivity().getClass().getSimpleName();
+        	switch(activityName)
         	{
+        	case "DrinkActivity": 
         		names = getResources().getStringArray(R.array.test_names);
-        	}
-        	else
-        	{
+        		break;
+        	default: 
         		names = getResources().getStringArray(R.array.test_fragments);
+        		break;
         	}
         }
     	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
@@ -52,8 +55,10 @@ public class FoodItemFragment extends ListFragment{
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception.
-            callback = (onFoodItemSelectedListener) activity;
+        callback = (onFoodItemSelectedListener) activity;
     }
+    
+    
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Notify the parent activity of selected item
