@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class FoodItemFragment extends ListFragment{
+	public static final String ARG_SUBCATEGORY_NUMBER = "subcategory_number";
 	
 	onFoodItemSelectedListener callback;
     public interface onFoodItemSelectedListener {
@@ -32,8 +33,6 @@ public class FoodItemFragment extends ListFragment{
     public void onStart() {
         super.onStart();
 
-        // When in two-pane layout, set the listview to highlight the selected list item
-        // (We do this during onStart because at the point the listview is available.)
         if (getFragmentManager().findFragmentById(R.id.fooddetails_fragment) != null) {
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
