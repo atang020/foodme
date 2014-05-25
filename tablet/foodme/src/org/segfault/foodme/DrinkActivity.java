@@ -195,13 +195,13 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	}
 
 	public void selectSubcategory(int position){
-		/*FoodItemFragment subcategoryChosen = new FoodItemFragment();
+		FoodItemFragment subcategoryChosen = new FoodItemFragment();
 		Bundle args = new Bundle();
 		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, position);
 		subcategoryChosen.setArguments(args);
 	    getSupportFragmentManager().beginTransaction()
-	                   .replace(R.id.content_frame, subcategoryChosen)
-	                   .commit();*/
+	                   .replace(R.id.fooditem_fragment, subcategoryChosen)
+	                   .commit();
 
 	    // Highlight the selected item, update the title, and close the drawer
 	    subcategoryList.setItemChecked(position, true);
