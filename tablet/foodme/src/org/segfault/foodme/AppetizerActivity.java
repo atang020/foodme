@@ -91,7 +91,7 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
+		subcategoryLayout.openDrawer(Gravity.LEFT);
 		
 	}
 

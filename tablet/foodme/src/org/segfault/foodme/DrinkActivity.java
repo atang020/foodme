@@ -96,7 +96,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
+		 subcategoryLayout.openDrawer(Gravity.LEFT);
 		
 	}
 
