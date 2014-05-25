@@ -90,7 +90,9 @@ function setInputModalAddSubcat(catId) {
 			type: 'POST',
 			data: { "name": field,"category" : catId},
 			success: function(id) {
-				//$('#titleSubcat' + id).text(field);
+				var panel = $('#subcatPrototype' + catId);
+				panel.find('#titleSubcatPrototype' + catId).text(field);
+				panel.show();
 				closeInputModal();
 			}
 		});
