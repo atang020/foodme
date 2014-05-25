@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var menuItemModel = require('../models/menuItemModel');
 
 router.get('/', function (req, res) {
-	var myMenu = {'drinks': {}, 'appetizers': {}, 'entrees': {}, 'desserts': {}};
+	var myMenu;
+	menuItemModel.getSorted(function (err, orders) {
+		if (err) {
+			res.send(500);
+		}
+		myMenu = orders;
+		console.log(orders);
+		res.render('menu', {user: {name: 'Phillip'}, categories: myMenu});
+	});
 
+	/*
+	var myMenu =  {'drinks': {}, 'appetizers': {}, 'entrees': {}, 'desserts': {}};
 	//NOTE! subcategory names can't have spaces (at least for now)
 	myMenu.drinks.subcategories = [
 		{name: 'soda', items: []},
@@ -29,8 +40,8 @@ router.get('/', function (req, res) {
 		{name: 'medium soda', price: '$2.19'},
 		{name: 'large soda', price: '$2.49'}
 	];
-
-	res.render('menu', {user: {name: 'Phillip'}, categories: myMenu});
+	*/
+	
 });
 
 module.exports = router;

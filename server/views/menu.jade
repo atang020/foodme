@@ -23,7 +23,7 @@ block content
 			div(class='modal-body')
 				input(class='signInInput', id='textField' type='text')
 			div(class='modal-footer')
-				button(class='btn btn-primary', type='submit') submit
+				button(class='btn btn-primary', type='submit', onclick = 'inputSubmit()') submit
 				button(class='btn btn-default', type='button', data-dismiss='modal',aria-hidden='true') cancel
 	div.container
 		div.jumbotron
@@ -38,7 +38,7 @@ block content
 						div.panel-collapse.collapse(id=categoryKey)
 							div.panel-body
 								div.panel-group(id='#{categoryKey}Accordion')
-									- for subcategory in categoryVal.subcategories
+									- for subcategory in categoryVal
 										div.panel.panel-default
 											div.panel-heading.clearfix
 												h4.panel-title

@@ -1,15 +1,10 @@
+var inputCallback;
+var confirmCallback;
+
 //adds an item
 function addItem(subcat, cat) {
 	var row = $('#' + subcat).find('tbody').find('.hidden');
 	row.after('<tr>' + row.html() + '</tr>');
-	/*
-	$.get(
-    "/api/subcategories",
-    function(data) {
-       //alert(JSON.stringify(data));
-    }
-	*/
-);
 }
 
 //prepares deletion of item
@@ -42,6 +37,17 @@ function setInputModalRenameItem(item, subcat, cat) {
 //prepares rename of subcategory
 function setInputModalRenameSubcat(subcat, cat) {
 	showInputModal('rename subcategory', subcat);
+	inputCallback = function(field)
+	{
+		$.ajax({
+			url: '/api/subcategories/',
+			type: 'PUT',
+			data: {"subcategory_id":1, "name": field,"category" : 0},
+			success: function(response) {
+				closeInputModal();
+			}
+		});
+	}
 }
 
 //prepares setting item price
@@ -77,4 +83,15 @@ function showInputModal(title, text, useAsPlaceholder) {
 	var header = $('#inputModal').find('#inputModalLabel');
 	header.text(title);
 	$('#inputModal').modal();
+}
+
+//closes the input modal
+function closeInputModal() {
+	var textbox = $('#inputModal').modal('hide');
+}
+
+//for when the input modal is submitted
+function inputSubmit() {
+	
+	inputCallback($('#inputModal').find('#textField').val());
 }
