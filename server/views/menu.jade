@@ -45,7 +45,7 @@ block content
 													a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='#subcategory#{subcategory.subcategory_id}', id='subcatTitle#{subcategory.subcategory_id}') #{subcategory.name}
 													div.btn-group.pull-right
 														button.btn.btn-primary(type='button', onclick='setInputModalRenameSubcat(\'#{subcategory.subcategory_id}\', \'#{subcategory.name}\')') rename
-														button.btn.btn-danger(type='button', onclick='setConfirmModalSubcat(\'#{subcategory.name}\', \'#{categoryKey}\')') delete
+														button.btn.btn-danger(type='button', onclick='setConfirmModalSubcat(\'#{categoryKey}\')') delete
 											div.panel-collapse.collapse(id='subcategory#{subcategory.subcategory_id}')
 												div.panel-body(style='padding-bottom:40px')
 														table.table

@@ -35,16 +35,17 @@ function setInputModalRenameItem(item, subcat, cat) {
 }
 
 //prepares rename of subcategory
-function setInputModalRenameSubcat(id, subcat) {
-	showInputModal('rename subcategory', subcat);
+function setInputModalRenameSubcat(id) {
+	$.get('/api/subcategories/' + id, function(data) {
+		showInputModal('rename subcategory', data.name);
+	});
 	inputCallback = function(field)
 	{
 		$.ajax({
 			url: '/api/subcategories/',
 			type: 'PUT',
-			data: {"subcategory_id":1, "name": field,"category" : 0},
+			data: {"subcategory_id":id, "name": field,"category" : 0},
 			success: function(response) {
-				console.log('#subcatTitle' + id);
 				$('#subcatTitle' + id).text(field);
 				closeInputModal();
 			}
