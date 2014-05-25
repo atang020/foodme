@@ -1,6 +1,11 @@
 var inputCallback;
 var confirmCallback;
 
+//page loaded
+$( document ).ready(function() {
+    $('[id^=subcatPrototype]').hide();
+  });
+
 //adds an item
 function addItem(subcat, cat) {
 	var row = $('#' + subcat).find('tbody').find('.hidden');
@@ -85,7 +90,9 @@ function setInputModalAddSubcat(catId) {
 			type: 'POST',
 			data: { "name": field,"category" : catId},
 			success: function(id) {
-				//$('#titleSubcat' + id).text(field);
+				var panel = $('#subcatPrototype' + catId);
+				panel.find('#titleSubcatPrototype' + catId).text(field);
+				panel.show();
 				closeInputModal();
 			}
 		});
