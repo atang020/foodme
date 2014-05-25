@@ -5,11 +5,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class FoodItemFragment extends ListFragment{
 	public static final String ARG_SUBCATEGORY_NUMBER = "subcategory_number";
+	ArrayAdapter<String> adapter;
+	String[] names = {};
 	
 	onFoodItemSelectedListener callback;
     public interface onFoodItemSelectedListener {
@@ -23,21 +26,25 @@ public class FoodItemFragment extends ListFragment{
         if (this.getArguments() != null) {
         	Bundle test = this.getArguments();
         	int i = test.getInt(ARG_SUBCATEGORY_NUMBER);
+        	if(i == 0)
+        	{
+        		names = getResources().getStringArray(R.array.test_names);
+        	}
+        	else
+        	{
+        		names = getResources().getStringArray(R.array.test_fragments);
+        	}
         }
-
-        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, getResources().getStringArray(R.array.test_fragments)));
-        
+    	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
+    	setListAdapter(adapter);
     }
     
     @Override
     public void onStart() {
         super.onStart();
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-        if (getFragmentManager().findFragmentById(R.id.fooddetails_fragment) != null) {
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        }
+           
     }
     
     public void onAttach(Activity activity) {
