@@ -131,6 +131,7 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 			startActivity(dessertIntent);
 			break;
 		case "My Order":
+			break;
 		case "Call Waiter":
 			callWaiterPress();
 			break;

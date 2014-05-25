@@ -79,7 +79,7 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
        actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Entrees").setTabListener(this),true);
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
        
 

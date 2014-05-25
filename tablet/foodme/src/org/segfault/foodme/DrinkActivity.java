@@ -129,11 +129,13 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
-		case "My Order": break;
+		case "My Order":
+			break;
 		case "Call Waiter":
 			callWaiterPress();
 			break;
-		default: break;
+		default:
+			break;
 		}
 		
 	}

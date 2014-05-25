@@ -131,8 +131,9 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 			break;
 		case "My Order":
 			break;
-		case "Call Waiter":callWaiterPress();
-							break;
+		case "Call Waiter":
+			callWaiterPress();
+			break;
 		}
 		
 	}
