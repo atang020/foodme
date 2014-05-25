@@ -69,7 +69,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
        actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Entrees").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this));
-       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(this));
+       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
        
 
