@@ -62,7 +62,7 @@ exports.get = function (orderId, callback) {
 };
 
 exports.getSorted = function (callback) {
-	var results = {'appetizers': [], 'drinks': [], 'entrees': [], 'desserts': []};
+	var results = {'appetizers': {subcategories : [], id : 0}, 'drinks': {subcategories : [], id : 10}, 'entrees': {subcategories : [], id : 20}, 'desserts': {subcategories : [], id : 30}};
 
 	subcategoryModel.getAll(function (err, subcategories) {
 		if (err) {
@@ -76,7 +76,7 @@ exports.getSorted = function (callback) {
 						return asyncCallback(err);
 					}
 					subcategory.items = menuItems;
-					results[subcategoryModel.categories[subcategory.category.toString()]].push(subcategory);
+					results[subcategoryModel.categories[subcategory.category.toString()]].subcategories.push(subcategory);
 					return asyncCallback(null);
 				});
 			},
