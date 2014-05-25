@@ -172,7 +172,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
 	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
 	    // If article frag is available, we're in two-pane layout...
-	    System.out.println("omg");
 	    // Call a method in the ArticleFragment to update its content
 	    foodDetails.updateFoodDetails(position);
 		
@@ -198,6 +197,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 
 	    // Highlight the selected item, update the title, and close the drawer
 	    subcategoryList.setItemChecked(position, true);
+	    onFoodItemSelected(-1);
 	    //setTitle(subcategoryNames[position]);
 	    subcategoryLayout.closeDrawer(Gravity.LEFT);
 	}

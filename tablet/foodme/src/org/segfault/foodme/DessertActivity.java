@@ -199,7 +199,7 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 
 	    // Highlight the selected item, update the title, and close the drawer
 	    subcategoryList.setItemChecked(position, true);
-	    //setTitle(subcategoryNames[position]);
+	    onFoodItemSelected(-1);
 	    subcategoryLayout.closeDrawer(Gravity.LEFT);
 	}
 }
