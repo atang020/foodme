@@ -33,8 +33,14 @@ public class FoodItemFragment extends ListFragment{
         	case "DrinkActivity": 
         		names = getResources().getStringArray(R.array.test_names);
         		break;
-        	default: 
+        	case "EntreeActivity":
         		names = getResources().getStringArray(R.array.test_fragments);
+        		break;
+        	case "DessertActivity":
+        		names = getResources().getStringArray(R.array.test_fragments);
+        		break;
+        	case "AppetizerActivity":
+        		names = getResources().getStringArray(R.array.test_names);
         		break;
         	}
         }
