@@ -13,8 +13,23 @@ function addItem(subcat, cat) {
 }
 
 //prepares deletion of item
-function setConfirmModalItem(item, subcat, cat) {
-	showConfirmModal('are you sure you want to delete item ' + item + '?');
+function setConfirmModalItem(id) {
+	$.get('/api/menuItems/' + id, function(data) {
+		showConfirmModal('are you sure you want to delete item ' + data.name + '?');
+	});
+	confirmCallback = function(){
+		$.ajax({
+			url: '/api/menuitems/' + id,
+			type: 'DELETE',
+			success: function(response) {
+				$('#item' + id).remove();
+				closeConfirmModal();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert('something went wrong: ' + thrownError);
+			}
+		});
+	}
 }
 
 //prepares deletion of subcategory
@@ -29,6 +44,9 @@ function setConfirmModalSubcat(id) {
 			success: function(response) {
 				$('#subcat' + id).remove();
 				closeConfirmModal();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert('something went wrong: ' + thrownError);
 			}
 		});
 	}
@@ -53,13 +71,26 @@ function confirmSubmit() {
 }
 
 //prepares rename of item
-function setInputModalRenameItem(item, subcat, cat) {
-	if (item === 'undefined') {
-		showInputModal('rename item', 'name', true);
-	}
-	else {
-		showInputModal('rename item', item, false);
-	}
+function setInputModalRenameItem(id) {
+	$.get('/api/subcategories/' + id, function(data) {
+		inputCallback = function(field){
+			data.name = field;
+			$.ajax({
+				url: '/api/menuItems/' + id,
+				type: 'PUT',
+				data: data,
+				success: function(response) {
+					$('#titleSubcat' + id).text(field);
+					closeInputModal();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert('something went wrong: ' + thrownError);
+				}
+			});
+		}
+		showInputModal('rename item', id.name);
+		
+	});
 }
 
 //prepares rename of subcategory
@@ -75,6 +106,9 @@ function setInputModalRenameSubcat(id) {
 			success: function(response) {
 				$('#titleSubcat' + id).text(field);
 				closeInputModal();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert('something went wrong: ' + thrownError);
 			}
 		});
 	}
@@ -94,6 +128,9 @@ function setInputModalAddSubcat(catId) {
 				panel.find('#titleSubcatPrototype' + catId).text(field);
 				panel.show();
 				closeInputModal();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert('something went wrong: ' + thrownError);
 			}
 		});
 	}

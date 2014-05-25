@@ -63,9 +63,9 @@ block content
 																	-var visibility='visible'
 																	-var rowClass='normal'
 																	-if(!item)
-																		- var item={}
+																		- var item={'name' : 'Prototype' + subcategory.id}
 																		-var rowClass='hidden'
-																	tr(class=rowClass)
+																	tr(class=rowClass, id='item#{item.menu_item_id}')
 																		td
 																			div.dropdown
 																				- if(item.name)
@@ -74,9 +74,9 @@ block content
 																					a(data-toggle='dropdown', href='#') (untitled)
 																				ul.dropdown-menu(role='menu')
 																					li
-																						a(onclick='setInputModalRenameItem(\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') rename
+																						a(onclick='setInputModalRenameItem(\'#{item.menu_item_id}\')') rename
 																					li
-																						a(onclick='setConfirmModalItem(\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') delete
+																						a(onclick='setConfirmModalItem(\'#{item.menu_item_id}\')') delete
 																		td
 																			div.dropdown
 																				- if(item.price)
