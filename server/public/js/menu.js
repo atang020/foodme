@@ -75,6 +75,23 @@ function setInputModalRenameSubcat(id) {
 	}
 }
 
+//prepares adding subcategory
+function setInputModalAddSubcat(catId) {
+	showInputModal('new subcategory', 'name', true);
+	
+	inputCallback = function(field){
+		$.ajax({
+			url: '/api/subcategories/',
+			type: 'POST',
+			data: { "name": field,"category" : catId},
+			success: function(id) {
+				//$('#titleSubcat' + id).text(field);
+				closeInputModal();
+			}
+		});
+	}
+}
+
 //prepares setting item price
 function setInputModalPriceItem(price, item, subcat, cat) {
 	if (price === 'undefined') {

@@ -116,7 +116,7 @@ block content
 									div.panel.panel-success
 										div.panel-heading
 											h4.panel-title
-												a(data-toggle='collapse', data-parent='##{categoryKey}Accordion', href='##{categoryKey}New') + new #{categoryKey} subcategory
+												a(onclick='setInputModalAddSubcat(\'#{categoryVal.id}\')') + new #{categoryKey} subcategory
 										div.panel-collapse.collapse(id='#{categoryKey}New')
 											div.panel-body
 												form
