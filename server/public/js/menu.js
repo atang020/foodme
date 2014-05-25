@@ -35,7 +35,7 @@ function setInputModalRenameItem(item, subcat, cat) {
 }
 
 //prepares rename of subcategory
-function setInputModalRenameSubcat(subcat, cat) {
+function setInputModalRenameSubcat(id, subcat) {
 	showInputModal('rename subcategory', subcat);
 	inputCallback = function(field)
 	{
@@ -44,6 +44,8 @@ function setInputModalRenameSubcat(subcat, cat) {
 			type: 'PUT',
 			data: {"subcategory_id":1, "name": field,"category" : 0},
 			success: function(response) {
+				console.log('#subcatTitle' + id);
+				$('#subcatTitle' + id).text(field);
 				closeInputModal();
 			}
 		});
