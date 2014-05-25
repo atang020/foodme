@@ -3,6 +3,7 @@ package org.segfault.foodme;
 
 
 
+
 import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
 
 import android.app.ActionBar;
@@ -17,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -52,9 +54,15 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
-       subcategoryLayout.openDrawer(Gravity.LEFT);
        
-      // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+       // Set the adapter for the list view
+       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
+               R.layout.test_layout, subcategoryNames));
+       subcategoryList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+       subcategoryList.setOnItemClickListener(new SubcategoryItemClickListener());
+       
+       subcategoryLayout.openDrawer(Gravity.LEFT);
+
 
        // Set up the action bar.
        final ActionBar actionBar = getActionBar();
@@ -78,12 +86,7 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
        
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
-
-       // Set the adapter for the list view
-       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
-               R.layout.test_layout, subcategoryNames));
-       
-       
+  
 	}
 	
 	
@@ -176,4 +179,27 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 		
 	}
 	
+	
+	private class SubcategoryItemClickListener implements ListView.OnItemClickListener{
+		
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        	selectSubcategory(position);
+        }
+	}
+
+	public void selectSubcategory(int position){
+		FoodItemFragment subcategoryChosen = new FoodItemFragment();
+		Bundle args = new Bundle();
+		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, position);
+		subcategoryChosen.setArguments(args);
+	    getSupportFragmentManager().beginTransaction()
+	                   .replace(R.id.fooditem_fragment, subcategoryChosen)
+	                   .commit();
+
+	    // Highlight the selected item, update the title, and close the drawer
+	    subcategoryList.setItemChecked(position, true);
+	    //setTitle(subcategoryNames[position]);
+	    subcategoryLayout.closeDrawer(Gravity.LEFT);
+	}
 }
