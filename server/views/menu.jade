@@ -60,12 +60,9 @@ block content
 															tbody
 																- for (var i = 0; i < subcategory.items.length + 1; ++i)
 																	-var item=subcategory.items[i]
-																	-var visibility='visible'
-																	-var rowClass='normal'
 																	-if(!item)
-																		- var item={'name' : 'Prototype' + subcategory.id}
-																		-var rowClass='hidden'
-																	tr(class=rowClass, id='item#{item.menu_item_id}')
+																		- var item={'menu_item_id' : 'Prototype' + subcategory.subcategory_id,}
+																	tr(id='item#{item.menu_item_id}')
 																		td
 																			div.dropdown
 																				- if(item.name)
@@ -115,7 +112,7 @@ block content
 																								li
 																									a(onclick='setInputModalDescriptionItem(\'#{item.description}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') add description
 																tr
-														a(onclick='addItem(\'#{categoryKey}\', \'#{subcategory.name}\')', rel='nofollow') + new item
+														a(onclick='addItem(\'#{subcategory.subcategory_id}\')', rel='nofollow') + new item
 									div.panel.panel-success
 										div.panel-heading
 											h4.panel-title

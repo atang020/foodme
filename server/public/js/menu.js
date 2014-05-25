@@ -4,12 +4,31 @@ var confirmCallback;
 //page loaded
 $( document ).ready(function() {
     $('[id^=subcatPrototype]').hide();
+	$('[id^=itemPrototype]').hide();
   });
 
 //adds an item
-function addItem(subcat, cat) {
-	var row = $('#' + subcat).find('tbody').find('.hidden');
-	row.after('<tr>' + row.html() + '</tr>');
+function addItem(subcat_id) {
+	var item = {subcategory_id: subcat_id};
+	var row = $('#itemPrototype' + subcat_id)
+		$.ajax({
+			url: '/api/subcategories/',
+			type: 'POST',
+			data: item,
+			success: function(id) {
+				row.after('<tr>' + row.html() + '</tr>')
+				row.attr('id','item' + id);
+				row.show();
+				$('#itemPrototype' + subcat_id).hide();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert('something went wrong: ' + thrownError);
+			}
+		});
+	
+	
+	
+	
 }
 
 //prepares deletion of item
@@ -72,11 +91,11 @@ function confirmSubmit() {
 
 //prepares rename of item
 function setInputModalRenameItem(id) {
-	$.get('/api/subcategories/' + id, function(data) {
+	$.get('/api/menuitems/' + id, function(data) {
 		inputCallback = function(field){
 			data.name = field;
 			$.ajax({
-				url: '/api/menuItems/' + id,
+				url: '/api/menuItems/',
 				type: 'PUT',
 				data: data,
 				success: function(response) {
@@ -88,8 +107,7 @@ function setInputModalRenameItem(id) {
 				}
 			});
 		}
-		showInputModal('rename item', id.name);
-		
+		showInputModal('rename item', data.name);
 	});
 }
 
