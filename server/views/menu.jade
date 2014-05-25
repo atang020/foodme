@@ -37,7 +37,10 @@ block content
 						div.panel-collapse.collapse(id=categoryKey)
 							div.panel-body
 								div.panel-group(id='#{categoryKey}Accordion')
-									- for subcategory in categoryVal.subcategories
+									- for (var j = 0; j < categoryVal.subcategories.length + 1; ++j)
+										-var subcategory=categoryVal.subcategories[j]
+										-if(!subcategory)
+											- var subcategory={'subcategory_id' : 'Prototype#{categoryVal.id}', 'items' : []}
 										div.panel.panel-default(id='subcat#{subcategory.subcategory_id}')
 											div.panel-heading.clearfix
 												h4.panel-title

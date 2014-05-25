@@ -1,6 +1,11 @@
 var inputCallback;
 var confirmCallback;
 
+//page loaded
+$( document ).ready(function() {
+    $('[id^=subcatPrototype]').hide();
+  });
+
 //adds an item
 function addItem(subcat, cat) {
 	var row = $('#' + subcat).find('tbody').find('.hidden');
