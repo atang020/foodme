@@ -13,8 +13,20 @@ function setConfirmModalItem(item, subcat, cat) {
 }
 
 //prepares deletion of subcategory
-function setConfirmModalSubcat(subcat, cat) {
-	showConfirmModal('are you sure you want to delete subcategory ' + subcat + '?');
+function setConfirmModalSubcat(id) {
+	$.get('/api/subcategories/' + id, function(data) {
+		showConfirmModal('are you sure you want to delete subcategory ' + data.name + '?');
+	});
+	confirmCallback = function(){
+		$.ajax({
+			url: '/api/subcategories/' + id,
+			type: 'DELETE',
+			success: function(response) {
+				$('#subcat' + id).remove();
+				closeConfirmModal();
+			}
+		});
+	}
 }
 
 //shows the confirm modal with specified text
@@ -22,6 +34,17 @@ function showConfirmModal(text) {
 	var dialog = $('#confirmModal').find('.confirm-description');
 	dialog.text(text);
 	$('#confirmModal').modal();
+}
+
+//closes the confirm modal
+function closeConfirmModal() {
+	var textbox = $('#confirmModal').modal('hide');
+}
+
+//for when the confirm modal is submitted
+function confirmSubmit() {
+	
+	confirmCallback();
 }
 
 //prepares rename of item
@@ -39,14 +62,13 @@ function setInputModalRenameSubcat(id) {
 	$.get('/api/subcategories/' + id, function(data) {
 		showInputModal('rename subcategory', data.name);
 	});
-	inputCallback = function(field)
-	{
+	inputCallback = function(field){
 		$.ajax({
 			url: '/api/subcategories/',
 			type: 'PUT',
 			data: {"subcategory_id":id, "name": field,"category" : 0},
 			success: function(response) {
-				$('#subcatTitle' + id).text(field);
+				$('#titleSubcat' + id).text(field);
 				closeInputModal();
 			}
 		});
