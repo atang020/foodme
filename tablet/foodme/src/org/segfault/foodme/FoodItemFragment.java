@@ -52,15 +52,11 @@ public class FoodItemFragment extends ListFragment{
     public void onStart() {
         super.onStart();
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-           
     }
     
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception.
         callback = (onFoodItemSelectedListener) activity;
     }
     
@@ -71,7 +67,6 @@ public class FoodItemFragment extends ListFragment{
     	//System.out.println(position);
         callback.onFoodItemSelected(position);
         
-        // Set the item as checked to be highlighted when in two-pane layout
         getListView().setItemChecked(position, true);
     }
 }
