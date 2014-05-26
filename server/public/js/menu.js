@@ -3,14 +3,14 @@ var confirmCallback;
 
 //page loaded
 $( document ).ready(function() {
-    $('[id^=subcatPrototype]').hide();
-	$('[id^=itemPrototype]').hide();
+    $('[id^=subcatProtosubcat]').hide();
+	$('[id^=itemProtoitem]').hide();
   });
 
 //adds an item
 function addItem(subcat_id) {
 	var item = {subcategory_id: subcat_id, name : '', description : '', price : 5};
-	var row = $('#itemPrototype' + subcat_id)
+	var row = $('#itemProtoitem' + subcat_id)
 		$.ajax({
 			url: '/api/menuitems/',
 			type: 'POST',
@@ -18,9 +18,8 @@ function addItem(subcat_id) {
 			success: function(id) {
 				row.clone().hide().insertAfter(row);
 				row.attr('id','item' + id);
-				row.html(row.html().split('Prototype' + subcat_id).join(id))
+				row.html(row.html().split('Protoitem' + subcat_id).join(id))
 				row.show();
-				//$('#itemPrototype' + subcat_id).hide();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				alert('something went wrong: ' + thrownError);
@@ -184,17 +183,14 @@ function setInputModalAddSubcat(catId) {
 			type: 'POST',
 			data: { "name": field,"category" : catId},
 			success: function(id) {
-				var panel = $('#subcatPrototype' + catId);
-				panel.after('<div class=\'panel panel-default\'>' + panel.html() + '</div>' );
+				var panel = $('#subcatProtosubcat' + catId);
+				panel.clone().hide().insertAfter(panel);
 				
-				panel.html(panel.html().split('Prototype' + catId).join('subcat' + id))
-				panel.find('#subcat' + id).text(field);
-				//panel.show();
+				panel.attr('id','subcat' + id);
+				panel.html(panel.html().split('Protosubcat' + catId).join(id))
+				panel.find('#titleSubcat' + id).text(field);
 				panel.attr('id', 'subcat' + id);
-				
-				console.log('#subcatPrototype' + catId);
-				//console.log($('#subcatPrototype' + catId).html());
-				$('#subcatPrototype' + catId).hide();
+				panel.show();
 				closeInputModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
