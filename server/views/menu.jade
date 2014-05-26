@@ -65,10 +65,10 @@ block content
 																	tr(id='item#{item.menu_item_id}')
 																		td
 																			div.dropdown
-																				- if(item.name)
-																					a(data-toggle='dropdown', href='#') #{item.name}
+																				- if(item.name && item.name !== '')
+																					a(id='titleItem#{item.menu_item_id}', data-toggle='dropdown', href='#') #{item.name}
 																				-else
-																					a(data-toggle='dropdown', href='#') (untitled)
+																					a(id='titleItem#{item.menu_item_id}', data-toggle='dropdown', href='#') (untitled)
 																				ul.dropdown-menu(role='menu')
 																					li
 																						a(onclick='setInputModalRenameItem(\'#{item.menu_item_id}\')') rename
@@ -77,12 +77,12 @@ block content
 																		td
 																			div.dropdown
 																				- if(item.price)
-																					a(data-toggle='dropdown', href='#') #{item.price}
+																					a(id='priceItem#{item.menu_item_id}', data-toggle='dropdown', href='#') #{item.price}
 																				- else
-																					a(data-toggle='dropdown', href='#') (none)
+																					a(id='priceItem#{item.menu_item_id}', data-toggle='dropdown', href='#') 5
 																				ul.dropdown-menu(role='menu')
 																					li
-																						a(onclick='setInputModalPriceItem(\'#{item.price}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') set price
+																						a(onclick='setInputModalPriceItem(\'#{item.menu_item_id}\')') set price
 																		td
 																			div.dropdown
 																				- if(item.photo)
@@ -99,15 +99,15 @@ block content
 																								a(href='#', data-toggle='modal', data-target='#inputModal') upload photo
 																		td
 																				div.dropdown
-																					- if(item.description)
-																						a(data-toggle='dropdown', href='#') #{item.description}
+																					- if(item.description && item.description !== '')
+																						a(id='descriptionItem#{item.menu_item_id}', data-toggle='dropdown', href='#') #{item.description}
 																						ul.dropdown-menu(role='menu')
 																							li
-																								a(onclick='setInputModalPriceItem(\'#{item.description}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') change description
+																								a(onclick='setInputModalDescriptionItem(\'#{item.menu_item_id}\')') change description
 																							li
 																								a(href='#', data-toggle='modal', data-target='#confirmModal') delete description
 																					- else
-																						a(data-toggle='dropdown', href='#') (none)
+																						a(id='descriptionItem#{item.menu_item_id}', data-toggle='dropdown', href='#') (none)
 																							ul.dropdown-menu(role='menu')
 																								li
 																									a(onclick='setInputModalDescriptionItem(\'#{item.description}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') add description
