@@ -42,7 +42,7 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-	reviewModel.remove(id, function (err) {
+	reviewModel.remove(req.params.id, function (err) {
 		if (err) {
 			res.send(500);
 		} else {

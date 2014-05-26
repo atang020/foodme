@@ -9,10 +9,10 @@ $( document ).ready(function() {
 
 //adds an item
 function addItem(subcat_id) {
-	var item = {subcategory_id: subcat_id};
+	var item = {subcategory_id: subcat_id, name : 'undefined', description : 'undefined', price : 5};
 	var row = $('#itemPrototype' + subcat_id)
 		$.ajax({
-			url: '/api/subcategories/',
+			url: '/api/menuitems/',
 			type: 'POST',
 			data: item,
 			success: function(id) {

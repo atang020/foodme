@@ -81,7 +81,6 @@ exports.getSorted = function (callback) {
 				});
 			},
 			function (err) {
-				console.log("done");
 				if (err) {
 					return callback(err);
 				}
@@ -116,6 +115,7 @@ exports.search = function (params, callback) {
 exports.add = function (menuItem, callback) {
 	var err = verify(menuItem);
 	if (err) {
+	
 		callback(err);
 		return;
 	}
