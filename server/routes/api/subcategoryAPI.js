@@ -1,5 +1,6 @@
 var express = require('express');
 var subcategoryModel = require('../../models/subcategoryModel');
+var menuItemModel = require('../../models/menuItemModel');
 
 var router = express.Router();
 
@@ -42,12 +43,18 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-	subcategoryModel.remove(req.params.id, function (err) {
-		
-		if (err) {
+	menuItemModel.removeAllInSubcategory(req.params.id, function(err) {
+		if(err) {
 			res.send(500);
-		} else {
-			res.send(200);
+			}
+		else {
+			subcategoryModel.remove(req.params.id, function (err) {
+				if (err) {
+					res.send(500);
+				} else {
+					res.send(200);
+				}
+			});
 		}
 	});
 });

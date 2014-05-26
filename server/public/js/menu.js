@@ -53,6 +53,11 @@ function setConfirmModalSubcat(id) {
 		showConfirmModal('are you sure you want to delete subcategory ' + data.name + '?');
 	});
 	confirmCallback = function(){
+		//first delete items in subcategory
+		
+		
+		
+		//delete subcategory
 		$.ajax({
 			url: '/api/subcategories/' + id,
 			type: 'DELETE',
