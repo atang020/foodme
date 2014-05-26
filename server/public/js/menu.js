@@ -19,7 +19,7 @@ function addItem(subcat_id) {
 				row.clone().hide().insertAfter(row);
 				row.attr('id','item' + id);
 				row.html(row.html().split('Protoitem' + subcat_id).join(id))
-				row.show();
+				row.fadeIn();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				alert('something went wrong: ' + thrownError);
@@ -37,7 +37,8 @@ function setConfirmModalItem(id) {
 			url: '/api/menuitems/' + id,
 			type: 'DELETE',
 			success: function(response) {
-				$('#item' + id).remove();
+				var item = $('#item' + id);
+				item.fadeOut(300, function(){ item.remove(); });
 				closeConfirmModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -53,16 +54,12 @@ function setConfirmModalSubcat(id) {
 		showConfirmModal('are you sure you want to delete subcategory ' + data.name + '?');
 	});
 	confirmCallback = function(){
-		//first delete items in subcategory
-		
-		
-		
-		//delete subcategory
 		$.ajax({
 			url: '/api/subcategories/' + id,
 			type: 'DELETE',
 			success: function(response) {
-				$('#subcat' + id).remove();
+			var subcat = $('#subcat' + id);
+				subcat.fadeOut(300, function() {subcat.remove()});
 				closeConfirmModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -195,7 +192,7 @@ function setInputModalAddSubcat(catId) {
 				panel.html(panel.html().split('Protosubcat' + catId).join(id))
 				panel.find('#titleSubcat' + id).text(field);
 				panel.attr('id', 'subcat' + id);
-				panel.show();
+				panel.fadeIn();
 				closeInputModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
