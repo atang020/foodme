@@ -17,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -52,6 +53,13 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
+       
+       // Set the adapter for the list view
+       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
+               R.layout.test_layout, subcategoryNames));
+       subcategoryList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+       subcategoryList.setOnItemClickListener(new SubcategoryItemClickListener());
+       
        subcategoryLayout.openDrawer(Gravity.LEFT);
        
       // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -77,21 +85,14 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
        
 
-       mViewPager = (ViewPager) findViewById(R.id.pager);
-
-       // Set the adapter for the list view
-       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
-               R.layout.test_layout, subcategoryNames));
+       //mViewPager = (ViewPager) findViewById(R.id.pager);
 	}
 	
-
-
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
+		 subcategoryLayout.openDrawer(Gravity.LEFT);
 		
 	}
-
 
 	@Override
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
@@ -171,10 +172,35 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
 	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
 	    // If article frag is available, we're in two-pane layout...
-	
 	    // Call a method in the ArticleFragment to update its content
 	    foodDetails.updateFoodDetails(position);
 		
 	}
 	
+	
+	private class SubcategoryItemClickListener implements ListView.OnItemClickListener{
+		
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        	selectSubcategory(position);
+        }
+	}
+
+	public void selectSubcategory(int position){
+		FoodItemFragment subcategoryChosen = new FoodItemFragment();
+		Bundle args = new Bundle();
+		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, position);
+		subcategoryChosen.setArguments(args);
+	    getSupportFragmentManager().beginTransaction()
+	                   .replace(R.id.fooditem_fragment, subcategoryChosen)
+	                   .commit();
+
+	    // Highlight the selected item, update the title, and close the drawer
+	    subcategoryList.setItemChecked(position, true);
+	    onFoodItemSelected(-1);
+	    //setTitle(subcategoryNames[position]);
+	    subcategoryLayout.closeDrawer(Gravity.LEFT);
+	}
+	
+
 }

@@ -126,7 +126,7 @@ exports.update = function (subcategory, callback) {
  */
 exports.remove = function (subcategory, callback) {
 	var id = null;
-
+	
 	if (typeof subcategory === 'object') {
 		id = subcategory.subcategory_id;
 	} else {

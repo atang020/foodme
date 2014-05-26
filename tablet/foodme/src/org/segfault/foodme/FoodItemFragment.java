@@ -5,10 +5,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class FoodItemFragment extends ListFragment{
+	public static final String ARG_SUBCATEGORY_NUMBER = "subcategory_number";
+	ArrayAdapter<String> adapter;
+	String[] names = {};
 	
 	onFoodItemSelectedListener callback;
     public interface onFoodItemSelectedListener {
@@ -18,41 +22,51 @@ public class FoodItemFragment extends ListFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // We need to use a different list item layout for devices older than Honeycomb
-        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-
-        // Create an array adapter for the list view, using the Ipsum headlines array
-        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, getResources().getStringArray(R.array.test_fragments)));
         
+        if (this.getArguments() != null) {
+        	Bundle test = this.getArguments();
+        	int i = test.getInt(ARG_SUBCATEGORY_NUMBER);
+        	
+        	String activityName = this.getActivity().getClass().getSimpleName();
+        	switch(activityName)
+        	{
+        	case "DrinkActivity": 
+        		names = getResources().getStringArray(R.array.test_names);
+        		break;
+        	case "EntreeActivity":
+        		names = getResources().getStringArray(R.array.test_fragments);
+        		break;
+        	case "DessertActivity":
+        		names = getResources().getStringArray(R.array.test_fragments);
+        		break;
+        	case "AppetizerActivity":
+        		names = getResources().getStringArray(R.array.test_names);
+        		break;
+        	}
+        }
+    	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
+    	setListAdapter(adapter);
     }
     
     @Override
     public void onStart() {
         super.onStart();
-
-        // When in two-pane layout, set the listview to highlight the selected list item
-        // (We do this during onStart because at the point the listview is available.)
-        if (getFragmentManager().findFragmentById(R.id.fooddetails_fragment) != null) {
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        }
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
     
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception.
-            callback = (onFoodItemSelectedListener) activity;
+        callback = (onFoodItemSelectedListener) activity;
     }
+    
+    
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Notify the parent activity of selected item
     	//System.out.println(position);
         callback.onFoodItemSelected(position);
         
-        // Set the item as checked to be highlighted when in two-pane layout
         getListView().setItemChecked(position, true);
     }
 }
