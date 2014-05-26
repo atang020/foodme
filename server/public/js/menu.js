@@ -18,6 +18,7 @@ function addItem(subcat_id) {
 			success: function(id) {
 				row.clone().hide().insertAfter(row);
 				row.attr('id','item' + id);
+				row.html(row.html().split('Prototype' + subcat_id).join(id))
 				row.show();
 				//$('#itemPrototype' + subcat_id).hide();
 			},
@@ -25,10 +26,6 @@ function addItem(subcat_id) {
 				alert('something went wrong: ' + thrownError);
 			}
 		});
-	
-	
-	
-	
 }
 
 //prepares deletion of item

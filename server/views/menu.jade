@@ -104,13 +104,11 @@ block content
 																						ul.dropdown-menu(role='menu')
 																							li
 																								a(onclick='setInputModalDescriptionItem(\'#{item.menu_item_id}\')') change description
-																							li
-																								a(href='#', data-toggle='modal', data-target='#confirmModal') delete description
 																					- else
 																						a(id='descriptionItem#{item.menu_item_id}', data-toggle='dropdown', href='#') (none)
 																							ul.dropdown-menu(role='menu')
 																								li
-																									a(onclick='setInputModalDescriptionItem(\'#{item.description}\',\'#{item.name}\', \'#{subcategory.name}\', \'#{categoryKey}\')') add description
+																									a(onclick='setInputModalDescriptionItem(\'#{item.menu_item_id}\')') add description
 																tr
 														a(onclick='addItem(\'#{subcategory.subcategory_id}\')', rel='nofollow') + new item
 									div.panel.panel-success
