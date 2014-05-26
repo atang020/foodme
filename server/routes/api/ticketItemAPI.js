@@ -1,10 +1,10 @@
 var express = require('express');
-var ticketModel = require('../../models/ticketModel');
+var ticketItemModel = require('../../models/ticketItemModel');
 
 var router = express.Router();
 
 router.get('/', function(req, res){
-	ticketModel.getAll(function (err, orders) {
+	ticketItemModel.getAll(function (err, orders) {
 		if (err) {
 			res.send(500);
 		}
@@ -12,8 +12,8 @@ router.get('/', function(req, res){
 	});
 });
 
-router.get('/:ticketId', function (req, res) {
-	ticketModel.get(req.params.ticketId, function (err, ticket) {
+router.get('/:ticketItemId', function (req, res) {
+	ticketItemModel.get(req.params.ticketItemId, function (err, ticket) {
 		if (err) {
 			res.send(500);
 		}
@@ -22,7 +22,7 @@ router.get('/:ticketId', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	ticketModel.add(req.body, function (err, id) {
+	ticketItemModel.add(req.body, function (err, id) {
 		if (err) {
 			res.send(500);
 		}
@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
 });
 
 router.put('/', function (req, res) {
-	ticketModel.update(req.body, function (err) {
+	ticketItemModel.update(req.body, function (err) {
 		if (err) {
 			res.send(500);
 		} else {
@@ -42,7 +42,7 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-	ticketModel.remove(req.params.id, function (err) {
+	ticketItemModel.remove(req.params.id, function (err) {
 		if (err) {
 			res.send(500);
 		} else {

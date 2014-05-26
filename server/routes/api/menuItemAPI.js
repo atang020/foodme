@@ -1,10 +1,10 @@
 var express = require('express');
-var ticketModel = require('../../models/ticketModel');
+var menuItemModel = require('../../models/menuItemModel');
 
 var router = express.Router();
 
 router.get('/', function(req, res){
-	ticketModel.getAll(function (err, orders) {
+	menuItemModel.getAll(function (err, orders) {
 		if (err) {
 			res.send(500);
 		}
@@ -12,8 +12,8 @@ router.get('/', function(req, res){
 	});
 });
 
-router.get('/:ticketId', function (req, res) {
-	ticketModel.get(req.params.ticketId, function (err, ticket) {
+router.get('/:menuItemId', function (req, res) {
+	menuItemModel.get(req.params.menuItemId, function (err, ticket) {
 		if (err) {
 			res.send(500);
 		}
@@ -22,7 +22,9 @@ router.get('/:ticketId', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	ticketModel.add(req.body, function (err, id) {
+	//req.body.picture_path = req.files.picture.path;
+	req.body.picture_path = 'sample.jpg';
+	menuItemModel.add(req.body, function (err, id) {
 		if (err) {
 			res.send(500);
 		}
@@ -32,7 +34,7 @@ router.post('/', function (req, res) {
 });
 
 router.put('/', function (req, res) {
-	ticketModel.update(req.body, function (err) {
+	menuItemModel.update(req.body, function (err) {
 		if (err) {
 			res.send(500);
 		} else {
@@ -42,7 +44,7 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-	ticketModel.remove(req.params.id, function (err) {
+	menuItemModel.remove(req.params.id, function (err) {
 		if (err) {
 			res.send(500);
 		} else {

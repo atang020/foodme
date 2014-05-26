@@ -1,4 +1,6 @@
 var database = require('./database');
+var async = require('async');
+var subcategoryModel = require('./subcategoryModel');
 
 function verify(menuItem) {
 	// name, description, and price must be NOT NULL
@@ -44,7 +46,7 @@ exports.getAll = function (callback) {
  *
  */
 exports.get = function (orderId, callback) {
-	database.query('SELECT * FROM menu_item WHERE order_item_id = ?', [orderId], function (err, rows) {
+	database.query('SELECT * FROM menu_item WHERE menu_item_id = ?', [orderId], function (err, rows) {
 		if (err) {
 			callback(err, null);
 			return;
@@ -56,6 +58,34 @@ exports.get = function (orderId, callback) {
 		}
 
 		callback(null, rows[0]);
+	});
+};
+
+exports.getSorted = function (callback) {
+	var results = {'appetizers': {subcategories : [], id : 0}, 'drinks': {subcategories : [], id : 10}, 'entrees': {subcategories : [], id : 20}, 'desserts': {subcategories : [], id : 30}};
+
+	subcategoryModel.getAll(function (err, subcategories) {
+		if (err) {
+			return callback(err);
+		}
+
+		async.eachLimit(subcategories, 5,
+			function (subcategory, asyncCallback) {
+				exports.search({subcategory_id: subcategory.subcategory_id}, function (err, menuItems) {
+					if (err) {
+						return asyncCallback(err);
+					}
+					subcategory.items = menuItems;
+					results[subcategoryModel.categories[subcategory.category.toString()]].subcategories.push(subcategory);
+					return asyncCallback(null);
+				});
+			},
+			function (err) {
+				if (err) {
+					return callback(err);
+				}
+				return callback(null, results);
+			});
 	});
 };
 
@@ -85,6 +115,7 @@ exports.search = function (params, callback) {
 exports.add = function (menuItem, callback) {
 	var err = verify(menuItem);
 	if (err) {
+	
 		callback(err);
 		return;
 	}
@@ -131,12 +162,20 @@ exports.update = function (menuItem, callback) {
  * @param callback
  */
 exports.remove = function (menuItem, callback) {
-	if (menuItem.menu_item_id === null) {
+	var id = null;
+
+	if (typeof menuItem === 'object') {
+		id = menuItem.menu_item_id;
+	} else {
+		id = menuItem;
+	}
+
+	if (id === null) {
 		callback(new Error('Invalid menu item: no id present'));
 		return;
 	}
 
-	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', menuItem.menu_item_id, function (err) {
+	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', id, function (err) {
 		if (err) {
 			callback(err);
 			return;

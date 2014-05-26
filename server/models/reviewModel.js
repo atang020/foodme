@@ -111,16 +111,24 @@ exports.update = function (review, callback) {
  * @param callback
  */
 exports.remove = function (review, callback) {
-    if (review.review_id === null) {
-        callback(new Error('Invalid review: no id present'));
-        return;
-    }
+	var id = null;
 
-    database.query('DELETE FROM reivew WHERE review_id = ?', review.review_id, function (err) {
-        if (err) {
-            callback(err);
-            return;
-        }
-        callback(null);
-    });
+	if (typeof ticketItem === 'object') {
+		id = ticketItem.ticket_item_id;
+	} else {
+		id = ticketItem;
+	}
+
+	if (review.review_id === null) {
+		callback(new Error('Invalid review: no id present'));
+		return;
+	}
+
+	database.query('DELETE FROM reivew WHERE review_id = ?', review.review_id, function (err) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
 };

@@ -1,10 +1,10 @@
 var express = require('express');
-var ticketModel = require('../../models/ticketModel');
+var subcategoryModel = require('../../models/subcategoryModel');
 
 var router = express.Router();
 
 router.get('/', function(req, res){
-	ticketModel.getAll(function (err, orders) {
+	subcategoryModel.getAll(function (err, orders) {
 		if (err) {
 			res.send(500);
 		}
@@ -12,8 +12,8 @@ router.get('/', function(req, res){
 	});
 });
 
-router.get('/:ticketId', function (req, res) {
-	ticketModel.get(req.params.ticketId, function (err, ticket) {
+router.get('/:subcategoryId', function (req, res) {
+	subcategoryModel.get(req.params.subcategoryId, function (err, ticket) {
 		if (err) {
 			res.send(500);
 		}
@@ -22,7 +22,7 @@ router.get('/:ticketId', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	ticketModel.add(req.body, function (err, id) {
+	subcategoryModel.add(req.body, function (err, id) {
 		if (err) {
 			res.send(500);
 		}
@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
 });
 
 router.put('/', function (req, res) {
-	ticketModel.update(req.body, function (err) {
+	subcategoryModel.update(req.body, function (err) {
 		if (err) {
 			res.send(500);
 		} else {
@@ -42,7 +42,8 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-	ticketModel.remove(req.params.id, function (err) {
+	subcategoryModel.remove(req.params.id, function (err) {
+		
 		if (err) {
 			res.send(500);
 		} else {

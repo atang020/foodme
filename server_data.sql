@@ -21,25 +21,8 @@
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
+INSERT INTO `menu_item` VALUES (1,1,'Curly Fries','Delicious curly fries that will make your mouth water.','sample.jpg',3.00),(2,1,'Seasoned Fries','They taste good','sample.jpg',4.00),(3,1,'Bad Fries','Really shitty','sample.jpg',1.25),(4,2,'Fancy Wings','Ping pong','sample.jpg',5.00),(5,2,'Hot Wings','SUPERHOT','sample.jpg',7.00),(6,2,'Great Wings','jkfjkasfdjklksfdk fsdfjnf jdfs jk sdfnfnasf dksf df asd asdf','sample.jpg',2.00);
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `order`
---
-
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `order_item`
---
-
-LOCK TABLES `order_item` WRITE;
-/*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -52,12 +35,40 @@ LOCK TABLES `review` WRITE;
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `setting`
+--
+
+LOCK TABLES `setting` WRITE;
+/*!40000 ALTER TABLE `setting` DISABLE KEYS */;
+/*!40000 ALTER TABLE `setting` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `subcategory`
 --
 
 LOCK TABLES `subcategory` WRITE;
 /*!40000 ALTER TABLE `subcategory` DISABLE KEYS */;
+INSERT INTO `subcategory` VALUES (1,'Fries',0),(2,'Wings',0),(3,'Nachos',0),(4,'Beer',10),(5,'Soda',10),(6,'Coffee',10),(7,'Burgers',20),(8,'Tacos',20),(9,'Burritos',20),(10,'Cake',30),(11,'Ice Cream',30),(12,'Pies',30);
 /*!40000 ALTER TABLE `subcategory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `ticket`
+--
+
+LOCK TABLES `ticket` WRITE;
+/*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `ticket_item`
+--
+
+LOCK TABLES `ticket_item` WRITE;
+/*!40000 ALTER TABLE `ticket_item` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ticket_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -66,7 +77,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'password','john_doe@example.com','619-493-4033'),(2,'password','jane_smith@example.com','619-452-3934'),(3,'password','bob_dylan@example.com','858-593-4393');
+INSERT INTO `user` VALUES (1,'j','jadelane@ucsd.edu','(619) 920-9355'),(2,'alex','alt020@ucsd.edu','(909) 641-0529'),(3,'austin','acs008@ucsd.edu','(909) 569-4707'),(4,'dennis','dscao@ucsd.edu','(760) 623-8968'),(5,'henry','hetruong@ucsd.edu','(916) 498-4606'),(6,'aaron','aspears@ucsd.edu','(619) 654-2579'),(7,'payam','pshahidi@ucsd.edu','(949) 259-3006'),(8,'peter','ylc015@ucsd.edu','(425) 829-4486'),(9,'phillip','phodgson@ucsd.edu','(805) 403-8573'),(10,'ryan','rmmcclur@ucsd.edu','(760) 470-3993');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -79,4 +90,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-06 18:25:24
+-- Dump completed on 2014-05-22 20:16:26

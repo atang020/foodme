@@ -14,6 +14,13 @@ function verify(subcategory) {
 	return null;
 }
 
+exports.categories = {
+	'0': 'appetizers',
+	'10': 'drinks',
+	'20': 'entrees',
+	'30': 'desserts'
+};
+
 /**
  * Returns data for all subcategories. The callback gets two arguments (err, data).
  *
@@ -118,16 +125,24 @@ exports.update = function (subcategory, callback) {
  * @param callback
  */
 exports.remove = function (subcategory, callback) {
-    if (subcategory.subcategory_id === null) {
-        callback(new Error('Invalid subcategory: no id present'));
-        return;
-    }
+	var id = null;
+	
+	if (typeof subcategory === 'object') {
+		id = subcategory.subcategory_id;
+	} else {
+		id = subcategory;
+	}
 
-    database.query('DELETE FROM subcategory WHERE subcategory_id = ?', subcategory.subcategory_id, function (err) {
-        if (err) {
-            callback(err);
-            return;
-        }
-        callback(null);
-    });
+	if (id === null) {
+		callback(new Error('Invalid subcategory: no id present'));
+		return;
+	}
+
+	database.query('DELETE FROM subcategory WHERE subcategory_id = ?', id, function (err) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
 };

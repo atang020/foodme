@@ -23,16 +23,33 @@ public class TabletContentProvider extends ContentProvider {
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/subcategory");
 	public static final Uri SETTING_CONTENT_URI = 
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/setting");
+	public static final Uri REVIEW_CONTENT_URI = 
+			Uri.parse("content://org.segfault.foodme.tabdbprovider/rating");
 	
+<<<<<<< HEAD
+=======
+	public static final String DB_NAME = "tabDatabase.db";
+	public static final String DB_MENU_ITEM_TABLE = "menu_item";
+	public static final String DB_SUBCATEGORY_TABLE = "subcategory";
+	public static final String DB_SETTING_TABLE = "setting";
+	public static final String DB_REVIEW_TABLE = "review";
+	public static int DB_VERSION = 1;
+	
+>>>>>>> development
 	// constants for menu_item, subcategory, and setting tables
 	public static final String KEY_ID = "_id";
 	public static final String KEY_SUBCATEGORY_ID = "subcategory_id";
+	public static final String KEY_MENU_ITEM_ID = "menu_item_id";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_DESCRIPTION = "description";
 	public static final String KEY_PICTURE_PATH = "picture_path";
 	public static final String KEY_PRICE = "price";
 	public static final String KEY_CATEGORY = "category";
 	public static final String KEY_VALUE = "value";
+	public static final String KEY_REVIEWER = "reviewer";
+	public static final String KEY_RATING = "rating";
+	public static final String KEY_REVIEW_TEXT = "review_text";
+	public static final String KEY_REVIEW_DATE = "review_date";
 	
 	// Constants used to differentiate between the different URI requests
 	// Table name indicates an all rows query.  Appended with _ID indicates
@@ -43,6 +60,8 @@ public class TabletContentProvider extends ContentProvider {
 	private static final int SUBCATEGORY_ID = 4;
 	private static final int SETTING = 5;
 	private static final int SETTING_ID = 6;
+	private static final int REVIEW = 7;
+	private static final int REVIEW_ID = 8;
 	
 	private static final UriMatcher uriMatcher;
 	private DBOpenHelper myOpenHelper;
@@ -64,6 +83,10 @@ public class TabletContentProvider extends ContentProvider {
 						  "setting", SETTING);
 		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
 						  "setting/#", SETTING_ID);
+		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
+				  "review", REVIEW);
+		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
+				  "review/#", REVIEW_ID);
 	}
 	
 	public TabletContentProvider() {
@@ -125,6 +148,15 @@ public class TabletContentProvider extends ContentProvider {
 				rowID = uri.getPathSegments().get(1);
 				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
 				queryBuilder.setTables(DBOpenHelper.DB_SETTING_TABLE);
+				break;
+			case REVIEW:
+				queryBuilder.setTables(DB_REVIEW_TABLE);
+				break;
+			case REVIEW_ID:
+				// Since this is a row query, limit the result set to the passed in row
+				rowID = uri.getPathSegments().get(1);
+				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
+				queryBuilder.setTables(DB_REVIEW_TABLE);
 				break;
 			default: break;
 		}
@@ -192,6 +224,20 @@ public class TabletContentProvider extends ContentProvider {
 				deleteCount = db.delete(DBOpenHelper.DB_SETTING_TABLE, 
 						selection, selectionArgs);
 				break;
+			case REVIEW:
+				deleteCount = db.delete(DB_SETTING_TABLE, 
+						selection, selectionArgs);
+				break;
+			case REVIEW_ID:
+				// Since this is a row query, limit the result set to the passed in row
+				rowID = uri.getPathSegments().get(1);
+				selection = KEY_ID + "=" + rowID 
+						+ (!TextUtils.isEmpty(selection) ?
+						" AND (" + selection + ')' : "");
+				
+				deleteCount = db.delete(DB_REVIEW_TABLE, 
+						selection, selectionArgs);
+				break;
 			default: break;
 		}
 		
@@ -220,6 +266,9 @@ public class TabletContentProvider extends ContentProvider {
 			case SETTING:
 				id = db.insert(DBOpenHelper.DB_SETTING_TABLE, nullColumnHack, values);
 				break;
+			case REVIEW:
+				id = db.insert(DB_REVIEW_TABLE, nullColumnHack, values);
+				break;
 			default: break;
 		}
 		
@@ -234,6 +283,9 @@ public class TabletContentProvider extends ContentProvider {
 					break;
 				case SETTING:
 					insertedId = ContentUris.withAppendedId(SETTING_CONTENT_URI, id);
+					break;
+				case REVIEW:
+					insertedId = ContentUris.withAppendedId(REVIEW_CONTENT_URI, id);
 					break;
 			}
 			// Notify any observers of the change in the data set
@@ -295,6 +347,20 @@ public class TabletContentProvider extends ContentProvider {
 				updateCount = db.update(DBOpenHelper.DB_SETTING_TABLE, 
 						values, selection, selectionArgs);
 				break;
+			case REVIEW:
+				updateCount = db.update(DB_REVIEW_TABLE, 
+						values, selection, selectionArgs);
+				break;
+			case REVIEW_ID:
+				// Since this is a row query, limit the result set to the passed in row
+				rowID = uri.getPathSegments().get(1);
+				selection = KEY_ID + "=" + rowID 
+						+ (!TextUtils.isEmpty(selection) ?
+						" AND (" + selection + ')' : "");
+				
+				updateCount = db.update(DB_REVIEW_TABLE, 
+						values, selection, selectionArgs);
+				break;
 			default: break;
 		}
 		
@@ -319,6 +385,10 @@ public class TabletContentProvider extends ContentProvider {
 			case SETTING:
 				return "vnd.android.cursor.dir/vnd.segfault.foodme.setting";
 			case SETTING_ID:
+				return "vnd.android.cursor.item/vnd.segfault.foodme.setting";
+			case REVIEW:
+				return "vnd.android.cursor.dir/vnd.segfault.foodme.setting";
+			case REVIEW_ID:
 				return "vnd.android.cursor.item/vnd.segfault.foodme.setting";
 			default:
 				throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -362,6 +432,19 @@ public class TabletContentProvider extends ContentProvider {
 						KEY_ID + " VARCHAR(45) NOT NULL, " +
 						KEY_VALUE + " VARCHAR(45) NOT NULL, " +
 						"PRIMARY KEY (" + KEY_ID + "));";
+				
+		// SQL Statement to create new setting table
+				private static final String REVIEW_CREATE =
+						"CREATE TABLE " + DB_REVIEW_TABLE + " (" +
+						KEY_ID + " INT NOT NULL, " +
+						KEY_MENU_ITEM_ID + " INT NOT NULL, " +
+						KEY_REVIEWER + " VARCHAR(45) NULL, " +
+						KEY_RATING + " TINYINT NOT NULL, " +
+						KEY_REVIEW_TEXT + " TEXT NULL, " +
+						KEY_REVIEW_DATE + " DATETIME, " +
+						"PRIMARY KEY (" + KEY_ID + ")," +
+						"FOREIGN KEY (" + KEY_MENU_ITEM_ID + ") REFERENCES " + DB_MENU_ITEM_TABLE +
+						"(" + KEY_MENU_ITEM_ID + "));";
 		
 		public DBOpenHelper(Context context, String name, CursorFactory factory,
 				int version) {
@@ -375,6 +458,7 @@ public class TabletContentProvider extends ContentProvider {
 			db.execSQL(MENU_ITEM_CREATE);
 			db.execSQL(SUBCATEGORY_CREATE);
 			db.execSQL(SETTING_CREATE);
+			db.execSQL(REVIEW_CREATE);
 		}
 
 		// Called when there is a database version mismatch meaning that the version 
@@ -389,6 +473,7 @@ public class TabletContentProvider extends ContentProvider {
 			db.execSQL("DROP TABLE IF EXISTS" + DB_MENU_ITEM_TABLE);
 			db.execSQL("DROP TABLE IF EXISTS" + DB_SUBCATEGORY_TABLE);
 			db.execSQL("DROP TABLE IF EXISTS" + DB_SETTING_TABLE);
+			db.execSQL("DROP TABLE IF EXISTS" + DB_REVIEW_TABLE);
 			onCreate(db);
 		}
 	}

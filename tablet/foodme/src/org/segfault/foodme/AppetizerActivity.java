@@ -17,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -47,10 +48,17 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
 	   decorView.setSystemUiVisibility(mUIFlag);
-	   
+	        
        subcategoryNames = getResources().getStringArray(R.array.test_names);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
+       
+       
+       // Set the adapter for the list view
+       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
+               R.layout.test_layout, subcategoryNames));
+       subcategoryList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+       subcategoryList.setOnItemClickListener(new SubcategoryItemClickListener());
        
        subcategoryLayout.openDrawer(Gravity.LEFT);
        
@@ -78,26 +86,12 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
        
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
-
-       // Set the adapter for the list view
-       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
-               R.layout.test_layout, subcategoryNames));
-      
 	}
 	
-	
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_action_bar, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}*/
-
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
+		subcategoryLayout.openDrawer(Gravity.LEFT);
 		
 	}
 
@@ -176,8 +170,36 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 
 	@Override
 	public void onFoodItemSelected(int position) {
-		// TODO Auto-generated method stub
+		//         ArticleFragment articleFrag = (ArticleFragment)
+	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
+	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
+	    // If article frag is available, we're in two-pane layout...
+	
+	    // Call a method in the ArticleFragment to update its content
+	    foodDetails.updateFoodDetails(position);
 		
 	}
 	
+	private class SubcategoryItemClickListener implements ListView.OnItemClickListener{
+		
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        	selectSubcategory(position);
+        }
+	}
+
+	public void selectSubcategory(int position){
+		FoodItemFragment subcategoryChosen = new FoodItemFragment();
+		Bundle args = new Bundle();
+		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, position);
+		subcategoryChosen.setArguments(args);
+	    getSupportFragmentManager().beginTransaction()
+	                   .replace(R.id.fooditem_fragment, subcategoryChosen)
+	                   .commit();
+
+	    // Highlight the selected item, update the title, and close the drawer
+	    subcategoryList.setItemChecked(position, true);
+	    onFoodItemSelected(-1);
+	    subcategoryLayout.closeDrawer(Gravity.LEFT);
+	}
 }
