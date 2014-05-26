@@ -33,7 +33,7 @@ function addItem(subcat_id) {
 
 //prepares deletion of item
 function setConfirmModalItem(id) {
-	$.get('/api/menuItems/' + id, function(data) {
+	$.get('/api/menuitems/' + id, function(data) {
 		showConfirmModal('are you sure you want to delete item ' + data.name + '?');
 	});
 	confirmCallback = function(){
@@ -143,8 +143,14 @@ function setInputModalAddSubcat(catId) {
 			data: { "name": field,"category" : catId},
 			success: function(id) {
 				var panel = $('#subcatPrototype' + catId);
-				panel.find('#titleSubcatPrototype' + catId).text(field);
+				panel.after('<div class=\'panel panel-default\'>' + panel.html() + '</div>' );
+				
+				panel.html(panel.html().split('Prototype' + catId).join('subcat' + id))
+				panel.find('#subcat' + id).text(field);
+				panel.attr('id', 'subcat' + id);
 				panel.show();
+				
+				$('#subcatPrototype' + catId).hide();
 				closeInputModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
