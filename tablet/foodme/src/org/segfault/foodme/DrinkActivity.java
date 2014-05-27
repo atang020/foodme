@@ -99,7 +99,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 		{
 		 subcategoryLayout.openDrawer(Gravity.LEFT);
 		}
-		
 	}
 
 	@Override

@@ -115,7 +115,9 @@ public class FoodDetailsFragment extends Fragment{
 						{
 							Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),"Added to cart",Toast.LENGTH_SHORT);
 							addConfirm.show();
+							System.out.println(note.getText().toString());
 							note.setText("");
+							
 							quantitySpinner.setSelection(0);
 						}
 						else
