@@ -173,6 +173,8 @@ public class FoodDetailsFragment extends Fragment{
     		addButton.setVisibility(View.VISIBLE);
     		note.setVisibility(View.VISIBLE);
     		customerRating.setRating(0);
+    		note.setText("");
+    		quantitySpinner.setSelection(0);
 			getActivity().findViewById(R.id.review_number).setVisibility(View.VISIBLE);
 			getActivity().findViewById(R.id.ratingBar).setVisibility(View.VISIBLE);
 			switch(position)
