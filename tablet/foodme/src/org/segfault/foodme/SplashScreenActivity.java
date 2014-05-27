@@ -60,15 +60,15 @@ public class SplashScreenActivity extends Activity {
 	    // Create the account type and default account
 	    Account myAccount = new Account ("dummyAccount", "org.segfault.foodme");
 	    AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
-	    accountManager.addAccountExplicitly (myAccount, null, null);
-	    //ContentResolver.requestSync (myAccount, "org.segfault.foodme.tabdbprovider", Bundle.EMPTY);
+	    //accountManager.addAccountExplicitly (myAccount, null, null);
+	    ContentResolver.requestSync (myAccount, "org.segfault.foodme.tabdbprovider", Bundle.EMPTY);
 	    
 	    // Start the cursor loaders
 	    CLMenuItem = new CursorLoaderMenuitem();
 	    CLSubcategory = new CursorLoaderSubcategory();
 	    CLSetting = new CursorLoaderSetting();
-	    
-	    //System.out.println(CLSubcategory.getSubcategoryNameList(10).get(0));
+	    System.out.println("check");
+	    //CLMenuItem.getPrice(0);
 	}
 	
 }
