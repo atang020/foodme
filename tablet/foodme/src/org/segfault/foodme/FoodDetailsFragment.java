@@ -22,7 +22,6 @@ public class FoodDetailsFragment extends Fragment{
 	RatingBar customerRating;
 	TextView review;
 	TextView ratingNumber;
-	CursorLoaderTest cursor;
 	TextView foodDescription;
 	TextView leaveARating;
 	ImageView foodImage;
