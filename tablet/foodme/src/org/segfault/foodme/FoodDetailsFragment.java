@@ -108,10 +108,18 @@ public class FoodDetailsFragment extends Fragment{
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),"Added to cart",Toast.LENGTH_SHORT);
-						addConfirm.show();
-						note.setText("");
-						quantitySpinner.setSelection(0);
+						if(quantitySpinner.getSelectedItemPosition() != 0)
+						{
+							Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),"Added to cart",Toast.LENGTH_SHORT);
+							addConfirm.show();
+							note.setText("");
+							quantitySpinner.setSelection(0);
+						}
+						else
+						{
+							Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Please select a quantity",Toast.LENGTH_SHORT);
+							notAdded.show();
+						}
 					}
 				});
 				dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
