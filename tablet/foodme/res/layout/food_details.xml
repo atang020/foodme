@@ -24,6 +24,9 @@
 	    android:paddingLeft="@dimen/abc_search_view_text_min_width" />
 
 	</TableRow>
+
+	    
+	
 	<TableRow
 	    android:id="@+id/tableRow2"
         android:layout_width="wrap_content"
@@ -49,10 +52,31 @@
 	    
 	</TableRow>
 
-	
+		
+	<TableRow
+	    android:id="@+id/tableRow3" 
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="5dip"
+        android:layout_marginRight="8dp" >
+
+	    <Spinner
+  		android:id="@+id/quantity_spinner"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content" />
+	    
+	    <Button
+	    android:id="@+id/add_button"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/add" />
+	    
+	    
+	    </TableRow>
 	
 	<TableRow
-	    android:id="@+id/tableRow3"
+	    android:id="@+id/tableRow4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp" >
@@ -74,10 +98,16 @@
 
 	</TableRow>
 
+		<TableRow
+	    android:id="@+id/tableRow5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp" >
 	<Button
 	    android:id="@+id/submit_button"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="@string/submit_rating" />
+	</TableRow>
 	 
 </TableLayout> 
