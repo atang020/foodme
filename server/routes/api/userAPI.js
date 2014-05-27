@@ -4,7 +4,7 @@ var userModel = require('../../models/userModel');
 var router = express.Router();
 
 router.get('/', function(req, res){
-	ticketItemModel.getAll(function (err, orders) {
+	userModel.getAll(function (err, orders) {
 		if (err) {
 			res.send(500);
 		}
