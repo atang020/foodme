@@ -59,7 +59,7 @@ public class FoodDetailsFragment extends Fragment{
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
 				
 				dialogBuilder.setTitle("Submit Rating");
-				dialogBuilder.setMessage("Are you sure you want to rate this item?");
+				dialogBuilder.setMessage("Are you sure you want to give this item this rating?");
 				dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
 
 					@Override
