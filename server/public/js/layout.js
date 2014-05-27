@@ -1,3 +1,20 @@
+$(document).ready(function () {
+	$('#loginError').hide();
+
+	$('#loginForm').submit(function (event) {
+		$.ajax({
+			data: $(this).serialize(),
+			type: 'POST',
+			url: '/api/users/login'
+		}).done(function (data, textStatus) {
+			console.log(data, textStatus);
+		}).fail(function (textStatus, errorThrown) {
+			$('#loginError').show().text('Invalid email/password');
+		});
+		event.preventDefault();
+	});
+});
+
 //logs the user out
 function logout() {
 	window.location.assign('/');
