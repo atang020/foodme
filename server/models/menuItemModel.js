@@ -106,6 +106,8 @@ exports.search = function (params, callback) {
 	});
 };
 
+
+
 /**
  * Inserts a new menu_item. The callback gets two arguments (err, data).
  *
@@ -176,6 +178,35 @@ exports.remove = function (menuItem, callback) {
 	}
 
 	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', id, function (err) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null);
+	});
+};
+
+/**
+ * Deletes all the menu_items in a subcategory. The callback gets two arguments (err, data).
+ *
+ * @param subcategory subcategory to delete the items from
+ * @param callback
+ */
+exports.removeAllInSubcategory = function (subcategory, callback) {
+	var id = null;
+
+	if (typeof subcategory === 'object') {
+		id = subcategory.subcategory_id;
+	} else {
+		id = subcategory;
+	}
+
+	if (id === null) {
+		callback(new Error('Invalid subcategory: no id present'));
+		return;
+	}
+
+	database.query('DELETE FROM menu_item WHERE subcategory_id = ?', id, function (err) {
 		if (err) {
 			callback(err);
 			return;
