@@ -44,13 +44,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	public void onPerformSync(Account account, Bundle extras, String authority,
 			ContentProviderClient provider, SyncResult syncResult) {
 		try {
-			System.out.println("asdasd");
+			android.util.Log.v("sync", "onperformsync");
 			deleteMenuItems(provider);
 			insertMenuItems(provider);
 			deleteSubcategories(provider);
 			insertSubcategories(provider);
-			deleteSettings(provider);
-			insertSettings(provider);
 			deleteReviews(provider);
 			insertReviews(provider);
 		} catch (RemoteException | IOException e) {
@@ -86,7 +84,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					String name = reader.nextName();
 					if (name.equals("menu_item_id")) {
 						menuItemId = reader.nextInt();
-						System.out.println(menuItemId);
 					} else if (name.equals("subcategory_id")) {
 						subcategoryId = reader.nextInt();
 					} else if (name.equals("name")) {
@@ -157,7 +154,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				
 				while (reader.hasNext()) {
 					String name = reader.nextName();
-					if (name.equals("_id")) {
+					if (name.equals("subcategory_id")) {
 						subcategoryId = reader.nextInt();
 					} else if (name.equals("name")) {
 						subcategoryName = reader.nextString();
@@ -198,139 +195,80 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 		}
 	}
 	
-	// Insert data into setting table
-	private void insertSettings(ContentProviderClient contentProviderClient)
-			throws RemoteException, IOException {
-			URL url = new URL("http", "jdelaney.org", 80,"/api/settings");
-			URLConnection conn = url.openConnection();
+	// Insert data into review table
+	private void insertReviews(ContentProviderClient contentProviderClient)
+		throws RemoteException, IOException {
+		
+		URL url = new URL("http", "jdelaney.org", 80,"/api/reviews");
+		URLConnection conn = url.openConnection();
+		
+		try (
+			BufferedReader bufReader = new BufferedReader (
+				new InputStreamReader (conn.getInputStream(), "UTF-8"));
+			JsonReader reader = new JsonReader(bufReader)
+		) {
+			reader.beginArray();
 			
-			try (
-				BufferedReader bufReader = new BufferedReader (
-					new InputStreamReader (conn.getInputStream(), "UTF-8"));
-				JsonReader reader = new JsonReader(bufReader)
-			) {
-				reader.beginArray();
-				
-				String settingId = null;
-				String value = null;
+			int reviewId = -1;
+			int menuItemId = -1;
+			String reviewer = null;
+			short rating = -1;
+			String reviewText = null;
+			String reviewDate = null;
+			
+			
+			while (reader.hasNext()) {
+				reader.beginObject();
 				
 				while (reader.hasNext()) {
-					reader.beginObject();
-					
-					while (reader.hasNext()) {
-						String name = reader.nextName();
-						if (name.equals("_id")) {
-							settingId = reader.nextString();
-						} else if (name.equals("value")) {
-							value = reader.nextString();
-						}
+					String name = reader.nextName();
+					if (name.equals("review_id")) {
+						reviewId = reader.nextInt();
+					} else if (name.equals("menu_item_id")) {
+						menuItemId = reader.nextInt();
+					} else if (name.equals("reviewer")) {
+						reviewer = reader.nextString();
+					} else if (name.equals("rating")) {
+						rating = (short)reader.nextInt();
+					} else if (name.equals("review_text")) {
+						reviewText = reader.nextString();
+					} else if (name.equals("review_date")) {
+						reviewDate = reader.nextString();
 					}
-					
-					reader.endObject();
-					
-					ContentValues contentValues = new ContentValues();
-					contentValues.put(TabletContentProvider.KEY_ID, settingId);
-					contentValues.put(TabletContentProvider.KEY_VALUE, value);
-					contentProviderClient.insert(
-						Uri.parse(PREFIX + "/setting/" + settingId), contentValues);
 				}
 				
-				reader.endArray();
-			}
-		}
-		
-		// Delete data currently in the setting table
-		private void deleteSettings(ContentProviderClient contentProviderClient)
-			throws RemoteException {
-			// The URI will be recognized by the content provider
-			Cursor cursor = contentProviderClient.query (
-				// Specify we only want the _id column
-				Uri.parse(PREFIX + "/setting"), new String[] {TabletContentProvider.KEY_ID},
-				null, null, null);
-			if (cursor.moveToFirst()) {
-				do {
-					long settingId = cursor.getLong(0);
-					contentProviderClient.delete (
-						Uri.parse(PREFIX + "/setting/" + settingId), 
-						null, null);
-				} while (cursor.moveToNext());
-			}
-		}
-		
-		// Insert data into review table
-		private void insertReviews(ContentProviderClient contentProviderClient)
-				throws RemoteException, IOException {
+				reader.endObject();
 				
-				URL url = new URL("http", "jdelaney.org", 80,"/api/reviews");
-				URLConnection conn = url.openConnection();
-				
-				try (
-					BufferedReader bufReader = new BufferedReader (
-						new InputStreamReader (conn.getInputStream(), "UTF-8"));
-					JsonReader reader = new JsonReader(bufReader)
-				) {
-					reader.beginArray();
-					
-					int reviewId = -1;
-					int menuItemId = -1;
-					String reviewer = null;
-					short rating = -1;
-					String reviewText = null;
-					String reviewDate = null;
-					
-					
-					while (reader.hasNext()) {
-						reader.beginObject();
-						
-						while (reader.hasNext()) {
-							String name = reader.nextName();
-							if (name.equals("review_id")) {
-								reviewId = reader.nextInt();
-							} else if (name.equals("menu_item_id")) {
-								menuItemId = reader.nextInt();
-							} else if (name.equals("reviewer")) {
-								reviewer = reader.nextString();
-							} else if (name.equals("rating")) {
-								rating = (short)reader.nextInt();
-							} else if (name.equals("review_text")) {
-								reviewText = reader.nextString();
-							} else if (name.equals("review_date")) {
-								reviewDate = reader.nextString();
-							}
-						}
-						
-						reader.endObject();
-						
-						ContentValues contentValues = new ContentValues();
-						contentValues.put(TabletContentProvider.KEY_ID, reviewId);
-						contentValues.put(TabletContentProvider.KEY_MENU_ITEM_ID, menuItemId);
-						contentValues.put(TabletContentProvider.KEY_REVIEWER, reviewer);
-						contentValues.put(TabletContentProvider.KEY_RATING, rating);
-						contentValues.put(TabletContentProvider.KEY_REVIEW_TEXT, reviewText);
-						contentValues.put(TabletContentProvider.KEY_REVIEW_DATE, reviewDate);
-						contentProviderClient.insert(
-							Uri.parse(PREFIX + "/review/" + reviewId), contentValues);
-					}
-					
-					reader.endArray();
-				}
+				ContentValues contentValues = new ContentValues();
+				contentValues.put(TabletContentProvider.KEY_ID, reviewId);
+				contentValues.put(TabletContentProvider.KEY_MENU_ITEM_ID, menuItemId);
+				contentValues.put(TabletContentProvider.KEY_REVIEWER, reviewer);
+				contentValues.put(TabletContentProvider.KEY_RATING, rating);
+				contentValues.put(TabletContentProvider.KEY_REVIEW_TEXT, reviewText);
+				contentValues.put(TabletContentProvider.KEY_REVIEW_DATE, reviewDate);
+				contentProviderClient.insert(
+					Uri.parse(PREFIX + "/review/" + reviewId), contentValues);
 			}
 			
-			// Delete data currently in review table
-			private void deleteReviews(ContentProviderClient contentProviderClient)
-				throws RemoteException {
-				// The URI will be recognized by the content provider
-				Cursor cursor = contentProviderClient.query (
-					// Specify we only want the _id column
-					Uri.parse(PREFIX + "/review"), new String[] {TabletContentProvider.KEY_ID}, 
-					null, null, null);
-				if (cursor.moveToFirst()) {
-					do {
-						long reviewId = cursor.getLong(0);
-						contentProviderClient.delete(
-							Uri.parse(PREFIX + "/review/" + reviewId),
-							null, null);
-					} while (cursor.moveToNext());
-				}
-			}
+			reader.endArray();
+		}
+	}
+	
+	// Delete data currently in review table
+	private void deleteReviews(ContentProviderClient contentProviderClient)
+		throws RemoteException {
+		// The URI will be recognized by the content provider
+		Cursor cursor = contentProviderClient.query (
+			// Specify we only want the _id column
+			Uri.parse(PREFIX + "/review"), new String[] {TabletContentProvider.KEY_ID}, 
+			null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				long reviewId = cursor.getLong(0);
+				contentProviderClient.delete(
+					Uri.parse(PREFIX + "/review/" + reviewId),
+					null, null);
+			} while (cursor.moveToNext());
+		}
+	}
 }
