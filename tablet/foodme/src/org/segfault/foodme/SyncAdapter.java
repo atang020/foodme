@@ -21,7 +21,7 @@ import android.util.JsonReader;
 
 // Handles the transfer of data between the server and our local db
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
-	private static final String AUTHORITY = "org.segfault.food.tabdbprovider";
+	private static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	private static final String PREFIX = "content://" + AUTHORITY;
 
 	// Contains our content resolver instance
@@ -44,6 +44,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	public void onPerformSync(Account account, Bundle extras, String authority,
 			ContentProviderClient provider, SyncResult syncResult) {
 		try {
+			System.out.println("asdasd");
 			deleteMenuItems(provider);
 			insertMenuItems(provider);
 			deleteSubcategories(provider);
@@ -61,7 +62,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	private void insertMenuItems(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
 		
-		URL url = new URL("http", "jdelaney.org", 8080,"/api/menuItems");
+		URL url = new URL("http", "jdelaney.org", 80,"/api/menuItems");
 		URLConnection conn = url.openConnection();
 		
 		try (
@@ -85,6 +86,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					String name = reader.nextName();
 					if (name.equals("menu_item_id")) {
 						menuItemId = reader.nextInt();
+						System.out.println(menuItemId);
 					} else if (name.equals("subcategory_id")) {
 						subcategoryId = reader.nextInt();
 					} else if (name.equals("name")) {
@@ -136,7 +138,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	// Insert data into subcategory table
 	private void insertSubcategories(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
-		URL url = new URL("http", "jdelaney.org", 8080,"/api/subcategories");
+		URL url = new URL("http", "jdelaney.org", 80,"/api/subcategories");
 		URLConnection conn = url.openConnection();
 		
 		try (
@@ -199,7 +201,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	// Insert data into setting table
 	private void insertSettings(ContentProviderClient contentProviderClient)
 			throws RemoteException, IOException {
-			URL url = new URL("http", "jdelaney.org", 8080,"/api/settings");
+			URL url = new URL("http", "jdelaney.org", 80,"/api/settings");
 			URLConnection conn = url.openConnection();
 			
 			try (
@@ -259,7 +261,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 		private void insertReviews(ContentProviderClient contentProviderClient)
 				throws RemoteException, IOException {
 				
-				URL url = new URL("http", "jdelaney.org", 8080,"/api/reviews");
+				URL url = new URL("http", "jdelaney.org", 80,"/api/reviews");
 				URLConnection conn = url.openConnection();
 				
 				try (

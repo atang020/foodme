@@ -11,7 +11,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="FoodMe"
         android:theme="@style/Theme.AppCompat.Light" >
-        <activity android:name=".SplashScreenActivity" >
+        <activity android:name=".SplashScreenActivity" 
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,19 +20,25 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".MainMenuActivity" >           
+        <activity android:name=".MainMenuActivity" 
+            android:screenOrientation="landscape">     
+                  
         </activity>
         
-        <activity android:name=".EntreeActivity" >            
+        <activity android:name=".EntreeActivity" 
+            android:screenOrientation="landscape">            
         </activity>
         
-        <activity android:name=".DessertActivity" >             
+        <activity android:name=".DessertActivity" 
+         	   android:screenOrientation="landscape">             
         </activity>
         
-       	<activity android:name=".DrinkActivity" >
+       	<activity android:name=".DrinkActivity" 
+       	    android:screenOrientation="landscape">
         </activity>
         
-       	<activity android:name=".AppetizerActivity" >       	    
+       	<activity android:name=".AppetizerActivity" 
+       	    android:screenOrientation="landscape">       	    
      	</activity>
 
         <provider 
