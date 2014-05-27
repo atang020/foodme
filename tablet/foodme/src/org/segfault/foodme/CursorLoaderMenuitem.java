@@ -14,7 +14,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-public class CursorLoaderTest extends Fragment implements
+public class CursorLoaderMenuitem extends Fragment implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
 	ArrayList<menuItem> menuItems = new ArrayList<menuItem>();

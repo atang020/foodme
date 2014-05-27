@@ -89,11 +89,11 @@ public class CursorLoaderSubmenu extends Fragment implements
     {
         return subCategoryNameList.get(index);
     }
-    public Int getSubCategoryId(int index)
+    public int getSubCategoryId(int index)
     {
         return subCategoryIdList.get(index);
     }
-    public Int getCategory(int index)
+    public int getCategory(int index)
     {
         return categoryList.get(index);
     }
@@ -106,7 +106,7 @@ public class CursorLoaderSubmenu extends Fragment implements
             if(categoryList.get(i)==index)
             {
                 itemsInSubCat.set(indices,subCategoryNameList.get(i));
-                indice++;
+                index++;
             }
         }
         return itemsInSubCat;
