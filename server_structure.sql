@@ -26,11 +26,7 @@ DROP TABLE IF EXISTS `ticket` ;
 CREATE TABLE `ticket` (
   `ticket_id` INT NOT NULL AUTO_INCREMENT,
   `table_number` INT NOT NULL,
-<<<<<<< HEAD
-  `ticket_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-=======
   `ticket_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
->>>>>>> development
   `checked_out` TINYINT NOT NULL DEFAULT 0,
   `call_waiter_status` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`ticket_id`))
@@ -95,11 +91,7 @@ CREATE TABLE `review` (
   `menu_item_id` INT NOT NULL,
   `reviewer` VARCHAR(45) NULL,
   `rating` TINYINT NOT NULL,
-<<<<<<< HEAD
   `review_text` TEXT NOT NULL,
-=======
-  `review_text` TEXT NULL,
->>>>>>> development
   `review_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`review_id`),
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_item`(`menu_item_id`))
