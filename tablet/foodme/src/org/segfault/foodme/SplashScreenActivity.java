@@ -21,18 +21,15 @@ public class SplashScreenActivity extends Activity {
 	public static final String ACCOUNT = "default_account";
 	Account myAccount;
 	static CursorLoaderMenuitem CLMenuItem;
-	static CursorLoaderSubmenu CLSubmenu;
-	static CursorLoaderSettings CLSetting;
+	static CursorLoaderSubcategory CLSubcategory;
+	static CursorLoaderSetting CLSetting;
 	
 	// Set Duration of the Splash Screen
 	long Delay = 8000;
-	static CursorLoaderTest cursor;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		cursor = new CursorLoaderTest();
 		
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -68,8 +65,8 @@ public class SplashScreenActivity extends Activity {
 	    
 	    // Start the cursor loaders
 	    CLMenuItem = new CursorLoaderMenuitem();
-	    CLSubmenu = new CursorLoaderSubmenu();
-	    CLSetting = new CursorLoaderSettings();
+	    CLSubcategory = new CursorLoaderSubcategory();
+	    CLSetting = new CursorLoaderSetting();
 	}
 	
 }
