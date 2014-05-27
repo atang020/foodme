@@ -13,6 +13,7 @@ public class FoodItemFragment extends ListFragment{
 	public static final String ARG_SUBCATEGORY_NUMBER = "subcategory_number";
 	ArrayAdapter<String> adapter;
 	String[] names = {};
+
 	
 	onFoodItemSelectedListener callback;
     public interface onFoodItemSelectedListener {

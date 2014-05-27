@@ -1,16 +1,20 @@
 package org.segfault.foodme;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FoodDetailsFragment extends Fragment{
 
@@ -48,11 +52,39 @@ public class FoodDetailsFragment extends Fragment{
                 return true;
             }
         });
+    	submitButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+				
+				dialogBuilder.setTitle("Submit Rating");
+				dialogBuilder.setMessage("Are you sure you want to rate this item?");
+				dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for your rating",Toast.LENGTH_SHORT);
+						ratingConfirm.show();
+						customerRating.setRating(0);
+					}
+				});
+				dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						customerRating.setRating(0);
+					}
+				});
+				AlertDialog submitDialog = dialogBuilder.create();
+				submitDialog.show();
+				
+			}
+    	});
     	ratingBar.setFocusable(false);
     	
         updateFoodDetails(lastPosition);
     }
-    
     public void updateFoodDetails(int position)
     {
 
