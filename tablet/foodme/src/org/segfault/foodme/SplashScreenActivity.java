@@ -22,7 +22,6 @@ public class SplashScreenActivity extends Activity {
 	Account myAccount;
 	static CursorLoaderMenuitem CLMenuItem;
 	static CursorLoaderSubcategory CLSubcategory;
-	static CursorLoaderSetting CLSetting;
 	
 	// Set Duration of the Splash Screen
 	long Delay = 8000;
@@ -56,17 +55,18 @@ public class SplashScreenActivity extends Activity {
 	        }
 	    });
 	    
+	    
 	    // SyncAdapter
 	    // Create the account type and default account
 	    Account myAccount = new Account ("dummyAccount", "org.segfault.foodme");
 	    AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
-	    accountManager.addAccountExplicitly (myAccount, null, null);
+	    accountManager.addAccountExplicitly(myAccount, null, null);
 	    ContentResolver.requestSync (myAccount, "org.segfault.foodme.tabdbprovider", Bundle.EMPTY);
-	    
 	    // Start the cursor loaders
 	    CLMenuItem = new CursorLoaderMenuitem();
 	    CLSubcategory = new CursorLoaderSubcategory();
-	    CLSetting = new CursorLoaderSetting();
+	    
+	    //CLMenuItem.getPrice(0);
 	}
 	
 }
