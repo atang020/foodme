@@ -152,7 +152,7 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
-		dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+		dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -160,7 +160,7 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 				waiterConfirm.show();
 			}
 		});
-		dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
