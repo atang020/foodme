@@ -14,7 +14,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-public class CursorLoaderSubmenu extends Fragment implements
+public class CursorLoaderSettings extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>
 {
 /*
@@ -71,8 +71,8 @@ public class CursorLoaderSubmenu extends Fragment implements
     {
        return keyList.get(index);
     }
-    public Stirng getValue(int index)
+    public String getValue(int index)
     {
-        return valueList.get(int index);
+        return valueList.get(index);
     }
 }

@@ -27,8 +27,8 @@ public class CursorLoaderSubmenu extends Fragment implements
         ArrayList<String> itemDescriptionList=new ArrayList<String>();
     */
     ArrayList<String> subCategoryNameList = new ArrayList<String>();
-    ArrayList<int> subCategoryIdList = new ArrayList<Integer>();
-    ArrayList<int> categoryList = new ArrayList<Integer>();
+    ArrayList<Integer> subCategoryIdList = new ArrayList<Integer>();
+    ArrayList<Integer> categoryList = new ArrayList<Integer>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,11 +89,11 @@ public class CursorLoaderSubmenu extends Fragment implements
     {
         return subCategoryNameList.get(index);
     }
-    public Int getSubCategoryId(int index)
+    public int getSubCategoryId(int index)
     {
         return subCategoryIdList.get(index);
     }
-    public Int getCategory(int index)
+    public int getCategory(int index)
     {
         return categoryList.get(index);
     }
