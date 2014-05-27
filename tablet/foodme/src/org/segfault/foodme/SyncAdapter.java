@@ -44,6 +44,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	public void onPerformSync(Account account, Bundle extras, String authority,
 			ContentProviderClient provider, SyncResult syncResult) {
 		try {
+			android.util.Log.v("sync", "onperformsync");
 			deleteMenuItems(provider);
 			insertMenuItems(provider);
 			deleteSubcategories(provider);
@@ -147,13 +148,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			int subcategoryId = -1;
 			String subcategoryName = null;
 			int category = -1;
-			System.out.println(reader);
+			
 			while (reader.hasNext()) {
 				reader.beginObject();
 				
 				while (reader.hasNext()) {
 					String name = reader.nextName();
-					if (name.equals("_id")) {
+					if (name.equals("subcategory_id")) {
 						subcategoryId = reader.nextInt();
 					} else if (name.equals("name")) {
 						subcategoryName = reader.nextString();
