@@ -12,6 +12,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -30,6 +31,7 @@ public class FoodDetailsFragment extends Fragment{
 	Button submitButton;
 	Button addButton;
 	Spinner quantitySpinner;
+	EditText note;
 	
 	int lastPosition = -1;
     @Override
@@ -51,6 +53,7 @@ public class FoodDetailsFragment extends Fragment{
     	leaveARating = (TextView) getActivity().findViewById(R.id.leave_review);
     	submitButton = (Button) getActivity().findViewById(R.id.submit_button);
     	addButton = (Button) getActivity().findViewById(R.id.add_button);
+    	note = (EditText) getActivity().findViewById(R.id.note);
     	
     	quantitySpinner = (Spinner) getActivity().findViewById(R.id.quantity_spinner);
     	ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -107,6 +110,8 @@ public class FoodDetailsFragment extends Fragment{
 					public void onClick(DialogInterface dialog, int which) {
 						Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),"Added to cart",Toast.LENGTH_SHORT);
 						addConfirm.show();
+						note.setText("");
+						quantitySpinner.setSelection(0);
 					}
 				});
 				dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -140,6 +145,7 @@ public class FoodDetailsFragment extends Fragment{
     		submitButton.setVisibility(View.GONE);
     		quantitySpinner.setVisibility(View.GONE);
     		addButton.setVisibility(View.GONE);
+    		note.setVisibility(View.GONE);
 			getActivity().findViewById(R.id.review_number).setVisibility(View.GONE);
 			getActivity().findViewById(R.id.ratingBar).setVisibility(View.GONE);
 		}
@@ -152,6 +158,7 @@ public class FoodDetailsFragment extends Fragment{
     		submitButton.setVisibility(View.VISIBLE);
     		quantitySpinner.setVisibility(View.VISIBLE);
     		addButton.setVisibility(View.VISIBLE);
+    		note.setVisibility(View.VISIBLE);
     		customerRating.setRating(0);
 			getActivity().findViewById(R.id.review_number).setVisibility(View.VISIBLE);
 			getActivity().findViewById(R.id.ratingBar).setVisibility(View.VISIBLE);
