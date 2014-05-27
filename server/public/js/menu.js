@@ -3,32 +3,28 @@ var confirmCallback;
 
 //page loaded
 $( document ).ready(function() {
-    $('[id^=subcatPrototype]').hide();
-	$('[id^=itemPrototype]').hide();
+    $('[id^=subcatProtosubcat]').hide();
+	$('[id^=itemProtoitem]').hide();
   });
 
 //adds an item
 function addItem(subcat_id) {
-	var item = {subcategory_id: subcat_id, name : 'undefined', description : 'undefined', price : 5};
-	var row = $('#itemPrototype' + subcat_id)
+	var item = {subcategory_id: subcat_id, name : '', description : '', price : 5};
+	var row = $('#itemProtoitem' + subcat_id)
 		$.ajax({
 			url: '/api/menuitems/',
 			type: 'POST',
 			data: item,
 			success: function(id) {
-				row.after('<tr>' + row.html() + '</tr>')
+				row.clone().hide().insertAfter(row);
 				row.attr('id','item' + id);
-				row.show();
-				$('#itemPrototype' + subcat_id).hide();
+				row.html(row.html().split('Protoitem' + subcat_id).join(id))
+				row.fadeIn();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				alert('something went wrong: ' + thrownError);
 			}
 		});
-	
-	
-	
-	
 }
 
 //prepares deletion of item
@@ -41,7 +37,8 @@ function setConfirmModalItem(id) {
 			url: '/api/menuitems/' + id,
 			type: 'DELETE',
 			success: function(response) {
-				$('#item' + id).remove();
+				var item = $('#item' + id);
+				item.fadeOut(300, function(){ item.remove(); });
 				closeConfirmModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -61,7 +58,8 @@ function setConfirmModalSubcat(id) {
 			url: '/api/subcategories/' + id,
 			type: 'DELETE',
 			success: function(response) {
-				$('#subcat' + id).remove();
+			var subcat = $('#subcat' + id);
+				subcat.fadeOut(300, function() {subcat.remove()});
 				closeConfirmModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -90,8 +88,8 @@ function confirmSubmit() {
 }
 
 //prepares rename of item
-function setInputModalRenameItem(id) {
-	$.get('/api/menuitems/' + id, function(data) {
+function setInputModalRenameItem(menu_item_id) {
+	$.get('/api/menuitems/' + menu_item_id, function(data) {
 		inputCallback = function(field){
 			data.name = field;
 			$.ajax({
@@ -99,7 +97,7 @@ function setInputModalRenameItem(id) {
 				type: 'PUT',
 				data: data,
 				success: function(response) {
-					$('#titleSubcat' + id).text(field);
+					$('#titleItem' + menu_item_id).text(field);
 					closeInputModal();
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
@@ -108,6 +106,51 @@ function setInputModalRenameItem(id) {
 			});
 		}
 		showInputModal('rename item', data.name);
+	});
+}
+
+//prepares setting item price
+function setInputModalPriceItem(menu_item_id) {
+	$.get('/api/menuitems/' + menu_item_id, function(data) {
+		inputCallback = function(field){
+			data.price = field;
+			$.ajax({
+				url: '/api/menuItems/',
+				type: 'PUT',
+				data: data,
+				success: function(response) {
+					$('#priceItem' + menu_item_id).text(field);
+					closeInputModal();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert('something went wrong: ' + thrownError);
+				}
+			});
+		}
+		showInputModal('set price', data.price);
+	});
+}
+
+
+//prepares setting item description
+function setInputModalDescriptionItem(menu_item_id) {
+	$.get('/api/menuitems/' + menu_item_id, function(data) {
+		inputCallback = function(field){
+			data.description = field;
+			$.ajax({
+				url: '/api/menuItems/',
+				type: 'PUT',
+				data: data,
+				success: function(response) {
+					$('#descriptionItem' + menu_item_id).text(field);
+					closeInputModal();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert('something went wrong: ' + thrownError);
+				}
+			});
+		}
+		showInputModal('set description', data.description);
 	});
 }
 
@@ -142,15 +185,14 @@ function setInputModalAddSubcat(catId) {
 			type: 'POST',
 			data: { "name": field,"category" : catId},
 			success: function(id) {
-				var panel = $('#subcatPrototype' + catId);
-				panel.after('<div class=\'panel panel-default\'>' + panel.html() + '</div>' );
+				var panel = $('#subcatProtosubcat' + catId);
+				panel.clone().hide().insertAfter(panel);
 				
-				panel.html(panel.html().split('Prototype' + catId).join('subcat' + id))
-				panel.find('#subcat' + id).text(field);
+				panel.attr('id','subcat' + id);
+				panel.html(panel.html().split('Protosubcat' + catId).join(id))
+				panel.find('#titleSubcat' + id).text(field);
 				panel.attr('id', 'subcat' + id);
-				panel.show();
-				
-				$('#subcatPrototype' + catId).hide();
+				panel.fadeIn();
 				closeInputModal();
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -160,25 +202,6 @@ function setInputModalAddSubcat(catId) {
 	}
 }
 
-//prepares setting item price
-function setInputModalPriceItem(price, item, subcat, cat) {
-	if (price === 'undefined') {
-		showInputModal('set price', 'price', true);
-	}
-	else {
-		showInputModal('set price', price, false);
-	}
-}
-
-//prepares setting item description
-function setInputModalDescriptionItem(description, item, subcat, cat) {
-	if (description === 'undefined') {
-		showInputModal('set description', 'description', true);
-	}
-	else {
-		showInputModal('set description', description, false);
-	}
-}
 
 //shows the input modal with specified title and either placeholder or text
 function showInputModal(title, text, useAsPlaceholder) {

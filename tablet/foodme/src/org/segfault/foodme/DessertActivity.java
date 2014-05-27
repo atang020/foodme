@@ -1,14 +1,5 @@
 package org.segfault.foodme;
 
-
-
-
-<<<<<<< HEAD
-=======
-
-import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
-
->>>>>>> development
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
@@ -170,11 +161,9 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 		AlertDialog dialogPizzaName = dialogBuilder.create();
 		dialogPizzaName.show();
 	}
-<<<<<<< HEAD
-=======
 
 
-	@Override
+	//@Override TODO
 	public void onFoodItemSelected(int position) {
 		//         ArticleFragment articleFrag = (ArticleFragment)
 	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
@@ -185,8 +174,6 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 	    foodDetails.updateFoodDetails(position);
 		
 	}
->>>>>>> development
-	
 	
 	private class SubcategoryItemClickListener implements ListView.OnItemClickListener{
 		

@@ -21,9 +21,9 @@ public class CursorLoaderTest extends Fragment implements
     ArrayList<Integer> itemIdList = new ArrayList<Integer>();
     ArrayList<Integer> subcategoryIdList = new ArrayList<Integer>();
     ArrayList<Double> itemPriceList = new ArrayList<Double>();
-    ArrayList<String> itemPicPathList =new ArrayList<String>();
-    ArrayList<String> itemNameList=new ArrayList<String>();
-    ArrayList<String> itemDescriptionList=new ArrayList<String>();
+    ArrayList<String> itemPicPathList = new ArrayList<String>();
+    ArrayList<String> itemNameList = new ArrayList<String>();
+    ArrayList<String> itemDescriptionList = new ArrayList<String>();
 
 
     @Override
@@ -31,7 +31,6 @@ public class CursorLoaderTest extends Fragment implements
     {
 		super.onCreate(savedInstanceState);
 		// Maybe have a gridview that displays each menu Item?
-		
 	}
 
 	@Override
@@ -39,6 +38,7 @@ public class CursorLoaderTest extends Fragment implements
     {
 		// Grab URI corresponding with menuItem table
 		Uri CONTENT_URI = TabletContentProvider.MENU_ITEM_CONTENT_URI;
+        //dont worry about the nulls
 		return new CursorLoader(getActivity(), CONTENT_URI, null, null, null, null);
 	}
 

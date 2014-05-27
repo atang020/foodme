@@ -21,9 +21,11 @@ block content
 							tr
 								td #{order.id}
 								td #{order.table}
-								td(style='color:rgb(#{red},0,0);') #{order.time}m
+								td(style='color:rgb(#{red},0,0);') #{order.time}
 								td #{order.item}
 								td #{order.notes}
 								td #{order.status}
 								td
-									button.btn.btn-primary mark delivered
+									button.btn.btn-primary.btn-sm mark delivered
+								td
+									button.btn.btn-danger.btn-sm delete
