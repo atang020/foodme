@@ -26,8 +26,7 @@ public class TabletContentProvider extends ContentProvider {
 	public static final Uri REVIEW_CONTENT_URI = 
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/rating");
 	
-<<<<<<< HEAD
-=======
+
 	public static final String DB_NAME = "tabDatabase.db";
 	public static final String DB_MENU_ITEM_TABLE = "menu_item";
 	public static final String DB_SUBCATEGORY_TABLE = "subcategory";
@@ -35,7 +34,6 @@ public class TabletContentProvider extends ContentProvider {
 	public static final String DB_REVIEW_TABLE = "review";
 	public static int DB_VERSION = 1;
 	
->>>>>>> development
 	// constants for menu_item, subcategory, and setting tables
 	public static final String KEY_ID = "_id";
 	public static final String KEY_SUBCATEGORY_ID = "subcategory_id";

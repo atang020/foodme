@@ -1,17 +1,23 @@
 package org.segfault.foodme;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SyncResult;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.util.JsonReader;
 
 // Handles the transfer of data between the server and our local db
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
@@ -42,13 +48,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			insertMenuItems(provider);
 			deleteSubcategories(provider);
 			insertSubcategories(provider);
-<<<<<<< HEAD
-=======
+
 			deleteSettings(provider);
 			insertSettings(provider);
 			deleteReviews(provider);
 			insertReviews(provider);
->>>>>>> development
+
 		} catch (RemoteException | IOException e) {
 			syncResult.hasHardError();
 		}
@@ -57,9 +62,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	// Insert data into menuItems table
 	private void insertMenuItems(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
-<<<<<<< HEAD
+
 		// TODO Access server
-=======
+
 		
 		URL url = new URL("http", "jdelaney.org", 8080,"/api/menuItems");
 		URLConnection conn = url.openConnection();
@@ -113,7 +118,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			
 			reader.endArray();
 		}
->>>>>>> development
 	}
 	
 	// Delete data currently in menuItems table
@@ -137,9 +141,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	// Insert data into subcategory table
 	private void insertSubcategories(ContentProviderClient contentProviderClient)
 		throws RemoteException, IOException {
-<<<<<<< HEAD
+
 		// TODO Access server
-=======
+
 		URL url = new URL("http", "jdelaney.org", 8080,"/api/subcategories");
 		URLConnection conn = url.openConnection();
 		
@@ -180,7 +184,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			
 			reader.endArray();
 		}
->>>>>>> development
 	}
 	
 	// Delete data currently in the subcategory table
@@ -200,8 +203,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			} while (cursor.moveToNext());
 		}
 	}
-<<<<<<< HEAD
-=======
+
 	
 	// Insert data into setting table
 	private void insertSettings(ContentProviderClient contentProviderClient)
@@ -338,5 +340,4 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					} while (cursor.moveToNext());
 				}
 			}
->>>>>>> development
 }
