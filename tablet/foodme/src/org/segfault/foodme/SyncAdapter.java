@@ -21,7 +21,7 @@ import android.util.JsonReader;
 
 // Handles the transfer of data between the server and our local db
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
-	private static final String AUTHORITY = "org.segfault.food.tabdbprovider";
+	private static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	private static final String PREFIX = "content://" + AUTHORITY;
 
 	// Contains our content resolver instance
