@@ -104,8 +104,14 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+		if(arg0.getText().toString() == "Call Waiter")
+		{
+			callWaiterPress();
+		}
+		else
+		{
 		 subcategoryLayout.openDrawer(Gravity.LEFT);
-		
+		}
 	}
 
 

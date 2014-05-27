@@ -92,8 +92,14 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 	
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+		if(arg0.getText().toString() == "Call Waiter")
+		{
+			callWaiterPress();
+		}
+		else
+		{
 		 subcategoryLayout.openDrawer(Gravity.LEFT);
-		
+		}
 	}
 
 

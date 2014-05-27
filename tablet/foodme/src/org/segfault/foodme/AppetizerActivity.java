@@ -91,8 +91,14 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		subcategoryLayout.openDrawer(Gravity.LEFT);
-		
+		if(arg0.getText().toString() == "Call Waiter")
+		{
+			callWaiterPress();
+		}
+		else
+		{
+		 subcategoryLayout.openDrawer(Gravity.LEFT);
+		}
 	}
 
 

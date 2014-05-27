@@ -67,6 +67,7 @@ public class FoodDetailsFragment extends Fragment{
                 return true;
             }
         });
+    	
     	submitButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -96,6 +97,8 @@ public class FoodDetailsFragment extends Fragment{
 				
 			}
     	});
+    	
+    	
     	addButton.setOnClickListener(new OnClickListener() {
 
 			@Override
