@@ -15,10 +15,14 @@ public class SplashScreenActivity extends Activity{
 
 	// Set Duration of the Splash Screen
 	long Delay = 8000;
+	static CursorLoaderTest cursor;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		cursor = new CursorLoaderTest();
+		
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
