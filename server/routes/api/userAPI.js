@@ -1,5 +1,6 @@
 var express = require('express');
 var userModel = require('../../models/userModel');
+var routeHelper = require('../routeHelper');
 
 var router = express.Router();
 
@@ -19,6 +20,19 @@ router.get('/:userId', function (req, res) {
 		}
 		res.json(ticket);
 	});
+});
+
+router.post('/login', function (req, res) {
+	routeHelper.isValidUser(req.body.email, req.body.password, function (err, isValid, userData) {
+		if (err) {
+			res.send(500);
+		}
+		if (isValid) {
+			res.send(202);
+		} else {
+			res.send(401);
+		}
+	})
 });
 
 router.post('/', function (req, res) {

@@ -1,16 +1,20 @@
 var userModel = require('../models/userModel');
 
-exports.isValidUser = function (req, callback) {
-	if (req.cookies.id && req.cookies.password) {
-		userModel.get(req.cookies.id, function (err, user) {
+exports.isValidUser = function (email, password, callback) {
+	if (email && password) {
+		userModel.search({email: email}, function (err, user) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
-			if(user.password === req.cookies.password) {
-				callback(null, true, user);
-				return;
+			if (user.length === 0) {
+				return callback(null, false, null);
+			}
+
+			if(user[0].password === password) {
+				return callback(null, true, user[0]);
+			} else {
+				return callback(null, false, null);
 			}
 		});
 	} else {
