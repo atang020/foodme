@@ -64,6 +64,7 @@ public class CursorLoaderMenuitem extends Fragment implements
                 itemDescriptionList.add(temp.description);
 			}
             while (cursor.moveToNext());
+			System.out.println(itemPriceList.size());
 		}
 	}
 

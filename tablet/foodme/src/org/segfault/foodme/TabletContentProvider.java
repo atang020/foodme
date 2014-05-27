@@ -21,15 +21,12 @@ public class TabletContentProvider extends ContentProvider {
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/menuItem");
 	public static final Uri SUBCATEGORY_CONTENT_URI =
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/subcategory");
-	public static final Uri SETTING_CONTENT_URI = 
-			Uri.parse("content://org.segfault.foodme.tabdbprovider/setting");
 	public static final Uri REVIEW_CONTENT_URI = 
 			Uri.parse("content://org.segfault.foodme.tabdbprovider/rating");
 	
 	public static final String DB_NAME = "tabDatabase.db";
 	public static final String DB_MENU_ITEM_TABLE = "menu_item";
 	public static final String DB_SUBCATEGORY_TABLE = "subcategory";
-	public static final String DB_SETTING_TABLE = "setting";
 	public static final String DB_REVIEW_TABLE = "review";
 	public static int DB_VERSION = 1;
 	
@@ -55,10 +52,8 @@ public class TabletContentProvider extends ContentProvider {
 	private static final int MENU_ITEM_ID = 2;
 	private static final int SUBCATEGORY = 3;
 	private static final int SUBCATEGORY_ID = 4;
-	private static final int SETTING = 5;
-	private static final int SETTING_ID = 6;
-	private static final int REVIEW = 7;
-	private static final int REVIEW_ID = 8;
+	private static final int REVIEW = 5;
+	private static final int REVIEW_ID = 6;
 	
 	private static final UriMatcher uriMatcher;
 	private DBOpenHelper myOpenHelper;
@@ -76,10 +71,6 @@ public class TabletContentProvider extends ContentProvider {
 						  "subcategory", SUBCATEGORY);
 		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
 						  "subcategory/#", SUBCATEGORY_ID);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-						  "setting", SETTING);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-						  "setting/#", SETTING_ID);
 		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
 				  "review", REVIEW);
 		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
@@ -135,15 +126,6 @@ public class TabletContentProvider extends ContentProvider {
 				rowID = uri.getPathSegments().get(1);
 				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
 				queryBuilder.setTables(DB_SUBCATEGORY_TABLE);
-				break;
-			case SETTING:
-				queryBuilder.setTables(DB_SETTING_TABLE);
-				break;
-			case SETTING_ID:
-				// Since this is a row query, limit the result set to the passed in row
-				rowID = uri.getPathSegments().get(1);
-				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
-				queryBuilder.setTables(DB_SETTING_TABLE);
 				break;
 			case REVIEW:
 				queryBuilder.setTables(DB_REVIEW_TABLE);
@@ -206,22 +188,8 @@ public class TabletContentProvider extends ContentProvider {
 				deleteCount = db.delete(DB_SUBCATEGORY_TABLE, 
 						selection, selectionArgs);
 				break;
-			case SETTING:
-				deleteCount = db.delete(DB_SETTING_TABLE, 
-						selection, selectionArgs);
-				break;
-			case SETTING_ID:
-				// Since this is a row query, limit the result set to the passed in row
-				rowID = uri.getPathSegments().get(1);
-				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
-				deleteCount = db.delete(DB_SETTING_TABLE, 
-						selection, selectionArgs);
-				break;
 			case REVIEW:
-				deleteCount = db.delete(DB_SETTING_TABLE, 
+				deleteCount = db.delete(DB_REVIEW_TABLE, 
 						selection, selectionArgs);
 				break;
 			case REVIEW_ID:
@@ -259,9 +227,6 @@ public class TabletContentProvider extends ContentProvider {
 			case SUBCATEGORY:
 				id = db.insert(DB_SUBCATEGORY_TABLE, nullColumnHack, values);
 				break;
-			case SETTING:
-				id = db.insert(DB_SETTING_TABLE, nullColumnHack, values);
-				break;
 			case REVIEW:
 				id = db.insert(DB_REVIEW_TABLE, nullColumnHack, values);
 				break;
@@ -276,9 +241,6 @@ public class TabletContentProvider extends ContentProvider {
 					break;
 				case SUBCATEGORY:
 					insertedId = ContentUris.withAppendedId(SUBCATEGORY_CONTENT_URI, id);
-					break;
-				case SETTING:
-					insertedId = ContentUris.withAppendedId(SETTING_CONTENT_URI, id);
 					break;
 				case REVIEW:
 					insertedId = ContentUris.withAppendedId(REVIEW_CONTENT_URI, id);
@@ -329,20 +291,6 @@ public class TabletContentProvider extends ContentProvider {
 				updateCount = db.update(DB_SUBCATEGORY_TABLE, 
 						values, selection, selectionArgs);
 				break;
-			case SETTING:
-				updateCount = db.update(DB_SUBCATEGORY_TABLE, 
-						values, selection, selectionArgs);
-				break;
-			case SETTING_ID:
-				// Since this is a row query, limit the result set to the passed in row
-				rowID = uri.getPathSegments().get(1);
-				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
-				updateCount = db.update(DB_SETTING_TABLE, 
-						values, selection, selectionArgs);
-				break;
 			case REVIEW:
 				updateCount = db.update(DB_REVIEW_TABLE, 
 						values, selection, selectionArgs);
@@ -378,10 +326,6 @@ public class TabletContentProvider extends ContentProvider {
 				return "vnd.android.cursor.dir/vnd.segfault.foodme.subcategory";
 			case SUBCATEGORY_ID:
 				return "vnd.android.cursor.item/vnd.segfault.foodme.subcategory";
-			case SETTING:
-				return "vnd.android.cursor.dir/vnd.segfault.foodme.setting";
-			case SETTING_ID:
-				return "vnd.android.cursor.item/vnd.segfault.foodme.setting";
 			case REVIEW:
 				return "vnd.android.cursor.dir/vnd.segfault.foodme.setting";
 			case REVIEW_ID:
@@ -414,13 +358,6 @@ public class TabletContentProvider extends ContentProvider {
 				KEY_NAME + " VARCHAR(32) NOT NULL, " +
 				KEY_CATEGORY + " INT NOT NULL, " +
 				"PRIMARY KEY (" + KEY_ID + "));";
-		
-		// SQL Statement to create new setting table
-				private static final String SETTING_CREATE =
-						"CREATE TABLE " + DB_SETTING_TABLE + " (" +
-						KEY_ID + " VARCHAR(45) NOT NULL, " +
-						KEY_VALUE + " VARCHAR(45) NOT NULL, " +
-						"PRIMARY KEY (" + KEY_ID + "));";
 				
 		// SQL Statement to create new setting table
 				private static final String REVIEW_CREATE =
@@ -446,7 +383,6 @@ public class TabletContentProvider extends ContentProvider {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(MENU_ITEM_CREATE);
 			db.execSQL(SUBCATEGORY_CREATE);
-			db.execSQL(SETTING_CREATE);
 			db.execSQL(REVIEW_CREATE);
 		}
 
@@ -461,7 +397,6 @@ public class TabletContentProvider extends ContentProvider {
 			
 			db.execSQL("DROP TABLE IF EXISTS" + DB_MENU_ITEM_TABLE);
 			db.execSQL("DROP TABLE IF EXISTS" + DB_SUBCATEGORY_TABLE);
-			db.execSQL("DROP TABLE IF EXISTS" + DB_SETTING_TABLE);
 			db.execSQL("DROP TABLE IF EXISTS" + DB_REVIEW_TABLE);
 			onCreate(db);
 		}
