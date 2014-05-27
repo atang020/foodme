@@ -164,15 +164,11 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 		AlertDialog dialogPizzaName = dialogBuilder.create();
 		dialogPizzaName.show();
 	}
-
-
+	
 	@Override
 	public void onFoodItemSelected(int position) {
-		//         ArticleFragment articleFrag = (ArticleFragment)
 	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
 	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
-	    // If article frag is available, we're in two-pane layout...
-	    // Call a method in the ArticleFragment to update its content
 	    foodDetails.updateFoodDetails(position);
 		
 	}
@@ -201,6 +197,4 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	    //setTitle(subcategoryNames[position]);
 	    subcategoryLayout.closeDrawer(Gravity.LEFT);
 	}
-	
-
 }

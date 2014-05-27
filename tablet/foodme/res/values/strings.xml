@@ -4,7 +4,6 @@
     <string name="app_name">foodme</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="main">Main Page???</string>
     <string name="splashMessage">Touch Anywhere to Continue</string>
     <string name="entree_button">Entree</string>
     <string name="drink_button">Drink</string>
@@ -18,6 +17,7 @@
     <string name="dessert_activity">dessert</string>
     <string name="drink_activity">drink</string>
     <string name="entree_activity">entree</string>
+    <string name="leave_rating">Please rate this item!</string>
     <string name="dummy1">dummy1</string>
    	<string name="dummy2">dummy2</string>
  	<string name="dummy3">dummy3</string>

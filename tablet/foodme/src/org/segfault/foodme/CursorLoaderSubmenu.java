@@ -97,5 +97,18 @@ public class CursorLoaderSubmenu extends Fragment implements
     {
         return categoryList.get(index);
     }
-
+    public ArrayList<String> getSubcategoryNameList(int index)
+    {
+        int indices=0;
+        ArrayList<String> itemsInSubCat = new ArrayList<String>();
+        for(int i=0;i<subCategoryNameList.size();i++)
+        {
+            if(categoryList.get(i)==index)
+            {
+                itemsInSubCat.set(indices,subCategoryNameList.get(i));
+                index++;
+            }
+        }
+        return itemsInSubCat;
+    }
 }
