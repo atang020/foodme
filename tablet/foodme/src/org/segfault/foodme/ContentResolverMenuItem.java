@@ -29,16 +29,15 @@ public class ContentResolverMenuItem {
 	    // use cursor to insert rows from table into ArrayList
 	    if (cursor.moveToFirst())
         {
-			do {
-				MenuItem temp = new MenuItem();
-				temp.menuItemId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_ID));
-				temp.subcategoryId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_SUBCATEGORY_ID));
-				temp.name = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_NAME));
-				temp.description = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_DESCRIPTION));
-				temp.picturePath = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_PICTURE_PATH));
-				temp.price = cursor.getDouble(cursor.getColumnIndex(TabletContentProvider.KEY_PRICE));
-                //add the individual items into the respective arrays
-				menuItems.add(temp);
+			do 
+			{
+				int menuItemId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_ID));
+				int subcategoryId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_SUBCATEGORY_ID));
+				String name = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_NAME));
+				String description = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_DESCRIPTION));
+				String picturePath = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_PICTURE_PATH));
+				double price = cursor.getDouble(cursor.getColumnIndex(TabletContentProvider.KEY_PRICE));
+				menuItems.add(new MenuItem (menuItemId, subcategoryId, name, description, picturePath, price));
 			}
             while (cursor.moveToNext());
 		}
@@ -47,7 +46,8 @@ public class ContentResolverMenuItem {
 	    android.util.Log.v("CRMenuItem", "menuItem data processed");
 	}
 	
-	public static ContentResolverMenuItem getInstance(Context context) {
+	public static ContentResolverMenuItem getInstance(Context context) 
+	{
 		if (ref == null)
 			ref = new ContentResolverMenuItem(context);
 		return ref;

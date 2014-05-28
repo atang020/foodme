@@ -20,7 +20,8 @@ import android.os.RemoteException;
 import android.util.JsonReader;
 
 // Handles the transfer of data between the server and our local db
-public class SyncAdapter extends AbstractThreadedSyncAdapter {
+public class SyncAdapter extends AbstractThreadedSyncAdapter 
+{
 	private static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	private static final String PREFIX = "content://" + AUTHORITY;
 	Context context;
@@ -28,7 +29,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	// Contains our content resolver instance
 	ContentResolver myContentResolver;
 	
-	public SyncAdapter(Context context, boolean autoInitialize) {
+	public SyncAdapter(Context context, boolean autoInitialize) 
+	{
 		super(context, autoInitialize);
 		this.context = context;
 		// Get an instance of the content resolver from incoming Context
@@ -37,14 +39,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
 	// This constructor maintains compatibility with Android 3.0 and later
 	public SyncAdapter(Context context, boolean autoInitialize,
-			boolean allowParallelSyncs) {
+			boolean allowParallelSyncs) 
+	{
 		super(context, autoInitialize, allowParallelSyncs);
 		myContentResolver = context.getContentResolver();
 	}
 
 	@Override
 	public void onPerformSync(Account account, Bundle extras, String authority,
-			ContentProviderClient provider, SyncResult syncResult) {
+			ContentProviderClient provider, SyncResult syncResult) 
+	{
 		try {
 			android.util.Log.v("sync", "onperformsync");
 			deleteMenuItems(provider);
@@ -65,7 +69,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	// Insert data into menuItems table
 	private void insertMenuItems(ContentProviderClient contentProviderClient)
-		throws RemoteException, IOException {
+		throws RemoteException, IOException 
+	{
 		
 		URL url = new URL("http", "jdelaney.org", 80,"/api/menuItems");
 		URLConnection conn = url.openConnection();
@@ -84,10 +89,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			String picturePath = null;
 			double price = -1;
 			
-			while (reader.hasNext()) {
+			while (reader.hasNext()) 
+			{
 				reader.beginObject();
 				
-				while (reader.hasNext()) {
+				while (reader.hasNext()) 
+				{
 					String name = reader.nextName();
 					if (name.equals("menu_item_id")) {
 						menuItemId = reader.nextInt();
@@ -123,14 +130,17 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	// Delete data currently in menuItems table
 	private void deleteMenuItems(ContentProviderClient contentProviderClient)
-		throws RemoteException {
+		throws RemoteException 
+	{
 		// The URI will be recognized by the content provider
 		Cursor cursor = contentProviderClient.query (
 			// Specify we only want the _id column
 			Uri.parse(PREFIX + "/menuItem"), new String[] {TabletContentProvider.KEY_ID}, 
 			null, null, null);
-		if (cursor.moveToFirst()) {
-			do {
+		if (cursor.moveToFirst()) 
+		{
+			do 
+			{
 				long menuItemId = cursor.getLong(0);
 				contentProviderClient.delete(
 					Uri.parse(PREFIX + "/menuItem/" + menuItemId),
@@ -141,7 +151,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	// Insert data into subcategory table
 	private void insertSubcategories(ContentProviderClient contentProviderClient)
-		throws RemoteException, IOException {
+		throws RemoteException, IOException 
+	{
 		URL url = new URL("http", "jdelaney.org", 80,"/api/subcategories");
 		URLConnection conn = url.openConnection();
 		
@@ -156,16 +167,21 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			String subcategoryName = null;
 			int category = -1;
 			
-			while (reader.hasNext()) {
+			while (reader.hasNext()) 
+			{
 				reader.beginObject();
 				
-				while (reader.hasNext()) {
+				while (reader.hasNext()) 
+				{
 					String name = reader.nextName();
-					if (name.equals("subcategory_id")) {
+					if (name.equals("subcategory_id")) 
+					{
 						subcategoryId = reader.nextInt();
-					} else if (name.equals("name")) {
+					} else if (name.equals("name")) 
+					{
 						subcategoryName = reader.nextString();
-					} else if (name.equals("category")) {
+					} else if (name.equals("category")) 
+					{
 						category = reader.nextInt();
 					}
 				}
@@ -186,14 +202,17 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	// Delete data currently in the subcategory table
 	private void deleteSubcategories(ContentProviderClient contentProviderClient)
-		throws RemoteException {
+		throws RemoteException 
+	{
 		// The URI will be recognized by the content provider
 		Cursor cursor = contentProviderClient.query (
 			// Specify we only want the _id column
 			Uri.parse(PREFIX + "/subcategory"), new String[] {TabletContentProvider.KEY_ID},
 			null, null, null);
-		if (cursor.moveToFirst()) {
-			do {
+		if (cursor.moveToFirst()) 
+		{
+			do 
+			{
 				long subcategoryId = cursor.getLong(0);
 				contentProviderClient.delete (
 					Uri.parse(PREFIX + "/subcategory/" + subcategoryId), 
@@ -204,7 +223,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	// Insert data into review table
 	private void insertReviews(ContentProviderClient contentProviderClient)
-		throws RemoteException, IOException {
+		throws RemoteException, IOException 
+	{
 		
 		URL url = new URL("http", "jdelaney.org", 80,"/api/reviews");
 		URLConnection conn = url.openConnection();
@@ -224,10 +244,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			String reviewDate = null;
 			
 			
-			while (reader.hasNext()) {
+			while (reader.hasNext()) 
+			{
 				reader.beginObject();
 				
-				while (reader.hasNext()) {
+				while (reader.hasNext()) 
+				{
 					String name = reader.nextName();
 					if (name.equals("review_id")) {
 						reviewId = reader.nextInt();
@@ -263,14 +285,17 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	// Delete data currently in review table
 	private void deleteReviews(ContentProviderClient contentProviderClient)
-		throws RemoteException {
+		throws RemoteException 
+	{
 		// The URI will be recognized by the content provider
 		Cursor cursor = contentProviderClient.query (
 			// Specify we only want the _id column
 			Uri.parse(PREFIX + "/review"), new String[] {TabletContentProvider.KEY_ID}, 
 			null, null, null);
-		if (cursor.moveToFirst()) {
-			do {
+		if (cursor.moveToFirst()) 
+		{
+			do 
+			{
 				long reviewId = cursor.getLong(0);
 				contentProviderClient.delete(
 					Uri.parse(PREFIX + "/review/" + reviewId),

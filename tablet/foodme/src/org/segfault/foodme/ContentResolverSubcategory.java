@@ -23,13 +23,12 @@ public class ContentResolverSubcategory {
 	    // use cursor to insert rows from table into ArrayList
 	    if (cursor.moveToFirst())
         {
-			do {
-				Subcategory temp = new Subcategory();
-				temp.subcategoryId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_ID));
-				temp.name = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_NAME));
-				temp.category = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_CATEGORY));
-                //add the individual items into the respective arrays
-				subcategories.add(temp);
+			do 
+			{
+				int subcategoryId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_ID));
+				String name = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_NAME));
+				int category = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_CATEGORY));
+				subcategories.add(new Subcategory (subcategoryId, name, category));
 			}
             while (cursor.moveToNext());
 		}
@@ -38,7 +37,8 @@ public class ContentResolverSubcategory {
 	    android.util.Log.v("CRMenuItem", "menuItem data processed");
 	}
 
-	public static ContentResolverSubcategory getInstance (Context context) {
+	public static ContentResolverSubcategory getInstance (Context context) 
+	{
 		if (ref == null)
 			ref = new ContentResolverSubcategory (context);
 		return ref;

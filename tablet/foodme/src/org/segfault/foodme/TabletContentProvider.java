@@ -14,7 +14,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-public class TabletContentProvider extends ContentProvider {
+public class TabletContentProvider extends ContentProvider 
+{
 	public static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	// Content URIs
 	public static final Uri MENU_ITEM_CONTENT_URI = 
@@ -61,7 +62,8 @@ public class TabletContentProvider extends ContentProvider {
 	// Populate the UriMatcher object, where a URI ending in 'menuItem' will 
 	// correspond to a request for all items, and 'menuItem/[rowID]' represents 
 	// a single row. Same is done for 'subcategory' and 'subcategory/[rowID]'
-	static {
+	static 
+	{
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		uriMatcher.addURI(AUTHORITY, "menuItem", MENU_ITEM);
 		uriMatcher.addURI(AUTHORITY, "menuItem/#", MENU_ITEM_ID);
@@ -71,13 +73,12 @@ public class TabletContentProvider extends ContentProvider {
 		uriMatcher.addURI(AUTHORITY, "review/#", REVIEW_ID);
 	}
 	
-	public TabletContentProvider() {
-		// TODO Auto-generated constructor stub
-	}
+	public TabletContentProvider() {}
 	
 	// Creates the content provider's database
 	@Override
-	public boolean onCreate() {
+	public boolean onCreate() 
+	{
 		// Construct the underlying database.
 		myOpenHelper = new DBOpenHelper(getContext(),
 				DB_NAME, null,DB_VERSION);
@@ -87,7 +88,8 @@ public class TabletContentProvider extends ContentProvider {
 	
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, 
-			String[] selectionArgs, String sortOrder) {
+			String[] selectionArgs, String sortOrder) 
+	{
 		// Used if executing a single row query
 		String rowID;
 		// Open the database
@@ -102,7 +104,8 @@ public class TabletContentProvider extends ContentProvider {
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 		
 		// Specify the table on which to perform the query.
-		switch (uriMatcher.match(uri)) {
+		switch (uriMatcher.match(uri)) 
+		{
 			case MENU_ITEM:
 				queryBuilder.setTables(DB_MENU_ITEM_TABLE);
 				break;
@@ -142,7 +145,8 @@ public class TabletContentProvider extends ContentProvider {
 	}
 
 	@Override
-	public int delete(Uri uri, String selection, String[] selectionArgs) {
+	public int delete(Uri uri, String selection, String[] selectionArgs) 
+	{
 		// Open a read/write database to support the transaction
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		// Used if executing a single row query
@@ -153,7 +157,8 @@ public class TabletContentProvider extends ContentProvider {
 			selection = "1";
 		
 		// Specify the table (and possibly row)on which to perform the deletion.
-		switch (uriMatcher.match(uri)) {
+		switch (uriMatcher.match(uri)) 
+		{
 			case MENU_ITEM:
 				deleteCount = db.delete(DB_MENU_ITEM_TABLE, 
 						selection, selectionArgs);
@@ -206,14 +211,16 @@ public class TabletContentProvider extends ContentProvider {
 	}
 
 	@Override
-	public Uri insert(Uri uri, ContentValues values) {
+	public Uri insert(Uri uri, ContentValues values) 
+	{
 		// Open a read/write database to support the transaction
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		long id = -1;
 		Uri insertedId = null;
 		String nullColumnHack = null;
 		// Insert the values into the table
-		switch (uriMatcher.match(uri)) {
+		switch (uriMatcher.match(uri)) 
+		{
 			case MENU_ITEM:
 				id = db.insert(DB_MENU_ITEM_TABLE, nullColumnHack, values);
 				break;
@@ -228,7 +235,8 @@ public class TabletContentProvider extends ContentProvider {
 		
 		// Construct and return the URI of the newly inserted row
 		if (id > -1) {
-			switch (uriMatcher.match(uri)) {
+			switch (uriMatcher.match(uri)) 
+			{
 				case MENU_ITEM:
 					insertedId = ContentUris.withAppendedId(MENU_ITEM_CONTENT_URI, id);
 					break;
@@ -248,14 +256,16 @@ public class TabletContentProvider extends ContentProvider {
 	}
 	
 	@Override
-	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) 
+	{
 		// Open a read/write database to support the transaction
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		// Used if executing a single row query
 		String rowID;
 		int updateCount = 0;
 		// Specify the table on which to perform the query.
-		switch (uriMatcher.match(uri)) {
+		switch (uriMatcher.match(uri)) 
+		{
 			case MENU_ITEM:
 				updateCount = db.update(DB_MENU_ITEM_TABLE, 
 						values, selection, selectionArgs);
@@ -309,8 +319,10 @@ public class TabletContentProvider extends ContentProvider {
 	
 	// Returns a string that identifies the MIME type for a Content Provider URI
 	@Override
-	public String getType(Uri uri) {
-		switch (uriMatcher.match(uri)) {
+	public String getType(Uri uri) 
+	{
+		switch (uriMatcher.match(uri)) 
+		{
 			case MENU_ITEM:
 				return "vnd.android.cursor.dir/vnd.segfault.foodme.menuItem";
 			case MENU_ITEM_ID:
@@ -329,8 +341,8 @@ public class TabletContentProvider extends ContentProvider {
 	}
 	
 	// Deals with creating and opening the database
-	private static class DBOpenHelper extends SQLiteOpenHelper {		
-		
+	private static class DBOpenHelper extends SQLiteOpenHelper 
+	{			
 		// SQL Statement to create new menu_item table.
 		private static final String MENU_ITEM_CREATE = 
 				"CREATE TABLE " + DB_MENU_ITEM_TABLE + " (" + 
@@ -366,14 +378,16 @@ public class TabletContentProvider extends ContentProvider {
 						"(" + KEY_MENU_ITEM_ID + "));";
 		
 		public DBOpenHelper(Context context, String name, CursorFactory factory,
-				int version) {
+				int version) 
+		{
 			super(context, name, factory, version);
 		}
 
 		// Called when no database exists in disk and the helper class needs
 		// to create one
 		@Override
-		public void onCreate(SQLiteDatabase db) {
+		public void onCreate(SQLiteDatabase db) 
+		{
 			db.execSQL(MENU_ITEM_CREATE);
 			db.execSQL(SUBCATEGORY_CREATE);
 			db.execSQL(REVIEW_CREATE);
@@ -382,7 +396,8 @@ public class TabletContentProvider extends ContentProvider {
 		// Called when there is a database version mismatch meaning that the version 
 		// of the database on disk needs to be upgraded to the current version
 		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
+		{
 			// Log version upgrade
 			Log.w(DBOpenHelper.class.getName(), "Upgrading from version " + 
 					oldVersion + " to " + newVersion + 
