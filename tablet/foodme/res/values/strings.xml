@@ -2,8 +2,6 @@
 <resources>
 
     <string name="app_name">foodme</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="splashMessage">Touch Anywhere to Continue</string>
     <string name="entree_button">Entree</string>
     <string name="drink_button">Drink</string>
@@ -12,12 +10,7 @@
     <string name="my_order_button">My Order</string>
     <string name="call_waiter_button">Call Waiter</string>
     <string name="dessert_button">Dessert</string>
-    <string name="call_waiter">Call waiter hopefully</string>
-    <string name="appetizer_activity">appetizer</string>
-    <string name="dessert_activity">dessert</string>
-    <string name="drink_activity">drink</string>
-    <string name="entree_activity">entree</string>
-    <string name="leave_rating">Please rate this item!</string>
+    <string name="leave_rating">\nPlease rate this item!</string>
     <string name="submit_rating">Submit Rating</string>
     <string name="add">Add to Order</string>
     <string name="dummy1">dummy1</string>

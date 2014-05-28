@@ -29,10 +29,7 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
-	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
-	//private String strName;
-	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -83,10 +80,6 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),true);
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
-       
-
-       mViewPager = (ViewPager) findViewById(R.id.pager);
-  
 	}
 	
 	
@@ -147,8 +140,6 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
-		//final EditText txtInput = new EditText(this);
-		//strName = "Pizza Name: ";
 		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
@@ -168,8 +159,8 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 				
 			}
 		});
-		AlertDialog dialogPizzaName = dialogBuilder.create();
-		dialogPizzaName.show();
+		AlertDialog dialog = dialogBuilder.create();
+		dialog.show();
 	}
 
 
@@ -207,5 +198,15 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 	    subcategoryList.setItemChecked(position, true);
 	    onFoodItemSelected(-1);
 	    subcategoryLayout.closeDrawer(Gravity.LEFT);
+	}
+	
+	public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        if (hasFocus) {
+        	decorView.setSystemUiVisibility(
+        		View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            	| View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
 	}
 }

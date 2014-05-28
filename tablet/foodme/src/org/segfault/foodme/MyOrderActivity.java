@@ -24,7 +24,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 		super.onCreate(savedInstanceState);
 	
 		// Get the view from activity_main.xml
-		setContentView(R.layout.activity_call_waiter);
+		setContentView(R.layout.activity_main);
 		
 		View decorView = getWindow().getDecorView();
 		

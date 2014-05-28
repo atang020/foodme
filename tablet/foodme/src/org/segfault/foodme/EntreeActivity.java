@@ -31,19 +31,14 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
-	//private String strName;
-	//
 	private String[] entreeTest = new String[5];
-	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	
-		// Get the view from activity_main.xml
 		setContentView(R.layout.activity_entree);
-		
-	
+			
 		View decorView = getWindow().getDecorView();
 		
 	    int mUIFlag = 
@@ -69,7 +64,6 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
        subcategoryList.setOnItemClickListener(new SubcategoryItemClickListener());
        
        subcategoryLayout.openDrawer(Gravity.LEFT);
-      // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
        // Set up the action bar.
        final ActionBar actionBar = getActionBar();
@@ -81,7 +75,6 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
        // Specify that we will be displaying tabs in the action bar.
        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
        
-
        // Add 3 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
@@ -90,14 +83,9 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
-       
 
-       mViewPager = (ViewPager) findViewById(R.id.pager);
-
-       // Set the adapter for the list view
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
-               R.layout.test_layout, subcategoryNames));
-       
+               R.layout.test_layout, subcategoryNames));    
 	}
 
 	
@@ -161,8 +149,6 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
-		//final EditText txtInput = new EditText(this);
-		//strName = "Pizza Name: ";
 		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
@@ -182,20 +168,15 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 				
 			}
 		});
-		AlertDialog dialogPizzaName = dialogBuilder.create();
-		dialogPizzaName.show();
+		AlertDialog dialog = dialogBuilder.create();
+		dialog.show();
 	}
 
 	@Override
 	public void onFoodItemSelected(int position) {
-		//         ArticleFragment articleFrag = (ArticleFragment)
 	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
 	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
-	    // If article frag is available, we're in two-pane layout...
-	
-	    // Call a method in the ArticleFragment to update its content
-	    foodDetails.updateFoodDetails(position);
-		
+	    foodDetails.updateFoodDetails(position);	
 	}
 	
 	private class SubcategoryItemClickListener implements ListView.OnItemClickListener{
@@ -221,4 +202,13 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 	    subcategoryLayout.closeDrawer(Gravity.LEFT);
 	}
 	
+	public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        if (hasFocus) {
+        	decorView.setSystemUiVisibility(
+        		View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            	| View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+	}
 }
