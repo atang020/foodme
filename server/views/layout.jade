@@ -51,10 +51,9 @@ html
 						h4(class='modal-title', id='loginModalLabel') sign in
 					form(id='loginForm')
 						div(class='modal-body', action='#', method='POST')
-							div(class='alert alert-error', id='loginError')
+							div(class='alert alert-error', id='loginError', style='color:red;')
 							input(class='signInInput', type='text', placeholder='email', name='email')
 							input(class='signInInput', type='password', placeholder='password', name='password')
-							p(id='loginStatus', class='hidden', style='color:red;')
 						div(class='modal-footer')
 							button(class='btn btn-primary', type='submit') Sign in
 							button(class='btn btn-default', type='button', data-dismiss='modal',aria-hidden='true') Close

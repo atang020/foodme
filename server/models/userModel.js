@@ -67,7 +67,6 @@ exports.search = function (params, callback) {
 			callback(err, null);
 			return;
 		}
-
 		callback(null, rows);
 	});
 };
