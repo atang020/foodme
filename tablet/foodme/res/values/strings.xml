@@ -17,7 +17,7 @@
     <string name="dessert_activity">dessert</string>
     <string name="drink_activity">drink</string>
     <string name="entree_activity">entree</string>
-    <string name="leave_rating">Please rate this item!</string>
+    <string name="leave_rating">\nPlease rate this item!</string>
     <string name="submit_rating">Submit Rating</string>
     <string name="add">Add to Order</string>
     <string name="dummy1">dummy1</string>

@@ -80,7 +80,7 @@ public class FoodDetailsFragment extends Fragment{
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for your rating",Toast.LENGTH_SHORT);
+						Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
 						ratingConfirm.show();
 						customerRating.setRating(0);
 					}
