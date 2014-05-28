@@ -23,12 +23,14 @@ import android.util.JsonReader;
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 	private static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	private static final String PREFIX = "content://" + AUTHORITY;
+	Context context;
 
 	// Contains our content resolver instance
 	ContentResolver myContentResolver;
 	
 	public SyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
+		this.context = context;
 		// Get an instance of the content resolver from incoming Context
 		myContentResolver = context.getContentResolver();
 	}
@@ -47,10 +49,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			android.util.Log.v("sync", "onperformsync");
 			deleteMenuItems(provider);
 			insertMenuItems(provider);
+			android.util.Log.v("sync", "menuItems inserted");
 			deleteSubcategories(provider);
 			insertSubcategories(provider);
+			android.util.Log.v("sync", "subcategories inserted");
 			deleteReviews(provider);
 			insertReviews(provider);
+			android.util.Log.v("sync", "reviews inserted");
+			// Load items from database into memory
+		    ContentResolverMenuItem CRMenuItem = ContentResolverMenuItem.getInstance(context);
 		} catch (RemoteException | IOException e) {
 			syncResult.hasHardError();
 		}
