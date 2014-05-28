@@ -7,7 +7,6 @@ $(document).ready(function () {
 			type: 'POST',
 			url: '/api/users/login'
 		}).done(function (data, textStatus) {
-			console.log(data, textStatus);
 			window.location.assign('/orders');
 		}).fail(function (textStatus, errorThrown) {
 			$('#loginError').stop().fadeIn(100).fadeOut(3000).text('Invalid email/password');
