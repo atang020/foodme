@@ -28,16 +28,12 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
-	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
-	//private String strName;
-	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	
-		// Get the view from activity_main.xml
 		setContentView(R.layout.activity_appetizer);
 		
 		View decorView = getWindow().getDecorView();
@@ -83,9 +79,6 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
-       
-
-       mViewPager = (ViewPager) findViewById(R.id.pager);
 	}
 	
 
@@ -147,8 +140,6 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
-		//final EditText txtInput = new EditText(this);
-		//strName = "Pizza Name: ";
 		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
@@ -168,8 +159,8 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 				
 			}
 		});
-		AlertDialog dialogPizzaName = dialogBuilder.create();
-		dialogPizzaName.show();
+		AlertDialog dialog = dialogBuilder.create();
+		dialog.show();
 	}
 
 

@@ -28,10 +28,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
-	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
-	//private String strName;
-	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,9 +81,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
-       
-
-       //mViewPager = (ViewPager) findViewById(R.id.pager);
 	}
 	
 	@Override
@@ -147,8 +141,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
-		//final EditText txtInput = new EditText(this);
-		//strName = "Pizza Name: ";
 		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
@@ -168,8 +160,8 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 				
 			}
 		});
-		AlertDialog dialogPizzaName = dialogBuilder.create();
-		dialogPizzaName.show();
+		AlertDialog dialog = dialogBuilder.create();
+		dialog.show();
 	}
 	
 	@Override
