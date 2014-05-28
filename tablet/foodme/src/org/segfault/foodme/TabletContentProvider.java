@@ -15,14 +15,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class TabletContentProvider extends ContentProvider {
-
+	public static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	// Content URIs
 	public static final Uri MENU_ITEM_CONTENT_URI = 
-			Uri.parse("content://org.segfault.foodme.tabdbprovider/menuItem");
+			Uri.parse("content://" + AUTHORITY + "/menuItem");
 	public static final Uri SUBCATEGORY_CONTENT_URI =
-			Uri.parse("content://org.segfault.foodme.tabdbprovider/subcategory");
+			Uri.parse("content://" + AUTHORITY + "/subcategory");
 	public static final Uri REVIEW_CONTENT_URI = 
-			Uri.parse("content://org.segfault.foodme.tabdbprovider/rating");
+			Uri.parse("content://" + AUTHORITY + "/review");
 	
 	public static final String DB_NAME = "tabDatabase.db";
 	public static final String DB_MENU_ITEM_TABLE = "menu_item";
@@ -63,18 +63,12 @@ public class TabletContentProvider extends ContentProvider {
 	// a single row. Same is done for 'subcategory' and 'subcategory/[rowID]'
 	static {
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-						  "menuItem", MENU_ITEM);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-				  		  "menuItem/#", MENU_ITEM_ID);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-						  "subcategory", SUBCATEGORY);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-						  "subcategory/#", SUBCATEGORY_ID);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-				  "review", REVIEW);
-		uriMatcher.addURI("org.segfault.foodme.tabdbprovider",
-				  "review/#", REVIEW_ID);
+		uriMatcher.addURI(AUTHORITY, "menuItem", MENU_ITEM);
+		uriMatcher.addURI(AUTHORITY, "menuItem/#", MENU_ITEM_ID);
+		uriMatcher.addURI(AUTHORITY, "subcategory", SUBCATEGORY);
+		uriMatcher.addURI(AUTHORITY, "subcategory/#", SUBCATEGORY_ID);
+		uriMatcher.addURI(AUTHORITY, "review", REVIEW);
+		uriMatcher.addURI(AUTHORITY, "review/#", REVIEW_ID);
 	}
 	
 	public TabletContentProvider() {
@@ -218,7 +212,6 @@ public class TabletContentProvider extends ContentProvider {
 		long id = -1;
 		Uri insertedId = null;
 		String nullColumnHack = null;
-		
 		// Insert the values into the table
 		switch (uriMatcher.match(uri)) {
 			case MENU_ITEM:
@@ -253,7 +246,7 @@ public class TabletContentProvider extends ContentProvider {
 			return null;
 		}
 	}
-
+	
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		// Open a read/write database to support the transaction

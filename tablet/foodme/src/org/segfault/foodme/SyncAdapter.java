@@ -96,7 +96,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 						price = reader.nextDouble();
 					}
 				}
-				
+
 				reader.endObject();
 				
 				ContentValues contentValues = new ContentValues();
@@ -107,7 +107,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				contentValues.put(TabletContentProvider.KEY_PICTURE_PATH, picturePath);
 				contentValues.put(TabletContentProvider.KEY_PRICE, price);
 				contentProviderClient.insert(
-					Uri.parse(PREFIX + "/menuItem/" + menuItemId), contentValues);
+					Uri.parse(PREFIX + "/menuItem"), contentValues);
 			}
 			
 			reader.endArray();
@@ -170,7 +170,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				contentValues.put(TabletContentProvider.KEY_NAME, subcategoryName);
 				contentValues.put(TabletContentProvider.KEY_CATEGORY, category);
 				contentProviderClient.insert(
-					Uri.parse(PREFIX + "/subcategory/" + subcategoryId), contentValues);
+					Uri.parse(PREFIX + "/subcategory"), contentValues);
 			}
 			
 			reader.endArray();
@@ -247,7 +247,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				contentValues.put(TabletContentProvider.KEY_REVIEW_TEXT, reviewText);
 				contentValues.put(TabletContentProvider.KEY_REVIEW_DATE, reviewDate);
 				contentProviderClient.insert(
-					Uri.parse(PREFIX + "/review/" + reviewId), contentValues);
+					Uri.parse(PREFIX + "/review"), contentValues);
 			}
 			
 			reader.endArray();
