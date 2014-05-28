@@ -61,7 +61,18 @@ public class ContentResolverSubcategory
         return subcategories.get(index).getCategory();
     }
 	
-	public ArrayList<String> getSubcategoryNamesFromCategory (int index)
+	public int getSubcategoryIdByName (String name) {
+		for (int i = 0; i < subcategories.size(); i++)
+		{
+			if (getName(i) == name)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public ArrayList<String> getSubcategoryNamesByCategory (int index)
     {
         ArrayList<String> subcategoryNames = new ArrayList<String>();
      
