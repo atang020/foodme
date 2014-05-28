@@ -25,12 +25,10 @@ public class CursorLoaderMenuitem extends Fragment implements
     ArrayList<String> itemNameList = new ArrayList<String>();
     ArrayList<String> itemDescriptionList = new ArrayList<String>();
 
-
     @Override
 	public void onCreate(Bundle savedInstanceState)
     {
 		super.onCreate(savedInstanceState);
-		// Maybe have a gridview that displays each menu Item?
 	}
 
 	@Override
@@ -38,15 +36,17 @@ public class CursorLoaderMenuitem extends Fragment implements
     {
 		// Grab URI corresponding with menuItem table
 		Uri CONTENT_URI = TabletContentProvider.MENU_ITEM_CONTENT_URI;
-        //dont worry about the nulls
 		return new CursorLoader(getActivity(), CONTENT_URI, null, null, null, null);
-	}
+		
+    }
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
+		
 		if (cursor.moveToFirst())
         {
 			do {
+				android.util.Log.v("cursor", "onloadfinished");
 				menuItem temp = new menuItem();
 				temp.menuItemId = cursor.getInt(cursor.getColumnIndex("_id"));
 				temp.subcategoryId = cursor.getInt(cursor.getColumnIndex("subcategoryId"));
@@ -62,6 +62,7 @@ public class CursorLoaderMenuitem extends Fragment implements
                 itemPriceList.add(temp.price);
                 itemPicPathList.add(temp.picturePath);
                 itemDescriptionList.add(temp.description);
+                System.out.println("menuitemid: " + temp.menuItemId);
 			}
             while (cursor.moveToNext());
 			System.out.println(itemPriceList.size());
