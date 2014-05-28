@@ -60,8 +60,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 			deleteReviews(provider);
 			insertReviews(provider);
 			android.util.Log.v("sync", "reviews inserted");
-			// Load items from database into memory
-		    ContentResolverMenuItem CRMenuItem = ContentResolverMenuItem.getInstance(context);
 		} catch (RemoteException | IOException e) {
 			syncResult.hasHardError();
 		}
@@ -174,14 +172,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 				while (reader.hasNext()) 
 				{
 					String name = reader.nextName();
-					if (name.equals("subcategory_id")) 
-					{
+					if (name.equals("subcategory_id")){
 						subcategoryId = reader.nextInt();
-					} else if (name.equals("name")) 
-					{
+					} else if (name.equals("name")){
 						subcategoryName = reader.nextString();
-					} else if (name.equals("category")) 
-					{
+					} else if (name.equals("category")){
 						category = reader.nextInt();
 					}
 				}
@@ -242,7 +237,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 			short rating = -1;
 			String reviewText = null;
 			String reviewDate = null;
-			
 			
 			while (reader.hasNext()) 
 			{

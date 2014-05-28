@@ -10,8 +10,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 
-public class ContentResolverReview {
-	
+public class ContentResolverReview 
+{	
 	Context context;
 	ArrayList<Review> reviews = new ArrayList<Review>();
 	private static ContentResolverReview ref;
@@ -24,7 +24,7 @@ public class ContentResolverReview {
 	    								   TabletContentProvider.KEY_NAME,
 	    								   TabletContentProvider.KEY_CATEGORY};
 	    Cursor cursor = cr.query(TabletContentProvider.SUBCATEGORY_CONTENT_URI, projection, null, null, null);
-	    
+	    reviews.clear();
 	    // use cursor to insert rows from table into ArrayList
 	    if (cursor.moveToFirst())
         {
@@ -56,7 +56,9 @@ public class ContentResolverReview {
 	public static ContentResolverReview getInstance(Context context)
 	{
 		if (ref == null)
+		{
 			ref = new ContentResolverReview(context);
+		}
 		return ref;
 	}
 	
@@ -93,7 +95,7 @@ public class ContentResolverReview {
 	// get review for given menuItemId
     public Review getReviewByMenuItemId (int menuItemId)
     {
-        for(int i=0; i< reviews.size(); i++)
+        for(int i = 0; i < reviews.size(); i++)
         {
             if (getMenuItemId(i) == menuItemId)
             {
@@ -102,5 +104,4 @@ public class ContentResolverReview {
         }
         return null;
     }
-
 }
