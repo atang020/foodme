@@ -7,28 +7,16 @@ package org.segfault.foodme;
  * @author peter
  *
  */
-public class subcategory {
+public class Subcategory {
 
-	/**
-	 * 
-	 */
 	int subcategoryId;
 	String name;
 	int category;
 	
-	public subcategory() {
-		
-	}
+	public Subcategory() {}
 	
-	public subcategory(int subcategoryId, String name, int category) {
-		super();
+	public Subcategory(int subcategoryId, String name, int category) {
 		this.subcategoryId = subcategoryId;
-		this.name = name;
-		this.category = category;
-	}
-
-	public subcategory(String name, int category) {
-		super();
 		this.name = name;
 		this.category = category;
 	}

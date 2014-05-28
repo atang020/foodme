@@ -17,7 +17,7 @@ import android.support.v4.content.Loader;
 public class CursorLoaderMenuitem extends Fragment implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
-	ArrayList<menuItem> menuItems = new ArrayList<menuItem>();
+	ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
     ArrayList<Integer> itemIdList = new ArrayList<Integer>();
     ArrayList<Integer> subcategoryIdList = new ArrayList<Integer>();
     ArrayList<Double> itemPriceList = new ArrayList<Double>();
@@ -47,7 +47,7 @@ public class CursorLoaderMenuitem extends Fragment implements
         {
 			do {
 				android.util.Log.v("cursor", "onloadfinished");
-				menuItem temp = new menuItem();
+				MenuItem temp = new MenuItem();
 				temp.menuItemId = cursor.getInt(cursor.getColumnIndex("_id"));
 				temp.subcategoryId = cursor.getInt(cursor.getColumnIndex("subcategoryId"));
 				temp.name = cursor.getString(cursor.getColumnIndex("name"));

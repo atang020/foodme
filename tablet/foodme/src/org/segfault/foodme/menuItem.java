@@ -7,7 +7,8 @@ package org.segfault.foodme;
  * @author peter
  *
  */
-public class menuItem {
+public class MenuItem 
+{	
 	int menuItemId;
 	int subcategoryId;
 	String name;
@@ -15,9 +16,9 @@ public class menuItem {
 	String picturePath;
 	double price;
 	
-	public menuItem(){}
+	public MenuItem(){}
 	
-	public menuItem(int menuItemId, int subcategoryId, String name, String description,
+	public MenuItem(int menuItemId, int subcategoryId, String name, String description,
 			       String picturePath, double price)
 	{
 		this.menuItemId = menuItemId;
@@ -26,17 +27,6 @@ public class menuItem {
 		this.description = description;
 		this.picturePath = picturePath;
 		this.price = price;
-	}
-	
-	public menuItem(int subcategoryId, String name, String description,
-		       String picturePath, double price)
-	{
-
-	this.subcategoryId = subcategoryId;
-	this.name = name;
-	this.description = description;
-	this.picturePath = picturePath;
-	this.price = price;
 	}
 	
 	public int getMenuItemId()
