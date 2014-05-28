@@ -40,7 +40,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 		View decorView = getWindow().getDecorView();
 		
 	    int mUIFlag = 
-                 View.SYSTEM_UI_FLAG_FULLSCREEN
+	    		View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 	    
@@ -195,5 +195,16 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	    onFoodItemSelected(-1);
 	    //setTitle(subcategoryNames[position]);
 	    subcategoryLayout.closeDrawer(Gravity.LEFT);
+	}
+	
+	
+	public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        if (hasFocus) {
+        	decorView.setSystemUiVisibility(
+        		View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            	| View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
 	}
 }

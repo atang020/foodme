@@ -202,4 +202,13 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 	    subcategoryLayout.closeDrawer(Gravity.LEFT);
 	}
 	
+	public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        View decorView = getWindow().getDecorView();
+        if (hasFocus) {
+        	decorView.setSystemUiVisibility(
+        		View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            	| View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+	}
 }
