@@ -5,6 +5,9 @@
  */
 $(document).ready(function () {
 	$('#loginError').hide();
+	if(getCookie('email') !== '') {
+		$('#signInName').text(getCookie('email'));
+	}
 	$('#loginForm').submit(function (event) {
 	var loginData = $(this).serialize();
 		$.ajax({
@@ -13,6 +16,7 @@ $(document).ready(function () {
 			url: '/api/users/login'
 		}).done(function (data, textStatus) {
 			setCookie('login', loginData);
+			setCookie('email', loginData.split('=')[1].split('&')[0].replace('%40', '@'));
 			window.location.assign('/orders');
 		}).fail(function (textStatus, errorThrown) {
 			$('#loginError').stop().fadeIn(100).fadeOut(3000).text('Invalid email/password');
@@ -30,13 +34,10 @@ window.onload =  function () {
 			type: 'POST',
 			url: '/api/users/login'
 		}).done(function (data, textStatus) {
-			console.log('location: ' + window.location.pathname);
 			if(window.location.pathname === '/') {
-				console.log('auto login redirect');
 				window.location.assign('/orders');
 			}
 		}).fail(function (textStatus, errorThrown) {
-			console.log('auto-login failed');
 			if(window.location.pathname !== '/') {
 				window.location.assign('/');
 			}
