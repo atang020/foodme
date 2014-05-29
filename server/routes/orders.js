@@ -3,12 +3,15 @@ var router = express.Router();
 var ticketItemModel = require('../models/ticketItemModel');
 
 router.get('/', function (req, res) {
-
-	ticketItemModel.getActiveOrders(function (err, orders) {
-		if (err) {
-			res.send(500,'error connecting to database');
+	routeHelper.redirectIfLoggedOut(req, res, function(loggedIn) {
+		if(loggedIn){
+			ticketItemModel.getActiveOrders(function (err, orders) {
+				if (err) {
+					res.send(500,'error connecting to database');
+				}
+				res.render('orders', {user: {name: 'Phillip'}, ticket_items: orders});
+			});
 		}
-		res.render('orders', {user: {name: 'Phillip'}, ticket_items: orders});
 	});
 });
 

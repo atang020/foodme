@@ -15,7 +15,9 @@ $(document).ready(function () {
 			type: 'POST',
 			url: '/api/users/login'
 		}).done(function (data, textStatus) {
-			setCookie('login', loginData);
+			var splitData = loginData.split('=');
+			setCookie('password', splitData[splitData.length - 1]);
+			//console.log('cookie: ' + splitData[splitData.length - 1]);
 			setCookie('email', loginData.split('=')[1].split('&')[0].replace('%40', '@'));
 			window.location.assign('/orders');
 		}).fail(function (textStatus, errorThrown) {
@@ -25,39 +27,10 @@ $(document).ready(function () {
 	});
 });
 
-window.onload =  function () {
-	var login = getCookie('login');
-	 
-	 if(login !== '' ) {
-		$.ajax({
-			data: login,
-			type: 'POST',
-			url: '/api/users/login'
-		}).done(function (data, textStatus) {
-			if(window.location.pathname === '/') {
-				window.location.assign('/orders');
-			}
-		}).fail(function (textStatus, errorThrown) {
-			if(window.location.pathname !== '/') {
-				window.location.assign('/');
-			}
-				
-		});
-	 }
-	 else {
-		if(window.location.pathname !== '/') {
-				window.location.assign('/');
-			}
-	 }
-	 
-};
-
-
-
-
 //logs the user out
 function logout() {
-	setCookie('login', '')
+	setCookie('password', '');
+	setCookie('email', '');
 	window.location.assign('/');
 }
 
