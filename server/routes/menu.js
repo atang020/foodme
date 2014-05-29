@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
 					res.send(500, 'error connecting to database');
 				}
 				myMenu = orders;
-				res.render('menu', {user: {name: 'Phillip'}, categories: myMenu});
+				res.render('menu', {user: {email: req.cookies.email}, categories: myMenu});
 			});
 		}
 	});

@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
 				if (err) {
 					res.send(500,'error connecting to database');
 				}
-				res.render('orders', {user: {name: 'Phillip'}, ticket_items: orders});
+				res.render('orders', {user: {email: req.cookies.email}, ticket_items: orders});
 			});
 		}
 	});

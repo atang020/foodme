@@ -5,9 +5,9 @@
  */
 $(document).ready(function () {
 	$('#loginError').hide();
-	if(getCookie('email') !== '') {
-		$('#signInName').text(getCookie('email'));
-	}
+	//if(getCookie('email') !== '') {
+	//	$('#signInName').text(getCookie('email'));
+	//}
 	$('#loginForm').submit(function (event) {
 	var loginData = $(this).serialize();
 		$.ajax({
