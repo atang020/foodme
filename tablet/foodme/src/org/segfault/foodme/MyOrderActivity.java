@@ -28,7 +28,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
-	ArrayList<Order> item = new ArrayList<Order>(3);
+	ArrayList<menuItem> item = new ArrayList<menuItem>(3);
 	ArrayAdapter<String> adapter; 
 	private AlertDialog.Builder dialogBuild;
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
@@ -174,7 +174,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 		dialogBuild = new AlertDialog.Builder(this);
 		
 		final EditText input = new EditText(this);
-		input.setHint("Input");
+		input.setHint("Notes");
 		final EditText quantity = new EditText(this);
 		quantity.setHint("Quantity");
 		//dialogBuild.setView(input);
@@ -203,7 +203,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 			if(value.trim().length() > 0)
 				notesVal = value;
 			
-			Order temp = new Order(item.get(position).getItem(), notesVal, quantityNum, item.get(position).getPrice());
+			menuItem temp = new menuItem(item.get(position).getName(), notesVal, quantityNum, item.get(position).getPrice());
 			System.err.println("before removing: " + position + "item is: " + item.get(position).toString());
 			adapter.remove(item.get(position).toString());
 			item.remove(position);

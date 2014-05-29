@@ -14,10 +14,12 @@ public class menuItem
 	String name;
 	String description;
 	String picturePath;
+	String notes;
+	int quantity;
 	double price;
 	
 	public menuItem(){}
-	
+	//NEEDS QUANTITY and NOTES
 	public menuItem(int menuItemId, int subcategoryId, String name, String description,
 			       String picturePath, double price)
 	{
@@ -26,6 +28,13 @@ public class menuItem
 		this.name = name;
 		this.description = description;
 		this.picturePath = picturePath;
+		this.price = price;
+	}
+	
+	public menuItem(String name, String notes, int quantity, double price) {
+		this.name = name;
+		this.notes = notes;
+		this.quantity = quantity;
 		this.price = price;
 	}
 	
@@ -76,5 +85,21 @@ public class menuItem
 
 	public void setMenuItemId(int menuItemId) {
 		this.menuItemId = menuItemId;
+	}
+	
+	public String getNotes() {
+		return this.notes;
+	}
+	
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+	
+	public int getQuantity() {
+		return this.quantity;
+	}
+	
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }
