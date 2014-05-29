@@ -8,7 +8,7 @@ block content
 				table.table
 					thead
 						tr
-							th ID#
+							th Order ID#
 							th Table
 							th time waiting
 							th item
@@ -16,11 +16,11 @@ block content
 							th Status
 							th
 					tbody
-						- for order in orders
+						- for order in ticket_items
 							- var red = order.time * 10
 							tr
-								td #{order.id}
-								td #{order.table}
+								td #{order.ticket_id}
+								td 
 								td(style='color:rgb(#{red},0,0);') #{order.time}
 								td #{order.item}
 								td #{order.notes}
