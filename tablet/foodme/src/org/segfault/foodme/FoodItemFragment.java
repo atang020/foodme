@@ -31,7 +31,7 @@ public class FoodItemFragment extends ListFragment{
         	Bundle test = this.getArguments();
         	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
         	foodItemNames = ContentResolverMenuItem.getInstance(this.getActivity());
-        	names = foodItemNames.getItemsInSubcategory(subcategoryID);
+        	names = foodItemNames.getItemsBySubcategory(subcategoryID);
         }
     	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
     	setListAdapter(adapter);
@@ -54,7 +54,7 @@ public class FoodItemFragment extends ListFragment{
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Notify the parent activity of selected item
     	//System.out.println(position);
-    	int menuItemIndex = foodItemNames.getIndexFromName(names[position]);
+    	int menuItemIndex = foodItemNames.getIndexByName(names[position]);
         callback.onFoodItemSelected(menuItemIndex);
         
         
