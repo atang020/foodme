@@ -33,3 +33,15 @@ exports.redirectIfLoggedOut = function (req, res, callback) {
 		}
 	});
 }
+
+exports.redirectIfLoggedIn = function (req, res, callback) {
+	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function(err, isUser, user){
+		if(err || !isUser) {
+			callback(false);
+		}
+		else{
+			callback(true);
+			res.redirect('/orders');
+		}
+	});
+}

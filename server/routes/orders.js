@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ticketItemModel = require('../models/ticketItemModel');
+routeHelper = require('../routes/routeHelper');
 
 router.get('/', function (req, res) {
 	routeHelper.redirectIfLoggedOut(req, res, function(loggedIn) {
