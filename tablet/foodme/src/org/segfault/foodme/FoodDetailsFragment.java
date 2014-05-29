@@ -20,7 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FoodDetailsFragment extends Fragment{
-
+	
+	ContentResolverMenuItem foodDetails; 
 	RatingBar ratingBar;
 	RatingBar customerRating;
 	TextView review;
@@ -33,7 +34,7 @@ public class FoodDetailsFragment extends Fragment{
 	Spinner quantitySpinner;
 	EditText note;
 	
-	int lastPosition = -1;
+	int lastMenuItemIndex = -1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
         Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class FoodDetailsFragment extends Fragment{
     public void onStart() {
         super.onStart();
         
+        foodDetails = ContentResolverMenuItem.getInstance(this.getActivity());
     	foodDescription = (TextView) getActivity().findViewById(R.id.food_description);
 		foodImage = (ImageView)getActivity().findViewById(R.id.food_image);
 		ratingNumber = (TextView) getActivity().findViewById(R.id.review_number);
@@ -140,16 +142,16 @@ public class FoodDetailsFragment extends Fragment{
     	});
     	ratingBar.setFocusable(false);
     	
-        updateFoodDetails(lastPosition);
+        updateFoodDetails(lastMenuItemIndex);
     }
-    public void updateFoodDetails(int position)
+    public void updateFoodDetails(int menuItemIndex)
     {
 
     	float exa = 3;
     	ratingBar.setRating(exa);
     	ratingNumber.setText("Rating Number : " + exa);
     	foodImage.setImageResource(R.drawable.dessert);
-		if(position == -1)
+		if(menuItemIndex == -1)
 		{
 			foodDescription.setVisibility(View.GONE);
     		foodImage.setVisibility(View.GONE);			
@@ -159,8 +161,8 @@ public class FoodDetailsFragment extends Fragment{
     		quantitySpinner.setVisibility(View.GONE);
     		addButton.setVisibility(View.GONE);
     		note.setVisibility(View.GONE);
-			getActivity().findViewById(R.id.review_number).setVisibility(View.GONE);
-			getActivity().findViewById(R.id.ratingBar).setVisibility(View.GONE);
+    		ratingNumber.setVisibility(View.GONE);
+    		ratingBar.setVisibility(View.GONE);
 		}
 		else
 		{
@@ -175,21 +177,10 @@ public class FoodDetailsFragment extends Fragment{
     		customerRating.setRating(0);
     		note.setText("");
     		quantitySpinner.setSelection(0);
-			getActivity().findViewById(R.id.review_number).setVisibility(View.VISIBLE);
-			getActivity().findViewById(R.id.ratingBar).setVisibility(View.VISIBLE);
-			switch(position)
-    		{
-	    	case 1:
-	    		foodDescription.setText(R.string.dummy1);
-	    		break;
-	    	case 2:
-	    		foodDescription.setText(R.string.dummy2);
-	    		break;
-	    	case 3:
-	    		foodDescription.setText(R.string.dummy3);
-	    		break;
-	    	}
+    		ratingNumber.setVisibility(View.VISIBLE);
+    		ratingBar.setVisibility(View.VISIBLE);
+			foodDescription.setText(foodDetails.getDescription(menuItemIndex) + "\n\n\n" + foodDetails.getPrice(menuItemIndex));
 		}
-    	lastPosition = position;
+		lastMenuItemIndex = menuItemIndex;
     }
 }
