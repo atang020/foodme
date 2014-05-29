@@ -34,7 +34,7 @@ html
 						ul.nav.navbar-nav.navbar-right
 							-if(user)
 								li
-									p.navbar-text(id='signInName') Signed in
+									p.navbar-text(id='signInName') #{user.email}
 								li
 									button(class='btn btn-default navbar-btn', type='button', onClick='logout()') Sign out
 							-else
