@@ -1,22 +1,36 @@
 package org.segfault.foodme;
 
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyOrderActivity extends Activity implements ActionBar.TabListener{
+	
+	ListView list;
+	TextView subtotal;
+	private String subtotalVal;
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
+	ArrayList<menuItem> item = new ArrayList<menuItem>(3);
+	ArrayAdapter<String> adapter; 
+	private AlertDialog.Builder dialogBuild;
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	   
 	@Override
@@ -74,7 +88,40 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
                // probably ignore this event
            }
+           
+        list = (ListView) findViewById(R.id.listView1);	
+   		subtotal = (TextView) findViewById(R.id.textView6);
+   		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice);
+   		subtotalVal = subTotal();
+   		
+   		for(int i = 0; i<item.size(); i++) {
+   			adapter.add(item.get(i).toString());
+   		}
+   		
+   		list.setAdapter(adapter);
+   		subtotal.setText(subtotalVal);
+   		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
+   			   public void onItemSelected(AdapterView parentView, View childView, 
+   			                                                         int position, long id) 
+   			   {  
+   				   //none
+   			   }
+
+   			   public void onNothingSelected(AdapterView parentView) {  
+   				   //none
+   			   }
+
+   			@Override
+   			public void onItemClick(AdapterView<?> parent, View view,
+   					int position, long id) {
+   				// TODO Auto-generated method stub
+   				editOrder(position); 
+   				adapter.notifyDataSetChanged();
+   				}  
+   			});  
        };
+       
+       
 
        // Add 3 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(tabListener));
@@ -121,6 +168,88 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void editOrder(final int position) {
+		dialogBuild = new AlertDialog.Builder(this);
+		
+		final EditText input = new EditText(this);
+		input.setHint("Notes");
+		final EditText quantity = new EditText(this);
+		quantity.setHint("Quantity");
+		//dialogBuild.setView(input);
+		LinearLayout layout = new LinearLayout(getApplicationContext());
+		layout.setOrientation(LinearLayout.VERTICAL);
+		layout.addView(input);
+		layout.addView(quantity);
+		dialogBuild.setView(layout);
+		dialogBuild.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+		
+		public void onClick(DialogInterface dialog, int which)
+		{
+			int quantityNum = item.get(position).getQuantity();
+			String notesVal = item.get(position).getNotes();
+			String value = input.getText().toString();
+			String quantityVal = quantity.getText().toString();
+			
+			try {
+				quantityNum = Integer.parseInt(quantityVal);
+			}catch(NumberFormatException e) {
+				Toast makeText1 = Toast.makeText(getApplicationContext(),"Give me a valid integer", Toast.LENGTH_SHORT);
+				makeText1.show();
+				quantityNum = item.get(position).getQuantity();
+			}
+			
+			if(value.trim().length() > 0)
+				notesVal = value;
+			
+			menuItem temp = new menuItem(item.get(position).getName(), notesVal, quantityNum, item.get(position).getPrice());
+			System.err.println("before removing: " + position + "item is: " + item.get(position).toString());
+			adapter.remove(item.get(position).toString());
+			item.remove(position);
+			item.add(temp);
+			adapter.add(item.get((item.size()-1)).toString());
+			subtotalVal = subTotal();
+			subtotal.setText(subtotalVal);
+			Toast makeText = Toast.makeText(getApplicationContext(),"Order has been edited." + item.get(position).toString(), Toast.LENGTH_SHORT);
+			makeText.show();
+		}
+		});
+		dialogBuild.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				adapter.remove(item.get(position).toString());
+				item.remove(position);
+				Toast makeText = Toast.makeText(getApplicationContext(),"Deleted at Index: " + position, Toast.LENGTH_SHORT);
+				makeText.show();
+			}
+		});
+		
+		
+		dialogBuild.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+			Toast makeText = Toast.makeText(getApplicationContext(),"Canceled editing order.", Toast.LENGTH_SHORT);
+			makeText.show();
+		}
+		});
+		
+		AlertDialog dialogEditName = dialogBuild.create();
+		dialogEditName.show();
+	}
+	
+	public String subTotal()
+	{
+		double sum = 0.0;
+		for (int i = 0; i < item.size(); i++)
+		{
+			sum += item.get(i).getPrice() * item.get(i).getQuantity();
+		}
+		return "Subtotal: "+ sum;
 	}
 	
 }

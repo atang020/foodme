@@ -12,6 +12,12 @@
     <string name="dessert_button">Dessert</string>
     <string name="leave_rating">\nPlease rate this item!</string>
     <string name="submit_rating">Submit Rating</string>
+    <string name="item_string">Item</string>
+    <string name="notes_string">Notes</string>
+    <string name="price_string">Price</string>
+    <string name="quantity_string">Quantity</string>
+    <string name="remove_string">Remove</string>
+    <string name="subtotal_string">Subtotal: </string>
     <string name="add">Add to Order</string>
     <string name="dummy1">dummy1</string>
    	<string name="dummy2">dummy2</string>
