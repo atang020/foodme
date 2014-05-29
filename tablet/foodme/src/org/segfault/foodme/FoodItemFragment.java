@@ -1,5 +1,7 @@
 package org.segfault.foodme;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 public class FoodItemFragment extends ListFragment{
 	public static final String ARG_SUBCATEGORY_NUMBER = "subcategory_number";
 	ArrayAdapter<String> adapter;
+	ContentResolverMenuItem foodItemNames;
 	String[] names = {};
 
 	
@@ -26,24 +29,9 @@ public class FoodItemFragment extends ListFragment{
         
         if (this.getArguments() != null) {
         	Bundle test = this.getArguments();
-        	int i = test.getInt(ARG_SUBCATEGORY_NUMBER);
-        	
-        	String activityName = this.getActivity().getClass().getSimpleName();
-        	switch(activityName)
-        	{
-        	case "DrinkActivity": 
-        		names = getResources().getStringArray(R.array.test_names);
-        		break;
-        	case "EntreeActivity":
-        		names = getResources().getStringArray(R.array.test_fragments);
-        		break;
-        	case "DessertActivity":
-        		names = getResources().getStringArray(R.array.test_fragments);
-        		break;
-        	case "AppetizerActivity":
-        		names = getResources().getStringArray(R.array.test_names);
-        		break;
-        	}
+        	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
+        	foodItemNames = ContentResolverMenuItem.getInstance(this.getActivity());
+        	names = foodItemNames.getItemsBySubcategory(subcategoryID);
         }
     	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
     	setListAdapter(adapter);
@@ -66,7 +54,9 @@ public class FoodItemFragment extends ListFragment{
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Notify the parent activity of selected item
     	//System.out.println(position);
-        callback.onFoodItemSelected(position);
+    	int menuItemIndex = foodItemNames.getIndexByName(names[position]);
+        callback.onFoodItemSelected(menuItemIndex);
+        
         
         getListView().setItemChecked(position, true);
     }

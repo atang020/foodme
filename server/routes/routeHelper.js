@@ -20,4 +20,28 @@ exports.isValidUser = function (email, password, callback) {
 	} else {
 		callback(null, false, null);
 	}
-};
+}
+	
+exports.redirectIfLoggedOut = function (req, res, callback) {
+	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function(err, isUser, user){
+		if(err || !isUser) {
+			res.redirect('/');
+			callback(false);
+		}
+		else{
+			callback(true);
+		}
+	});
+}
+
+exports.redirectIfLoggedIn = function (req, res, callback) {
+	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function(err, isUser, user){
+		if(err || !isUser) {
+			callback(false);
+		}
+		else{
+			callback(true);
+			res.redirect('/orders');
+		}
+	});
+}

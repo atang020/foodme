@@ -3,6 +3,8 @@ package org.segfault.foodme;
 
 
 
+import java.util.ArrayList;
+
 import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
 
 import android.app.ActionBar;
@@ -13,7 +15,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
@@ -25,10 +26,11 @@ import android.widget.Toast;
 
 public class DrinkActivity extends FragmentActivity implements ActionBar.TabListener, onFoodItemSelectedListener{
 
-	private String[] subcategoryNames;
+	private ArrayList<String> subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
 	private AlertDialog.Builder dialogBuilder;
+	ContentResolverSubcategory subcategoryProvider;
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,10 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 
 	   decorView.setSystemUiVisibility(mUIFlag);
 	   
-       subcategoryNames = getResources().getStringArray(R.array.test_names);
+	   
+	   subcategoryProvider = ContentResolverSubcategory.getInstance(this);
+	   
+	   subcategoryNames = subcategoryProvider.getSubcategoryNamesByCategory(10);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
@@ -81,6 +86,9 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
+       
+
+      
 	}
 	
 	@Override
@@ -165,10 +173,10 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	}
 	
 	@Override
-	public void onFoodItemSelected(int position) {
+	public void onFoodItemSelected(int menuItemIndex) {
 	    FoodDetailsFragment foodDetails = (FoodDetailsFragment)
 	    		getSupportFragmentManager().findFragmentById(R.id.fooddetails_fragment);
-	    foodDetails.updateFoodDetails(position);
+	    foodDetails.updateFoodDetails(menuItemIndex);
 		
 	}
 	
@@ -184,7 +192,10 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 	public void selectSubcategory(int position){
 		FoodItemFragment subcategoryChosen = new FoodItemFragment();
 		Bundle args = new Bundle();
-		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, position);
+		int subcatID = subcategoryProvider.getSubcategoryIdByName(subcategoryNames.get(position));
+		subcatID++;
+		System.out.println(subcatID);
+		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, subcatID);
 		subcategoryChosen.setArguments(args);
 	    getSupportFragmentManager().beginTransaction()
 	                   .replace(R.id.fooditem_fragment, subcategoryChosen)

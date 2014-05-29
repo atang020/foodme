@@ -1,13 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var ticketItemModel = require('../models/ticketItemModel');
+routeHelper = require('../routes/routeHelper');
 
 router.get('/', function (req, res) {
-	res.render('orders', {orders: [
-		{id: 1, table: 5, time: 26, item: 'Ritz Crackers and Salami', status: 'undelivered'},
-		{id: 2, table: 2, time: 18, item: 'Cheerios', status: 'undelivered'},
-		{id: 3, table: 7, time: 6, item: 'Coffee', notes: 'lol', status: 'undelivered'},
-		{id: 4, table: 15, time: 5, item: 'Small Fries', status: 'undelivered'}
-	], user: {name: 'Phillip'}});
+	routeHelper.redirectIfLoggedOut(req, res, function(loggedIn) {
+		if(loggedIn){
+			ticketItemModel.getActiveOrders(function (err, orders) {
+				if (err) {
+					res.send(500,'error connecting to database');
+				}
+				res.render('orders', {user: {email: req.cookies.email}, ticket_items: orders});
+			});
+		}
+	});
 });
 
 router.get('/active', function (req, res) {
