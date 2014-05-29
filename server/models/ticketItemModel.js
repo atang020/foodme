@@ -1,7 +1,7 @@
 var database = require('./database');
 var ticketModel = require('./ticketModel');
 var menuItemModel = require('./menuItemModel');
-
+var async = require('async');
 
 function verify(ticketItem) {
 	// ticket_id, menu_item_id, and quantity must be NOT NULL
@@ -55,7 +55,7 @@ exports.getActiveOrders = function (callback) {
 					//insert ticket into ticket_item object
 					ticket_item.ticket = ticket;
 					//get menu_item
-					menuItemModel.get(ticket_item.menu_item_id, }, function (err, menu_item) {
+					menuItemModel.get(ticket_item.menu_item_id, function (err, menu_item) {
 						if (err) {
 							return asyncCallback(err);
 						}
@@ -70,7 +70,7 @@ exports.getActiveOrders = function (callback) {
 				if (err) {
 					return callback(err);
 				}
-				return callback(null, results);
+				return callback(null, ticket_items);
 			});
 	});
 };

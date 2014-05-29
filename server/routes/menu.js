@@ -6,7 +6,7 @@ router.get('/', function (req, res) {
 	var myMenu;
 	menuItemModel.getSorted(function (err, orders) {
 		if (err) {
-			res.send('error connecting to database');
+			res.send(500, 'error connecting to database');
 		}
 		myMenu = orders;
 		res.render('menu', {user: {name: 'Phillip'}, categories: myMenu});
