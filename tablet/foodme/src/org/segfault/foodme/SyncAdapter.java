@@ -50,7 +50,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 			ContentProviderClient provider, SyncResult syncResult) 
 	{
 		try {
-			android.util.Log.v("sync", "onperformsync");
+			android.util.Log.v("sync", "syncing with server database");
 			deleteMenuItems(provider);
 			insertMenuItems(provider);
 			android.util.Log.v("sync", "menuItems inserted");

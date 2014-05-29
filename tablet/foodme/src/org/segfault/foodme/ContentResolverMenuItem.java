@@ -99,7 +99,7 @@ public class ContentResolverMenuItem
     }
 
     // get all items in a subcategory when given a subcategory id
-    public String[] getItemsInSubcategory (int subcategoryId)
+    public String[] getItemsBySubcategory (int subcategoryId)
     {
         ArrayList<String> subcategoryItems = new ArrayList<String>();
         
@@ -115,7 +115,7 @@ public class ContentResolverMenuItem
 
     // find the index from master array when taking in a name of a food
     // used to getIndex from master arrays from object in the subcategory array
-    public int getIndexFromName(String name)
+    public int getIndexByName(String name)
     {
         for(int i = 0; i < menuItems.size(); i++)
         {
