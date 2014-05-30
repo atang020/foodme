@@ -1,5 +1,4 @@
-
-/* 
+/*
  * Sets up the document
  *
  */
@@ -9,9 +8,9 @@ $(document).ready(function () {
 	//	$('#signInName').text(getCookie('email'));
 	//}
 	$('#loginForm').submit(function (event) {
-	var loginData = $(this).serialize();
+		var loginData = $(this).serialize();
 		$.ajax({
-			data:$(this).serialize(),
+			data: $(this).serialize(),
 			type: 'POST',
 			url: '/api/users/login'
 		}).done(function (data, textStatus) {
@@ -34,18 +33,16 @@ function logout() {
 	window.location.assign('/');
 }
 
-function getCookie(cname)
-{
+function getCookie(cname) {
 	var name = cname + "=";
 	var ca = document.cookie.split(';');
-	for(var i=0; i<ca.length; i++) {
+	for (var i = 0; i < ca.length; i++) {
 		var c = ca[i].trim();
-		if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-		}
+		if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+	}
 	return "";
 }
-function setCookie(cname,cvalue)
-{
-	document.cookie = cname + "=" + cvalue + ";" 
+function setCookie(cname, cvalue) {
+	document.cookie = cname + "=" + cvalue + ";"
 }
 

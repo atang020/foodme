@@ -62,7 +62,7 @@ exports.get = function (orderId, callback) {
 };
 
 exports.getSorted = function (callback) {
-	var results = {'appetizers': {subcategories : [], id : 0}, 'drinks': {subcategories : [], id : 10}, 'entrees': {subcategories : [], id : 20}, 'desserts': {subcategories : [], id : 30}};
+	var results = {'appetizers': {subcategories: [], id: 0}, 'drinks': {subcategories: [], id: 10}, 'entrees': {subcategories: [], id: 20}, 'desserts': {subcategories: [], id: 30}};
 
 	subcategoryModel.getAll(function (err, subcategories) {
 		if (err) {
@@ -107,7 +107,6 @@ exports.search = function (params, callback) {
 };
 
 
-
 /**
  * Inserts a new menu_item. The callback gets two arguments (err, data).
  *
@@ -117,7 +116,7 @@ exports.search = function (params, callback) {
 exports.add = function (menuItem, callback) {
 	var err = verify(menuItem);
 	if (err) {
-	
+
 		callback(err);
 		return;
 	}

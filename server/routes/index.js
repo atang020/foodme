@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-	routeHelper.redirectIfLoggedIn(req, res, function(loggedIn) {
-		if(!loggedIn){
+	routeHelper.redirectIfLoggedIn(req, res, function (loggedIn) {
+		if (!loggedIn) {
 			res.render('index', { title: 'FoodMe'});
 		}
 	});

@@ -41,7 +41,7 @@ exports.getAll = function (callback) {
  */
 exports.getActiveOrders = function (callback) {
 	//get all ordered items that haven't been delivered
-	exports.search({'kitchen_status': 0},function (err, ticket_items) {
+	exports.search({'kitchen_status': 0}, function (err, ticket_items) {
 		if (err) {
 			return callback(err);
 		}
@@ -61,7 +61,7 @@ exports.getActiveOrders = function (callback) {
 						}
 						//insert menu_item into ticket_item object
 						ticket_item.menu_item = menu_item;
-						
+
 						return asyncCallback(null);
 					});
 				});
