@@ -192,7 +192,8 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
 	public void selectSubcategory(int position){
 		FoodItemFragment subcategoryChosen = new FoodItemFragment();
 		Bundle args = new Bundle();
-		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, position);
+		int subcatID = subcategoryProvider.getSubcategoryIdByName(subcategoryNames.get(position));
+		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, subcatID);
 		subcategoryChosen.setArguments(args);
 	    getSupportFragmentManager().beginTransaction()
 	                   .replace(R.id.fooditem_fragment, subcategoryChosen)
