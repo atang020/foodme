@@ -229,12 +229,31 @@ function inputSubmit() {
 	inputCallback($('#inputModal').find('#textField').val());
 }
 
+function setUploadPhoto(menu_id) {
+	$('#photoModal').modal();
+	$('#photoForm').submit(function(event){
+		//event.preventDefault();
+		$(this).ajaxSubmit({                                                                                                                 
+            error: function(xhr) {
+				status('Error: ' + xhr.status);
+			},
+            success: function(response) {
+				//TODO: We will fill this in later
+            }
+		});
+		// Have to stop the form from submitting and causing                                                                                                       
+		// a page refresh - don't forget this                                                                                                                      
+		return false;
+    });
+}
+/*
 //prepares upload photo modal
 function setUploadPhoto(menu_id) {
 	$('#photoModal').modal();
 	$('#photoForm').submit(function(event){
 		event.preventDefault();
 		var formData = new FormData($('#photoForm'));
+		console.log(formData);
 		$.ajax({
 			url: '/api/menuItems/' + menu_id + '/photo',  //Server script to process data
 			type: 'PUT',
@@ -262,8 +281,17 @@ function setUploadPhoto(menu_id) {
 		});
 	});
 }
+
+$('#photoForm').on('change', function(){
+    //var file = this.files[0];
+    //var name = file.name;
+    //var size = file.size;
+    var type = file.type;
+    console.log('type: ' + type);
+});
 function progressHandlingFunction(e){
     if(e.lengthComputable){
         $('progress').attr({value:e.loaded,max:e.total});
     }
 }
+*/
