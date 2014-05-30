@@ -33,8 +33,9 @@ router.post('/', function (req, res) {
 	});
 });
 
-router.put('/:menuItemId/photo', function (req, res) {
-	menuItemModel.updatePhoto(req.params.menuItemId, req.files.picture.name, function (err, path) {
+router.post('/:menuItemId/photo', function (req, res) {
+	console.log(JSON.stringify(req.files));
+	menuItemModel.updatePhoto(req.params.menuItemId, req.files.file.name, function (err, path) {
 		if (err) {
 			res.send(500);
 		}

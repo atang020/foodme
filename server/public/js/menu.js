@@ -1,11 +1,36 @@
 var inputCallback;
 var confirmCallback;
+var photoCallback;
 
 //page loaded
 $(document).ready(function () {
 	$('[id^=subcatProtosubcat]').hide();
 	$('[id^=itemProtoitem]').hide();
+	$('#photoProgress').hide();
+	 // Check to see when a user has selected a file                                                                                                                
+    var timerId;
+    timerId = setInterval(function() {
+	if($('#userPhotoInput').val() !== '') {
+            clearInterval(timerId);
+			$('#photoProgress').fadeIn();
+            $('#uploadForm').submit();
+        }
+    }, 500);
+	
+	$('#photoForm').submit(function(event){
+	event.preventDefault();
+		$(this).ajaxSubmit({                                                                                                                 
+            error: function(xhr) {
+				status('Error: ' + xhr.status);
+			},
+            success: function(response) {
+				photoCallback(response);
+            }
+		});                                                                                                                
+    });
 });
+
+
 
 //adds an item
 function addItem(subcat_id) {
@@ -227,4 +252,14 @@ function closeInputModal() {
 function inputSubmit() {
 
 	inputCallback($('#inputModal').find('#textField').val());
+}
+
+function setUploadPhoto(menu_id) {
+	$('#userPhotoInput').val('');
+	$('#photoModal').modal();
+	$('#photoForm').attr('action', '/api/menuItems/' + menu_id + '/photo')
+	photoCallback = function(response) {
+		$('#photoModal').modal('hide');
+		$('#imageItem' + menu_id).attr('src', '/uploads/' + response);
+	};
 }

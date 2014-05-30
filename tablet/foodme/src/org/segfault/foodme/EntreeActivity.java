@@ -76,7 +76,7 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
        // Specify that we will be displaying tabs in the action bar.
        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
        
-       // Add 3 tabs, specifying the tab's text and TabListener
+       // Add 7 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this),false);
@@ -114,26 +114,35 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 			homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(homeIntent);
 			break;
+			
 		case "Drinks":
 			Intent drinkIntent = new Intent(EntreeActivity.this,
 					DrinkActivity.class);
 			drinkIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(drinkIntent);
 			break;
+			
 		case "Appetizers":
 			Intent appetizerIntent = new Intent(EntreeActivity.this,
 					AppetizerActivity.class);
 			appetizerIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(appetizerIntent);
 			break;
+			
 		case "Desserts":
 			Intent dessertIntent = new Intent(EntreeActivity.this,
 					DessertActivity.class);
 			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
+			
 		case "My Order":
+			Intent orderIntent = new Intent(EntreeActivity.this,
+					MyOrderActivity.class);
+			orderIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(orderIntent);
 			break;
+			
 		case "Call Waiter":
 			callWaiterPress();
 			break;

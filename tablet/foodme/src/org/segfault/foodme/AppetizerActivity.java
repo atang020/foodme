@@ -1,8 +1,5 @@
 package org.segfault.foodme;
 
-
-
-
 import java.util.ArrayList;
 
 import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
@@ -24,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
 public class AppetizerActivity extends FragmentActivity implements ActionBar.TabListener, onFoodItemSelectedListener{
 
 	private ArrayList<String> subcategoryNames;
@@ -32,7 +28,6 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 	private ListView subcategoryList;
 	private AlertDialog.Builder dialogBuilder;
 	ContentResolverSubcategory subcategoryProvider;
-	
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,24 +45,20 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 	   decorView.setSystemUiVisibility(mUIFlag);
 	        
 	   subcategoryProvider = ContentResolverSubcategory.getInstance(this);
-	   
 	   subcategoryNames = subcategoryProvider.getSubcategoryNamesByCategory(0);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
-       
        
        // Set the adapter for the list view
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
                R.layout.test_layout, subcategoryNames));
        subcategoryList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
        subcategoryList.setOnItemClickListener(new SubcategoryItemClickListener());
-       
        subcategoryLayout.openDrawer(Gravity.LEFT);
        
        final ActionBar actionBar = getActionBar();
-
+       
        actionBar.setHomeButtonEnabled(false);
-
        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
        
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
@@ -78,18 +69,13 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
 	}
-	
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
 		if(arg0.getText().toString() == "Call Waiter")
-		{
 			callWaiterPress();
-		}
 		else
-		{
 		 subcategoryLayout.openDrawer(Gravity.LEFT);
-		}
 	}
 
 
@@ -103,44 +89,52 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 			homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(homeIntent);
 			break;
+			
 		case "Drinks":
 			Intent drinkIntent = new Intent(AppetizerActivity.this,
 					DrinkActivity.class);
 			drinkIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(drinkIntent);
 			break;
+			
 		case "Entrees":
 			Intent entreeIntent = new Intent(AppetizerActivity.this,
 					EntreeActivity.class);
 			entreeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(entreeIntent);
 			break;
+			
 		case "Desserts":
 			Intent dessertIntent = new Intent(AppetizerActivity.this,
 					DessertActivity.class);
 			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
+			
 		case "My Order":
+			Intent orderIntent = new Intent(AppetizerActivity.this,
+					MyOrderActivity.class);
+			orderIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(orderIntent);
+			break;
+			
 		case "Call Waiter":
 			callWaiterPress();
 			break;
 		}
-		
 	}
-
 
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
+		// Do nothing when tab is unselected
 		
 	}
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
-		
 		dialogBuilder.setTitle("Contact Waiter");
 		dialogBuilder.setMessage("Would you like to contact a waiter?");
+		
 		dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
 
 			@Override
@@ -149,6 +143,7 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 				waiterConfirm.show();
 			}
 		});
+		
 		dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			
 			@Override
@@ -157,6 +152,7 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 				
 			}
 		});
+		
 		AlertDialog dialog = dialogBuilder.create();
 		dialog.show();
 	}
