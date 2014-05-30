@@ -2,58 +2,52 @@ package org.segfault.foodme;
 
 public class TicketItem {
 	
-	int orderId;
-	int menuItemId;
+	int order_id;
+	int menu_item_id;
 	short quantity;
 	String notes;
-	short kitchenStatus;
+	short kitchen_status;
 	
-	public TicketItem(int orderId, int menuItemId, short quantity,
-			String notes, short kitchenStatus) {
-		this.orderId = orderId;
-		this.menuItemId = menuItemId;
+	public TicketItem(int order_id, int menu_item_id, short quantity,
+			String notes, short kitchen_status) {
+		super();
+		this.order_id = order_id;
+		this.menu_item_id = menu_item_id;
 		this.quantity = quantity;
 		this.notes = notes;
-		this.kitchenStatus = kitchenStatus;
+		this.kitchen_status = kitchen_status;
 	}
-
-	public int getOrderId() {
-		return orderId;
+	public int getOrder_id() {
+		return order_id;
 	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setOrder_id(int order_id) {
+		this.order_id = order_id;
 	}
-
-	public int getMenuItemId() {
-		return menuItemId;
+	public int getMenu_item_id() {
+		return menu_item_id;
 	}
-
-	public void setMenuItemId(int menuItemId) {
-		this.menuItemId = menuItemId;
+	public void setMenu_item_id(int menu_item_id) {
+		this.menu_item_id = menu_item_id;
 	}
-
 	public short getQuantity() {
 		return quantity;
 	}
-
 	public void setQuantity(short quantity) {
 		this.quantity = quantity;
 	}
-
 	public String getNotes() {
 		return notes;
 	}
-
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
-	public short getKitchenStatus() {
-		return kitchenStatus;
+	public short getKitchen_status() {
+		return kitchen_status;
 	}
-
-	public void setKitchenStatus(short kitchenStatus) {
-		this.kitchenStatus = kitchenStatus;
+	public void setKitchen_status(short kitchen_status) {
+		this.kitchen_status = kitchen_status;
 	}
+	
+	
+	
 }
