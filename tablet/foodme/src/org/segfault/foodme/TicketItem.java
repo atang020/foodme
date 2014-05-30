@@ -10,7 +10,6 @@ public class TicketItem {
 	
 	public TicketItem(int order_id, int menu_item_id, short quantity,
 			String notes, short kitchen_status) {
-		super();
 		this.order_id = order_id;
 		this.menu_item_id = menu_item_id;
 		this.quantity = quantity;

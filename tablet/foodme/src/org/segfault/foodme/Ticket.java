@@ -12,7 +12,6 @@ public class Ticket {
 	
 	public Ticket(int ticket_id, int table_number, Date order_date,
 			short checked_out, short callWaiterStatus) {
-		super();
 		this.ticket_id = ticket_id;
 		this.table_number = table_number;
 		this.order_date = order_date;
@@ -49,6 +48,4 @@ public class Ticket {
 	public void setCallWaiterStatus(short callWaiterStatus) {
 		this.callWaiterStatus = callWaiterStatus;
 	}
-	
-	
 }
