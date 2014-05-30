@@ -1,5 +1,6 @@
 var inputCallback;
 var confirmCallback;
+var photoCallback;
 
 //page loaded
 $(document).ready(function () {
@@ -18,15 +19,12 @@ $(document).ready(function () {
 	
 	$('#photoForm').submit(function(event){
 	event.preventDefault();
-		console.log('submitted');
-		//event.preventDefault();
 		$(this).ajaxSubmit({                                                                                                                 
             error: function(xhr) {
 				status('Error: ' + xhr.status);
 			},
             success: function(response) {
-				$('#photoModal').modal('hide');
-				
+				photoCallback(response);
             }
 		});                                                                                                                
     });
@@ -257,55 +255,11 @@ function inputSubmit() {
 }
 
 function setUploadPhoto(menu_id) {
+	$('#userPhotoInput').val('');
 	$('#photoModal').modal();
 	$('#photoForm').attr('action', '/api/menuItems/' + menu_id + '/photo')
+	photoCallback = function(response) {
+		$('#photoModal').modal('hide');
+		$('#imageItem' + menu_id).attr('src', '/uploads/' + response);
+	};
 }
-/*
-//prepares upload photo modal
-function setUploadPhoto(menu_id) {
-	$('#photoModal').modal();
-	$('#photoForm').submit(function(event){
-		event.preventDefault();
-		var formData = new FormData($('#photoForm'));
-		console.log(formData);
-		$.ajax({
-			url: '/api/menuItems/' + menu_id + '/photo',  //Server script to process data
-			type: 'PUT',
-			xhr: function() {  // Custom XMLHttpRequest
-				var myXhr = $.ajaxSettings.xhr();
-				if(myXhr.upload){ // Check if upload property exists
-					myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
-				}
-				return myXhr;
-			},
-			//Ajax events
-			//beforeSend: beforeSendHandler,
-			success: function(path) {
-			console.log('path ' +  path);
-			},
-			error: function() {
-				alert('something went wrong');
-			},
-			// Form data
-			data: formData,
-			//Options to tell jQuery not to process data or worry about content-type.
-			cache: false,
-			contentType: false,
-			processData: false
-		});
-	});
-}
-
-$('#photoForm').on('change', function(){
-    //var file = this.files[0];
-    //var name = file.name;
-    //var size = file.size;
-    var type = file.type;
-    console.log('type: ' + type);
-});
-function progressHandlingFunction(e){
-    if(e.lengthComputable){
-        $('progress').attr({value:e.loaded,max:e.total});
-    }
-}
-*/

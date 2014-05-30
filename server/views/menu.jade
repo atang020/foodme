@@ -24,7 +24,6 @@ block content
 				div(class='modal-body confirm-description')
 					p Choose a file to upload
 					input(id='fileInput', name='file', type='file')
-					progress(id='photoProgress')
 				div(class='modal-footer')
 					button(class='btn btn-default', type='button', data-dismiss='modal',aria-hidden='true') cancel
 					button(class='btn btn-primary', type='submit') submit
@@ -103,7 +102,7 @@ block content
 																					- var picture=item.picture_path
 																				a(data-toggle='dropdown', href='#')
 																					div(style='width: 200px; height: 100px;')
-																						img(style='width: auto; height: 100%;', src='/uploads/#{picture}')
+																						img(id='imageItem#{item.menu_item_id}',style='width: auto; height: 100%;', src='/uploads/#{picture}')
 																				ul.dropdown-menu(role='menu')
 																					li
 																						a(onclick='setUploadPhoto(\'#{item.menu_item_id}\')') change photo
