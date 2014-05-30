@@ -37,11 +37,6 @@ public class FoodItemFragment extends ListFragment{
         if (this.getArguments() != null) {
         	Bundle test = this.getArguments();
         	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
-        	for(int i = 20; i < 50; i++)
-        		{
-        			names = foodItemNames.getItemsBySubcategory(i);
-        			System.out.println(names.length);
-        		}
         	names = foodItemNames.getItemsBySubcategory(subcategoryID);
         }
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);

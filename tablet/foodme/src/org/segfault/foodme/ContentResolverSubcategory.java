@@ -66,7 +66,7 @@ public class ContentResolverSubcategory
 		{
 			if (getName(i) == name)
 			{
-				return i;
+				return subcategories.get(i).subcategoryId;
 			}
 		}
 		return -1;
