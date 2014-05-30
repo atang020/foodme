@@ -27,6 +27,11 @@ public class FoodItemFragment extends ListFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     	foodItemNames = ContentResolverMenuItem.getInstance(this.getActivity());
+        if (this.getArguments() != null) {
+        	Bundle test = this.getArguments();
+        	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
+        	names = foodItemNames.getItemsBySubcategory(subcategoryID);
+        }
     	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
     	setListAdapter(adapter);
     }
@@ -34,11 +39,7 @@ public class FoodItemFragment extends ListFragment{
     @Override
     public void onStart() {
         super.onStart();
-        if (this.getArguments() != null) {
-        	Bundle test = this.getArguments();
-        	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
-        	names = foodItemNames.getItemsBySubcategory(subcategoryID);
-        }
+
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
     

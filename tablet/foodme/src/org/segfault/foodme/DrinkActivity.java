@@ -193,7 +193,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 		FoodItemFragment subcategoryChosen = new FoodItemFragment();
 		Bundle args = new Bundle();
 		int subcatID = subcategoryProvider.getSubcategoryIdByName(subcategoryNames.get(position));
-		System.out.println(subcatID);
 		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, subcatID);
 		subcategoryChosen.setArguments(args);
 	    getSupportFragmentManager().beginTransaction()
