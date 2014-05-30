@@ -38,4 +38,10 @@ block content
 								th average rating
 								th profit from item
 						tbody
+							- for item in items
+								tr
+									- if(item.name=='')
+										td (none)
+									-else
+										td #{item.name}
 							
