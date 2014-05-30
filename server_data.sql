@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: foodme
 -- ------------------------------------------------------
--- Server version	5.6.17-log
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,7 +21,7 @@
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (1,1,'Curly Fries','Delicious curly fries that will make your mouth water.','sample.jpg',3.00),(2,1,'Seasoned Fries','They taste good','sample.jpg',4.00),(3,1,'Bad Fries','Really shitty','sample.jpg',1.25),(4,2,'Fancy Wings','Ping pong','sample.jpg',5.00),(5,2,'Hot Wings','SUPERHOT','sample.jpg',7.00),(6,2,'Great Wings','jkfjkasfdjklksfdk fsdfjnf jdfs jk sdfnfnasf dksf df asd asdf','sample.jpg',2.00);
+INSERT INTO `menu_item` VALUES (1,1,'Curly Fries','Delicious curly fries that will make your mouth water.','sample.jpg',3.00),(2,1,'Seasoned Fries','They taste good','sample.jpg',4.00),(3,1,'Bad Fries','Really shitty','sample.jpg',1.25),(4,2,'Fancy Wings','Ping pong','sample.jpg',5.00),(5,2,'Hot Wings','SUPERHOT','sample.jpg',7.00),(6,2,'Great Wings','jkfjkasfdjklksfdk fsdfjnf jdfs jk sdfnfnasf dksf df asd asdf','sample.jpg',2.00),(8,3,'Cheesy Nachos','Delicious nachos that will make you very happy.','sample.jpg',1.25),(9,4,'Blue Moon','Wonderful light beer.','sample.jpg',3.00),(10,5,'Pepsi','Free refills.','sample.jpg',1.50),(11,6,'House Coffee','Hot South American coffee. Free refills.','sample.jpg',2.00),(12,7,'Cheeseburger','Our staple burger. Comes with pickles, tomatoes, and grilled onions.','sample.jpg',6.50),(13,8,'Carne Asada Taco','This tastes very good!','sample.jpg',4.00),(14,9,'Bean and Cheese Burrito','Your stomach will love you.','sample.jpg',5.00);
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'j','jadelane@ucsd.edu','(619) 920-9355'),(2,'alex','alt020@ucsd.edu','(909) 641-0529'),(3,'austin','acs008@ucsd.edu','(909) 569-4707'),(4,'dennis','dscao@ucsd.edu','(760) 623-8968'),(5,'henry','hetruong@ucsd.edu','(916) 498-4606'),(6,'aaron','aspears@ucsd.edu','(619) 654-2579'),(7,'payam','pshahidi@ucsd.edu','(949) 259-3006'),(8,'peter','ylc015@ucsd.edu','(425) 829-4486'),(9,'phillip','phodgson@ucsd.edu','(805) 403-8573'),(10,'ryan','rmmcclur@ucsd.edu','(760) 470-3993');
+INSERT INTO `user` VALUES (1,'j','jadelane@ucsd.edu',NULL),(2,'alex','alt020@ucsd.edu',NULL),(3,'austin','acs008@ucsd.edu',NULL),(4,'dennis','dscao@ucsd.edu',NULL),(5,'henry','hetruong@ucsd.edu',NULL),(6,'aaron','aspears@ucsd.edu',NULL),(7,'payam','pshahidi@ucsd.edu',NULL),(8,'peter','ylc015@ucsd.edu',NULL),(9,'phillip','phodgson@ucsd.edu',NULL),(10,'ryan','rmmcclur@ucsd.edu',NULL),(11,'gary','gary@gary.com',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -90,4 +90,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-22 20:16:26
+-- Dump completed on 2014-05-29 22:20:33
