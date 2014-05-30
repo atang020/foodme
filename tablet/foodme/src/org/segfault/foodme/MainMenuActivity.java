@@ -1,8 +1,5 @@
 package org.segfault.foodme;
 
-
-
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -18,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 
 public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
@@ -42,8 +38,6 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
 	   decorView.setSystemUiVisibility(mUIFlag);
-	   
-       
 
        // Set up the action bar.
        final ActionBar actionBar = getActionBar();
@@ -54,9 +48,8 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 
        // Specify that we will be displaying tabs in the action bar.
        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-       
 
-       // Add 3 tabs, specifying the tab's text and TabListener
+       // Add 7 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this));
@@ -64,17 +57,12 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this));
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this));
-              
 	}
-	
-
 
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing when tab is reselected
 	}
-
 
 	@Override
 	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
@@ -109,21 +97,24 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 			break;
 			
 		case "My Order":
+			Intent orderIntent = new Intent(MainMenuActivity.this,
+					MyOrderActivity.class);
+			orderIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(orderIntent);
 			break;
 			
 		case "Call Waiter":	
 			callWaiterPress();
 			break;
 		}
-		
 	}
 
 
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing when tab is unselected
 	}
+	
 	private void callWaiterPress()
 	{
 		dialogBuilder = new AlertDialog.Builder(this);
@@ -140,6 +131,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 				
 			}
 		});
+		
 		dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			
 			@Override
@@ -148,6 +140,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 				
 			}
 		});
+		
 		AlertDialog dialogPizzaName = dialogBuilder.create();
 		dialogPizzaName.show();
 	}
@@ -161,5 +154,4 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
             	| View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
 	}
-	
 }
