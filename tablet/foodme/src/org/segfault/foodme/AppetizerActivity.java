@@ -3,6 +3,8 @@ package org.segfault.foodme;
 
 
 
+import java.util.ArrayList;
+
 import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
 
 import android.app.ActionBar;
@@ -25,10 +27,12 @@ import android.widget.Toast;
 
 public class AppetizerActivity extends FragmentActivity implements ActionBar.TabListener, onFoodItemSelectedListener{
 
-	private String[] subcategoryNames;
+	private ArrayList<String> subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
 	private AlertDialog.Builder dialogBuilder;
+	ContentResolverSubcategory subcategoryProvider;
+	
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,9 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 
 	   decorView.setSystemUiVisibility(mUIFlag);
 	        
-       subcategoryNames = getResources().getStringArray(R.array.test_names);
+	   subcategoryProvider = ContentResolverSubcategory.getInstance(this);
+	   
+	   subcategoryNames = subcategoryProvider.getSubcategoryNamesByCategory(0);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        

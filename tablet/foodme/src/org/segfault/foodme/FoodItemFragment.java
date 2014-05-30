@@ -14,7 +14,7 @@ import android.widget.ListView;
 public class FoodItemFragment extends ListFragment{
 	public static final String ARG_SUBCATEGORY_NUMBER = "subcategory_number";
 	ArrayAdapter<String> adapter;
-	ContentResolverMenuItem foodItemNames;
+	ContentResolverMenuItem foodItemNames ;
 	String[] names = {};
 
 	
@@ -26,13 +26,7 @@ public class FoodItemFragment extends ListFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        if (this.getArguments() != null) {
-        	Bundle test = this.getArguments();
-        	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
-        	foodItemNames = ContentResolverMenuItem.getInstance(this.getActivity());
-        	names = foodItemNames.getItemsBySubcategory(subcategoryID);
-        }
+    	foodItemNames = ContentResolverMenuItem.getInstance(this.getActivity());
     	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
     	setListAdapter(adapter);
     }
@@ -40,6 +34,16 @@ public class FoodItemFragment extends ListFragment{
     @Override
     public void onStart() {
         super.onStart();
+        if (this.getArguments() != null) {
+        	Bundle test = this.getArguments();
+        	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
+        	for(int i = 20; i < 50; i++)
+        		{
+        			names = foodItemNames.getItemsBySubcategory(i);
+        			System.out.println(names.length);
+        		}
+        	names = foodItemNames.getItemsBySubcategory(subcategoryID);
+        }
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
     

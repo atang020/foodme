@@ -4,6 +4,8 @@ package org.segfault.foodme;
 
 
 
+import java.util.ArrayList;
+
 import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
 
 import android.app.ActionBar;
@@ -26,12 +28,13 @@ import android.widget.Toast;
 
 public class EntreeActivity extends FragmentActivity implements ActionBar.TabListener, onFoodItemSelectedListener{
 
-	private String[] subcategoryNames;
+	private ArrayList<String> subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
 	private AlertDialog.Builder dialogBuilder;
 	private String[] entreeTest = new String[5];
+	ContentResolverSubcategory subcategoryProvider;
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,10 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
 	   decorView.setSystemUiVisibility(mUIFlag);
-	   entreeTest[0] = "a";
-	   entreeTest[1] = "b";
-	   entreeTest[2] = "c";
-	   entreeTest[3] = "d";
-	   entreeTest[4] = "e";
-       subcategoryNames = entreeTest;
+	   
+	   subcategoryProvider = ContentResolverSubcategory.getInstance(this);
+	   
+	   subcategoryNames = subcategoryProvider.getSubcategoryNamesByCategory(20);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        

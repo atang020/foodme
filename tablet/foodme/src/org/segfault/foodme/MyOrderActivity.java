@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 	
-	ListView list;
+/*	ListView list;
 	TextView subtotal;
 	private String subtotalVal;
 	private String[] subcategoryNames;
@@ -170,7 +170,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 		
 	}
 	
-	private void editOrder(final int position) {
+	/*private void editOrder(final int position) {
 		dialogBuild = new AlertDialog.Builder(this);
 		
 		final EditText input = new EditText(this);
@@ -250,6 +250,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 			sum += item.get(i).getPrice() * item.get(i).getQuantity();
 		}
 		return "Subtotal: "+ sum;
-	}
+	}*/
 	
 }
