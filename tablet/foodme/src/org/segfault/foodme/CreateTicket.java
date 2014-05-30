@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 
+// Send HttpPost request to insert new Ticket into table and receive the id
 public class CreateTicket extends AsyncTask<Void, Void, Void> 
 {
 	@Override
@@ -26,6 +27,7 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 		return null;
 	}	
 	
+	// Creates JSONObject to be passed into postJsonObect
 	public JSONObject makeJson() 
 	{
 		JSONObject json = new JSONObject();
@@ -41,6 +43,7 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 	    return json;
 	}
 	
+	// Sends data to server for processing and sets response to id
 	public void postJsonObject (String uri, JSONObject jsonTicket) 
 	{
 		HttpClient httpClient = new DefaultHttpClient();
@@ -58,7 +61,7 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 			if (inputStream != null)
 			{
 	 	    	result = convertInputStreamToString(inputStream);
-	 	    	SplashScreenActivity.ticket.ticket_id = Integer.parseInt(result);
+	 	    	SplashScreenActivity.ticket.ticketId = Integer.parseInt(result);
 	 	    	android.util.Log.v("splash", "successfully created table");
 			}
 		} 
@@ -76,6 +79,7 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 		}
 	}
 	
+	// Converts input stream to String
 	private String convertInputStreamToString(InputStream inputStream) throws IOException
 	{
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
