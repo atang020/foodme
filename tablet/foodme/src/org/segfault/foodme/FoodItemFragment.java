@@ -56,8 +56,6 @@ public class FoodItemFragment extends ListFragment{
     	//System.out.println(position);
     	int menuItemIndex = foodItemNames.getIndexByName(names[position]);
         callback.onFoodItemSelected(menuItemIndex);
-        
-        
         getListView().setItemChecked(position, true);
     }
 }

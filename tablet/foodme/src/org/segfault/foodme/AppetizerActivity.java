@@ -64,20 +64,12 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
        
        subcategoryLayout.openDrawer(Gravity.LEFT);
        
-      // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-
-       // Set up the action bar.
        final ActionBar actionBar = getActionBar();
 
-       // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-       // parent.
        actionBar.setHomeButtonEnabled(false);
 
-       // Specify that we will be displaying tabs in the action bar.
        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
        
-
-       // Add 3 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this),true);

@@ -28,6 +28,7 @@ public class FoodDetailsFragment extends Fragment{
 	TextView ratingNumber;
 	TextView foodDescription;
 	TextView leaveARating;
+	TextView price;
 	ImageView foodImage;
 	Button submitButton;
 	Button addButton;
@@ -56,6 +57,7 @@ public class FoodDetailsFragment extends Fragment{
     	submitButton = (Button) getActivity().findViewById(R.id.submit_button);
     	addButton = (Button) getActivity().findViewById(R.id.add_button);
     	note = (EditText) getActivity().findViewById(R.id.note);
+    	price = (TextView) getActivity().findViewById(R.id.price);
     	
     	quantitySpinner = (Spinner) getActivity().findViewById(R.id.quantity_spinner);
     	ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -163,6 +165,7 @@ public class FoodDetailsFragment extends Fragment{
     		note.setVisibility(View.GONE);
     		ratingNumber.setVisibility(View.GONE);
     		ratingBar.setVisibility(View.GONE);
+    		price.setVisibility(View.GONE);
 		}
 		else
 		{
@@ -179,7 +182,9 @@ public class FoodDetailsFragment extends Fragment{
     		quantitySpinner.setSelection(0);
     		ratingNumber.setVisibility(View.VISIBLE);
     		ratingBar.setVisibility(View.VISIBLE);
-			foodDescription.setText(foodDetails.getDescription(menuItemIndex) + "\n\n\n" + foodDetails.getPrice(menuItemIndex));
+    		price.setVisibility(View.VISIBLE);
+			foodDescription.setText(foodDetails.getDescription(menuItemIndex));
+			price.setText("Price: $" +  foodDetails.getPrice(menuItemIndex));
 		}
 		lastMenuItemIndex = menuItemIndex;
     }
