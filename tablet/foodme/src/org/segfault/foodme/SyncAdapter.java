@@ -24,15 +24,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 {
 	private static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	private static final String PREFIX = "content://" + AUTHORITY;
+	
 	Context context;
-
-	// Contains our content resolver instance
 	ContentResolver myContentResolver;
 	
 	public SyncAdapter(Context context, boolean autoInitialize) 
 	{
 		super(context, autoInitialize);
 		this.context = context;
+		
 		// Get an instance of the content resolver from incoming Context
 		myContentResolver = context.getContentResolver();
 	}
@@ -49,7 +49,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 	public void onPerformSync(Account account, Bundle extras, String authority,
 			ContentProviderClient provider, SyncResult syncResult) 
 	{
-		try {
+		try 
+		{
 			android.util.Log.v("sync", "syncing with server database");
 			deleteMenuItems(provider);
 			insertMenuItems(provider);
@@ -60,7 +61,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 			deleteReviews(provider);
 			insertReviews(provider);
 			android.util.Log.v("sync", "reviews inserted");
-		} catch (RemoteException | IOException e) {
+		} 
+		catch (RemoteException | IOException e) 
+		{
 			syncResult.hasHardError();
 		}
 	}
@@ -73,11 +76,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 		URL url = new URL("http", "jdelaney.org", 80,"/api/menuItems");
 		URLConnection conn = url.openConnection();
 		
-		try (
-			BufferedReader bufReader = new BufferedReader (
+		try (BufferedReader bufReader = new BufferedReader (
 				new InputStreamReader (conn.getInputStream(), "UTF-8"));
-			JsonReader reader = new JsonReader(bufReader)
-		) {
+				JsonReader reader = new JsonReader(bufReader)) 
+		{
 			reader.beginArray();
 			
 			int menuItemId = -1;
@@ -94,17 +96,28 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 				while (reader.hasNext()) 
 				{
 					String name = reader.nextName();
-					if (name.equals("menu_item_id")) {
+					if (name.equals("menu_item_id")) 
+					{
 						menuItemId = reader.nextInt();
-					} else if (name.equals("subcategory_id")) {
+					} 
+					else if (name.equals("subcategory_id")) 
+					{
 						subcategoryId = reader.nextInt();
-					} else if (name.equals("name")) {
+					} 
+					else if (name.equals("name")) 
+					{
 						itemName = reader.nextString();
-					} else if (name.equals("description")) {
+					} 
+					else if (name.equals("description")) 
+					{
 						description = reader.nextString();
-					} else if (name.equals("picture_path")) {
+					} 
+					else if (name.equals("picture_path")) 
+					{
 						picturePath = reader.nextString();
-					} else if (name.equals("price")) {
+					} 
+					else if (name.equals("price")) 
+					{
 						price = reader.nextDouble();
 					}
 				}
@@ -143,7 +156,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 				contentProviderClient.delete(
 					Uri.parse(PREFIX + "/menuItem/" + menuItemId),
 					null, null);
-			} while (cursor.moveToNext());
+			} 
+			while (cursor.moveToNext());
 		}
 	}
 	
@@ -154,11 +168,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 		URL url = new URL("http", "jdelaney.org", 80,"/api/subcategories");
 		URLConnection conn = url.openConnection();
 		
-		try (
-			BufferedReader bufReader = new BufferedReader (
+		try (BufferedReader bufReader = new BufferedReader (
 				new InputStreamReader (conn.getInputStream(), "UTF-8"));
-			JsonReader reader = new JsonReader(bufReader)
-		) {
+				JsonReader reader = new JsonReader(bufReader)) 
+		{
 			reader.beginArray();
 			
 			int subcategoryId = -1;
@@ -172,11 +185,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 				while (reader.hasNext()) 
 				{
 					String name = reader.nextName();
-					if (name.equals("subcategory_id")){
+					if (name.equals("subcategory_id"))
+					{
 						subcategoryId = reader.nextInt();
-					} else if (name.equals("name")){
+					} 
+					else if (name.equals("name"))
+					{
 						subcategoryName = reader.nextString();
-					} else if (name.equals("category")){
+					} 
+					else if (name.equals("category"))
+					{
 						category = reader.nextInt();
 					}
 				}
@@ -212,7 +230,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 				contentProviderClient.delete (
 					Uri.parse(PREFIX + "/subcategory/" + subcategoryId), 
 					null, null);
-			} while (cursor.moveToNext());
+			} 
+			while (cursor.moveToNext());
 		}
 	}
 	
@@ -224,11 +243,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 		URL url = new URL("http", "jdelaney.org", 80,"/api/reviews");
 		URLConnection conn = url.openConnection();
 		
-		try (
-			BufferedReader bufReader = new BufferedReader (
+		try (BufferedReader bufReader = new BufferedReader (
 				new InputStreamReader (conn.getInputStream(), "UTF-8"));
-			JsonReader reader = new JsonReader(bufReader)
-		) {
+				JsonReader reader = new JsonReader(bufReader)) 
+		{
 			reader.beginArray();
 			
 			int reviewId = -1;
@@ -245,17 +263,28 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 				while (reader.hasNext()) 
 				{
 					String name = reader.nextName();
-					if (name.equals("review_id")) {
+					if (name.equals("review_id")) 
+					{
 						reviewId = reader.nextInt();
-					} else if (name.equals("menu_item_id")) {
+					} 
+					else if (name.equals("menu_item_id")) 
+					{
 						menuItemId = reader.nextInt();
-					} else if (name.equals("reviewer")) {
+					} 
+					else if (name.equals("reviewer")) 
+					{
 						reviewer = reader.nextString();
-					} else if (name.equals("rating")) {
+					} 
+					else if (name.equals("rating")) 
+					{
 						rating = (short)reader.nextInt();
-					} else if (name.equals("review_text")) {
+					} 
+					else if (name.equals("review_text")) 
+					{
 						reviewText = reader.nextString();
-					} else if (name.equals("review_date")) {
+					} 
+					else if (name.equals("review_date")) 
+					{
 						reviewDate = reader.nextString();
 					}
 				}
@@ -285,7 +314,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 		Cursor cursor = contentProviderClient.query (
 			// Specify we only want the _id column
 			Uri.parse(PREFIX + "/review"), new String[] {TabletContentProvider.KEY_ID}, 
-			null, null, null);
+					null, null, null);
 		if (cursor.moveToFirst()) 
 		{
 			do 
@@ -294,7 +323,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 				contentProviderClient.delete(
 					Uri.parse(PREFIX + "/review/" + reviewId),
 					null, null);
-			} while (cursor.moveToNext());
+			} 
+			while (cursor.moveToNext());
 		}
 	}
 }
