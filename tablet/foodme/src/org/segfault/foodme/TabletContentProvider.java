@@ -17,7 +17,8 @@ import android.util.Log;
 public class TabletContentProvider extends ContentProvider 
 {
 	public static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
-	// Content URIs
+	
+	// content URIs
 	public static final Uri MENU_ITEM_CONTENT_URI = 
 			Uri.parse("content://" + AUTHORITY + "/menuItem");
 	public static final Uri SUBCATEGORY_CONTENT_URI =
@@ -25,6 +26,7 @@ public class TabletContentProvider extends ContentProvider
 	public static final Uri REVIEW_CONTENT_URI = 
 			Uri.parse("content://" + AUTHORITY + "/review");
 	
+	// table name constants corresponding to names in tables
 	public static final String DB_NAME = "tabDatabase.db";
 	public static final String DB_MENU_ITEM_TABLE = "menu_item";
 	public static final String DB_SUBCATEGORY_TABLE = "subcategory";
@@ -46,9 +48,8 @@ public class TabletContentProvider extends ContentProvider
 	public static final String KEY_REVIEW_TEXT = "review_text";
 	public static final String KEY_REVIEW_DATE = "review_date";
 	
-	// Constants used to differentiate between the different URI requests
-	// Table name indicates an all rows query.  Appended with _ID indicates
-	// a single row query
+	// constants corresponding to either an entire table or a single row
+	// used for uriMatcher
 	private static final int MENU_ITEM = 1;
 	private static final int MENU_ITEM_ID = 2;
 	private static final int SUBCATEGORY = 3;
@@ -59,9 +60,9 @@ public class TabletContentProvider extends ContentProvider
 	private static final UriMatcher uriMatcher;
 	private DBOpenHelper myOpenHelper;
 	
-	// Populate the UriMatcher object, where a URI ending in 'menuItem' will 
+	// populate the UriMatcher object, where a URI ending in 'menuItem' will 
 	// correspond to a request for all items, and 'menuItem/[rowID]' represents 
-	// a single row. Same is done for 'subcategory' and 'subcategory/[rowID]'
+	// a single row, etc
 	static 
 	{
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -80,9 +81,7 @@ public class TabletContentProvider extends ContentProvider
 	public boolean onCreate() 
 	{
 		// Construct the underlying database.
-		myOpenHelper = new DBOpenHelper(getContext(),
-				DB_NAME, null,DB_VERSION);
-		
+		myOpenHelper = new DBOpenHelper(getContext(), DB_NAME, null,DB_VERSION);
 		return true;
 	}
 	
@@ -92,9 +91,9 @@ public class TabletContentProvider extends ContentProvider
 	{
 		// Used if executing a single row query
 		String rowID;
+		
 		// Open the database
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
-		
 		
 		// Replace these with valid SQL statements if necessary
 		String groupBy = null;
@@ -137,8 +136,8 @@ public class TabletContentProvider extends ContentProvider
 		}
 		
 		// Execute the query
-		Cursor cursor = queryBuilder.query(db, projection, selection, 
-				selectionArgs, groupBy, having, sortOrder);
+		Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, 
+				groupBy, having, sortOrder);
 		
 		// Return the result cursor
 		return cursor;
@@ -149,9 +148,11 @@ public class TabletContentProvider extends ContentProvider
 	{
 		// Open a read/write database to support the transaction
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
+		
 		// Used if executing a single row query
 		String rowID;
 		int deleteCount = 0;
+		
 		// A selection value of 1 indicates to delete the entire table
 		if (selection==null)
 			selection = "1";
@@ -167,9 +168,7 @@ public class TabletContentProvider extends ContentProvider
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
+						+ (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "");
 				deleteCount = db.delete(DB_MENU_ITEM_TABLE, 
 						selection, selectionArgs);
 				break;
@@ -181,9 +180,7 @@ public class TabletContentProvider extends ContentProvider
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
+						+ (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "");
 				deleteCount = db.delete(DB_SUBCATEGORY_TABLE, 
 						selection, selectionArgs);
 				break;
@@ -195,9 +192,7 @@ public class TabletContentProvider extends ContentProvider
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
+						+ (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "");
 				deleteCount = db.delete(DB_REVIEW_TABLE, 
 						selection, selectionArgs);
 				break;
@@ -218,6 +213,7 @@ public class TabletContentProvider extends ContentProvider
 		long id = -1;
 		Uri insertedId = null;
 		String nullColumnHack = null;
+		
 		// Insert the values into the table
 		switch (uriMatcher.match(uri)) 
 		{
@@ -234,7 +230,8 @@ public class TabletContentProvider extends ContentProvider
 		}
 		
 		// Construct and return the URI of the newly inserted row
-		if (id > -1) {
+		if (id > -1) 
+		{
 			switch (uriMatcher.match(uri)) 
 			{
 				case MENU_ITEM:
@@ -250,7 +247,9 @@ public class TabletContentProvider extends ContentProvider
 			// Notify any observers of the change in the data set
 			getContext().getContentResolver().notifyChange(insertedId, null);
 			return insertedId;
-		} else {
+		} 
+		else 
+		{
 			return null;
 		}
 	}
@@ -274,9 +273,7 @@ public class TabletContentProvider extends ContentProvider
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
+						+ (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "");
 				updateCount = db.update(DB_MENU_ITEM_TABLE, 
 						values, selection, selectionArgs);
 				break;
@@ -288,9 +285,7 @@ public class TabletContentProvider extends ContentProvider
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
+						+ (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "");
 				updateCount = db.update(DB_SUBCATEGORY_TABLE, 
 						values, selection, selectionArgs);
 				break;
@@ -302,9 +297,7 @@ public class TabletContentProvider extends ContentProvider
 				// Since this is a row query, limit the result set to the passed in row
 				rowID = uri.getPathSegments().get(1);
 				selection = KEY_ID + "=" + rowID 
-						+ (!TextUtils.isEmpty(selection) ?
-						" AND (" + selection + ')' : "");
-				
+						+ (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "");
 				updateCount = db.update(DB_REVIEW_TABLE, 
 						values, selection, selectionArgs);
 				break;
@@ -365,17 +358,17 @@ public class TabletContentProvider extends ContentProvider
 				"PRIMARY KEY (" + KEY_ID + "));";
 				
 		// SQL Statement to create new setting table
-				private static final String REVIEW_CREATE =
-						"CREATE TABLE " + DB_REVIEW_TABLE + " (" +
-						KEY_ID + " INT NOT NULL, " +
-						KEY_MENU_ITEM_ID + " INT NOT NULL, " +
-						KEY_REVIEWER + " VARCHAR(45) NULL, " +
-						KEY_RATING + " TINYINT NOT NULL, " +
-						KEY_REVIEW_TEXT + " TEXT NULL, " +
-						KEY_REVIEW_DATE + " DATETIME, " +
-						"PRIMARY KEY (" + KEY_ID + ")," +
-						"FOREIGN KEY (" + KEY_MENU_ITEM_ID + ") REFERENCES " + DB_MENU_ITEM_TABLE +
-						"(" + KEY_MENU_ITEM_ID + "));";
+		private static final String REVIEW_CREATE =
+				"CREATE TABLE " + DB_REVIEW_TABLE + " (" +
+				KEY_ID + " INT NOT NULL, " +
+				KEY_MENU_ITEM_ID + " INT NOT NULL, " +
+				KEY_REVIEWER + " VARCHAR(45) NULL, " +
+				KEY_RATING + " TINYINT NOT NULL, " +
+				KEY_REVIEW_TEXT + " TEXT NULL, " +
+				KEY_REVIEW_DATE + " DATETIME, " +
+				"PRIMARY KEY (" + KEY_ID + ")," +
+				"FOREIGN KEY (" + KEY_MENU_ITEM_ID + ") REFERENCES " + DB_MENU_ITEM_TABLE +
+				"(" + KEY_MENU_ITEM_ID + "));";
 		
 		public DBOpenHelper(Context context, String name, CursorFactory factory,
 				int version) 
@@ -400,9 +393,7 @@ public class TabletContentProvider extends ContentProvider
 		{
 			// Log version upgrade
 			Log.w(DBOpenHelper.class.getName(), "Upgrading from version " + 
-					oldVersion + " to " + newVersion + 
-					", which will destroy all old data");
-			
+					oldVersion + " to " + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS" + DB_MENU_ITEM_TABLE);
 			db.execSQL("DROP TABLE IF EXISTS" + DB_SUBCATEGORY_TABLE);
 			db.execSQL("DROP TABLE IF EXISTS" + DB_REVIEW_TABLE);
