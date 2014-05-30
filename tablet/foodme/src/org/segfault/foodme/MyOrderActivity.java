@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -175,16 +176,18 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	 private void confirmation(){
      	dialogBuild = new AlertDialog.Builder(this);
      	LinearLayout layout = new LinearLayout(getApplicationContext());
+		dialogBuild.setTitle("Check Out to Kitchen");
+		dialogBuild.setMessage("Are you sure?");
 	  	dialogBuild.setView(layout);
-		dialogBuild.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+		dialogBuild.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which)
 			{
 				Toast makeText = Toast.makeText(getApplicationContext(),"Order has been sent to the kitchen", Toast.LENGTH_SHORT);
 				makeText.show();
 			}
-	     });
+	 });
 	     
-	    	dialogBuild.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+	    	dialogBuild.setPositiveButton("No", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
