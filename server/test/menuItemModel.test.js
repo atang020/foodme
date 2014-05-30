@@ -7,9 +7,9 @@ var menuItemModel = require('../models/menuItemModel');
 var subcategoryModel = require('../models/subcategoryModel');
 
 describe('Menu Item model', function () {
-	var menuA = { name: 'menuNameA', description: 'descriptionA', price: 0.00, picture_path: 'pathA'},
-		menuB = { name: 'menuNameB', description: 'descriptionB', price: 1.00, picture_path: 'pathB'},
-		menuC = { name: 'menuNameC', description: 'descriptionC', price: 2.00, picture_path: 'pathC'};
+	var menuA = { name: 'menuNameA', description: 'descriptionA', price: 0.00, picture_path: 'pathA',subcategory_id:1},
+		menuB = { name: 'menuNameB', description: 'descriptionB', price: 1.00, picture_path: 'pathB',subcategory_id:1},
+		menuC = { name: 'menuNameC', description: 'descriptionC', price: 2.00, picture_path: 'pathC',subcategory_id:1};
 
 	beforeEach(function (done) {
 		database.query('SET FOREIGN_KEY_CHECKS = 0;TRUNCATE TABLE subcategory;TRUNCATE TABLE menu_item;SET FOREIGN_KEY_CHECKS = 1', null, function (err) {
@@ -59,26 +59,30 @@ describe('Menu Item model', function () {
 					assert.equal(menu[0].name, menuA.name);
 					assert.equal(menu[0].description, menuA.description);
 					assert.equal(menu[0].price, menuA.price);
-					assert.equal(menu[0].picture_path, menuA.picture_path)
+					assert.equal(menu[0].picture_path, menuA.picture_path);
+					assert.equal(menu[0].subcategory_id, menuA.subcategory_id);
 
 					//menuB
 					assert.equal(menu[1].menu_item_id, results[1]);
 					assert.equal(menu[1].name, menuB.name);
 					assert.equal(menu[1].description, menuB.description);
 					assert.equal(menu[1].price, menuB.price);
-					assert.equal(menu[1].picture_path, menuB.picture_path)
+					assert.equal(menu[1].picture_path, menuB.picture_path);
+					assert.equal(menu[1].subcategory_id, menuB.subcategory_id);
 
 					//menuC
 					assert.equal(menu[2].menu_item_id, results[2]);
 					assert.equal(menu[2].name, menuC.name);
 					assert.equal(menu[2].description, menuC.description);
 					assert.equal(menu[2].price, menuC.price);
-					assert.equal(menu[2].picture_path, menuC.picture_path)
+					assert.equal(menu[2].picture_path, menuC.picture_path);
+					assert.equal(menu[2].subcategory_id, menuC.subcategory_id);
 					done();
 
 				});
 			});
 	});
+
 	//tests add and get
 	it('add() and get()', function (done) {
 		menuItemModel.add(menuA, function (err, id) {
@@ -92,6 +96,7 @@ describe('Menu Item model', function () {
 				assert.equal(result.description, menuA.description);
 				assert.equal(result.price, menuA.price);
 				assert.equal(result.picture_path, menuA.picture_path);
+				assert.equal(result.subcategory_id, menuA.subcategory_id);
 				done();
 			});
 		});
@@ -119,6 +124,7 @@ describe('Menu Item model', function () {
 					assert.equal(menuA2.description, menuA.description);
 					assert.equal(menuA2.price, menuA.price);
 					assert.equal(menuA2.picture_path, menuA.picture_path);
+					assert.equal(menuA2.subcategory_id, menuA.subcategory_id)
 					done();
 				});
 			});
