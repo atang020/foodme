@@ -50,7 +50,7 @@
         	android:exported="false"
         	android:syncable="true">
         </provider>
-        
+<!--        
         <service
             android:name="org.segfault.foodme.service.datasync.AuthenticatorService">
             <intent-filter>
@@ -60,7 +60,7 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator"/>
         </service>
-        
+    -->    
         <service
             android:name="org.segfault.foodme.SyncService"
             android:exported="true"

@@ -12,27 +12,31 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MyOrderActivity extends Activity implements ActionBar.TabListener{
+public class MyOrderActivity extends Activity implements ActionBar.TabListener, OnItemClickListener{
 	
-/*	ListView list;
+	ListView list;
 	TextView subtotal;
+	Button checkout;
 	private String subtotalVal;
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
-	ArrayList<menuItem> item = new ArrayList<menuItem>(3);
+	ArrayList<MenuItem> item = new ArrayList<MenuItem>(3);
 	ArrayAdapter<String> adapter; 
 	private AlertDialog.Builder dialogBuild;
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
-	   
+	Button button;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,41 +92,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
                // probably ignore this event
            }
-           
-        list = (ListView) findViewById(R.id.listView1);	
-   		subtotal = (TextView) findViewById(R.id.textView6);
-   		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice);
-   		subtotalVal = subTotal();
-   		
-   		for(int i = 0; i<item.size(); i++) {
-   			adapter.add(item.get(i).toString());
-   		}
-   		
-   		list.setAdapter(adapter);
-   		subtotal.setText(subtotalVal);
-   		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
-   			   public void onItemSelected(AdapterView parentView, View childView, 
-   			                                                         int position, long id) 
-   			   {  
-   				   //none
-   			   }
-
-   			   public void onNothingSelected(AdapterView parentView) {  
-   				   //none
-   			   }
-
-   			@Override
-   			public void onItemClick(AdapterView<?> parent, View view,
-   					int position, long id) {
-   				// TODO Auto-generated method stub
-   				editOrder(position); 
-   				adapter.notifyDataSetChanged();
-   				}  
-   			});  
        };
-       
-       
-
        // Add 3 tabs, specifying the tab's text and TabListener
        actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(tabListener));
        actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(tabListener));
@@ -138,9 +108,44 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
        // Set the adapter for the list view
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
                R.layout.test_layout, subcategoryNames));
-       
+       button = (Button) findViewById(R.id.button1);
+       list = (ListView) findViewById(R.id.listView1);	
+  		subtotal = (TextView) findViewById(R.id.textView6);
+  		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice);
+  		subtotalVal = subTotal();
+  		
+  		for(int i = 0; i<item.size(); i++) {
+  			adapter.add(item.get(i).toString());
+  		}
+  		
+  		list.setAdapter(adapter);
+  		subtotal.setText(subtotalVal);
+  		
+  		button.setOnClickListener(new View.OnClickListener(){
+  			public void onClick(View v){
+  				confirmation();
+  			}
+  		});
+  		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
+  			   public void onItemSelected(AdapterView parentView, View childView, 
+  			                                                         int position, long id) 
+  			   {  
+  				   //none
+  			   }
+
+  			   public void onNothingSelected(AdapterView parentView) {  
+  				   //none
+  			   }
+
+  			@Override
+  			public void onItemClick(AdapterView<?> parent, View view,
+  					int position, long id) {
+  				// TODO Auto-generated method stub
+  				editOrder(position); 
+  				adapter.notifyDataSetChanged();
+  				}  
+  			});         
 	}
-	
 	
 /*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -151,26 +156,54 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 	}*/
 
 
-	@Override
-	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabReselected1(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	@Override
-	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabSelected1(Tab arg0, FragmentTransaction arg1) {
 
 	}
 
 
-	@Override
-	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabUnselected1(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	/*private void editOrder(final int position) {
+	 private void confirmation(){
+     	dialogBuild = new AlertDialog.Builder(this);
+     	LinearLayout layout = new LinearLayout(getApplicationContext());
+	  	dialogBuild.setView(layout);
+		dialogBuild.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which)
+			{
+				Toast makeText = Toast.makeText(getApplicationContext(),"Order has been sent to the kitchen", Toast.LENGTH_SHORT);
+				makeText.show();
+			}
+	     });
+	     
+	    	dialogBuild.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+				Toast makeText = Toast.makeText(getApplicationContext(),"Order has not been sent to kitchen.", Toast.LENGTH_SHORT);
+				makeText.show();
+			}
+		});
+	  }
+
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		
+	}
+	 
+	private void editOrder(final int position) {
 		dialogBuild = new AlertDialog.Builder(this);
 		
 		final EditText input = new EditText(this);
@@ -187,27 +220,27 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 		
 		public void onClick(DialogInterface dialog, int which)
 		{
-			int quantityNum = item.get(position).getQuantity();
-			String notesVal = item.get(position).getNotes();
+		//	int quantityNum = item.get(position).getQuantity();
+		//	String notesVal = item.get(position).getNotes();
 			String value = input.getText().toString();
 			String quantityVal = quantity.getText().toString();
 			
 			try {
-				quantityNum = Integer.parseInt(quantityVal);
+			//	quantityNum = Integer.parseInt(quantityVal);
 			}catch(NumberFormatException e) {
 				Toast makeText1 = Toast.makeText(getApplicationContext(),"Give me a valid integer", Toast.LENGTH_SHORT);
 				makeText1.show();
-				quantityNum = item.get(position).getQuantity();
+				//quantityNum = item.get(position).getQuantity();
 			}
 			
 			if(value.trim().length() > 0)
-				notesVal = value;
+				//notesVal = value;
 			
-			menuItem temp = new menuItem(item.get(position).getName(), notesVal, quantityNum, item.get(position).getPrice());
+	//		menuItem temp = new menuItem(item.get(position).getName(), notesVal, quantityNum, item.get(position).getPrice());
 			System.err.println("before removing: " + position + "item is: " + item.get(position).toString());
 			adapter.remove(item.get(position).toString());
 			item.remove(position);
-			item.add(temp);
+		//	item.add(temp);
 			adapter.add(item.get((item.size()-1)).toString());
 			subtotalVal = subTotal();
 			subtotal.setText(subtotalVal);
@@ -247,9 +280,30 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener{
 		double sum = 0.0;
 		for (int i = 0; i < item.size(); i++)
 		{
-			sum += item.get(i).getPrice() * item.get(i).getQuantity();
+	//		sum += item.get(i).getPrice() * item.get(i).getQuantity();
 		}
 		return "Subtotal: "+ sum;
-	}*/
+	}
 	
+
+	public void onItemClick1(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
 }
