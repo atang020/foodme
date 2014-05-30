@@ -4,8 +4,8 @@ var menuItemModel = require('../models/menuItemModel');
 routeHelper = require('../routes/routeHelper');
 
 router.get('/', function (req, res) {
-	routeHelper.redirectIfLoggedOut(req, res, function(loggedIn) {
-		if(loggedIn){
+	routeHelper.redirectIfLoggedOut(req, res, function (loggedIn) {
+		if (loggedIn) {
 			var myMenu;
 			menuItemModel.getSorted(function (err, orders) {
 				if (err) {
@@ -17,6 +17,6 @@ router.get('/', function (req, res) {
 		}
 	});
 });
-			
+
 
 module.exports = router;

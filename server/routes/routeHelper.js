@@ -11,7 +11,7 @@ exports.isValidUser = function (email, password, callback) {
 				return callback(null, false, null);
 			}
 
-			if(user[0].password === password) {
+			if (user[0].password === password) {
 				return callback(null, true, user[0]);
 			} else {
 				return callback(null, false, null);
@@ -20,28 +20,28 @@ exports.isValidUser = function (email, password, callback) {
 	} else {
 		callback(null, false, null);
 	}
-}
-	
+};
+
 exports.redirectIfLoggedOut = function (req, res, callback) {
-	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function(err, isUser, user){
-		if(err || !isUser) {
+	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function (err, isUser, user) {
+		if (err || !isUser) {
 			res.redirect('/');
 			callback(false);
 		}
-		else{
+		else {
 			callback(true);
 		}
 	});
-}
+};
 
 exports.redirectIfLoggedIn = function (req, res, callback) {
-	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function(err, isUser, user){
-		if(err || !isUser) {
+	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function (err, isUser, user) {
+		if (err || !isUser) {
 			callback(false);
 		}
-		else{
+		else {
 			callback(true);
 			res.redirect('/orders');
 		}
 	});
-}
+};
