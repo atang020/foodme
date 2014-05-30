@@ -41,6 +41,7 @@ router.put('/', function (req, res) {
 	});
 });
 
+
 router.delete('/:id', function (req, res) {
 	ticketModel.remove(req.params.id, function (err) {
 		if (err) {
