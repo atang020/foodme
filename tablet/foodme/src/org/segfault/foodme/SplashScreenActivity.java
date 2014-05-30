@@ -1,23 +1,6 @@
 package org.segfault.foodme;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -25,10 +8,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -43,6 +24,7 @@ public class SplashScreenActivity extends Activity
 	public static final String ACCOUNT = "default_account";
 	public static final int TABLE_NUMBER = 12;
 	public static Ticket ticket;
+	ArrayList<TicketItem> items = new ArrayList<TicketItem>();
 	Account myAccount;
 	
 	// Set Duration of the Splash Screen
@@ -94,78 +76,10 @@ public class SplashScreenActivity extends Activity
 	    // Insert new Ticket into server table and retrieve ticketId
 	    ticket = new Ticket ();
 	    new CreateTicket().execute();
-	}
-	
-	private class CreateTicket extends AsyncTask<Void, Void, Void> 
-	{
-		@Override
-		protected Void doInBackground(Void... params) 
-		{
-			postJsonObject ("http://jdelaney.org/api/tickets", makeJson());
-			return null;
-		}		
-	}
-	
-	public JSONObject makeJson() 
-	{
-		JSONObject json = new JSONObject();
+	    items.add(new TicketItem(1,2,(short)3,"testitem", (short)4));
+	    items.add(new TicketItem(1,2,(short)3,"testitem2", (short)4));
+	    items.add(new TicketItem(1,2,(short)3,"testitem3", (short)4));
+	    new SendTicketItems().execute(items);
 	    
-	    try 
-	    {
-	    	json.put("table_number", TABLE_NUMBER);
-		} 
-	    catch (JSONException e) 
-	    {
-			e.printStackTrace();
-		}
-	    return json;
 	}
-	
-	public void postJsonObject (String uri, JSONObject jsonTicket) 
-	{
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(uri);
-		InputStream inputStream;
-		String result;
-		
-		try 
-		{
-			httpPost.setEntity(new StringEntity(jsonTicket.toString()));
-			httpPost.setHeader("Content-type", "application/json");
-			httpPost.setHeader("Accept", "application/json");
-			HttpResponse httpResponse = httpClient.execute(httpPost);
-			inputStream = httpResponse.getEntity().getContent();
-			if (inputStream != null)
-			{
-	 	    	result = convertInputStreamToString(inputStream);
-	 	    	ticket.ticket_id = Integer.parseInt(result);
-	 	    	android.util.Log.v("splash", "successfully created table");
-			}
-		} 
-		catch (UnsupportedEncodingException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (ClientProtocolException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	private String convertInputStreamToString(InputStream inputStream) throws IOException
-	{
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null)
-        {
-            result += line;
-        }
-        inputStream.close();
-        return result;
-    }	
 }
