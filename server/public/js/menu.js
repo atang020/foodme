@@ -6,17 +6,8 @@ var photoCallback;
 $(document).ready(function () {
 	$('[id^=subcatProtosubcat]').hide();
 	$('[id^=itemProtoitem]').hide();
-	$('#photoProgress').hide();
-	 // Check to see when a user has selected a file                                                                                                                
-    var timerId;
-    timerId = setInterval(function() {
-	if($('#userPhotoInput').val() !== '') {
-            clearInterval(timerId);
-			$('#photoProgress').fadeIn();
-            $('#uploadForm').submit();
-        }
-    }, 500);
 	
+	//set what the submit button on the photo form does
 	$('#photoForm').submit(function(event){
 	event.preventDefault();
 		$(this).ajaxSubmit({                                                                                                                 
@@ -254,6 +245,7 @@ function inputSubmit() {
 	inputCallback($('#inputModal').find('#textField').val());
 }
 
+//for when the user hits the upload photo button
 function setUploadPhoto(menu_id) {
 	$('#userPhotoInput').val('');
 	$('#photoModal').modal();
