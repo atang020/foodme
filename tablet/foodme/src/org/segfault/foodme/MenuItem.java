@@ -2,57 +2,83 @@ package org.segfault.foodme;
 
 public class MenuItem {
 
-	int menu_item_id;
-	int subcategory_id;
+	int menuItemId;
+	int subcategoryId;
 	String name;
 	String description;
-	String picture_path;
+	String picturePath;
 	double price;
 	
-	public MenuItem(int menu_item_id, int subcategory_id, String name,
-			String description, String picture_path, double price) {
-		this.menu_item_id = menu_item_id;
-		this.subcategory_id = subcategory_id;
+	public MenuItem(){}
+
+	public MenuItem(int menuItemId, int subcategoryId, String name,
+			String description, String picturePath, double price) 
+	{
+		this.menuItemId = menuItemId;
+		this.subcategoryId = subcategoryId;
 		this.name = name;
 		this.description = description;
-		this.picture_path = picture_path;
+		this.picturePath = picturePath;
 		this.price = price;
 	}
-	
-	public int getMenuItemId() {
-		return menu_item_id;
+
+	public int getMenuItemId()
+	{
+		return menuItemId;
 	}
-	public void setMenuItemId(int menu_item_id) {
-		this.menu_item_id = menu_item_id;
+
+	public void setMenuItemId(int menuItemId) 
+	{
+		this.menuItemId = menuItemId;
 	}
-	public int getSubcategoryId() {
-		return subcategory_id;
+
+	public int getSubcategoryId() 
+	{
+		return subcategoryId;
 	}
-	public void setSubcategoryId(int subcategory_id) {
-		this.subcategory_id = subcategory_id;
+
+	public void setSubcategoryId(int subcategoryId) 
+	{
+		this.subcategoryId = subcategoryId;
 	}
-	public String getName() {
+
+	public String getName() 
+	{
 		return name;
 	}
-	public void setName(String name) {
+
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
-	public String getDescription() {
+
+	public String getDescription() 
+	{
 		return description;
 	}
-	public void setDescription(String description) {
+
+	public void setDescription(String description) 
+	{
 		this.description = description;
 	}
-	public String getPicturePath() {
-		return picture_path;
+
+	public String getPicturePath() 
+	{
+		return picturePath;
 	}
-	public void setPicturePath(String picture_path) {
-		this.picture_path = picture_path;
+
+	public void setPicturePath(String picturePath) 
+	{
+		this.picturePath = picturePath;
 	}
-	public double getPrice() {
+
+	public double getPrice() 
+	{
 		return price;
 	}
-	public void setPrice(double price) {
+
+	public void setPrice(double price) 
+	{
 		this.price = price;
 	}
 }

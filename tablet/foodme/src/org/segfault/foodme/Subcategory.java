@@ -2,35 +2,46 @@ package org.segfault.foodme;
 
 public class Subcategory {
 
-	int subcategory_id;
+	int subcategoryId;
 	String name;
 	int category;
 	
-	public Subcategory(int subcategory_id, String name, int category) {
-		this.subcategory_id = subcategory_id;
+	public Subcategory(){};
+	
+	public Subcategory(int subcategoryId, String name, int category) 
+	{
+		this.subcategoryId = subcategoryId;
 		this.name = name;
 		this.category = category;
 	}
 	
-	public int getSubcategoryId() {
-		return subcategory_id;
+	public int getSubcategoryId() 
+	{
+		return subcategoryId;
 	}
-	public void setSubcategoryId(int subcategory_id) {
-		this.subcategory_id = subcategory_id;
+	
+	public void setSubcategoryId(int subcategoryId) 
+	{
+		this.subcategoryId = subcategoryId;
 	}
-	public String getName() {
+	
+	public String getName() 
+	{
 		return name;
 	}
-	public void setName(String name) {
+	
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
-	public int getCategory() {
+	
+	public int getCategory()
+	{
 		return category;
 	}
-	public void setCategory(int category) {
+	
+	public void setCategory(int category) 
+	{
 		this.category = category;
 	}
-	
-	
-
 }
