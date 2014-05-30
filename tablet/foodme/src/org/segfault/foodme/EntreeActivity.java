@@ -193,6 +193,7 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 		Bundle args = new Bundle();
 		int subcatID = subcategoryProvider.getSubcategoryIdByName(subcategoryNames.get(position));
 		args.putInt(subcategoryChosen.ARG_SUBCATEGORY_NUMBER, subcatID);
+		System.out.println(subcatID);
 		subcategoryChosen.setArguments(args);
 	    getSupportFragmentManager().beginTransaction()
 	                   .replace(R.id.fooditem_fragment, subcategoryChosen)
