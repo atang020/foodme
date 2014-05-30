@@ -24,7 +24,6 @@ public class SplashScreenActivity extends Activity
 	public static final String ACCOUNT = "default_account";
 	public static final int TABLE_NUMBER = 12;
 	public static Ticket ticket;
-	ArrayList<TicketItem> items = new ArrayList<TicketItem>();
 	Account myAccount;
 	
 	// Set Duration of the Splash Screen
@@ -75,11 +74,6 @@ public class SplashScreenActivity extends Activity
 	    
 	    // Insert new Ticket into server table and retrieve ticketId
 	    ticket = new Ticket ();
-	    new CreateTicket().execute();
-	    items.add(new TicketItem(1,2,(short)3,"testitem", (short)4));
-	    items.add(new TicketItem(1,2,(short)3,"testitem2", (short)4));
-	    items.add(new TicketItem(1,2,(short)3,"testitem3", (short)4));
-	    new SendTicketItems().execute(items);
-	    
+	    new CreateTicket().execute();	    
 	}
 }
