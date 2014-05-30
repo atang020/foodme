@@ -228,3 +228,42 @@ function inputSubmit() {
 
 	inputCallback($('#inputModal').find('#textField').val());
 }
+
+//prepares upload photo modal
+function setUploadPhoto(menu_id) {
+	$('#photoModal').modal();
+	$('#photoForm').submit(function(event){
+		event.preventDefault();
+		var formData = new FormData($('#photoForm'));
+		$.ajax({
+			url: '/api/menuItems/' + menu_id + '/photo',  //Server script to process data
+			type: 'PUT',
+			xhr: function() {  // Custom XMLHttpRequest
+				var myXhr = $.ajaxSettings.xhr();
+				if(myXhr.upload){ // Check if upload property exists
+					myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+				}
+				return myXhr;
+			},
+			//Ajax events
+			//beforeSend: beforeSendHandler,
+			success: function(path) {
+			console.log('path ' +  path);
+			},
+			error: function() {
+				alert('something went wrong');
+			},
+			// Form data
+			data: formData,
+			//Options to tell jQuery not to process data or worry about content-type.
+			cache: false,
+			contentType: false,
+			processData: false
+		});
+	});
+}
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
