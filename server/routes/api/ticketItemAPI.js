@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res){
 	ticketItemModel.getAll(function (err, orders) {
 		if (err) {
-			res.send(500);
+			throw err;
 		}
 		res.json(orders);
 	});
@@ -15,7 +15,7 @@ router.get('/', function(req, res){
 router.get('/:ticketItemId', function (req, res) {
 	ticketItemModel.get(req.params.ticketItemId, function (err, ticket) {
 		if (err) {
-			res.send(500);
+			throw err;
 		}
 		res.json(ticket);
 	});
@@ -24,7 +24,7 @@ router.get('/:ticketItemId', function (req, res) {
 router.post('/', function (req, res) {
 	ticketItemModel.add(req.body, function (err, id) {
 		if (err) {
-			res.send(500);
+			throw err;
 		}
 
 		res.send(id.toString());
@@ -34,7 +34,7 @@ router.post('/', function (req, res) {
 router.put('/', function (req, res) {
 	ticketItemModel.update(req.body, function (err) {
 		if (err) {
-			res.send(500);
+			throw err;
 		} else {
 			res.send(200);
 		}
@@ -44,7 +44,7 @@ router.put('/', function (req, res) {
 router.delete('/:id', function (req, res) {
 	ticketItemModel.remove(req.params.id, function (err) {
 		if (err) {
-			res.send(500);
+			throw err;
 		} else {
 			res.send(200);
 		}

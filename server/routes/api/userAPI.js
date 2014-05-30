@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/', function(req, res){
 	userModel.getAll(function (err, orders) {
 		if (err) {
-			res.send(500);
+			throw err;
 		}
 		res.json(orders);
 	});
@@ -16,7 +16,7 @@ router.get('/', function(req, res){
 router.get('/:userId', function (req, res) {
 	userModel.get(req.params.userId, function (err, ticket) {
 		if (err) {
-			res.send(500);
+			throw err;
 		}
 		res.json(ticket);
 	});
@@ -25,7 +25,7 @@ router.get('/:userId', function (req, res) {
 router.post('/login', function (req, res) {
 	routeHelper.isValidUser(req.body.email, req.body.password, function (err, isValid, userData) {
 		if (err) {
-			res.send(500);
+			throw err;
 		}
 		if (isValid) {
 			res.send(202);
@@ -38,7 +38,7 @@ router.post('/login', function (req, res) {
 router.post('/', function (req, res) {
 	userModel.add(req.body, function (err, id) {
 		if (err) {
-			res.send(500);
+			throw err;
 		}
 
 		res.send(id.toString());
@@ -48,7 +48,7 @@ router.post('/', function (req, res) {
 router.put('/', function (req, res) {
 	userModel.update(req.body, function (err) {
 		if (err) {
-			res.send(500);
+			throw err;
 		} else {
 			res.send(200);
 		}
@@ -58,7 +58,7 @@ router.put('/', function (req, res) {
 router.delete('/:id', function (req, res) {
 	userModel.remove(req.params.id, function (err) {
 		if (err) {
-			res.send(500);
+			throw err;
 		} else {
 			res.send(200);
 		}
