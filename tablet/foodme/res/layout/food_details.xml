@@ -3,96 +3,77 @@
     android:id="@+id/food_details"
 	android:layout_width="fill_parent"
  	android:layout_height="fill_parent">
- 	<TableRow
-	android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:layout_marginRight="8dp" >
+ 	<TableRow>
 	<ImageView
 	    android:id="@+id/food_image"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center_horizontal"
-	    android:gravity="center_vertical|center_horizontal"/>
+	    android:padding="3dip"/>
 
 	<TextView
 	    android:id="@+id/food_description"
-	    android:layout_width="fill_parent"
+	    android:layout_width="300dp"
 	    android:layout_height="wrap_content"
-	    android:fadingEdge="horizontal"
-	    android:paddingLeft="@dimen/abc_search_view_text_min_width" />
+	   	android:text="Large Text"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	</TableRow>
 
 	    
 	
-	<TableRow
-	    android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:layout_marginRight="8dp" >
+	<TableRow >
 	    <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="1.0"/>
+        android:numStars="5"/>
 	    
 	    <TextView
 	        android:id="@+id/review_number"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:paddingLeft="@dimen/abc_action_bar_stacked_max_height" >
+	        android:layout_width="50dp"
+	        android:layout_height="wrap_content" >
 
 	    <requestFocus />
 		</TextView>
 	    
-	    
-		<TextView
-		    android:id="@+id/price"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content" />
+				
 	</TableRow>
 
-		
-	<TableRow
-	    android:id="@+id/tableRow3" 
-	    android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:padding="5dip"
-        android:layout_marginRight="8dp" >
+	
 
-		<EditText
+		<TableRow>
+		   <EditText
 		    android:id="@+id/note"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:inputType="text"
 		    android:hint="@string/note"
 		    android:ems="10" />
-
+		   
+		   	    
+		<TextView
+		    android:id="@+id/price"
+		    android:layout_width="300dp"
+		    android:layout_height="wrap_content" />
+		</TableRow>
+		
+		
+	<TableRow >
 	    <Spinner
   		android:id="@+id/quantity_spinner"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content" />
+    	android:layout_width="150dip"
+    	android:layout_height="wrap_content"
+    	android:dropDownWidth="150dp" />
 	    
 	    <Button
-	    android:id="@+id/add_button"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/add" />
-	    
+	        android:id="@+id/add_button"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:maxWidth="60dp"
+	        android:text="@string/add" />
 	    
 	    </TableRow>
 	
-	<TableRow
-	    android:id="@+id/tableRow4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp" >
+	<TableRow >
 
 	   	<RatingBar
         	android:id="@+id/customerRating"
@@ -111,16 +92,12 @@
 
 	</TableRow>
 
-		<TableRow
-	    android:id="@+id/tableRow5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp" >
-	<Button
-	    android:id="@+id/submit_button"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/submit_rating" />
+	<TableRow >
+		<Button
+	   		android:id="@+id/submit_button"
+	    	android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	    	android:text="@string/submit_rating" />
 	</TableRow>
 	 
 </TableLayout> 

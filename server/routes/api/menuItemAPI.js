@@ -33,6 +33,15 @@ router.post('/', function (req, res) {
 	});
 });
 
+router.put('/:menuItemId/photo', function (req, res) {
+	menuItemModel.updatePhoto(req.params.menuItemId, req.files.picture.name, function (err, path) {
+		if (err) {
+			res.send(500);
+		}
+		res.send(path);
+	})
+});
+
 router.put('/', function (req, res) {
 	menuItemModel.update(req.body, function (err) {
 		if (err) {

@@ -156,6 +156,15 @@ exports.update = function (menuItem, callback) {
 		});
 };
 
+exports.updatePhoto = function (menuItemId, photoPath, callback) {
+	database.query('UPDATE menu_item SET picture_path = ? WHERE menu_item_id = ?', [photoPath, menuItemId], function (err) {
+		if (err) {
+			return callback(err);
+		}
+		return  callback(null, photoPath);
+	});
+};
+
 /**
  * Deletes a menu_item. The callback gets two arguments (err, data).
  *
