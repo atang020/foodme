@@ -5,7 +5,34 @@ var confirmCallback;
 $(document).ready(function () {
 	$('[id^=subcatProtosubcat]').hide();
 	$('[id^=itemProtoitem]').hide();
+	$('#photoProgress').hide();
+	 // Check to see when a user has selected a file                                                                                                                
+    var timerId;
+    timerId = setInterval(function() {
+	if($('#userPhotoInput').val() !== '') {
+            clearInterval(timerId);
+			$('#photoProgress').fadeIn();
+            $('#uploadForm').submit();
+        }
+    }, 500);
+	
+	$('#photoForm').submit(function(event){
+	event.preventDefault();
+		console.log('submitted');
+		//event.preventDefault();
+		$(this).ajaxSubmit({                                                                                                                 
+            error: function(xhr) {
+				status('Error: ' + xhr.status);
+			},
+            success: function(response) {
+				$('#photoModal').modal('hide');
+				
+            }
+		});                                                                                                                
+    });
 });
+
+
 
 //adds an item
 function addItem(subcat_id) {
@@ -231,20 +258,7 @@ function inputSubmit() {
 
 function setUploadPhoto(menu_id) {
 	$('#photoModal').modal();
-	$('#photoForm').submit(function(event){
-		//event.preventDefault();
-		$(this).ajaxSubmit({                                                                                                                 
-            error: function(xhr) {
-				status('Error: ' + xhr.status);
-			},
-            success: function(response) {
-				//TODO: We will fill this in later
-            }
-		});
-		// Have to stop the form from submitting and causing                                                                                                       
-		// a page refresh - don't forget this                                                                                                                      
-		return false;
-    });
+	$('#photoForm').attr('action', '/api/menuItems/' + menu_id + '/photo')
 }
 /*
 //prepares upload photo modal

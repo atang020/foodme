@@ -20,14 +20,14 @@ block content
 			div(class='modal-header')
 				button(type='button', class='close', data-dismiss='modal',aria-hidden='true') &times;
 				h4(class='modal-title', id='confirmModalLabel') upload photo
-			form(action='/api/menuItems/1/photo', method='post', enctype='multipart/form-data')
+			form(id='photoForm', action='/api/menuItems/*/photo', method='post', enctype='multipart/form-data')
 				div(class='modal-body confirm-description')
 					p Choose a file to upload
 					input(id='fileInput', name='file', type='file')
-					progress
+					progress(id='photoProgress')
 				div(class='modal-footer')
-					button(class='btn btn-primary', type='submit') submit
 					button(class='btn btn-default', type='button', data-dismiss='modal',aria-hidden='true') cancel
+					button(class='btn btn-primary', type='submit') submit
 	div(class='modal fade', id='inputModal', tabindex='-1', role='dialog', aria-labelledby='inputModalLabel',aria-hidden='true')
 		div(class='modal-dialog modal-sm')
 			div(class='modal-header')
