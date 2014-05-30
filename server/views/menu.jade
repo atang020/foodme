@@ -85,20 +85,16 @@ block content
 																						a(onclick='setInputModalPriceItem(\'#{item.menu_item_id}\')') set price
 																		td
 																			div.dropdown
+																				- var picture='sample.jpg'
 																				- if(item.picture_path)
-																					a(data-toggle='dropdown', href='#')
-																						div(style='width: 200px; height: 100px;')
-																							img(style='width: auto; height: 100%;', src='/uploads/#{item.picture_path}')
-																					ul.dropdown-menu(role='menu')
-																						li
-																							a(href='#', data-toggle='modal', data-target='#inputModal') change photo
-																						li
-																							a(href='#', data-toggle='modal', data-target='#confirmModal') delete photo
-																				- else
-																					a(data-toggle='dropdown', href='#') (none)
-																						ul.dropdown-menu(role='menu')
-																							li
-																								a(href='#', data-toggle='modal', data-target='#inputModal') upload photo
+																					- var picture=item.picture_path
+																				a(data-toggle='dropdown', href='#')
+																					div(style='width: 200px; height: 100px;')
+																						img(style='width: auto; height: 100%;', src='/uploads/#{picture}')
+																				ul.dropdown-menu(role='menu')
+																					li
+																						a(href='#', data-toggle='modal', data-target='#inputModal') change photo
+			
 																		td
 																				div.dropdown
 																					- if(item.description && item.description !== '')
