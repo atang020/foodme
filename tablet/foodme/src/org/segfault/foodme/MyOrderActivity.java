@@ -9,9 +9,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -32,6 +34,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	private String[] subcategoryNames;
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
+	private AlertDialog.Builder dialogBuilder;
+
 	private ViewPager mViewPager;
 	ArrayList<TicketItem> item = new ArrayList<TicketItem>(3);
 	ArrayAdapter<String> adapter; 
@@ -70,40 +74,13 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 
        // Specify that we will be displaying tabs in the action bar.
        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-       
-    // Create a tab listener that is called when the user changes tabs.
-       ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-           public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-       		String tabChosen = tab.getText().toString();
-    		switch(tabChosen) {
-    		case "Home":System.out.println("hisss");
-    		case "Drinks":
-    		case "Appetizer":
-    		case "Entree":
-    		case "Dessert":
-    		case "My Orders":
-    		case "Call Waiter":
-    		}
-    		
-           }
-
-           public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-               // hide the given tab
-           }
-
-           public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-               // probably ignore this event
-           }
-       };
-       // Add 3 tabs, specifying the tab's text and TabListener
-       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(tabListener));
-       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(tabListener));
-       actionBar.addTab(actionBar.newTab().setText("Appetizer").setTabListener(tabListener));
-       actionBar.addTab(actionBar.newTab().setText("Entree").setTabListener(tabListener));
-       actionBar.addTab(actionBar.newTab().setText("Dessert").setTabListener(tabListener));
-       actionBar.addTab(actionBar.newTab().setText("My Orders").setTabListener(tabListener));
-       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(tabListener));
-       
+       actionBar.addTab(actionBar.newTab().setText("Home").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Drinks").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Entrees").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
 
@@ -156,23 +133,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	    inflater.inflate(R.menu.main_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}*/
-
-
-	public void onTabReselected1(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void onTabSelected1(Tab arg0, FragmentTransaction arg1) {
-
-	}
-
-
-	public void onTabUnselected1(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	 private void confirmation(){
      	dialogBuild1 = new AlertDialog.Builder(this);
@@ -291,24 +251,93 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	}
 	
 
-	public void onItemClick1(AdapterView<?> parent, View view, int position,
+	/*public void onItemClick1(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
+		String tabChosen = tab.getText().toString();
+		switch(tabChosen) {
+		case "Home": 
+			Intent homeIntent = new Intent(MyOrderActivity.this,
+					MainMenuActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(homeIntent); 
+			break;
+			
+		case "Drinks":	
+			Intent drinkIntent = new Intent(MyOrderActivity.this,
+					DrinkActivity.class);
+			drinkIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(drinkIntent);
+			break;
+			
+		case "Appetizers": 
+			Intent appetizerIntent = new Intent(MyOrderActivity.this,
+					AppetizerActivity.class);
+			appetizerIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(appetizerIntent);
+			break;
+			
+		case "Entrees": 
+			Intent entreeIntent = new Intent(MyOrderActivity.this,
+					EntreeActivity.class);
+			entreeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(entreeIntent);
+			break;
+			
+		case "Desserts": 
+			Intent dessertIntent = new Intent(MyOrderActivity.this,
+					DessertActivity.class);
+			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(dessertIntent);
+			break;
+			
+		case "Call Waiter":
+			callWaiterPress();
+			break;
+			
+		default:
+			break;
+		}
 	}
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing
 	}
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
+		if(tab.getText().toString() == "Call Waiter")
+			callWaiterPress();
+		else
+		 subcategoryLayout.openDrawer(Gravity.LEFT);  
+	}
+	
+	private void callWaiterPress()
+	{
+		dialogBuilder = new AlertDialog.Builder(this);
 		
+		dialogBuilder.setTitle("Contact Waiter");
+		dialogBuilder.setMessage("Would you like to contact a waiter?");
+		dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Toast waiterConfirm = Toast.makeText(getApplicationContext(),"A waiter has been contacted.",Toast.LENGTH_SHORT);
+				waiterConfirm.show();
+			}
+		});
+		dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		AlertDialog dialog = dialogBuilder.create();
+		dialog.show();
 	}
 }
