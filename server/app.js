@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+var config = require('./config')();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -30,35 +31,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(multer({
-	dest: './public/uploads/',
-	onFileUploadStart: function (file) {
-		console.log('multer: onFileUploadStart', file);
-	},
-	onFileUploadData: function (file, data) {
-		console.log('multer: onFileUploadData', file, data);
-	},
-	onFileUploadComplete: function (file) {
-		console.log('multer: onFileUploadComplete', file, data);
-	},
-	onParseStart: function () {
-		console.log('multer: onParseStart');
-	},
-	onParseEnd: function () {
-		console.log('multer: onParseEnd');
-	},
-	onError: function () {
-		console.log('multer: onError');
-	},
-	onFilesLimit: function () {
-		console.log('multer: onFilesLimit');
-	},
-	onFieldsLimit: function () {
-		console.log('multer: onFieldsLimit');
-	},
-	onPartsLimit: function () {
-		console.log('multer: onPartsLimit');
-	}
-}));
+	dest: config.multerDest}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
