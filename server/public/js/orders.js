@@ -34,7 +34,7 @@ function markDelivered(id) {
 	$.get('/api/ticketitems/' + id, function (data) {
 		data.kitchen_status = 10;
 		$.ajax({
-			url: '/api/ticketitems/' + id,
+			url: '/api/ticketitems/',
 			type: 'PUT',
 			data: data,
 			success: function (response) {
