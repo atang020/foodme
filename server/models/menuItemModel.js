@@ -1,6 +1,7 @@
 var database = require('./database');
 var async = require('async');
 var subcategoryModel = require('./subcategoryModel');
+var ticketItemModel = require('./ticketItemModel');
 
 function verify(menuItem) {
 	// name, description, and price must be NOT NULL
@@ -63,12 +64,15 @@ exports.get = function (orderId, callback) {
 
 /**
  * Returns data for all menu items, with data for how they have been ordered
+ * TODO implement the cutoffDate filtering
  *
  * @param cutoffDate the earliest date of the order data we want to include
+ * @param sortBy the variable to sort by e.g. "profit" or "numberOrdered"
+ * @param ascending true for ascending order, false for descending
  * @param callback
  *
  */
-exports.getAllWithStatistics = function (cutoffDate, callback) {
+exports.getAllWithStatistics = function (cutoffDate, sortBy, ascending, callback) {
 	exports.getAll(function (err, menu_items) {
 		if (err) {
 			return callback(err);
@@ -81,7 +85,7 @@ exports.getAllWithStatistics = function (cutoffDate, callback) {
 						return asyncCallback(err);
 					}
 					var numberOrdered = 0;
-					for(int i = 0; i < ticketItems.length; i++) {
+					for(var i = 0; i < ticketItems.length; i++) {
 						numberOrdered += ticketItems[i].quantity;
 					}
 					menu_item.numberOrdered = numberOrdered;
@@ -96,6 +100,11 @@ exports.getAllWithStatistics = function (cutoffDate, callback) {
 				if (err) {
 					return callback(err);
 				}
+				//this might be slow if there's lots of menu items
+				if(ascending)
+					menu_items.sort(function(a,b) { return parseFloat(b[sortBy]) - parseFloat(a[sortBy])} );
+				else
+					menu_items.sort(function(a,b) { return parseFloat(a[sortBy]) - parseFloat(b[sortBy])} );
 				return callback(null, menu_items);
 			});
 	});
