@@ -6,18 +6,18 @@ public class Ticket {
 
 	int ticketId;
 	int tableNumber;
-	Date orderDate;
+	Date ticketDate;
 	short checkedOut;
 	short callWaiterStatus;
 	
 	public Ticket(){}
 
-	public Ticket(int ticketId, int tableNumber, Date orderDate,
+	public Ticket(int ticketId, int tableNumber, Date ticketDate,
 			short checkedOut, short callWaiterStatus) 
 	{
 		this.ticketId = ticketId;
 		this.tableNumber = tableNumber;
-		this.orderDate = orderDate;
+		this.ticketDate = ticketDate;
 		this.checkedOut = checkedOut;
 		this.callWaiterStatus = callWaiterStatus;
 	}
@@ -42,14 +42,14 @@ public class Ticket {
 		this.tableNumber = tableNumber;
 	}
 
-	public Date getOrderDate() 
+	public Date getTicketDate() 
 	{
-		return orderDate;
+		return ticketDate;
 	}
 
-	public void setOrderDate(Date orderDate) 
+	public void setTicketDate(Date ticketDate) 
 	{
-		this.orderDate = orderDate;
+		this.ticketDate = ticketDate;
 	}
 
 	public short getCheckedOut() 

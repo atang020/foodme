@@ -101,7 +101,7 @@ exports.getAllWithStatistics = function (cutoffDate, sortBy, ascending, callback
 					return callback(err);
 				}
 				//this might be slow if there's lots of menu items
-				if(ascending)
+				if(!ascending)
 					menu_items.sort(function(a,b) { return parseFloat(b[sortBy]) - parseFloat(a[sortBy])} );
 				else
 					menu_items.sort(function(a,b) { return parseFloat(a[sortBy]) - parseFloat(b[sortBy])} );
