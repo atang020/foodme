@@ -121,8 +121,12 @@ public class FoodDetailsFragment extends Fragment{
 							addConfirm.show();
 							System.out.println(note.getText().toString());
 							note.setText("");
-							
+							TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
+									(short)quantitySpinner.getSelectedItemPosition(),note.getText().toString(), (short) 0);
+							SplashScreenActivity.orders.add(test);
+							note.setText("");
 							quantitySpinner.setSelection(0);
+
 						}
 						else
 						{
