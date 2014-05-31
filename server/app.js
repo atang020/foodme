@@ -29,7 +29,36 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(multer({dest: './public/uploads/'}));
+app.use(multer({
+	dest: './public/uploads/',
+	onFileUploadStart: function (file) {
+		console.log('multer: onFileUploadStart', file);
+	},
+	onFileUploadData: function (file, data) {
+		console.log('multer: onFileUploadData', file, data);
+	},
+	onFileUploadComplete: function (file) {
+		console.log('multer: onFileUploadComplete', file, data);
+	},
+	onParseStart: function () {
+		console.log('multer: onParseStart');
+	},
+	onParseEnd: function () {
+		console.log('multer: onParseEnd');
+	},
+	onError: function () {
+		console.log('multer: onError');
+	},
+	onFilesLimit: function () {
+		console.log('multer: onFilesLimit');
+	},
+	onFieldsLimit: function () {
+		console.log('multer: onFieldsLimit');
+	},
+	onPartsLimit: function () {
+		console.log('multer: onPartsLimit');
+	}
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
