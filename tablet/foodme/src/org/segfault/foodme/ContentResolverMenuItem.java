@@ -126,4 +126,34 @@ public class ContentResolverMenuItem
         }
         return -1;
     }
+
+    //download from url
+    void downloadFood(String picturePath)
+    {
+        URL picUrl = null;
+        try {
+            picUrl= new URL("www.jdelaney.org/uploads/"+url);
+            bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
+        } catch (Exception except) {
+            Log.v("Error downloading bitmap from url", except.getMessage());
+        }
+
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/FOODPICTURES");
+
+        String pName = "picturePath"+".jpg";
+        File filePic = new File (myDir, pName);
+        if (filePic.exists ())
+        {
+            filePic.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
