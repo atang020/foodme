@@ -61,6 +61,46 @@ exports.get = function (orderId, callback) {
 	});
 };
 
+/**
+ * Returns data for all menu items, with data for how they have been ordered
+ *
+ * @param cutoffDate the earliest date of the order data we want to include
+ * @param callback
+ *
+ */
+exports.getAllWithStatistics = function (cutoffDate, callback) {
+	exports.getAll(function (err, menu_items) {
+		if (err) {
+			return callback(err);
+		}
+
+		async.eachLimit(menu_items, 5,
+			function (menu_item, asyncCallback) {
+				ticketItemModel.search({menu_item_id: menu_item.menu_item_id}, function (err, ticketItems) {
+					if (err) {
+						return asyncCallback(err);
+					}
+					var numberOrdered = 0;
+					for(int i = 0; i < ticketItems.length; i++) {
+						numberOrdered += ticketItems[i].quantity;
+					}
+					menu_item.numberOrdered = numberOrdered;
+					//it sure would be nice if the price per item were stored in the ticket table so if it
+					//changed the historical data would remain unchanged...
+					menu_item.profit = numberOrdered * menu_item.price;
+					//TODO also get rating information
+					return asyncCallback(null);
+				});
+			},
+			function (err) {
+				if (err) {
+					return callback(err);
+				}
+				return callback(null, menu_items);
+			});
+	});
+};
+
 exports.getSorted = function (callback) {
 	var results = {'appetizers': {subcategories: [], id: 0}, 'drinks': {subcategories: [], id: 10}, 'entrees': {subcategories: [], id: 20}, 'desserts': {subcategories: [], id: 30}};
 
