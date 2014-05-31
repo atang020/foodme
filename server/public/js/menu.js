@@ -19,6 +19,10 @@ $(document).ready(function () {
             }
 		});                                                                                                                
     });
+	
+	$('#inputModal').on('shown.bs.modal', function () {
+		$('#textField').focus();
+	});
 });
 
 
@@ -221,7 +225,9 @@ function setInputModalAddSubcat(catId) {
 
 //shows the input modal with specified title and either placeholder or text
 function showInputModal(title, text, useAsPlaceholder) {
+	
 	var textbox = $('#inputModal').find('#textField');
+	
 	if (useAsPlaceholder) {
 		textbox.val('');
 		textbox.attr('placeholder', text);
