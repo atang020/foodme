@@ -38,7 +38,7 @@ app.use(multer({
 		console.log('multer: onFileUploadData', file, data);
 	},
 	onFileUploadComplete: function (file) {
-		console.log('multer: onFileUploadComplete', file, data);
+		console.log('multer: onFileUploadComplete', file);
 	},
 	onParseStart: function () {
 		console.log('multer: onParseStart');
