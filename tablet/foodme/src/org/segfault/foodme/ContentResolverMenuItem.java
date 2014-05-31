@@ -1,6 +1,8 @@
 package org.segfault.foodme;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.content.ContentResolver;
@@ -8,13 +10,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
 
 public class ContentResolverMenuItem 
 {
 	Context context;	
 	ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
     private static ContentResolverMenuItem ref;
-    
+    Bitmap bmp;
 	private ContentResolverMenuItem(Context context) {
 		this.context = context;
 	    ContentResolver cr = context.getContentResolver();
@@ -142,7 +146,7 @@ public class ContentResolverMenuItem
         File myDir = new File(root + "/foodImages");
         myDir.mkdirs();
         String foodName = picturePath+".jpg";
-        File foodFile = new File (myDir, fname);
+        File foodFile = new File (myDir, foodName);
         if (foodFile.exists())
         {
             foodFile.delete ();
