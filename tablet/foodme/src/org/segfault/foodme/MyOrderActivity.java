@@ -79,7 +79,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
        actionBar.addTab(actionBar.newTab().setText("Appetizers").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Entrees").setTabListener(this),false);
        actionBar.addTab(actionBar.newTab().setText("Desserts").setTabListener(this),false);
-       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),false);
+       actionBar.addTab(actionBar.newTab().setText("My Order").setTabListener(this),true);
        actionBar.addTab(actionBar.newTab().setText("Call Waiter").setTabListener(this),false);
 
        mViewPager = (ViewPager) findViewById(R.id.pager);
