@@ -1,5 +1,7 @@
 package org.segfault.foodme;
 
+import java.util.ArrayList;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
@@ -22,6 +24,7 @@ public class SplashScreenActivity extends Activity
 	public static final String ACCOUNT = "default_account";
 	public static final int TABLE_NUMBER = 12;
 	public static Ticket ticket;
+	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
 	Account myAccount;
 	
 	// Set Duration of the Splash Screen
