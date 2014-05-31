@@ -77,7 +77,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'j','jadelane@ucsd.edu',NULL),(2,'alex','alt020@ucsd.edu',NULL),(3,'austin','acs008@ucsd.edu',NULL),(4,'dennis','dscao@ucsd.edu',NULL),(5,'henry','hetruong@ucsd.edu',NULL),(6,'aaron','aspears@ucsd.edu',NULL),(7,'payam','pshahidi@ucsd.edu',NULL),(8,'peter','ylc015@ucsd.edu',NULL),(9,'phillip','phodgson@ucsd.edu',NULL),(10,'ryan','rmmcclur@ucsd.edu',NULL),(11,'gary','gary@gary.com',NULL);
+INSERT INTO `user` VALUES (1,'j','jadelane@ucsd.edu',NULL),(2,'alex','alt020@ucsd.edu',NULL),(3,'austin','acs008@ucsd.edu',NULL),(4,'dennis','dscao@ucsd.edu',NULL),(5,'henry','hetruong@ucsd.edu',NULL),(6,'aaron','aspears@ucsd.edu',NULL),(7,'payam','pshahidi@ucsd.edu',NULL),(8,'peter','ylc015@ucsd.edu',NULL),(9,'phillip','phodgson@ucsd.edu',NULL),(10,'ryan','rmmcclur@ucsd.edu',NULL),(11,'gary','ggillespie@ucsd.edu',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

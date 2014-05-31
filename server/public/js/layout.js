@@ -4,9 +4,6 @@
  */
 $(document).ready(function () {
 	$('#loginError').hide();
-	//if(getCookie('email') !== '') {
-	//	$('#signInName').text(getCookie('email'));
-	//}
 	$('#loginForm').submit(function (event) {
 		var loginData = $(this).serialize();
 		$.ajax({
@@ -23,6 +20,9 @@ $(document).ready(function () {
 			$('#loginError').stop().fadeIn(100).fadeOut(3000).text('Invalid email/password');
 		});
 		event.preventDefault();
+	});
+	$('#loginModal').on('shown.bs.modal', function () {
+		$('#emailInput').focus();
 	});
 });
 
