@@ -132,27 +132,30 @@ public class ContentResolverMenuItem
     {
         URL picUrl = null;
         try {
-            picUrl= new URL("www.jdelaney.org/uploads/"+url);
+            picUrl= new URL("www.jdelaney.org/uploads/"+picturePath);
             bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
         } catch (Exception except) {
             Log.v("Error downloading bitmap from url", except.getMessage());
         }
 
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/FOODPICTURES");
-
-        String pName = "picturePath"+".jpg";
-        File filePic = new File (myDir, pName);
-        if (filePic.exists ())
+        File myDir = new File(root + "/foodImages");
+        myDir.mkdirs();
+        String foodName = picturePath+".jpg";
+        File foodFile = new File (myDir, fname);
+        if (foodFile.exists())
         {
-            filePic.delete();
+            foodFile.delete ();
         }
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+        try
+        {
+            FileOutputStream out = new FileOutputStream(foodFile);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
