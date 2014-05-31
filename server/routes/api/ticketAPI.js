@@ -1,6 +1,6 @@
 var express = require('express');
 var ticketModel = require('../../models/ticketModel');
-var routerHelper = require('../routeHelper');
+var routeHelper = require('../routeHelper');
 
 var router = express.Router();
 
@@ -25,7 +25,7 @@ router.get('/:ticketId', function (req, res) {
 router.post('/', function (req, res) {
 	ticketModel.add(req.body, function (err, id) {
 		if (err) {
-			return routerHelper.jsonError(res, err);
+			return routeHelper.jsonError(res, err);
 		}
 
 		res.send(id.toString());
