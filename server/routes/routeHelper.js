@@ -50,3 +50,11 @@ exports.jsonError = function (res, err) {
 	res.status(err.status || 500);
 	res.send(JSON.stringify(err, undefined, 2));
 };
+
+exports.htmlError = function (res, err) {
+	res.status(err.status || 500);
+	res.render('error', {
+		message: err.message,
+		error: err
+	});
+};
