@@ -1,5 +1,6 @@
 package org.segfault.foodme;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import android.app.ActionBar;
@@ -11,7 +12,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,9 +33,10 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	private DrawerLayout subcategoryLayout;
 	private ListView subcategoryList;
 	private ViewPager mViewPager;
-	ArrayList<MenuItem> item = new ArrayList<MenuItem>(3);
+	ArrayList<TicketItem> item = new ArrayList<TicketItem>(3);
 	ArrayAdapter<String> adapter; 
 	private AlertDialog.Builder dialogBuild;
+	private AlertDialog.Builder dialogBuild1;
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	Button button;
 	@Override
@@ -43,7 +44,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		super.onCreate(savedInstanceState);
 	
 		// Get the view from activity_main.xml
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_my_order);
 		
 		View decorView = getWindow().getDecorView();
 		
@@ -107,8 +108,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
        mViewPager = (ViewPager) findViewById(R.id.pager);
 
        // Set the adapter for the list view
-       subcategoryList.setAdapter(new ArrayAdapter<String>(this,
-               R.layout.test_layout, subcategoryNames));
+      // subcategoryList.setAdapter(new ArrayAdapter<String>(this,
+       //        R.layout.test_layout, subcategoryNames));
        button = (Button) findViewById(R.id.button1);
        list = (ListView) findViewById(R.id.listView1);	
   		subtotal = (TextView) findViewById(R.id.textView6);
@@ -174,20 +175,21 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	}
 	
 	 private void confirmation(){
-     	dialogBuild = new AlertDialog.Builder(this);
+     	dialogBuild1 = new AlertDialog.Builder(this);
      	LinearLayout layout = new LinearLayout(getApplicationContext());
-		dialogBuild.setTitle("Check Out to Kitchen");
-		dialogBuild.setMessage("Are you sure?");
-	  	dialogBuild.setView(layout);
-		dialogBuild.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+		dialogBuild1.setTitle("Check Out to Kitchen");
+		dialogBuild1.setMessage("Are you sure?");
+	  	dialogBuild1.setView(layout);
+		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which)
 			{
+				new SendTicketItems().execute(item);
 				Toast makeText = Toast.makeText(getApplicationContext(),"Order has been sent to the kitchen", Toast.LENGTH_SHORT);
 				makeText.show();
 			}
 	 });
 	     
-	    	dialogBuild.setPositiveButton("No", new DialogInterface.OnClickListener() {
+	    	dialogBuild1.setPositiveButton("No", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -280,10 +282,10 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	
 	public String subTotal()
 	{
-		double sum = 0.0;
+		BigDecimal sum = new BigDecimal("0");
 		for (int i = 0; i < item.size(); i++)
 		{
-	//		sum += item.get(i).getPrice() * item.get(i).getQuantity();
+	//			sum += item.get(i).getPrice() * item.get(i).getQuantity();
 		}
 		return "Subtotal: "+ sum;
 	}

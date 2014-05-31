@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="19"
+        android:minSdkVersion="14"
         android:targetSdkVersion="19" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"></uses-permission>
 	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"></uses-permission>
@@ -41,6 +41,10 @@
         </activity>
         
        	<activity android:name=".AppetizerActivity" 
+       	    android:screenOrientation="landscape">       	    
+     	</activity>
+     	
+       	       	<activity android:name=".MyOrderActivity" 
        	    android:screenOrientation="landscape">       	    
      	</activity>
 
