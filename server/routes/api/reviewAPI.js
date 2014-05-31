@@ -1,6 +1,6 @@
 var express = require('express');
 var reviewModel = require('../../models/reviewModel');
-var routerHelper = require('../routeHelper');
+var routeHelper = require('../routeHelper');
 
 var router = express.Router();
 

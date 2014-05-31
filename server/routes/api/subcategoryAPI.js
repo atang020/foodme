@@ -1,7 +1,7 @@
 var express = require('express');
 var subcategoryModel = require('../../models/subcategoryModel');
 var menuItemModel = require('../../models/menuItemModel');
-var routerHelper = require('../routeHelper');
+var routeHelper = require('../routeHelper');
 
 var router = express.Router();
 
