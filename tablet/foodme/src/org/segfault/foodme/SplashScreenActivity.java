@@ -1,7 +1,5 @@
 package org.segfault.foodme;
 
-import java.util.ArrayList;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
@@ -74,6 +72,6 @@ public class SplashScreenActivity extends Activity
 	    
 	    // Insert new Ticket into server table and retrieve ticketId
 	    ticket = new Ticket ();
-	    new CreateTicket().execute();	    
+	    new CreateTicket().execute();    
 	}
 }
