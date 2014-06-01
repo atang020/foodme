@@ -36,7 +36,7 @@ block content
 								- var red = order.time * 10
 							tr(id='order#{order.ticket_item_id}')
 								td #{order.ticket_id}
-								td #(order.ticket.table}
+								td #{order.ticket.table}
 								td(style='color:rgb(#{red},0,0);') #{order.ticket.ticket_date}
 								td #{order.quantity}
 								td #{order.menu_item.name}
