@@ -29,13 +29,16 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 	protected Void doInBackground(Void... params) 
 	{
 		postJsonObject ("http://jdelaney.org/api/tickets", makeJson());
-		try {
+		try 
+		{
 			receiveTicketInfo();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (RemoteException e) 
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 		return null;
@@ -111,39 +114,49 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 	{
     	StringBuilder builder = new StringBuilder();
     	HttpClient client = new DefaultHttpClient();
-    	HttpGet httpGet = new HttpGet("http://jdelaney.org/api/tickets/" + String.valueOf(SplashScreenActivity.ticket.ticketId));
+    	HttpGet httpGet = new HttpGet("http://jdelaney.org/api/tickets/" + 
+    			String.valueOf(SplashScreenActivity.ticket.ticketId));
     	JSONObject jsonTicket;
-    	java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-    	try{
+    	try
+    	{
     		HttpResponse response = client.execute(httpGet);
     		StatusLine statusLine = response.getStatusLine();
     		int statusCode = statusLine.getStatusCode();
-    		if(statusCode == 200){
+    		if(statusCode == 200)
+    		{
     			HttpEntity entity = response.getEntity();
     			InputStream content = entity.getContent();
     			BufferedReader reader = new BufferedReader(new InputStreamReader(content));
     			String line;
-    			while((line = reader.readLine()) != null){
+    			while((line = reader.readLine()) != null)
+    			{
     				builder.append(line);
     			}
-    		} else {
-    			Log.e("getting ticket stuff","Failed to get JSON object");
+    		} 
+    		else 
+    		{
+    			android.util.Log.v("CreateTiket","Failed to get JSON object from server");
     		}
-    	}catch(ClientProtocolException e){
+    	}
+    	catch(ClientProtocolException e)
+    	{
     		e.printStackTrace();
-    	} catch (IOException e){
+    	} 
+    	catch (IOException e)
+    	{
     		e.printStackTrace();
     	}
-    	Log.v("return string: ", builder.toString());
-    	try {
+    	try 
+    	{
 			jsonTicket = new JSONObject (builder.toString());
 			SplashScreenActivity.ticket.ticketId = jsonTicket.getInt("ticket_id");
 			SplashScreenActivity.ticket.tableNumber = jsonTicket.getInt("table_number");
 			SplashScreenActivity.ticket.checkedOut = (short)jsonTicket.getInt("checked_out");
 			SplashScreenActivity.ticket.callWaiterStatus = (short)jsonTicket.getInt("call_waiter_status");
-		} catch (JSONException e) {
+		} 
+    	catch (JSONException e) 
+    	{
 			e.printStackTrace();
 		}
-    	
 	}
 }

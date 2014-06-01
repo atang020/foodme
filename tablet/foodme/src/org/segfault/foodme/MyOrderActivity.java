@@ -38,7 +38,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	private AlertDialog.Builder dialogBuilder;
 
 	private ViewPager mViewPager;
-	ArrayList<TicketItem> item = new ArrayList<TicketItem>(3);
+	ArrayList<TicketItem> item = SplashScreenActivity.orders;
 	ArrayAdapter<String> adapter; 
 	private AlertDialog.Builder dialogBuild;
 	private AlertDialog.Builder dialogBuild1;
@@ -83,13 +83,13 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
        mViewPager = (ViewPager) findViewById(R.id.pager);
 
        // Set the adapter for the list view
-      // subcategoryList.setAdapter(new ArrayAdapter<String>(this,
+       // subcategoryList.setAdapter(new ArrayAdapter<String>(this,
        //        R.layout.test_layout, subcategoryNames));
        button = (Button) findViewById(R.id.button1);
        list = (ListView) findViewById(R.id.listView1);	
-  		subtotal = (TextView) findViewById(R.id.textView6);
-  		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice);
-  		subtotalVal = subTotal();
+       subtotal = (TextView) findViewById(R.id.textView6);
+       adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice);
+       subtotalVal = subTotal();
   		
   		for(int i = 0; i<item.size(); i++) {
   			adapter.add(item.get(i).toString());
