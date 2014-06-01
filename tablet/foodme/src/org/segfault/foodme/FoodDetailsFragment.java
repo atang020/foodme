@@ -83,6 +83,8 @@ public class FoodDetailsFragment extends Fragment{
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						
+						if(customerRating.getRating() != 0)
+						{
 						AlertDialog.Builder test1 = new AlertDialog.Builder(getActivity());
 					       getActivity().getWindow().getDecorView().setSystemUiVisibility(
 						    		View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -142,8 +144,15 @@ public class FoodDetailsFragment extends Fragment{
 							submitDialog.show();
 							submitDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 						customerRating.setRating(0);
+						}
+						else
+						{
+							Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Please choose a rating",Toast.LENGTH_SHORT);
+							notAdded.show();
+						}
 					}
 				});
+				
 				dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 					
 					@Override
