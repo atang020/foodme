@@ -101,15 +101,10 @@ exports.add = function (subcategory, callback) {
 };
 
 exports.update = function (subcategory, callback) {
-	var err = verify(subcategory);
-	if (err) {
-		callback(err);
-		return;
-	}
+	var id = subcategory.subcategory_id;
+	delete subcategory.subcategory_id;
 
-	database.query('UPDATE subcategory SET name = ?, category = ? WHERE subcategory_id = ?',
-		[subcategory.name, subcategory.category, subcategory.subcategory_id], function (err) {
-
+	database.query('UPDATE subcategory SET ? WHERE subcategory_id = ' + id, subcategory, function (err) {
 			if (err) {
 				callback(err);
 				return;

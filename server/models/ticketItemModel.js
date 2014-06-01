@@ -145,15 +145,10 @@ exports.add = function (ticketItem, callback) {
 };
 
 exports.update = function (ticketItem, callback) {
-	var err = verify(ticketItem);
-	if (err) {
-		callback(err);
-		return;
-	}
+	var id = ticketItem.ticket_item_id;
+	delete ticketItem.ticket_item_id;
 
-	database.query('UPDATE ticket_item SET ticket_id = ?, menu_item_id = ?, quantity = ?, notes = ?, kitchen_status = ? WHERE ticket_item_id = ?',
-		[ticketItem.ticket_id, ticketItem.menu_item_id, ticketItem.quantity, ticketItem.notes, ticketItem.kitchen_status, ticketItem.ticket_item_id], function (err) {
-
+	database.query('UPDATE ticket_item SET? WHERE ticket_item_id = ' + id, ticketItem, function (err) {
 			if (err) {
 				callback(err);
 				return;

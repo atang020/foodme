@@ -188,15 +188,10 @@ exports.add = function (menuItem, callback) {
 };
 
 exports.update = function (menuItem, callback) {
-	var err = verify(menuItem);
-	if (err) {
-		callback(err);
-		return;
-	}
+	var id = menuItem.menu_item_id;
+	delete menuItem.menu_item_id;
 
-	database.query('UPDATE menu_item SET subcategory_id = ?, name = ?, description = ?, picture_path = ?, price = ? WHERE menu_item_id = ?',
-		[menuItem.subcategory_id, menuItem.name, menuItem.description, menuItem.picture_path, menuItem.price, menuItem.menu_item_id], function (err) {
-
+	database.query('UPDATE menu_item SET ? WHERE menu_item_id = ' + id, menuItem, function (err) {
 			if (err) {
 				callback(err);
 				return;
