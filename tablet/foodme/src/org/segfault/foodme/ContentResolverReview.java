@@ -17,9 +17,12 @@ public class ContentResolverReview
 		this.context = context;
 	    ContentResolver cr = context.getContentResolver();
 	    String[] projection = new String[]{TabletContentProvider.KEY_ID,
-	    								   TabletContentProvider.KEY_NAME,
-	    								   TabletContentProvider.KEY_CATEGORY};
-	    Cursor cursor = cr.query(TabletContentProvider.SUBCATEGORY_CONTENT_URI, projection, null, null, null);
+	    								   TabletContentProvider.KEY_MENU_ITEM_ID,
+	    								   TabletContentProvider.KEY_REVIEWER,
+	    								   TabletContentProvider.KEY_RATING,
+	    								   TabletContentProvider.KEY_REVIEW_TEXT,
+	    								   TabletContentProvider.KEY_REVIEW_DATE};
+	    Cursor cursor = cr.query(TabletContentProvider.REVIEW_CONTENT_URI, projection, null, null, null);
 	    reviews.clear();
 	    // use cursor to insert rows from table into ArrayList
 	    if (cursor.moveToFirst())
