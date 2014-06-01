@@ -135,27 +135,28 @@ public class ContentResolverMenuItem
     //download from url
     void downloadFood(String picturePath)
     {
-
         URL picUrl = null;
         try
         {
             picUrl= new URL("jdelaney.org/uploads/"+picturePath);
             bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
-        } catch (Exception except)
+        }
+        catch (Exception except)
         {
             Log.v("Error downloading bitmap from url", except.getMessage());
         }
 
-        String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/foodImages");
-        myDir.mkdirs();
+        String root = Environment.DIRECTORY_PICTURES;
+
+        File myDir = new File(root /*+"/foodImages"*/);
+        //myDir.mkdirs();
+
         String foodName = picturePath+".jpg";
         File foodFile = new File (myDir, foodName);
-        if (foodFile.exists())
-        {
-            foodFile.delete ();
-        }
-
+        //if (foodFile.exists())
+        //{
+        //    foodFile.delete ();
+        //}
         try
         {
             FileOutputStream out = new FileOutputStream(foodFile);
@@ -163,7 +164,6 @@ public class ContentResolverMenuItem
             out.flush();
             out.close();
         }
-
         catch (Exception e)
         {
             e.printStackTrace();
