@@ -172,7 +172,6 @@ public class ContentResolverMenuItem
         String root = Environment.DIRECTORY_PICTURES;
       */
       /*
-      //  File myDir = new File(root /*+"/foodImages"*/);
         //myDir.mkdirs();
         /*
         String foodName = picturePath+".jpg";

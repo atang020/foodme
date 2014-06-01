@@ -327,10 +327,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	}
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		/*if(tab.getText().toString() == "Call Waiter")
+		if(tab.getText().toString() == "Call Waiter")
 			callWaiterPress();
-		else
-		 subcategoryLayout.openDrawer(Gravity.LEFT);*/  
 	}
 	
 	private void callWaiterPress()
