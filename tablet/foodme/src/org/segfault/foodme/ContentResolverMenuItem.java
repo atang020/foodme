@@ -46,7 +46,7 @@ public class ContentResolverMenuItem
 				String picturePath = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_PICTURE_PATH));
 				double price = cursor.getDouble(cursor.getColumnIndex(TabletContentProvider.KEY_PRICE));
 				menuItems.add(new MenuItem (menuItemId, subcategoryId, name, description, picturePath, price));
-                downloadFood(picturePath);
+                //downloadFood(picturePath);
 			}
             while (cursor.moveToNext());
 		}
@@ -200,7 +200,7 @@ public class ContentResolverMenuItem
             e.printStackTrace();
         }
         */
-
+/*
         //enter url wanted to download from
   //      URL url = new URL("http://jdelaney.org/uploads/sample.jpg");
      //   File file = new File(fileName);

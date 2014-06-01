@@ -21,28 +21,18 @@ block content
 				table.table
 					thead
 						tr
-							th order ID#
-							th table
-							th time waiting
-							th quantity
-							th item
-							th notes
-							th status
-							th
+							th Table
+							th Item
+							th Quantity
+							th Notes
+							th Actions
 					tbody
 						- for order in ticket_items
-							- var red = 0
-							//
-								- var red = order.time * 10
 							tr(id='order#{order.ticket_item_id}')
-								td #{order.ticket_id}
-								td #{order.ticket.table}
-								td(style='color:rgb(#{red},0,0);') #{order.ticket.ticket_date}
+								td #{order.table_number}
+								td #{order.name}
 								td #{order.quantity}
-								td #{order.menu_item.name}
 								td #{order.notes}
-								td #{order.kitchen_code}
 								td
-									button.btn.btn-primary.btn-sm(onclick='markDelivered(\'#{order.ticket_item_id}\')') mark delivered
-								td
-									button.btn.btn-danger.btn-sm(onclick='setConfirmModal(\'#{order.ticket_item_id}\')') delete
+									button.btn.btn-primary.btn-sm(onclick='markDelivered(\'#{order.ticket_item_id}\')') Mark Delivered
+									button.btn.btn-danger.btn-sm(onclick='setConfirmModal(\'#{order.ticket_item_id}\')') Delete

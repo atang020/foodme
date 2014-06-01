@@ -40,38 +40,21 @@ exports.getAll = function (callback) {
  * @param callback
  */
 exports.getActiveOrders = function (callback) {
-	//get all ordered items that haven't been delivered
-	exports.search({'kitchen_status': 0}, function (err, ticket_items) {
+	exports.getAllAfter(0, callback);
+};
+
+/**
+ * Returns all ticket items that come after a certain ticket item
+ *
+ * @param id the most recent ticket item
+ * @param callback (err, data)
+ */
+exports.getAllAfter = function (id, callback) {
+	database.query('SELECT ticket_item_id, ticket_item.ticket_id, quantity, notes, table_number, name FROM ticket_item INNER JOIN menu_item ON ticket_item.menu_item_id = menu_item.menu_item_id INNER JOIN ticket ON ticket_item.ticket_id = ticket.ticket_id WHERE ticket_item_id > ? ORDER BY ticket_item_id ASC;', id, function (err, ticketItems) {
 		if (err) {
 			return callback(err);
 		}
-		//for each of those, get their associated ticket and menu_item
-		async.eachLimit(ticket_items, 5,
-			function (ticket_item, asyncCallback) {
-				ticketModel.get(ticket_item.ticket_id, function (err, ticket) {
-					if (err) {
-						return asyncCallback(err);
-					}
-					//insert ticket into ticket_item object
-					ticket_item.ticket = ticket;
-					//get menu_item
-					menuItemModel.get(ticket_item.menu_item_id, function (err, menu_item) {
-						if (err) {
-							return asyncCallback(err);
-						}
-						//insert menu_item into ticket_item object
-						ticket_item.menu_item = menu_item;
-
-						return asyncCallback(null);
-					});
-				});
-			},
-			function (err) {
-				if (err) {
-					return callback(err);
-				}
-				return callback(null, ticket_items);
-			});
+		callback(null, ticketItems);
 	});
 };
 
