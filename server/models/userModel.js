@@ -100,15 +100,10 @@ exports.add = function (user, callback) {
 };
 
 exports.update = function (user, callback) {
-	var err = verify(user);
-	if (err) {
-		callback(err);
-		return;
-	}
+	var id = user.user_id;
+	delete user.user_id;
 
-	database.query('UPDATE user SET password = ?, email = ?, phone = ? WHERE user_id = ?',
-		[user.password, user.email, user.phone, user.user_id], function (err) {
-
+	database.query('UPDATE user SET ? WHERE user_id = ' + id, user, function (err) {
 			if (err) {
 				callback(err);
 				return;
