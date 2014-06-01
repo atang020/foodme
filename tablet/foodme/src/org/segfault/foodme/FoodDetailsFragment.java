@@ -1,5 +1,7 @@
 package org.segfault.foodme;
 
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -85,6 +87,9 @@ public class FoodDetailsFragment extends Fragment{
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
+						Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
+								"", "");
+						new SendReview().execute(customerReview);
 						ratingConfirm.show();
 						customerRating.setRating(0);
 					}
@@ -121,7 +126,7 @@ public class FoodDetailsFragment extends Fragment{
 							addConfirm.show();
 							System.out.println(note.getText().toString());
 							note.setText("");
-							TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
+							TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), lastMenuItemIndex, 
 									(short)quantitySpinner.getSelectedItemPosition(),note.getText().toString(), (short) 0);
 							SplashScreenActivity.orders.add(test);
 							note.setText("");

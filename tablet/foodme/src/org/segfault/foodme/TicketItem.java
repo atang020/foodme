@@ -3,16 +3,17 @@ package org.segfault.foodme;
 public class TicketItem {
 	
 	int orderId;
+	int menuItemIndex;
 	int menuItemId;
 	short quantity;
 	String notes;
 	short kitchenStatus;
 	
-	public TicketItem(int orderId, int menuItemId, short quantity,
+	public TicketItem(int orderId, int menuItemId, int menuItemIndex, short quantity,
 			String notes, short kitchenStatus) 
 	{
 		this.orderId = orderId;
-		this.menuItemId = menuItemId;
+		this.menuItemIndex = menuItemIndex;
 		this.quantity = quantity;
 		this.notes = notes;
 		this.kitchenStatus = kitchenStatus;
