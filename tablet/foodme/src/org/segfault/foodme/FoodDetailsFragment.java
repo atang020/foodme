@@ -1,10 +1,12 @@
 package org.segfault.foodme;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,6 +36,7 @@ public class FoodDetailsFragment extends Fragment{
 	ImageView foodImage;
 	Button submitButton;
 	Button addButton;
+	BigDecimal itemPrice;
 	short quantity = 0;
 	
 	int lastMenuItemIndex = -1;
@@ -258,7 +261,9 @@ public class FoodDetailsFragment extends Fragment{
 				ratingBar.setRating(0);
 				ratingNumber.setText("\nNo rating available");
 			}
-			price.setText("Price: $" +  foodDetails.getPrice(menuItemIndex));
+			itemPrice = new BigDecimal(foodDetails.getPrice(menuItemIndex));
+			itemPrice = itemPrice.setScale(2, RoundingMode.CEILING);
+			price.setText("Price: $" +  itemPrice.toString());
 		}
 		lastMenuItemIndex = menuItemIndex;
     }
