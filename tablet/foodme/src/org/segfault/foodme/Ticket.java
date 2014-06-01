@@ -1,6 +1,6 @@
 package org.segfault.foodme;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Ticket {
 

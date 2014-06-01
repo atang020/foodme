@@ -76,6 +76,5 @@ public class SplashScreenActivity extends Activity
 	    // Insert new Ticket into server table and retrieve ticketId
 	    ticket = new Ticket ();
 	    new CreateTicket().execute();
-	    //new CallWaiter().execute();
 	}
 }
