@@ -137,16 +137,32 @@ public class ContentResolverMenuItem
     {
         //downloads the pics to the folder
         URL picUrl = null;
+        boolean picNotFound=false;
         try
         {
-            picUrl= new URL("jdelaney.org/uploads/"+picturePath);
+            picUrl= new URL("http://jdelaney.org/uploads/"+picturePath);
             bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
         }
         catch (Exception except)
         {
+            picNotFound=true;
             System.out.println("Failure to get pic from URL");
             Log.v("Error downloading bitmap from url", except.getMessage());
         }
+        if(picNotFound==true)
+        {
+            try
+            {
+                picUrl2= new URL("http://jdelaney.org/uploads/sample.jpg");
+                bmp = BitmapFactory.decodeStream(picUrl2.openConnection().getInputStream());
+            }
+            catch (Exception except)
+            {
+                System.out.println("Failure to get pic from URL2");
+                Log.v("Error downloading bitmap from url2", except.getMessage());
+            }
+        }
+
 
         //puts bmp to folder pictures
         String root = Environment.DIRECTORY_PICTURES;
@@ -156,7 +172,7 @@ public class ContentResolverMenuItem
 
         String foodName = picturePath+".jpg";
         File foodFile = new File (myDir, foodName);
-        
+
         if (foodFile.exists())
         {
             foodFile.delete ();

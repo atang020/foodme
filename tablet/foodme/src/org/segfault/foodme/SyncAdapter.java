@@ -7,7 +7,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.accounts.Account;
-import android.app.ProgressDialog;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -21,7 +20,7 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.JsonReader;
 
-// Handles the transfer of data between the server and our local db
+// Handles the transfer of data between the server and our local database
 public class SyncAdapter extends AbstractThreadedSyncAdapter 
 {
 	private static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
@@ -32,11 +31,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 	Context context;
 	ContentResolver myContentResolver;
 	
-	
 	public SyncAdapter(Context context, boolean autoInitialize) 
 	{
 		super(context, autoInitialize);
 		this.context = context;
+		
 		// Get an instance of the content resolver from incoming Context
 		myContentResolver = context.getContentResolver();
 	}
