@@ -9,12 +9,12 @@ public class Review
 	String reviewer;
 	short rating;
 	String reviewText;
-	Date reviewDate;
+	String reviewDate;
 	
 	public Review(){}
 	
 	public Review (int reviewId, int menuItemId, String reviewer, short rating, 
-			String reviewText, Date reviewDate) {
+			String reviewText, String reviewDate) {
 		this.reviewId = reviewId;
 		this.menuItemId = menuItemId;
 		this.reviewer = reviewer;
@@ -63,11 +63,11 @@ public class Review
 		this.reviewText = reviewText;
 	}
 
-	public Date getReviewDate() {
+	public String getReviewDate() {
 		return reviewDate;
 	}
 
-	public void setReviewDate(Date reviewDate) {
+	public void setReviewDate(String reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 
