@@ -132,7 +132,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 					else if (name.equals("deleted"))
 					{
 						reader.nextInt();
-					};
+					}
 				}
 
 				reader.endObject();
