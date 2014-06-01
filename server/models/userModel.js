@@ -13,6 +13,7 @@ function verify(user) {
 	if (user.email.length > 256) {
 		return new Error('Email must be less than 256 characters.');
 	}
+
 	return null;
 }
 
@@ -24,11 +25,10 @@ function verify(user) {
 exports.getAll = function (callback) {
 	database.query('SELECT * FROM user', null, function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
-		callback(null, rows);
+		return callback(null, rows);
 	});
 };
 
@@ -41,16 +41,14 @@ exports.getAll = function (callback) {
 exports.get = function (userId, callback) {
 	database.query('SELECT * FROM user WHERE user_id = ?', [userId], function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
 		if (rows.length === 0) {
-			callback(null, null);
-			return;
+			return callback(null, null);
 		}
 
-		callback(null, rows[0]);
+		return callback(null, rows[0]);
 	});
 };
 
@@ -64,10 +62,9 @@ exports.get = function (userId, callback) {
 exports.search = function (params, callback) {
 	database.query('SELECT * FROM user WHERE ?', params, function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
-		callback(null, rows);
+		return callback(null, rows);
 	});
 };
 
@@ -81,8 +78,7 @@ exports.search = function (params, callback) {
 exports.add = function (user, callback) {
 	var err = verify(user);
 	if (err) {
-		callback(err);
-		return;
+		return callback(err);
 	}
 
 	// If data.phone is undefined set to null
@@ -91,11 +87,10 @@ exports.add = function (user, callback) {
 	database.query('INSERT INTO user (password, email, phone) VALUES (?, ?, ?)',
 		[user.password, user.email, user.phone], function (err, result) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
-			callback(null, result.insertId);
+			return callback(null, result.insertId);
 		});
 };
 
@@ -103,13 +98,7 @@ exports.update = function (user, callback) {
 	var id = user.user_id;
 	delete user.user_id;
 
-	database.query('UPDATE user SET ? WHERE user_id = ' + id, user, function (err) {
-			if (err) {
-				callback(err);
-				return;
-			}
-			callback(null);
-		});
+	database.query('UPDATE user SET ? WHERE user_id = ' + id, user, callback);
 };
 
 /**
@@ -128,15 +117,8 @@ exports.remove = function (user, callback) {
 	}
 
 	if (id === null) {
-		callback(new Error('Invalid user: no id present'));
-		return;
+		return callback(new Error('Invalid user: no id present'));
 	}
 
-	database.query('DELETE FROM user WHERE user_id = ?', id, function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('DELETE FROM user WHERE user_id = ?', id, callback);
 };

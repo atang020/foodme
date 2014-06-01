@@ -20,38 +20,34 @@ function verify(review) {
 exports.getAll = function (callback) {
 	database.query('SELECT * FROM review', null, function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
-		callback(null, rows);
+		return callback(null, rows);
 	});
 };
 
 exports.get = function (reviewId, callback) {
 	database.query('SELECT * FROM review WHERE review_id = ?', [reviewId], function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
 		if (rows === []) {
-			callback(null, null);
-			return;
+			return callback(null, null);
 		}
 
-		callback(null, rows[0]);
+		return callback(null, rows[0]);
 	});
 };
 
 exports.search = function (params, callback) {
 	database.query('SELECT * FROM review WHERE ?', params, function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
-		callback(null, rows);
+		return callback(null, rows);
 	});
 };
 
@@ -64,8 +60,7 @@ exports.search = function (params, callback) {
 exports.add = function (review, callback) {
 	var err = verify(review);
 	if (err) {
-		callback(err);
-		return;
+		return callback(err);
 	}
 
 
@@ -78,11 +73,10 @@ exports.add = function (review, callback) {
 			'VALUES (?, ?, ?, ?)', [review.menu_item_id, review.reviewer, review.rating, review.review_text],
 		function (err, result) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
-			callback(null, result.insertId);
+			return callback(null, result.insertId);
 		});
 };
 
@@ -90,13 +84,7 @@ exports.update = function (review, callback) {
 	var id = review.review_id;
 	delete review.review_id;
 
-	database.query('UPDATE review SET ? WHERE review_id = ' + id, review, function (err) {
-			if (err) {
-				callback(err);
-				return;
-			}
-			callback(null);
-		});
+	database.query('UPDATE review SET ? WHERE review_id = ' + id, review, callback);
 };
 
 /**
@@ -115,15 +103,8 @@ exports.remove = function (review, callback) {
 	}
 
 	if (review.review_id === null) {
-		callback(new Error('Invalid review: no id present'));
-		return;
+		return callback(new Error('Invalid review: no id present'));
 	}
 
-	database.query('DELETE FROM reivew WHERE review_id = ?', review.review_id, function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('DELETE FROM reivew WHERE review_id = ?', review.review_id, callback);
 };

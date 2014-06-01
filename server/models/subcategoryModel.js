@@ -85,15 +85,13 @@ exports.search = function (params, callback) {
 exports.add = function (subcategory, callback) {
 	var err = verify(subcategory);
 	if (err) {
-		callback(err);
-		return;
+		return callback(err);
 	}
 
 	database.query('INSERT INTO subcategory (name, category) VALUES (?, ?)', [subcategory.name, subcategory.category],
 		function (err, result) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
 			callback(null, result.insertId);
@@ -104,13 +102,7 @@ exports.update = function (subcategory, callback) {
 	var id = subcategory.subcategory_id;
 	delete subcategory.subcategory_id;
 
-	database.query('UPDATE subcategory SET ? WHERE subcategory_id = ' + id, subcategory, function (err) {
-			if (err) {
-				callback(err);
-				return;
-			}
-			callback(null);
-		});
+	database.query('UPDATE subcategory SET ? WHERE subcategory_id = ' + id, subcategory, callback);
 };
 
 /**
@@ -133,11 +125,5 @@ exports.remove = function (subcategory, callback) {
 		return;
 	}
 
-	database.query('DELETE FROM subcategory WHERE subcategory_id = ?', id, function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('DELETE FROM subcategory WHERE subcategory_id = ?', id, callback);
 };

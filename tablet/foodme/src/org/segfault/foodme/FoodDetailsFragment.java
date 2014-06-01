@@ -34,7 +34,6 @@ public class FoodDetailsFragment extends Fragment{
 	ImageView foodImage;
 	Button submitButton;
 	Button addButton;
-	EditText note;
 	short quantity = 0;
 	
 	int lastMenuItemIndex = -1;
@@ -151,7 +150,7 @@ public class FoodDetailsFragment extends Fragment{
 						                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 						                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 						       test1.setTitle("Would you like to add a note?");
-						       EditText input = new EditText(getActivity());
+						       final EditText input = new EditText(getActivity());
 						       input.setHint("Add a note here");
 						       test1.setView(input);
 						       input.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
@@ -165,7 +164,7 @@ public class FoodDetailsFragment extends Fragment{
 					                       Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),confirmString,Toast.LENGTH_LONG);
 					                       addConfirm.show();
 					                       TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
-					                    		   lastMenuItemIndex, quantity,"", (short) 0);
+					                    		   lastMenuItemIndex, quantity,input.getText().toString(), (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
 					                       SplashScreenActivity.orders.add(test);
 					                       quantity = 0;
 										}
@@ -181,7 +180,7 @@ public class FoodDetailsFragment extends Fragment{
 					                       Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),confirmString,Toast.LENGTH_LONG);
 					                       addConfirm.show();
 					                       TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
-					                    		   lastMenuItemIndex, quantity,"", (short) 0);
+					                    		   lastMenuItemIndex, quantity,input.getText().toString(), (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
 					                       SplashScreenActivity.orders.add(test);
 					                       quantity = 0;
 										}
@@ -243,7 +242,6 @@ public class FoodDetailsFragment extends Fragment{
     		submitButton.setVisibility(View.VISIBLE);
     		addButton.setVisibility(View.VISIBLE);
     		customerRating.setRating(0);
-    		note.setText("");
     		ratingNumber.setVisibility(View.VISIBLE);
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);

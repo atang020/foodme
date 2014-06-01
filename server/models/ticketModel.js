@@ -17,11 +17,10 @@ function verify(ticket) {
 exports.getAll = function (callback) {
 	database.query('SELECT * FROM ticket', function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
-		callback(null, rows);
+		return callback(null, rows);
 	});
 };
 
@@ -34,16 +33,14 @@ exports.getAll = function (callback) {
 exports.get = function (ticketId, callback) {
 	database.query('SELECT * FROM ticket WHERE ticket_id = ?', [ticketId], function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
 		if (rows === []) {
-			callback(null, null);
-			return;
+			return callback(null, null);
 		}
 
-		callback(null, rows[0]);
+		return callback(null, rows[0]);
 	});
 };
 
@@ -57,11 +54,10 @@ exports.get = function (ticketId, callback) {
 exports.search = function (params, callback) {
 	database.query('SELECT * FROM user WHERE ?', params, function (err, rows) {
 		if (err) {
-			callback(err, null);
-			return;
+			return callback(err, null);
 		}
 
-		callback(null, rows);
+		return callback(null, rows);
 	});
 };
 
@@ -74,8 +70,7 @@ exports.search = function (params, callback) {
 exports.add = function (ticket, callback) {
 	var err = verify(ticket);
 	if (err) {
-		callback(err);
-		return;
+		return callback(err);
 	}
 
 
@@ -88,11 +83,10 @@ exports.add = function (ticket, callback) {
 			'VALUES (?, ?, ?, ?)', [ticket.table_number, ticket.ticket_date, ticket.checked_out, ticket.call_waiter_status],
 		function (err, result) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
-			callback(null, result.insertId);
+			return callback(null, result.insertId);
 		});
 };
 
@@ -100,13 +94,7 @@ exports.update = function (ticket, callback) {
 	var id = ticket.ticket_id;
 	delete ticket.ticket_id;
 
-	database.query('UPDATE ticket SET ? WHERE ticket_id = ' + id, ticket, function (err) {
-			if (err) {
-				callback(err);
-				return;
-			}
-			callback(null);
-		});
+	database.query('UPDATE ticket SET ? WHERE ticket_id = ' + id, ticket, callback);
 };
 
 /**
@@ -125,15 +113,8 @@ exports.remove = function (ticket, callback) {
 	}
 
 	if (id === null) {
-		callback(new Error('Invalid ticket: no id present'));
-		return;
+		return callback(new Error('Invalid ticket: no id present'));
 	}
 
-	database.query('DELETE FROM ticket WHERE ticket_id = ?', id, function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('DELETE FROM ticket WHERE ticket_id = ?', id, callback);
 };

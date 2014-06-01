@@ -1,7 +1,5 @@
 package org.segfault.foodme;
 
-import java.util.Date;
-
 public class Review 
 {	
 	int reviewId;
