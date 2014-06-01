@@ -41,15 +41,8 @@
 	
 
 		<TableRow>
-		   <EditText
-		    android:id="@+id/note"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:inputType="text"
-		    android:hint="@string/note"
-		    android:ems="10" />
-		   
-		   	    
+
+		  		   	    
 		<TextView
 		    android:id="@+id/price"
 		    android:layout_width="300dp"
@@ -64,7 +57,8 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:maxWidth="60dp"
-	        android:text="@string/add" />
+	        android:text="@string/add"
+	        android:textColor="@color/white" />
 	    
 	    </TableRow>
 	
@@ -93,7 +87,8 @@
 	   		android:id="@+id/submit_button"
 	    	android:layout_width="wrap_content"
 	   		android:layout_height="wrap_content"
-	    	android:text="@string/submit_rating" />
+	    	android:text="@string/submit_rating"
+	    	android:textColor="@color/white"  />
 	</TableRow>
 	 
 </TableLayout> 
