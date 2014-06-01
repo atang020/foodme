@@ -129,6 +129,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 					{
 						price = reader.nextDouble();
 					}
+					else if (name.equals("deleted"))
+					{
+						reader.nextInt();
+					};
 				}
 
 				reader.endObject();
