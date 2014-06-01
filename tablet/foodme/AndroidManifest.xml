@@ -24,8 +24,8 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".MainMenuActivity" 
-            android:screenOrientation="landscape">     
+        <activity android:name=".MainMenuActivity"
+            android:screenOrientation="landscape" >     
                   
         </activity>
         
