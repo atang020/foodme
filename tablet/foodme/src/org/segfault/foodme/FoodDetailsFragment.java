@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,11 +82,65 @@ public class FoodDetailsFragment extends Fragment{
 				
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
-						Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
-								"", "");
-						new SendReview().execute(customerReview);
-						ratingConfirm.show();
+						
+						AlertDialog.Builder test1 = new AlertDialog.Builder(getActivity());
+					       getActivity().getWindow().getDecorView().setSystemUiVisibility(
+						    		View.SYSTEM_UI_FLAG_FULLSCREEN
+					                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+					                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+					       test1.setTitle("Would you like to add a review with your rating?");
+					       final EditText review = new EditText(getActivity());
+					       review.setHint("Add review here");
+					       review.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
+					       
+					       final EditText name = new EditText(getActivity());
+					       name.setHint("Your name");
+					       name.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
+
+					       LinearLayout linearLayout = new LinearLayout(getActivity());
+					        linearLayout.setOrientation(LinearLayout.VERTICAL);
+					        linearLayout.addView(name);
+					        linearLayout.addView(review);
+					       test1.setView(linearLayout);
+					       test1.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
+									ratingConfirm.show();
+									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), name.getText().toString(), 
+											(short)customerRating.getRating(), review.getText().toString(), "");
+									new SendReview().execute(customerReview);
+
+								}
+							});
+					       test1.setNeutralButton("No", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
+									ratingConfirm.show();
+									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
+											"", "");
+
+									new SendReview().execute(customerReview);
+
+								}
+							});
+					       
+					       test1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+				                       Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Item NOT reviewed",Toast.LENGTH_SHORT);
+				                       notAdded.show();
+				                       quantity = 0;
+								}
+							});
+					       AlertDialog submitDialog = test1.create();
+							submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+							submitDialog.show();
+							submitDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 						customerRating.setRating(0);
 					}
 				});

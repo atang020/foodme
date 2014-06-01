@@ -179,6 +179,7 @@ public class EntreeActivity extends FragmentActivity implements ActionBar.TabLis
 				
 			}
 		});
+
 		AlertDialog dialog = dialogBuilder.create();
 		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 		dialog.show();

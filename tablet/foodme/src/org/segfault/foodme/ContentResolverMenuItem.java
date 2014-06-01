@@ -202,10 +202,10 @@ public class ContentResolverMenuItem
         */
 
         //enter url wanted to download from
-        URL url = new URL("http://jdelaney.org/uploads/sample.jpg");
-        File file = new File(fileName);
+  //      URL url = new URL("http://jdelaney.org/uploads/sample.jpg");
+     //   File file = new File(fileName);
         //specify connection
-        URLConnection ucon = url.openConnection();
+        /*URLConnection ucon = url.openConnection();
         //specift inout stream
         InputStream is = ucon.getInputStream();
         BufferedInputStream bis = new BufferedInputStream(is);
@@ -222,6 +222,6 @@ public class ContentResolverMenuItem
         catch (IOException e)
         {
         Log.d("ImageManager", "Error: " + e);
-        }
+        }*/
     }
 }
