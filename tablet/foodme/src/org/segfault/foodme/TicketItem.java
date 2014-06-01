@@ -13,6 +13,30 @@ public class TicketItem {
 	String menuItemName;
 	double price;
 	
+	public int getMenuItemIndex() {
+		return menuItemIndex;
+	}
+
+	public void setMenuItemIndex(int menuItemIndex) {
+		this.menuItemIndex = menuItemIndex;
+	}
+
+	public String getMenuItemName() {
+		return menuItemName;
+	}
+
+	public void setMenuItemName(String menuItemName) {
+		this.menuItemName = menuItemName;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public TicketItem(int orderId, int menuItemId, int menuItemIndex, short quantity,
 			String notes, short kitchenStatus, String menuItemName, double price) 
 	{

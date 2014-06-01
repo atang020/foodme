@@ -185,27 +185,28 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		
 		public void onClick(DialogInterface dialog, int which)
 		{
-		//	int quantityNum = item.get(position).getQuantity();
-		//	String notesVal = item.get(position).getNotes();
+			short quantityNum = item.get(position).getQuantity();
+			String notesVal = item.get(position).getNotes();
 			String value = input.getText().toString();
 			String quantityVal = quantity.getText().toString();
 			
 			try {
-			//	quantityNum = Integer.parseInt(quantityVal);
+				quantityNum = Short.parseShort(quantityVal);
 			}catch(NumberFormatException e) {
 				Toast makeText1 = Toast.makeText(getApplicationContext(),"Give me a valid integer", Toast.LENGTH_SHORT);
 				makeText1.show();
-				//quantityNum = item.get(position).getQuantity();
+				quantityNum = item.get(position).getQuantity();
 			}
 			
 			if(value.trim().length() > 0)
-				//notesVal = value;
+				notesVal = value;
 			
-	//		menuItem temp = new menuItem(item.get(position).getName(), notesVal, quantityNum, item.get(position).getPrice());
-			System.err.println("before removing: " + position + "item is: " + item.get(position).toString());
+			TicketItem temp = new TicketItem(item.get(position).getOrderId(), item.get(position).getMenuItemId(), 
+					item.get(position).getMenuItemIndex(), quantityNum,
+					notesVal, item.get(position).getKitchenStatus(), item.get(position).getMenuItemName(), item.get(position).getPrice());
 			adapter.remove(item.get(position).toString());
 			item.remove(position);
-		//	item.add(temp);
+			item.add(temp);
 			adapter.add(item.get((item.size()-1)).toString());
 			subtotalVal = subTotal();
 			subtotal.setText(subtotalVal);
@@ -245,7 +246,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		BigDecimal sum = new BigDecimal("0");
 		for (int i = 0; i < item.size(); i++)
 		{
-	//			sum += item.get(i).getPrice() * item.get(i).getQuantity();
+		//	sum += item.get(i).getPrice() * item.get(i).getQuantity();
 		}
 		return "Subtotal: "+ sum;
 	}
