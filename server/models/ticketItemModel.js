@@ -40,7 +40,7 @@ exports.getAll = function (callback) {
  * @param callback
  */
 exports.getActiveOrders = function (callback) {
-	database.query('SELECT ticket_item_id, ticket_item.ticket_id, quantity, notes, table_number, name FROM ticket_item INNER JOIN menu_item ON ticket_item.menu_item_id = menu_item.menu_item_id INNER JOIN ticket ON ticket_item.ticket_id = ticket.ticket_id', function (err, ticketItems) {
+	database.query('SELECT ticket_item_id, ticket_item.ticket_id, quantity, notes, table_number, name FROM ticket_item INNER JOIN menu_item ON ticket_item.menu_item_id = menu_item.menu_item_id INNER JOIN ticket ON ticket_item.ticket_id = ticket.ticket_id ORDER BY ticket_item_id ASC', function (err, ticketItems) {
 		if (err) {
 			return callback(err);
 		}
