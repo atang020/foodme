@@ -2,7 +2,6 @@
 var debug = require('debug')('foodme');
 var app = require('../app');
 var config = require('../config')();
-console.log(config);
 
 app.set('port', config.port || process.env.PORT || 3000);
 
