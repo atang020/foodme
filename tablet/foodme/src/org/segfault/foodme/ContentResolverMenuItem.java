@@ -139,7 +139,6 @@ public class ContentResolverMenuItem
     //download from url
     void downloadFood(String picturePath)
     {
-        /*
         //downloads the pics to the folder
         URL picUrl = null;
         URL picUrl2 = null;
@@ -174,11 +173,8 @@ public class ContentResolverMenuItem
 
         //puts bmp to folder pictures
         String root = Environment.DIRECTORY_PICTURES;
-      */
-      /*
-      //  File myDir = new File(root +"/foodImages");
-        //myDir.mkdirs();
-        /*
+        File myDir = new File(root +"/foodImages");
+        myDir.mkdirs();
         String foodName = picturePath+".jpg";
         File foodFile = new File (myDir, foodName);
 
@@ -193,35 +189,10 @@ public class ContentResolverMenuItem
             out.flush();
             out.close();
         }
-
         catch (Exception e)
         {
             System.out.println("FAILURE TO WRITE TO PIC_DIRECTORY");
             e.printStackTrace();
         }
-        */
-/*
-        //enter url wanted to download from
-  //      URL url = new URL("http://jdelaney.org/uploads/sample.jpg");
-     //   File file = new File(fileName);
-        //specify connection
-        /*URLConnection ucon = url.openConnection();
-        //specift inout stream
-        InputStream is = ucon.getInputStream();
-        BufferedInputStream bis = new BufferedInputStream(is);
-        //
-        ByteArrayBuffer baf = new ByteArrayBuffer(50);
-        int current = 0;
-        while ((current = bis.read()) != -1)
-        {
-            baf.append((byte) current);
-        }
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(baf.toByteArray());
-        fos.close();
-        catch (IOException e)
-        {
-        Log.d("ImageManager", "Error: " + e);
-        }*/
     }
 }
