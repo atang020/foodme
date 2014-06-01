@@ -22,20 +22,15 @@ block content
 					thead
 						tr
 							th Table
-							th Time Waiting
 							th Item
 							th Quantity
 							th Notes
 							th Actions
 					tbody
 						- for order in ticket_items
-							- var red = 0
-							//
-								- var red = order.time * 10
 							tr(id='order#{order.ticket_item_id}')
-								td #{order.ticket.table_number}
-								td(style='color:rgb(#{red},0,0);') #{order.ticket.ticket_date}
-								td #{order.menu_item.name}
+								td #{order.table_number}
+								td #{order.name}
 								td #{order.quantity}
 								td #{order.notes}
 								td
