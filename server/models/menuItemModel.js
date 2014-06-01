@@ -166,8 +166,7 @@ exports.add = function (menuItem, callback) {
 	var err = verify(menuItem);
 	if (err) {
 
-		callback(err);
-		return;
+		return callback(err);
 	}
 
 
@@ -179,8 +178,7 @@ exports.add = function (menuItem, callback) {
 		[menuItem.subcategory_id, menuItem.name, menuItem.description, menuItem.picture_path, menuItem.price],
 		function (err, result) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
 			callback(null, result.insertId);
@@ -191,13 +189,7 @@ exports.update = function (menuItem, callback) {
 	var id = menuItem.menu_item_id;
 	delete menuItem.menu_item_id;
 
-	database.query('UPDATE menu_item SET ? WHERE menu_item_id = ' + id, menuItem, function (err) {
-			if (err) {
-				callback(err);
-				return;
-			}
-			callback(null);
-		});
+	database.query('UPDATE menu_item SET ? WHERE menu_item_id = ' + id, menuItem, callback);
 };
 
 exports.updatePhoto = function (menuItemId, photoPath, callback) {
@@ -229,13 +221,7 @@ exports.remove = function (menuItem, callback) {
 		return;
 	}
 
-	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', id, function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('DELETE FROM menu_item WHERE menu_item_id = ?', id, callback);
 };
 
 /**
@@ -260,8 +246,7 @@ exports.removeAllInSubcategory = function (subcategory, callback) {
 
 	database.query('DELETE FROM menu_item WHERE subcategory_id = ?', id, function (err) {
 		if (err) {
-			callback(err);
-			return;
+			return callback(err);
 		}
 		callback(null);
 	});

@@ -10,9 +10,11 @@ public class TicketItem {
 	String notes;
 	short kitchenStatus;
 	ContentResolverMenuItem foodDetails;
+	String menuItemName;
+	double price;
 	
 	public TicketItem(int orderId, int menuItemId, int menuItemIndex, short quantity,
-			String notes, short kitchenStatus) 
+			String notes, short kitchenStatus, String menuItemName, double price) 
 	{
 		this.orderId = orderId;
 		this.menuItemId = menuItemId;
@@ -20,6 +22,8 @@ public class TicketItem {
 		this.quantity = quantity;
 		this.notes = notes;
 		this.kitchenStatus = kitchenStatus;
+		this.menuItemName = menuItemName;
+		this.price = price;
 	}
 	
 	@Override

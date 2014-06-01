@@ -135,6 +135,7 @@ public class ContentResolverMenuItem
     //download from url
     void downloadFood(String picturePath)
     {
+        //downloads the pics to the folder
         URL picUrl = null;
         try
         {
@@ -143,9 +144,11 @@ public class ContentResolverMenuItem
         }
         catch (Exception except)
         {
+            System.out.println("Failure to get pic from URL");
             Log.v("Error downloading bitmap from url", except.getMessage());
         }
 
+        //puts bmp to folder pictures
         String root = Environment.DIRECTORY_PICTURES;
 
         File myDir = new File(root /*+"/foodImages"*/);
@@ -153,10 +156,11 @@ public class ContentResolverMenuItem
 
         String foodName = picturePath+".jpg";
         File foodFile = new File (myDir, foodName);
-        //if (foodFile.exists())
-        //{
-        //    foodFile.delete ();
-        //}
+        
+        if (foodFile.exists())
+        {
+            foodFile.delete ();
+        }
         try
         {
             FileOutputStream out = new FileOutputStream(foodFile);
@@ -164,8 +168,10 @@ public class ContentResolverMenuItem
             out.flush();
             out.close();
         }
+
         catch (Exception e)
         {
+            System.out.println("FAILURE TO WRITE TO PIC_DIRECTORY");
             e.printStackTrace();
         }
     }

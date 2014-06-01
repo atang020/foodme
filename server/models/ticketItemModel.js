@@ -122,8 +122,7 @@ exports.search = function (params, callback) {
 exports.add = function (ticketItem, callback) {
 	var err = verify(ticketItem);
 	if (err) {
-		callback(err);
-		return;
+		return callback(err);
 	}
 
 
@@ -136,8 +135,7 @@ exports.add = function (ticketItem, callback) {
 			'VALUES (?, ?, ?, ?, ?)', [ticketItem.ticket_id, ticketItem.menu_item_id, ticketItem.quantity, ticketItem.notes, ticketItem.kitchen_status],
 		function (err, result) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
 			callback(null, result.insertId);
@@ -148,13 +146,7 @@ exports.update = function (ticketItem, callback) {
 	var id = ticketItem.ticket_item_id;
 	delete ticketItem.ticket_item_id;
 
-	database.query('UPDATE ticket_item SET? WHERE ticket_item_id = ' + id, ticketItem, function (err) {
-			if (err) {
-				callback(err);
-				return;
-			}
-			callback(null);
-		});
+	database.query('UPDATE ticket_item SET? WHERE ticket_item_id = ' + id, ticketItem, callback);
 };
 
 /**
@@ -173,15 +165,8 @@ exports.remove = function (ticketItem, callback) {
 	}
 
 	if (id === null) {
-		callback(new Error('Invalid ticket item: no id present'));
-		return;
+		return callback(new Error('Invalid ticket item: no id present'));
 	}
 
-	database.query('DELETE FROM ticket_item WHERE ticket_item_id = ?', id, function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('DELETE FROM ticket_item WHERE ticket_item_id = ?', id, callback);
 };
