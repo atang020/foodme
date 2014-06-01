@@ -55,6 +55,13 @@ public class TicketItem {
 		return menuItemName +" | "+ notes + " | $" + price 
 				+ " | " + quantity;
 	}
+	
+	public String toString2() {
+		// <font color=#80808080>
+		String s1 = menuItemName +" | "+ notes + " | $" + price 
+				+ " | " + quantity;
+		return s1;
+	}
 
 	public int getTicketItemId() {
 		return ticketItemId;

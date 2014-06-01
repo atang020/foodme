@@ -134,16 +134,25 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	
 	 private void confirmation(){
      	dialogBuild1 = new AlertDialog.Builder(this);
-     	LinearLayout layout = new LinearLayout(getApplicationContext());
-		dialogBuild1.setTitle("Send to Kitchen");
+     	//LinearLayout layout = new LinearLayout(getApplicationContext());
+		dialogBuild1.setTitle("Send To Kitchen");
 		dialogBuild1.setMessage("Are you sure?");
-	  	dialogBuild1.setView(layout);
+	  	//dialogBuild1.setView(layout);
 		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which)
 			{
 				new SendTicketItems().execute(item);
 				Toast makeText = Toast.makeText(getApplicationContext(),"Order has been sent to the kitchen", Toast.LENGTH_SHORT);
 				makeText.show();
+				
+				// TODO Grey out items after pressing Send To Kitchen
+				//adapter.remove(item.get(position).toString());
+				String s1 = item.get(0).toString2();
+				adapter.remove(item.get(0).toString());
+				adapter.add(s1);
+				
+				//adapter.remove(item.get(position).toString());
+				//item.remove(position);
 			}
 	 });
 	     
@@ -181,7 +190,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		layout.addView(input);
 		layout.addView(quantity);
 		dialogBuild.setView(layout);
-		dialogBuild.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+		dialogBuild.setNegativeButton("Done", new DialogInterface.OnClickListener() {
 		
 		public void onClick(DialogInterface dialog, int which)
 		{
@@ -214,7 +223,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			makeText.show();
 		}
 		});
-		dialogBuild.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+		dialogBuild.setNeutralButton("Delete Item", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
@@ -299,6 +308,14 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		case "Call Waiter":
 			callWaiterPress();
 			break;
+		
+		/* TODO
+		case "My Order":
+			Intent orderIntent = new Intent(MyOrderActivity.this,
+					MyOrderActivity.class);
+			orderIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(orderIntent);
+			break;*/
 			
 		default:
 			break;
@@ -310,10 +327,10 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	}
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		if(tab.getText().toString() == "Call Waiter")
+		/*if(tab.getText().toString() == "Call Waiter")
 			callWaiterPress();
 		else
-		 subcategoryLayout.openDrawer(Gravity.LEFT);  
+		 subcategoryLayout.openDrawer(Gravity.LEFT);*/  
 	}
 	
 	private void callWaiterPress()
