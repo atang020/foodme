@@ -2,9 +2,6 @@ var confirmCallback;
 
 //page loaded
 $(document).ready(function () {
-
-	//$('[id^=itemProtoitem]').hide();
-	
 });
 
 

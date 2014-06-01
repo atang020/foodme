@@ -48,9 +48,12 @@ public class SplashScreenActivity extends Activity
 		syncReceiver = new SyncReceiver(this);
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog = new ProgressDialog(this);
+
 		// Get the view from splash_screen.xml
 		setContentView(R.layout.splash_screen);
+		
+		dialog = new ProgressDialog(this);
+
 		
 		decorView = getWindow().getDecorView();
 		
@@ -63,6 +66,13 @@ public class SplashScreenActivity extends Activity
 	   
 	    dialog = ProgressDialog.show(SplashScreenActivity.this, "Syncing with the database", "Please wait", true, false, null);
 	    dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+	    
+		int titleId = dialog.getContext().getResources().getIdentifier("android:id/alertTitle", null, null);
+		int dividerId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
+		TextView title = (TextView) dialog.findViewById(titleId);
+		title.setTextColor(getResources().getColor(R.color.apptheme_color));
+		View dividerBar = dialog.findViewById(dividerId);
+		dividerBar.setBackgroundColor(getResources().getColor(R.color.apptheme_color));
 	    // Sync adapter: create the account type and default account
 	    Account myAccount = new Account ("dummyAccount", "org.segfault.foodme");
 	    AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);

@@ -14,7 +14,7 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="FoodMe"
-        android:theme="@style/Theme.Example" >
+        android:theme="@style/Test" >
         <activity android:name=".SplashScreenActivity" 
             android:screenOrientation="landscape">
             <intent-filter>
