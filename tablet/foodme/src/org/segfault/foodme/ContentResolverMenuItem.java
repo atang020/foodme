@@ -174,6 +174,7 @@ public class ContentResolverMenuItem
       /*
       //  File myDir = new File(root /*+"/foodImages"*/);
         //myDir.mkdirs();
+        /*
         String foodName = picturePath+".jpg";
         File foodFile = new File (myDir, foodName);
 
