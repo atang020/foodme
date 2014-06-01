@@ -97,15 +97,10 @@ exports.add = function (ticket, callback) {
 };
 
 exports.update = function (ticket, callback) {
-	var err = verify(ticket);
-	if (err) {
-		callback(err);
-		return;
-	}
+	var id = ticket.ticket_id;
+	delete ticket.ticket_id;
 
-	database.query('UPDATE ticket SET table_number = ?, ticket_date = ?, checked_out = ?, call_waiter_status = ? WHERE ticket_id = ?',
-		[ticket.table_number, ticket.ticket_date, ticket.checked_out, ticket.call_waiter_status, ticket.ticket_id], function (err) {
-
+	database.query('UPDATE ticket SET ? WHERE ticket_id = ' + id, ticket, function (err) {
 			if (err) {
 				callback(err);
 				return;
