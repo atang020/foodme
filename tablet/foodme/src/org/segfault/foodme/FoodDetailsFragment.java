@@ -1,7 +1,5 @@
 package org.segfault.foodme;
 
-import java.util.Date;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,12 +10,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,6 +95,7 @@ public class FoodDetailsFragment extends Fragment{
 					}
 				});
 				AlertDialog submitDialog = dialogBuilder.create();
+				submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 				submitDialog.show();
 				
 			}
@@ -109,8 +107,10 @@ public class FoodDetailsFragment extends Fragment{
 			@Override
 			public void onClick(View arg0) {
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-				
-
+			       getActivity().getWindow().getDecorView().setSystemUiVisibility(
+				    		View.SYSTEM_UI_FLAG_FULLSCREEN
+			                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+			                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 				dialogBuilder.setTitle("Quantity");
 				dialogBuilder.setItems( R.array.quantity_number, new DialogInterface.OnClickListener() {
 		               @Override
@@ -134,6 +134,7 @@ public class FoodDetailsFragment extends Fragment{
 					}
 				});
 				AlertDialog submitDialog = dialogBuilder.create();
+				submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 				submitDialog.show();
 				
 			}

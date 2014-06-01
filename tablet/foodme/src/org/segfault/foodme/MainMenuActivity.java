@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -141,8 +142,9 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 			}
 		});
 		
-		AlertDialog dialogPizzaName = dialogBuilder.create();
-		dialogPizzaName.show();
+		AlertDialog dialog = dialogBuilder.create();
+		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+		dialog.show();
 	}
 	
 	public void onWindowFocusChanged(boolean hasFocus) {

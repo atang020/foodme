@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.TextView;
@@ -61,6 +62,7 @@ public class SplashScreenActivity extends Activity
 	    decorView.setSystemUiVisibility(mUIFlag);
 	   
 	    dialog = ProgressDialog.show(SplashScreenActivity.this, "Syncing with the database", "Please wait", true, false, null);
+	    dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 	    // Sync adapter: create the account type and default account
 	    Account myAccount = new Account ("dummyAccount", "org.segfault.foodme");
 	    AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
