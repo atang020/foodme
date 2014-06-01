@@ -5,11 +5,11 @@ var routeHelper = require('../routeHelper');
 var router = express.Router();
 
 router.get('/', function(req, res){
-	menuItemModel.getAll(function (err, orders) {
+	menuItemModel.search({deleted: 0}, function (err, menuItems) {
 		if (err) {
 			return routeHelper.jsonError(res, err);
 		}
-		res.json(orders);
+		res.json(menuItems);
 	});
 });
 
