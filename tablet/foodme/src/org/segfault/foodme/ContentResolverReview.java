@@ -80,7 +80,6 @@ public class ContentResolverReview
             	num++;
             }
         }
-        System.out.println((avg_rating/num));
         if(num > 0)
         {
         	return (avg_rating/num);
@@ -102,15 +101,16 @@ public class ContentResolverReview
     }
 	
 	// get review for given menuItemId
-    public Review getReviewByMenuItemId (int menuItemId)
+    public ArrayList<Review> getReviewByMenuItemId (int menuItemId)
     {
+    	ArrayList<Review> listOfReviews = new ArrayList<Review>();
         for(int i = 0; i < reviews.size(); i++)
         {
             if (getMenuItemId(i) == menuItemId)
             {
-            	return reviews.get(i);
+            	listOfReviews.add(reviews.get(i));
             }
         }
-        return null;
+        return listOfReviews;
     }
 }

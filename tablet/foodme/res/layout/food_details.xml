@@ -74,11 +74,23 @@
 	   	    android:textAppearance="?android:attr/textAppearanceSmall" />
 	   	</LinearLayout>
 
+	    		    <LinearLayout
+	            android:layout_width="wrap_content"
+    			android:layout_height="wrap_content">
 		<Button
 	   		android:id="@+id/submit_button"
 	    	android:layout_width="wrap_content"
 	   		android:layout_height="wrap_content"
 	    	android:text="@string/submit_rating"
 	    	android:textColor="@color/white"  />
+		
+		<Button
+	   		android:id="@+id/get_review"
+	    	android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	    	android:text="@string/get_review"
+	    	android:textColor="@color/white" />
+		
+		</LinearLayout>
     
 </LinearLayout>

@@ -37,6 +37,7 @@ public class FoodDetailsFragment extends Fragment{
 	ImageView foodImage;
 	Button submitButton;
 	Button addButton;
+	Button getReview;
 	BigDecimal itemPrice;
 	short quantity = 0;
 	
@@ -62,7 +63,7 @@ public class FoodDetailsFragment extends Fragment{
     	submitButton = (Button) getActivity().findViewById(R.id.submit_button);
     	addButton = (Button) getActivity().findViewById(R.id.add_button);
     	price = (TextView) getActivity().findViewById(R.id.price);
-    	
+    	getReview = (Button) getActivity().findViewById(R.id.get_review);
     	ratingBar.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -286,6 +287,30 @@ public class FoodDetailsFragment extends Fragment{
 				
 			}
     	});
+    	
+    	getReview.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+				
+				dialogBuilder.setTitle("Customer Ratings");
+				
+				dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener()
+				{
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						
+					}
+					
+				});
+				AlertDialog dialog = dialogBuilder.create();
+				dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+				dialog.show();
+			}
+    		
+    	});
     	ratingBar.setFocusable(false);
     	
         updateFoodDetails(lastMenuItemIndex);
@@ -304,6 +329,7 @@ public class FoodDetailsFragment extends Fragment{
     		ratingNumber.setVisibility(View.GONE);
     		ratingBar.setVisibility(View.GONE);
     		price.setVisibility(View.GONE);
+    		getReview.setVisibility(View.GONE);
 		}
 		else
 		{
@@ -317,6 +343,7 @@ public class FoodDetailsFragment extends Fragment{
     		ratingNumber.setVisibility(View.VISIBLE);
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);
+    		getReview.setVisibility(View.VISIBLE);
 			foodDescription.setText(foodDetails.getDescription(menuItemIndex));
 			int menuItemId = foodDetails.getMenuItemId(menuItemIndex);
 			float rating = (float)foodReview.getAvgRating(menuItemId);
