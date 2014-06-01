@@ -80,7 +80,14 @@ public class ContentResolverReview
             	num++;
             }
         }
-        return (avg_rating/num);
+        if(num > 0)
+        {
+        	return (avg_rating/num);
+        }
+        else
+        {
+        	return -1.0;
+        }
     }
 	
 	public String getReviewText (int index)

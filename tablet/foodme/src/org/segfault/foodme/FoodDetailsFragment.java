@@ -193,8 +193,18 @@ public class FoodDetailsFragment extends Fragment{
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);
 			foodDescription.setText(foodDetails.getDescription(menuItemIndex));
-	    	//ratingBar.setRating((float)foodReview.getAvgRating(menuItemIndex));
-	    	//ratingNumber.setText("Rating Number : " + (float)foodReview.getAvgRating(menuItemIndex));
+			int menuItemId = foodDetails.getMenuItemId(menuItemIndex);
+			float rating = (float)foodReview.getAvgRating(menuItemId);
+			if(rating != -1.0 )
+			{
+				ratingBar.setRating(rating);
+	    		ratingNumber.setText("\nRating Number : " + rating);
+			}
+			else
+			{
+				ratingBar.setRating(0);
+				ratingNumber.setText("\nNo rating available");
+			}
 			price.setText("Price: $" +  foodDetails.getPrice(menuItemIndex));
 		}
 		lastMenuItemIndex = menuItemIndex;
