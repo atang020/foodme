@@ -129,7 +129,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 			
 		case "Desserts": 
 			Intent dessertIntent = new Intent(DrinkActivity.this,
-					DrinkActivity.class);
+					DessertActivity.class);
 			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
