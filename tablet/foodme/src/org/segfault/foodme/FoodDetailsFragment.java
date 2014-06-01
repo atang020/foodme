@@ -82,7 +82,7 @@ public class FoodDetailsFragment extends Fragment{
 				
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						
+						System.out.println(customerRating.getRating());
 						if(customerRating.getRating() != 0)
 						{
 						AlertDialog.Builder test1 = new AlertDialog.Builder(getActivity());
@@ -113,6 +113,7 @@ public class FoodDetailsFragment extends Fragment{
 									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), name.getText().toString(), 
 											(short)customerRating.getRating(), review.getText().toString(), "");
 									new SendReview().execute(customerReview);
+									customerRating.setRating(0);
 
 								}
 							});
@@ -122,10 +123,12 @@ public class FoodDetailsFragment extends Fragment{
 								public void onClick(DialogInterface dialog, int which) {
 									Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
 									ratingConfirm.show();
+									System.out.println(customerRating.getRating());
 									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
 											"", "");
 
 									new SendReview().execute(customerReview);
+									customerRating.setRating(0);
 
 								}
 							});
@@ -136,13 +139,13 @@ public class FoodDetailsFragment extends Fragment{
 								public void onClick(DialogInterface dialog, int which) {
 				                       Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Item NOT rated",Toast.LENGTH_SHORT);
 				                       notAdded.show();
+										customerRating.setRating(0);
 								}
 							});
 					       AlertDialog submitDialog = test1.create();
 							submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 							submitDialog.show();
 							submitDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-							customerRating.setRating(0);
 						}
 						else
 						{
