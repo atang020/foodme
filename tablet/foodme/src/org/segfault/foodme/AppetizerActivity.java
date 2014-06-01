@@ -151,8 +151,9 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
+				Toast waiterConfirm = Toast.makeText(getApplicationContext(),"A waiter has NOT been contacted.",Toast.LENGTH_SHORT);
+				new CallWaiter().execute();
+				waiterConfirm.show();					
 			}
 		});
 		
