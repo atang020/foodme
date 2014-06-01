@@ -5,9 +5,8 @@ package org.segfault.foodme;
 
 
 import java.util.ArrayList;
-
 import org.segfault.foodme.FoodItemFragment.onFoodItemSelectedListener;
-
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
@@ -24,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 
 
 public class DessertActivity extends FragmentActivity implements ActionBar.TabListener, onFoodItemSelectedListener{
@@ -55,7 +55,7 @@ public class DessertActivity extends FragmentActivity implements ActionBar.TabLi
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
-       
+    
        // Set the adapter for the list view
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
                R.layout.test_layout, subcategoryNames));

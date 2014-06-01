@@ -48,6 +48,7 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 	   subcategoryNames = subcategoryProvider.getSubcategoryNamesByCategory(0);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
+
        
        // Set the adapter for the list view
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
