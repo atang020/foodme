@@ -128,6 +128,7 @@ public class MainMenuActivity extends Activity implements ActionBar.TabListener{
 			public void onClick(DialogInterface dialog, int which) 
 			{
 				Toast makeText = Toast.makeText(getApplicationContext(),"A waiter has been contacted.",Toast.LENGTH_SHORT);
+				new CallWaiter().execute(1);
 				makeText.show();
 				
 			}

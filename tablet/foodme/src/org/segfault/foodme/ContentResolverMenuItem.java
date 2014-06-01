@@ -137,11 +137,14 @@ public class ContentResolverMenuItem
     {
         //downloads the pics to the folder
         URL picUrl = null;
+        URL picUrl2 = null;
         boolean picNotFound=false;
         try
         {
             picUrl= new URL("http://jdelaney.org/uploads/"+picturePath);
             bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
+            System.out.println("URL: " + picUrl);
+            System.out.println("Fuck yeah this works");
         }
         catch (Exception except)
         {
@@ -155,6 +158,7 @@ public class ContentResolverMenuItem
             {
                 picUrl2= new URL("http://jdelaney.org/uploads/sample.jpg");
                 bmp = BitmapFactory.decodeStream(picUrl2.openConnection().getInputStream());
+                System.out.println("dammit well backup works at least");
             }
             catch (Exception except)
             {
