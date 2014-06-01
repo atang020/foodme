@@ -29,7 +29,6 @@ CREATE TABLE `ticket` (
   `ticket_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_out` TINYINT NOT NULL DEFAULT 0,
   `call_waiter_status` TINYINT NOT NULL DEFAULT 0,
-  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`ticket_id`))
 ENGINE = InnoDB;
 

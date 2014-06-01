@@ -5,11 +5,11 @@ var routeHelper = require('../routeHelper');
 var router = express.Router();
 
 router.get('/', function(req, res){
-	menuItemModel.getAll(function (err, orders) {
+	menuItemModel.search({deleted: 0}, function (err, menuItems) {
 		if (err) {
 			return routeHelper.jsonError(res, err);
 		}
-		res.json(orders);
+		res.json(menuItems);
 	});
 });
 
@@ -56,7 +56,8 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-	menuItemModel.remove(req.params.id, function (err) {
+	var menuItem = {menu_item_id: req.params.id, deleted: 1};
+	menuItemModel.update(menuItem, function (err) {
 		if (err) {
 			return routeHelper.jsonError(res, err);
 		}
