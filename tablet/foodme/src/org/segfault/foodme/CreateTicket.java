@@ -6,9 +6,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -16,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.os.RemoteException;
+import android.util.Log;
 
 // Send HttpPost request to insert new Ticket into table and receive the id
 public class CreateTicket extends AsyncTask<Void, Void, Void> 
@@ -24,6 +29,15 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 	protected Void doInBackground(Void... params) 
 	{
 		postJsonObject ("http://jdelaney.org/api/tickets", makeJson());
+		try {
+			receiveTicketInfo();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}	
 	
@@ -92,4 +106,44 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
         inputStream.close();
         return result;
     }	
+	
+	public void receiveTicketInfo () throws RemoteException, IOException
+	{
+    	StringBuilder builder = new StringBuilder();
+    	HttpClient client = new DefaultHttpClient();
+    	HttpGet httpGet = new HttpGet("http://jdelaney.org/api/tickets/" + String.valueOf(SplashScreenActivity.ticket.ticketId));
+    	JSONObject jsonTicket;
+    	java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+    	try{
+    		HttpResponse response = client.execute(httpGet);
+    		StatusLine statusLine = response.getStatusLine();
+    		int statusCode = statusLine.getStatusCode();
+    		if(statusCode == 200){
+    			HttpEntity entity = response.getEntity();
+    			InputStream content = entity.getContent();
+    			BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+    			String line;
+    			while((line = reader.readLine()) != null){
+    				builder.append(line);
+    			}
+    		} else {
+    			Log.e("getting ticket stuff","Failed to get JSON object");
+    		}
+    	}catch(ClientProtocolException e){
+    		e.printStackTrace();
+    	} catch (IOException e){
+    		e.printStackTrace();
+    	}
+    	Log.v("return string: ", builder.toString());
+    	try {
+			jsonTicket = new JSONObject (builder.toString());
+			SplashScreenActivity.ticket.ticketId = jsonTicket.getInt("ticket_id");
+			SplashScreenActivity.ticket.tableNumber = jsonTicket.getInt("table_number");
+			SplashScreenActivity.ticket.checkedOut = (short)jsonTicket.getInt("checked_out");
+			SplashScreenActivity.ticket.callWaiterStatus = (short)jsonTicket.getInt("call_waiter_status");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+    	
+	}
 }
