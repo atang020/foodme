@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.RemoteException;
-import android.util.Log;
 
 // Send HttpPost request to insert new Ticket into table and receive the id
 public class CreateTicket extends AsyncTask<Void, Void, Void> 
@@ -110,12 +109,13 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
         return result;
     }	
 	
+	// Reads newly inserted ticket to retrieve default information
 	public void receiveTicketInfo () throws RemoteException, IOException
 	{
     	StringBuilder builder = new StringBuilder();
     	HttpClient client = new DefaultHttpClient();
     	HttpGet httpGet = new HttpGet("http://jdelaney.org/api/tickets/" + 
-    			String.valueOf(SplashScreenActivity.ticket.ticketId));
+    			String.valueOf(SplashScreenActivity.ticket.getTicketId()));
     	JSONObject jsonTicket;
     	try
     	{
@@ -135,7 +135,7 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
     		} 
     		else 
     		{
-    			android.util.Log.v("CreateTiket","Failed to get JSON object from server");
+    			android.util.Log.v("CreateTiket", "Failed to get JSON object from server");
     		}
     	}
     	catch(ClientProtocolException e)

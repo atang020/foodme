@@ -29,6 +29,7 @@ public class SendReview extends AsyncTask<Review, Void, Void>
 		return null;
 	}	
 	
+	// Converts Review object to JSONObject
 	public JSONObject makeJson(Review review) 
 	{
 		JSONObject json = new JSONObject();
@@ -47,6 +48,7 @@ public class SendReview extends AsyncTask<Review, Void, Void>
 	    return json;
 	}
 	
+	// Sends JSONObject to server to create new row in Review table
 	public void postJsonObject (String uri, JSONObject jsonTicket) 
 	{
 		HttpClient httpClient = new DefaultHttpClient();
@@ -54,6 +56,7 @@ public class SendReview extends AsyncTask<Review, Void, Void>
 		InputStream inputStream;
 		String result;
 		
+		// Send HttpPost request
 		try 
 		{
 			httpPost.setEntity(new StringEntity(jsonTicket.toString()));
@@ -81,6 +84,7 @@ public class SendReview extends AsyncTask<Review, Void, Void>
 		}
 	}
 	
+	// Converts InputStream contents to String type
 	private String convertInputStreamToString(InputStream inputStream) throws IOException
 	{
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
