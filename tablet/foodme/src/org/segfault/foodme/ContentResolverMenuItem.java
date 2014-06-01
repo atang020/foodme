@@ -135,6 +135,7 @@ public class ContentResolverMenuItem
     //download from url
     void downloadFood(String picturePath)
     {
+        /*
         //downloads the pics to the folder
         URL picUrl = null;
         URL picUrl2 = null;
@@ -173,7 +174,7 @@ public class ContentResolverMenuItem
 
         File myDir = new File(root /*+"/foodImages"*/);
         //myDir.mkdirs();
-
+        /*
         String foodName = picturePath+".jpg";
         File foodFile = new File (myDir, foodName);
 
@@ -194,5 +195,14 @@ public class ContentResolverMenuItem
             System.out.println("FAILURE TO WRITE TO PIC_DIRECTORY");
             e.printStackTrace();
         }
+        */
+        URL newurl = new URL("http://jdelaney.org/uploads/"+picturePath);
+        Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+
+        // The openfileOutput() method creates a file on the phone/internal storage in the context of your application
+        final FileOutputStream fos = context.openFileOutput(PREFIX + id +".jpeg", Context.MODE_PRIVATE);
+
+        // Use the compress method on the BitMap object to write image to the OutputStream
+        bm.compress(CompressFormat.JPEG, 90, fos);
     }
 }
