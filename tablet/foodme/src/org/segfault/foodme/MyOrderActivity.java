@@ -137,7 +137,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	 private void confirmation(){
      	dialogBuild1 = new AlertDialog.Builder(this);
      	LinearLayout layout = new LinearLayout(getApplicationContext());
-		dialogBuild1.setTitle("Check Out to Kitchen");
+		dialogBuild1.setTitle("Send to Kitchen");
 		dialogBuild1.setMessage("Are you sure?");
 	  	dialogBuild1.setView(layout);
 		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
@@ -158,6 +158,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 				makeText.show();
 			}
 		});
+			AlertDialog dialogConfirm = dialogBuild1.create();
+			dialogConfirm.show();
 	  }
 
 

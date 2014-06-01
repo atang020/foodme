@@ -1,6 +1,8 @@
 package org.segfault.foodme;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.content.ContentResolver;
@@ -8,13 +10,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
 
 public class ContentResolverMenuItem 
 {
 	Context context;	
 	ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
     private static ContentResolverMenuItem ref;
-    
+    Bitmap bmp;
 	private ContentResolverMenuItem(Context context) {
 		this.context = context;
 	    ContentResolver cr = context.getContentResolver();
@@ -132,27 +136,30 @@ public class ContentResolverMenuItem
     {
         URL picUrl = null;
         try {
-            picUrl= new URL("www.jdelaney.org/uploads/"+url);
+            picUrl= new URL("www.jdelaney.org/uploads/"+picturePath);
             bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
         } catch (Exception except) {
             Log.v("Error downloading bitmap from url", except.getMessage());
         }
 
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/FOODPICTURES");
-
-        String pName = "picturePath"+".jpg";
-        File filePic = new File (myDir, pName);
-        if (filePic.exists ())
+        File myDir = new File(root + "/foodImages");
+        myDir.mkdirs();
+        String foodName = picturePath+".jpg";
+        File foodFile = new File (myDir, foodName);
+        if (foodFile.exists())
         {
-            filePic.delete();
+            foodFile.delete ();
         }
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+        try
+        {
+            FileOutputStream out = new FileOutputStream(foodFile);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
