@@ -36,5 +36,11 @@
     </style>
 
     <style name="ButtonBarButton" />
-
+    
+	
+    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
+    	<item name="android:progressDrawable">@drawable/foodme_rating_selector</item>
+    	<item name="android:minHeight">57dip</item>
+   	 	<item name="android:maxHeight">57dip</item>
+	</style>
 </resources>
