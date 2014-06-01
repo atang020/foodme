@@ -144,8 +144,6 @@ public class FoodDetailsFragment extends Fragment{
     }
     public void updateFoodDetails(int menuItemIndex)
     {
-
-
     	foodImage.setImageResource(R.drawable.dessert);
 		if(menuItemIndex == -1)
 		{

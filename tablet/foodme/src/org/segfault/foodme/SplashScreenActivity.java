@@ -6,8 +6,11 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -29,6 +32,7 @@ public class SplashScreenActivity extends Activity
 	Account myAccount;
 	TextView message;
 	static boolean x = false;
+	BroadcastReceiver syncReceiver;
 	View decorView;
 	
 	// Set Duration of the Splash Screen
@@ -39,6 +43,7 @@ public class SplashScreenActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		
+		syncReceiver = new SyncReceiver(this);
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -54,19 +59,7 @@ public class SplashScreenActivity extends Activity
 
 	    decorView.setSystemUiVisibility(mUIFlag);
 	   
-	    decorView.setOnTouchListener(new OnTouchListener() 
-	    {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) 
-	        {
-	    		Intent myIntent = new Intent(SplashScreenActivity.this,
-						MainMenuActivity.class);
-	    		startActivity(myIntent);
-	    		return true;
-	        }
-	    });
 	    message = (TextView) findViewById(R.id.textView1);
-	    message.setText("omg");
 	    // Sync adapter: create the account type and default account
 	    Account myAccount = new Account ("dummyAccount", "org.segfault.foodme");
 	    AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
@@ -78,9 +71,60 @@ public class SplashScreenActivity extends Activity
 	    bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 	    ContentResolver.requestSync (myAccount, "org.segfault.foodme.tabdbprovider", bundle);
 	    
+	    
 	    // Insert new Ticket into server table and retrieve ticketId
 	    ticket = new Ticket ();
 	    new CreateTicket().execute();
 	}
 	
+	@Override
+	public void onResume() {
+	    super.onResume();
+
+	    IntentFilter intentFilter = new IntentFilter();
+	    intentFilter.addAction(SyncAdapter.START_SYNC);
+	    intentFilter.addAction(SyncAdapter.FINISH_SYNC);
+	    registerReceiver(syncReceiver, intentFilter);  
+
+	    updateMessage(false);
+	}
+	
+	public void updateMessage(boolean display)
+	{
+		if(display)
+		{
+			message.setText(R.string.splashMessage);
+		    decorView.setOnTouchListener(new OnTouchListener() 
+		    {
+		        @Override
+		        public boolean onTouch(View v, MotionEvent event) 
+		        {
+		    		Intent myIntent = new Intent(SplashScreenActivity.this,
+							MainMenuActivity.class);
+		    		startActivity(myIntent);
+		    		return true;
+		        }
+		    });
+		}
+		else
+		{
+			message.setText(R.string.syncMessage);
+		}
+	}
+	
+	private class SyncReceiver extends BroadcastReceiver {
+
+	    private SplashScreenActivity splashScreen;
+
+	    public SyncReceiver(SplashScreenActivity activity) {
+	    	splashScreen = activity;
+	    }
+
+	    @Override
+	    public void onReceive(Context context, Intent intent) {
+	    	if (intent.getAction().equals(SyncAdapter.FINISH_SYNC)) {
+	        	splashScreen.updateMessage(true);
+	        }
+	    }
+	}
 }
