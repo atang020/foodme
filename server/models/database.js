@@ -11,7 +11,7 @@ var pool = mysql.createPool({
 
 var getConnection = function (callback) {
 	pool.getConnection(function (err, connection) {
-		callback(err, connection);
+		return callback(err, connection);
 	});
 };
 
@@ -20,8 +20,7 @@ var query = function (sql, data, callback) {
 
 	getConnection(function (err, connection) {
 		if (err) {
-			callback(err);
-			return;
+			return callback(err);
 		}
 
 		if (!dataGiven) {

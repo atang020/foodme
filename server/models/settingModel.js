@@ -42,8 +42,7 @@ exports.get = function (key, callback) {
 exports.add = function (setting, callback) {
 	var err = verify(setting);
 	if (err) {
-		callback(err);
-		return;
+		return callback(err);
 	}
 
 	//If not value set to null
@@ -53,8 +52,7 @@ exports.add = function (setting, callback) {
 			'VALUES (?, ?)', [setting.key, setting.value],
 		function (err, result) {
 			if (err) {
-				callback(err);
-				return;
+				return callback(err);
 			}
 
 			callback(null, result.insertId);
@@ -64,25 +62,12 @@ exports.add = function (setting, callback) {
 exports.update = function (setting, callback) {
 	var err = verify(setting);
 	if (err) {
-		callback(err);
-		return;
+		return callback(err);
 	}
 
-	database.query('UPDATE setting SET value = ? WHERE key = ?', [setting.value, setting.key], function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('UPDATE setting SET value = ? WHERE key = ?', [setting.value, setting.key], callback);
 };
 
 exports.remove = function (key, callback) {
-	database.query('DELETE FROM setting WHERE key = ?', key, function (err) {
-		if (err) {
-			callback(err);
-			return;
-		}
-		callback(null);
-	});
+	database.query('DELETE FROM setting WHERE key = ?', key, callback);
 };

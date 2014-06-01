@@ -58,6 +58,7 @@ CREATE TABLE `menu_item` (
   `description` TEXT NOT NULL,
   `picture_path` VARCHAR(512) NULL DEFAULT '',
   `price` DECIMAL(6,2) NOT NULL,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`menu_item_id`),
   FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory`(`subcategory_id`))
 ENGINE = InnoDB;
