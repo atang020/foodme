@@ -137,6 +137,7 @@ public class ContentResolverMenuItem
     {
         //downloads the pics to the folder
         URL picUrl = null;
+        URL picUrl2 = null;
         boolean picNotFound=false;
         try
         {
