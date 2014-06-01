@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 
+// Sends HttpPut request to server to set call_waiter_status of ticket  to 1
 public class CallWaiter extends AsyncTask<Void, Void, Void> 
 {
 	@Override
@@ -26,6 +27,7 @@ public class CallWaiter extends AsyncTask<Void, Void, Void>
 		return null;
 	}	
 	
+	// Creates JSONObject to send to server
 	public JSONObject makeJson() 
 	{
 		JSONObject json = new JSONObject();
@@ -43,6 +45,7 @@ public class CallWaiter extends AsyncTask<Void, Void, Void>
 	    return json;
 	}
 	
+	// Sends JSONObject to server
 	public void putJsonObject (String uri, JSONObject jsonTicket) 
 	{
 		HttpClient httpClient = new DefaultHttpClient();
@@ -77,6 +80,7 @@ public class CallWaiter extends AsyncTask<Void, Void, Void>
 		}
 	}
 	
+	// Converts InputStream to String type
 	private String convertInputStreamToString(InputStream inputStream) throws IOException
 	{
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
