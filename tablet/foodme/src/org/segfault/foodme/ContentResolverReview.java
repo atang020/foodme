@@ -36,15 +36,7 @@ public class ContentResolverReview
 				short rating = cursor.getShort(cursor.getColumnIndex(TabletContentProvider.KEY_RATING));
 				String reviewText = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_REVIEW_TEXT));
 				String reviewDate = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_REVIEW_DATE));
-                // convert String reviewDate to Date type
-				Date date;
-				try {
-					date = new SimpleDateFormat("YYYY-MM-DD", Locale.ENGLISH).parse(reviewDate);
-				} catch (ParseException e) {
-					date = null;
-					e.printStackTrace();
-				}
-				reviews.add(new Review (reviewId, menuItemId, reviewer, rating, reviewText, date));
+				reviews.add(new Review (reviewId, menuItemId, reviewer, rating, reviewText, reviewDate));
 			}
             while (cursor.moveToNext());
 		}
@@ -87,7 +79,7 @@ public class ContentResolverReview
         return reviews.get(index).getReviewText();
     }
 	
-	public Date getReviewDate (int index)
+	public String getReviewDate (int index)
     {
         return reviews.get(index).getReviewDate();
     }
