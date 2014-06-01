@@ -71,7 +71,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 			Intent finishIntent = new Intent();
 			finishIntent.setAction(FINISH_SYNC);
 			this.context.sendBroadcast(finishIntent);
-			System.out.println("check");
 		} 
 		catch (RemoteException | IOException e) 
 		{
