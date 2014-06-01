@@ -134,16 +134,15 @@ public class FoodDetailsFragment extends Fragment{
 								
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-				                       Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Item NOT reviewed",Toast.LENGTH_SHORT);
+				                       Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Item NOT rated",Toast.LENGTH_SHORT);
 				                       notAdded.show();
-				                       quantity = 0;
 								}
 							});
 					       AlertDialog submitDialog = test1.create();
 							submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 							submitDialog.show();
 							submitDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-						customerRating.setRating(0);
+							customerRating.setRating(0);
 						}
 						else
 						{
@@ -157,6 +156,8 @@ public class FoodDetailsFragment extends Fragment{
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+	                    Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Item NOT rated",Toast.LENGTH_SHORT);
+	                    notAdded.show();
 						customerRating.setRating(0);
 					}
 				});
@@ -243,12 +244,12 @@ public class FoodDetailsFragment extends Fragment{
 									public void onClick(DialogInterface dialog, int which) {
 										if(quantity != 0)
 										{
-										   String noNotesString = "(no notes)";
+										   String noNotes = "(no notes)";
 					            	   	   String confirmString = (quantity) + " " + foodDetails.getName(lastMenuItemIndex) + "(s) added to cart";
 					                       Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),confirmString,Toast.LENGTH_LONG);
 					                       addConfirm.show();
 					                       TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
-					                    		   lastMenuItemIndex, quantity,noNotesString, (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
+					                    		   lastMenuItemIndex, quantity,noNotes, (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
 					                       SplashScreenActivity.orders.add(test);
 					                       quantity = 0;
 										}
