@@ -58,8 +58,9 @@ public class TicketItem {
 	
 	public String toString2() {
 		// <font color=#80808080>
-		String s1 = menuItemName +" | "+ notes + " | $" + price 
-				+ " | " + quantity;
+		//String s1 = menuItemName +" | "+ notes + " | $" + price 
+		//		+ " | " + quantity;
+	    String s1 = menuItemName;
 		return s1;
 	}
 
