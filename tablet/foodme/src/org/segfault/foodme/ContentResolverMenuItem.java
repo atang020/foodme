@@ -135,6 +135,7 @@ public class ContentResolverMenuItem
     //download from url
     void downloadFood(String picturePath)
     {
+        /*
         //downloads the pics to the folder
         URL picUrl = null;
         URL picUrl2 = null;
@@ -169,7 +170,8 @@ public class ContentResolverMenuItem
 
         //puts bmp to folder pictures
         String root = Environment.DIRECTORY_PICTURES;
-*/
+      */
+      /*
       //  File myDir = new File(root /*+"/foodImages"*/);
         //myDir.mkdirs();
         String foodName = picturePath+".jpg";
@@ -192,5 +194,6 @@ public class ContentResolverMenuItem
             System.out.println("FAILURE TO WRITE TO PIC_DIRECTORY");
             e.printStackTrace();
         }
+        */
     }
 }
