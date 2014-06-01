@@ -21,34 +21,20 @@
                 android:layout_height="wrap_content" >
             </TableRow>
 
-            <TextView
-                android:id="@+id/textView1"
+            <Button
+                android:id="@+id/button1"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Send To Kitchen" />
+
+            <Button
+                android:id="@+id/button2"
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/item_string"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/notes_string"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/price_string"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/quantity_string"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="Checkout My Orders" />
+
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
@@ -75,13 +61,6 @@
             android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/button1"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Send To Kitchen" />
 
         </TableRow>
 

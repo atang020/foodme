@@ -44,6 +44,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	private AlertDialog.Builder dialogBuild1;
 	//private AppSectionsPagerAdapter mAppSectionsPagerAdapter
 	Button button;
+	Button restButton;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +89,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
        button = (Button) findViewById(R.id.button1);
        list = (ListView) findViewById(R.id.listView1);	
        subtotal = (TextView) findViewById(R.id.textView6);
+       restButton = (Button) findViewById(R.id.button2);
        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice);
        subtotalVal = subTotal();
   		
@@ -103,6 +105,13 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
   				confirmation();
   			}
   		});
+  		
+  		restButton.setOnClickListener(new View.OnClickListener() {
+  			public void onClick(View v) {
+  				final_checkout();
+  			}
+  		});
+  		
   		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
   			   public void onItemSelected(AdapterView parentView, View childView, 
   			                                                         int position, long id) 
@@ -131,7 +140,44 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	    inflater.inflate(R.menu.main_action_bar, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}*/
-	
+	private void final_checkout() {
+		dialogBuild1 = new AlertDialog.Builder(this);
+     	//LinearLayout layout = new LinearLayout(getApplicationContext());
+		dialogBuild1.setTitle("Check Please");
+		dialogBuild1.setMessage("Are you sure you want your check?");
+	  	//dialogBuild1.setView(layout);
+		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which)
+			{
+				for(int i = 0; i < item.size(); i++) {
+					short a = 1;
+					item.get(i).setKitchenStatus(a);
+				}
+				new SendTicketItems().execute(item);
+				Toast makeText = Toast.makeText(getApplicationContext(),"Successfully checked out. A waiter will be with you shortly", Toast.LENGTH_SHORT);
+				makeText.show();
+				item = null;
+				SplashScreenActivity.orders = null;
+				adapter = null;
+				Intent homeIntent = new Intent(MyOrderActivity.this,
+						MainMenuActivity.class);
+				homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+				startActivity(homeIntent); 
+			}
+	 });
+	     
+	    	dialogBuild1.setPositiveButton("No", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+				Toast makeText = Toast.makeText(getApplicationContext(),"Check will not be sent, yet", Toast.LENGTH_SHORT);
+				makeText.show();
+			}
+		});
+			AlertDialog dialogConfirm = dialogBuild1.create();
+			dialogConfirm.show();
+	}
 	 private void confirmation(){
      	dialogBuild1 = new AlertDialog.Builder(this);
      	//LinearLayout layout = new LinearLayout(getApplicationContext());
