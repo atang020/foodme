@@ -69,9 +69,19 @@ public class ContentResolverReview
         return reviews.get(index).getReviewer();
     }
 	
-	public short getRating (int index)
+	public double getAvgRating (int menuItemId)
     {
-        return reviews.get(index).getRating();
+		double avg_rating = 0;
+		double num = 0;
+        for(int i = 0; i < reviews.size(); i++)
+        {
+            if (getMenuItemId(i) == menuItemId)
+            {
+            	avg_rating += (double)reviews.get(i).rating;
+            	num++;
+            }
+        }
+        return (avg_rating/num);
     }
 	
 	public String getReviewText (int index)

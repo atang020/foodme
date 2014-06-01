@@ -23,7 +23,8 @@ import android.widget.Toast;
 
 public class FoodDetailsFragment extends Fragment{
 	
-	ContentResolverMenuItem foodDetails; 
+	ContentResolverMenuItem foodDetails;
+	ContentResolverReview foodReview;
 	RatingBar ratingBar;
 	RatingBar customerRating;
 	TextView review;
@@ -50,6 +51,7 @@ public class FoodDetailsFragment extends Fragment{
         super.onStart();
         
         foodDetails = ContentResolverMenuItem.getInstance(this.getActivity());
+        foodReview = ContentResolverReview.getInstance(this.getActivity());
     	foodDescription = (TextView) getActivity().findViewById(R.id.food_description);
 		foodImage = (ImageView)getActivity().findViewById(R.id.food_image);
 		ratingNumber = (TextView) getActivity().findViewById(R.id.review_number);
@@ -158,9 +160,7 @@ public class FoodDetailsFragment extends Fragment{
     public void updateFoodDetails(int menuItemIndex)
     {
 
-    	float exa = 3;
-    	ratingBar.setRating(exa);
-    	ratingNumber.setText("Rating Number : " + exa);
+
     	foodImage.setImageResource(R.drawable.dessert);
 		if(menuItemIndex == -1)
 		{
@@ -193,6 +193,8 @@ public class FoodDetailsFragment extends Fragment{
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);
 			foodDescription.setText(foodDetails.getDescription(menuItemIndex));
+	    	//ratingBar.setRating((float)foodReview.getAvgRating(menuItemIndex));
+	    	//ratingNumber.setText("Rating Number : " + (float)foodReview.getAvgRating(menuItemIndex));
 			price.setText("Price: $" +  foodDetails.getPrice(menuItemIndex));
 		}
 		lastMenuItemIndex = menuItemIndex;
