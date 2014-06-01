@@ -200,7 +200,7 @@ public class ContentResolverMenuItem
         Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
 
         // The openfileOutput() method creates a file on the phone/internal storage in the context of your application
-        final FileOutputStream fos = context.openFileOutput(PREFIX + id +".jpeg", Context.MODE_PRIVATE);
+        final FileOutputStream fos = context.openFileOutput(picturePath+".jpeg", Context.MODE_PRIVATE);
 
         // Use the compress method on the BitMap object to write image to the OutputStream
         bm.compress(CompressFormat.JPEG, 90, fos);
