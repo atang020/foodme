@@ -56,7 +56,8 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-	menuItemModel.remove(req.params.id, function (err) {
+	var menuItem = {menu_item_id: req.params.id, deleted: 1};
+	menuItemModel.update(menuItem, function (err) {
 		if (err) {
 			return routeHelper.jsonError(res, err);
 		}
