@@ -22,43 +22,39 @@ import android.os.AsyncTask;
 public class SendTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void> 
 {
 	@Override
-	protected Void doInBackground(ArrayList<TicketItem>... passing) 
+	protected Void doInBackground(@SuppressWarnings("unchecked") ArrayList<TicketItem>... passing) 
 	{
 		ArrayList<TicketItem> passed = passing[0];
 		
 		// Convert each TicketItem to JSONObject and send to server
 		for (int index = 0; index < passed.size(); index++) {
-			postJsonObject ("http://jdelaney.org/api/ticketitems", makeJson(passed.get(index)));
+			postJsonObject ("http://jdelaney.org/api/ticketitems", passed.get(index));
 		}
 		return null;
-	}	
-	
-	public JSONObject makeJson(TicketItem ticketItem) 
-	{
-		JSONObject json = new JSONObject();
-	    
-	    try 
-	    {
-	    	json.put("ticket_id", ticketItem.getOrderId());
-	    	json.put("menu_item_id", ticketItem.getMenuItemId());
-	    	json.put("quantity", ticketItem.getQuantity());
-	    	json.put("notes", ticketItem.getNotes());
-	    	json.put("kitchen_status", ticketItem.getKitchenStatus());
-		} 
-	    catch (JSONException e) 
-	    {
-			e.printStackTrace();
-		}
-	    return json;
 	}
 	
-	public void postJsonObject (String uri, JSONObject jsonTicket) 
+	public void postJsonObject (String uri, TicketItem ticketItem) 
 	{
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(uri);
 		InputStream inputStream;
 		String result;
+		JSONObject jsonTicket = new JSONObject();
 		
+	    // Convert TicketItem to JSON
+	    try 
+	    {
+	    	jsonTicket.put("ticket_id", ticketItem.getOrderId());
+	    	jsonTicket.put("menu_item_id", ticketItem.getMenuItemId());
+	    	jsonTicket.put("quantity", ticketItem.getQuantity());
+	    	jsonTicket.put("notes", ticketItem.getNotes());
+	    	jsonTicket.put("kitchen_status", ticketItem.getKitchenStatus());
+		} 
+	    catch (JSONException e) 
+	    {
+			e.printStackTrace();
+		}
+	    
 		try 
 		{
 			httpPost.setEntity(new StringEntity(jsonTicket.toString()));
@@ -69,6 +65,7 @@ public class SendTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void
 			if (inputStream != null)
 			{
 	 	    	result = convertInputStreamToString(inputStream);
+	 	    	ticketItem.ticketItemId = Integer.parseInt (result);
 	 	    	android.util.Log.v("order", "inserted ticket item with id: " + result + " into table");
 			}
 		} 
