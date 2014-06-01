@@ -6,6 +6,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -30,10 +31,10 @@ public class SplashScreenActivity extends Activity
 	public static Ticket ticket;
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
 	Account myAccount;
-	TextView message;
 	static boolean x = false;
 	BroadcastReceiver syncReceiver;
 	View decorView;
+	ProgressDialog dialog;
 	
 	// Set Duration of the Splash Screen
 	long Delay = 8000;
@@ -46,7 +47,7 @@ public class SplashScreenActivity extends Activity
 		syncReceiver = new SyncReceiver(this);
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+		dialog = new ProgressDialog(this);
 		// Get the view from splash_screen.xml
 		setContentView(R.layout.splash_screen);
 		
@@ -59,7 +60,7 @@ public class SplashScreenActivity extends Activity
 
 	    decorView.setSystemUiVisibility(mUIFlag);
 	   
-	    message = (TextView) findViewById(R.id.textView1);
+	    dialog = ProgressDialog.show(SplashScreenActivity.this, "Syncing with the database", "Please wait", true, false, null);
 	    // Sync adapter: create the account type and default account
 	    Account myAccount = new Account ("dummyAccount", "org.segfault.foodme");
 	    AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
@@ -85,15 +86,14 @@ public class SplashScreenActivity extends Activity
 	    intentFilter.addAction(SyncAdapter.START_SYNC);
 	    intentFilter.addAction(SyncAdapter.FINISH_SYNC);
 	    registerReceiver(syncReceiver, intentFilter);  
-
-	    updateMessage(false);
 	}
 	
 	public void updateMessage(boolean display)
 	{
 		if(display)
 		{
-			message.setText(R.string.splashMessage);
+			dialog.dismiss();
+			
 		    decorView.setOnTouchListener(new OnTouchListener() 
 		    {
 		        @Override
@@ -105,10 +105,6 @@ public class SplashScreenActivity extends Activity
 		    		return true;
 		        }
 		    });
-		}
-		else
-		{
-			message.setText(R.string.syncMessage);
 		}
 	}
 	

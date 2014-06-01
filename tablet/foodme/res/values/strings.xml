@@ -3,7 +3,7 @@
 
     <string name="app_name">foodme</string>
     <string name="splashMessage">Touch Anywhere to Continue</string>
-    <string name="syncMessage">Syncing with database, please wait</string>
+    <string name="syncMessage">Syncing with database, please wait...</string>
     <string name="entree_button">Entree</string>
     <string name="drink_button">Drink</string>
     <string name="appetizer_button">Appetizer</string>
