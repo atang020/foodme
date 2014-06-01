@@ -150,7 +150,7 @@ public class FoodDetailsFragment extends Fragment{
 						                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 						                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 						       test1.setTitle("Would you like to add a note?");
-						       EditText input = new EditText(getActivity());
+						       final EditText input = new EditText(getActivity());
 						       input.setHint("Add a note here");
 						       test1.setView(input);
 						       input.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
@@ -164,7 +164,7 @@ public class FoodDetailsFragment extends Fragment{
 					                       Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),confirmString,Toast.LENGTH_LONG);
 					                       addConfirm.show();
 					                       TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
-					                    		   lastMenuItemIndex, quantity,"", (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
+					                    		   lastMenuItemIndex, quantity,input.getText().toString(), (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
 					                       SplashScreenActivity.orders.add(test);
 					                       quantity = 0;
 										}
@@ -180,7 +180,7 @@ public class FoodDetailsFragment extends Fragment{
 					                       Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),confirmString,Toast.LENGTH_LONG);
 					                       addConfirm.show();
 					                       TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
-					                    		   lastMenuItemIndex, quantity,"", (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
+					                    		   lastMenuItemIndex, quantity,input.getText().toString(), (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
 					                       SplashScreenActivity.orders.add(test);
 					                       quantity = 0;
 										}
