@@ -40,12 +40,22 @@ exports.getAll = function (callback) {
  * @param callback
  */
 exports.getActiveOrders = function (callback) {
-	database.query('SELECT ticket_item_id, ticket_item.ticket_id, quantity, notes, table_number, name FROM ticket_item INNER JOIN menu_item ON ticket_item.menu_item_id = menu_item.menu_item_id INNER JOIN ticket ON ticket_item.ticket_id = ticket.ticket_id ORDER BY ticket_item_id ASC', function (err, ticketItems) {
+	exports.getAllAfter(0, callback);
+};
+
+/**
+ * Returns all ticket items that come after a certain ticket item
+ *
+ * @param id the most recent ticket item
+ * @param callback (err, data)
+ */
+exports.getAllAfter = function (id, callback) {
+	database.query('SELECT ticket_item_id, ticket_item.ticket_id, quantity, notes, table_number, name FROM ticket_item INNER JOIN menu_item ON ticket_item.menu_item_id = menu_item.menu_item_id INNER JOIN ticket ON ticket_item.ticket_id = ticket.ticket_id WHERE ticket_item_id > ? ORDER BY ticket_item_id ASC;', id, function (err, ticketItems) {
 		if (err) {
 			return callback(err);
 		}
 		callback(null, ticketItems);
-	})
+	});
 };
 
 /**

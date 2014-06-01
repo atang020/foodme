@@ -13,6 +13,16 @@ router.get('/', function(req, res){
 	});
 });
 
+router.get('/after/:ticketItemId', function (req, res) {
+	ticketItemModel.getAllAfter(req.params.ticketItemId, function (err, tickets) {
+		if (err) {
+			return routeHelper.jsonError(res, err);
+		}
+
+		res.json(tickets);
+	});
+});
+
 router.get('/:ticketItemId', function (req, res) {
 	ticketItemModel.get(req.params.ticketItemId, function (err, ticket) {
 		if (err) {
