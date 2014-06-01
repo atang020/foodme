@@ -2,8 +2,12 @@ package org.segfault.foodme;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.BufferedInputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import org.apache.http.util.ByteArrayBuffer;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -172,7 +176,7 @@ public class ContentResolverMenuItem
         String root = Environment.DIRECTORY_PICTURES;
       */
       /*
-      //  File myDir = new File(root /*+"/foodImages"*/);
+      //  File myDir = new File(root +"/foodImages");
         //myDir.mkdirs();
         /*
         String foodName = picturePath+".jpg";
@@ -196,5 +200,28 @@ public class ContentResolverMenuItem
             e.printStackTrace();
         }
         */
+
+        //enter url wanted to download from
+        URL url = new URL("http://jdelaney.org/uploads/sample.jpg");
+        File file = new File(fileName);
+        //specify connection
+        URLConnection ucon = url.openConnection();
+        //specift inout stream
+        InputStream is = ucon.getInputStream();
+        BufferedInputStream bis = new BufferedInputStream(is);
+        //
+        ByteArrayBuffer baf = new ByteArrayBuffer(50);
+        int current = 0;
+        while ((current = bis.read()) != -1)
+        {
+            baf.append((byte) current);
+        }
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(baf.toByteArray());
+        fos.close();
+        catch (IOException e)
+        {
+        Log.d("ImageManager", "Error: " + e);
+        }
     }
 }

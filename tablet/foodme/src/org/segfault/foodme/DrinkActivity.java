@@ -129,7 +129,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 			
 		case "Desserts": 
 			Intent dessertIntent = new Intent(DrinkActivity.this,
-					DrinkActivity.class);
+					DessertActivity.class);
 			dessertIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(dessertIntent);
 			break;
@@ -168,7 +168,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				Toast waiterConfirm = Toast.makeText(getApplicationContext(),"A waiter has been contacted.",Toast.LENGTH_SHORT);
-				new CallWaiter().execute(1);
+				new CallWaiter().execute();
 				waiterConfirm.show();
 			}
 		});

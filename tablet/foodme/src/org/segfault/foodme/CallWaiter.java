@@ -17,25 +17,26 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 
-public class CallWaiter extends AsyncTask<Integer, Void, Void> 
+// Sends HttpPut request to server to set call_waiter_status of ticket  to 1
+public class CallWaiter extends AsyncTask<Void, Void, Void> 
 {
 	@Override
-	protected Void doInBackground(Integer... params) 
+	protected Void doInBackground(Void... params) 
 	{
-		Integer newStatus = params[0];
-		putJsonObject ("http://jdelaney.org/api/tickets", makeJson(newStatus));
+		putJsonObject ("http://jdelaney.org/api/tickets", makeJson());
 		return null;
 	}	
 	
-	public JSONObject makeJson(int newStatus) 
+	// Creates JSONObject to send to server
+	public JSONObject makeJson() 
 	{
 		JSONObject json = new JSONObject();
 	    
 	    try 
 	    {
-	    	json.put("ticket_id", SplashScreenActivity.ticket.ticketId);
-	    	json.put("call_waiter_status", newStatus);
-	    	SplashScreenActivity.ticket.callWaiterStatus = (short) newStatus;
+	    	json.put("ticket_id", SplashScreenActivity.ticket.getTicketId());
+	    	json.put("call_waiter_status", 1);
+	    	SplashScreenActivity.ticket.setCallWaiterStatus ((short) 1);
 		} 
 	    catch (JSONException e) 
 	    {
@@ -44,6 +45,7 @@ public class CallWaiter extends AsyncTask<Integer, Void, Void>
 	    return json;
 	}
 	
+	// Sends JSONObject to server
 	public void putJsonObject (String uri, JSONObject jsonTicket) 
 	{
 		HttpClient httpClient = new DefaultHttpClient();
@@ -78,6 +80,7 @@ public class CallWaiter extends AsyncTask<Integer, Void, Void>
 		}
 	}
 	
+	// Converts InputStream to String type
 	private String convertInputStreamToString(InputStream inputStream) throws IOException
 	{
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
