@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 
 // Takes an ArrayList of TicketItem and sends them to the server database using http POST
-public class SendTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void> 
+public class UpdateTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void> 
 {
 	@Override
 	protected Void doInBackground(@SuppressWarnings("unchecked") ArrayList<TicketItem>... passing) 
@@ -36,7 +36,7 @@ public class SendTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void
 	public void postJsonObject (String uri, TicketItem ticketItem) 
 	{
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(uri);
+		HttpPut httpPut = new HttpPut(uri);
 		InputStream inputStream;
 		String result;
 		JSONObject jsonTicket = new JSONObject();
@@ -44,6 +44,7 @@ public class SendTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void
 	    // Convert TicketItem to JSON
 	    try 
 	    {
+	    	jsonTicket.put("ticket_item_id", ticketItem.getTicketItemId());
 	    	jsonTicket.put("ticket_id", ticketItem.getOrderId());
 	    	jsonTicket.put("menu_item_id", ticketItem.getMenuItemId());
 	    	jsonTicket.put("quantity", ticketItem.getQuantity());
@@ -57,15 +58,15 @@ public class SendTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void
 	    
 		try 
 		{
-			httpPost.setEntity(new StringEntity(jsonTicket.toString()));
-			httpPost.setHeader("Content-type", "application/json");
-			httpPost.setHeader("Accept", "application/json");
-			HttpResponse httpResponse = httpClient.execute(httpPost);
+			httpPut.setEntity(new StringEntity(jsonTicket.toString()));
+			httpPut.setHeader("Content-type", "application/json");
+			httpPut.setHeader("Accept", "application/json");
+			HttpResponse httpResponse = httpClient.execute(httpPut);
 			inputStream = httpResponse.getEntity().getContent();
 			if (inputStream != null)
 			{
 	 	    	result = convertInputStreamToString(inputStream);
-	 	    	ticketItem.ticketItemId = Integer.parseInt (result);
+	 	    	ticketItem.setTicketItemId(Integer.parseInt (result));
 	 	    	android.util.Log.v("order", "inserted ticket item with id: " + result + " into table");
 			}
 		} 

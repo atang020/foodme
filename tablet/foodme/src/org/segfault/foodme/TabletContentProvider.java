@@ -365,7 +365,7 @@ public class TabletContentProvider extends ContentProvider
 				KEY_REVIEWER + " VARCHAR(45) NULL, " +
 				KEY_RATING + " TINYINT NOT NULL, " +
 				KEY_REVIEW_TEXT + " TEXT NULL, " +
-				KEY_REVIEW_DATE + " DATETIME, " +
+				KEY_REVIEW_DATE + " VARCHAR(45), " +
 				"PRIMARY KEY (" + KEY_ID + ")," +
 				"FOREIGN KEY (" + KEY_MENU_ITEM_ID + ") REFERENCES " + DB_MENU_ITEM_TABLE +
 				"(" + KEY_MENU_ITEM_ID + "));";

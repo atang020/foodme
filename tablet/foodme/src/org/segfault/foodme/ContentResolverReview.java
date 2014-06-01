@@ -1,10 +1,6 @@
 package org.segfault.foodme;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,9 +17,12 @@ public class ContentResolverReview
 		this.context = context;
 	    ContentResolver cr = context.getContentResolver();
 	    String[] projection = new String[]{TabletContentProvider.KEY_ID,
-	    								   TabletContentProvider.KEY_NAME,
-	    								   TabletContentProvider.KEY_CATEGORY};
-	    Cursor cursor = cr.query(TabletContentProvider.SUBCATEGORY_CONTENT_URI, projection, null, null, null);
+	    								   TabletContentProvider.KEY_MENU_ITEM_ID,
+	    								   TabletContentProvider.KEY_REVIEWER,
+	    								   TabletContentProvider.KEY_RATING,
+	    								   TabletContentProvider.KEY_REVIEW_TEXT,
+	    								   TabletContentProvider.KEY_REVIEW_DATE};
+	    Cursor cursor = cr.query(TabletContentProvider.REVIEW_CONTENT_URI, projection, null, null, null);
 	    reviews.clear();
 	    // use cursor to insert rows from table into ArrayList
 	    if (cursor.moveToFirst())
@@ -69,9 +68,26 @@ public class ContentResolverReview
         return reviews.get(index).getReviewer();
     }
 	
-	public short getRating (int index)
+	public double getAvgRating (int menuItemId)
     {
-        return reviews.get(index).getRating();
+		double avg_rating = 0;
+		double num = 0;
+        for(int i = 0; i < reviews.size(); i++)
+        {
+            if (getMenuItemId(i) == menuItemId)
+            {
+            	avg_rating += (double)reviews.get(i).rating;
+            	num++;
+            }
+        }
+        if(num > 0)
+        {
+        	return (avg_rating/num);
+        }
+        else
+        {
+        	return -1.0;
+        }
     }
 	
 	public String getReviewText (int index)

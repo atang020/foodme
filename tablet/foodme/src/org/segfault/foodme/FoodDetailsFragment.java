@@ -1,5 +1,7 @@
 package org.segfault.foodme;
 
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -21,7 +23,8 @@ import android.widget.Toast;
 
 public class FoodDetailsFragment extends Fragment{
 	
-	ContentResolverMenuItem foodDetails; 
+	ContentResolverMenuItem foodDetails;
+	ContentResolverReview foodReview;
 	RatingBar ratingBar;
 	RatingBar customerRating;
 	TextView review;
@@ -48,6 +51,7 @@ public class FoodDetailsFragment extends Fragment{
         super.onStart();
         
         foodDetails = ContentResolverMenuItem.getInstance(this.getActivity());
+        foodReview = ContentResolverReview.getInstance(this.getActivity());
     	foodDescription = (TextView) getActivity().findViewById(R.id.food_description);
 		foodImage = (ImageView)getActivity().findViewById(R.id.food_image);
 		ratingNumber = (TextView) getActivity().findViewById(R.id.review_number);
@@ -85,6 +89,9 @@ public class FoodDetailsFragment extends Fragment{
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
+						Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
+								"", "");
+						new SendReview().execute(customerReview);
 						ratingConfirm.show();
 						customerRating.setRating(0);
 					}
@@ -121,7 +128,7 @@ public class FoodDetailsFragment extends Fragment{
 							addConfirm.show();
 							System.out.println(note.getText().toString());
 							note.setText("");
-							TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
+							TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), lastMenuItemIndex, 
 									(short)quantitySpinner.getSelectedItemPosition(),note.getText().toString(), (short) 0);
 							SplashScreenActivity.orders.add(test);
 							note.setText("");
@@ -153,9 +160,7 @@ public class FoodDetailsFragment extends Fragment{
     public void updateFoodDetails(int menuItemIndex)
     {
 
-    	float exa = 3;
-    	ratingBar.setRating(exa);
-    	ratingNumber.setText("Rating Number : " + exa);
+
     	foodImage.setImageResource(R.drawable.dessert);
 		if(menuItemIndex == -1)
 		{
@@ -188,6 +193,18 @@ public class FoodDetailsFragment extends Fragment{
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);
 			foodDescription.setText(foodDetails.getDescription(menuItemIndex));
+			int menuItemId = foodDetails.getMenuItemId(menuItemIndex);
+			float rating = (float)foodReview.getAvgRating(menuItemId);
+			if(rating != -1.0 )
+			{
+				ratingBar.setRating(rating);
+	    		ratingNumber.setText("\nRating Number : " + rating);
+			}
+			else
+			{
+				ratingBar.setRating(0);
+				ratingNumber.setText("\nNo rating available");
+			}
 			price.setText("Price: $" +  foodDetails.getPrice(menuItemIndex));
 		}
 		lastMenuItemIndex = menuItemIndex;
