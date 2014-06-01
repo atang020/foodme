@@ -1,21 +1,19 @@
-
-
-.modal-dialog{
-	background-color:white;
-	border-radius: 5px;
+.modal-dialog {
+    background-color: white;
+    border-radius: 5px;
 }
 
-#footerText{
-	color: #A9A9A9;
+#footerText {
+    color: #A9A9A9;
 }
 
-.signInInput{
-	margin: 5px;
-	border-radius: 3px;
+.signInInput {
+    margin: 5px;
+    border-radius: 3px;
 }
 
-.jumbotron{
-	background-color:#EFEFFF;
-{
+.jumbotron {
+    background-color: #EFEFFF;
+}
 
 
