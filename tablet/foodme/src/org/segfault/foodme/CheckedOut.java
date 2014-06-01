@@ -61,7 +61,7 @@ public class CheckedOut extends AsyncTask<Integer, Void, Void>
 			if (inputStream != null)
 			{
 	 	    	result = convertInputStreamToString(inputStream);
-	 	    	android.util.Log.v("splash", result);
+	 	    	android.util.Log.v("CheckedOut", result + "Successfully checked out");
 			}
 		} 
 		catch (UnsupportedEncodingException e) 
