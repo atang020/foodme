@@ -9,6 +9,7 @@ public class TicketItem {
 	short quantity;
 	String notes;
 	short kitchenStatus;
+	ContentResolverMenuItem foodDetails;
 	
 	public TicketItem(int orderId, int menuItemId, int menuItemIndex, short quantity,
 			String notes, short kitchenStatus) 
@@ -21,6 +22,12 @@ public class TicketItem {
 		this.kitchenStatus = kitchenStatus;
 	}
 	
+	@Override
+	public String toString() {
+		return foodDetails.getName(menuItemIndex) +" | "+ notes + " | $" + foodDetails.getPrice(menuItemIndex) 
+				+ " | " + quantity;
+	}
+
 	public int getTicketItemId() {
 		return ticketItemId;
 	}
@@ -78,4 +85,6 @@ public class TicketItem {
 	{
 		this.kitchenStatus = kitchenStatus;
 	}
+	
+	
 }
