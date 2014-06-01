@@ -137,10 +137,12 @@ public class ContentResolverMenuItem
     {
 
         URL picUrl = null;
-        try {
-            picUrl= new URL("www.jdelaney.org/uploads/"+picturePath);
+        try
+        {
+            picUrl= new URL("jdelaney.org/uploads/"+picturePath);
             bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
-        } catch (Exception except) {
+        } catch (Exception except)
+        {
             Log.v("Error downloading bitmap from url", except.getMessage());
         }
 
@@ -161,6 +163,7 @@ public class ContentResolverMenuItem
             out.flush();
             out.close();
         }
+
         catch (Exception e)
         {
             e.printStackTrace();
