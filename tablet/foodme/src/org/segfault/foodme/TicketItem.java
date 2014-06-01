@@ -28,7 +28,7 @@ public class TicketItem {
 	
 	@Override
 	public String toString() {
-		return foodDetails.getName(menuItemIndex) +" | "+ notes + " | $" + foodDetails.getPrice(menuItemIndex) 
+		return menuItemName +" | "+ notes + " | $" + price 
 				+ " | " + quantity;
 	}
 
