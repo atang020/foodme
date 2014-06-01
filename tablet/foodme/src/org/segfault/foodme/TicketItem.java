@@ -2,7 +2,7 @@ package org.segfault.foodme;
 
 public class TicketItem {
 	
-	int ticketItemId;
+	int ticketItemId = -1;
 	int orderId;
 	int menuItemIndex;
 	int menuItemId;
@@ -21,6 +21,14 @@ public class TicketItem {
 		this.kitchenStatus = kitchenStatus;
 	}
 	
+	public int getTicketItemId() {
+		return ticketItemId;
+	}
+
+	public void setTicketItemId(int ticketItemId) {
+		this.ticketItemId = ticketItemId;
+	}
+
 	public int getOrderId() 
 	{
 		return orderId;
