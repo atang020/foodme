@@ -176,11 +176,12 @@ public class FoodDetailsFragment extends Fragment{
 									public void onClick(DialogInterface dialog, int which) {
 										if(quantity != 0)
 										{
+										   String noNotesString = "(no notes)";
 					            	   	   String confirmString = (quantity) + " " + foodDetails.getName(lastMenuItemIndex) + "(s) added to cart";
 					                       Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),confirmString,Toast.LENGTH_LONG);
 					                       addConfirm.show();
 					                       TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
-					                    		   lastMenuItemIndex, quantity,input.getText().toString(), (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
+					                    		   lastMenuItemIndex, quantity,noNotesString, (short) 0, foodDetails.getName(lastMenuItemIndex), foodDetails.getPrice(lastMenuItemIndex));
 					                       SplashScreenActivity.orders.add(test);
 					                       quantity = 0;
 										}

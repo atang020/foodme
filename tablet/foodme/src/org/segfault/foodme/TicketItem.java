@@ -52,8 +52,8 @@ public class TicketItem {
 	
 	@Override
 	public String toString() {
-		return menuItemName +" | "+ notes + " | $" + price 
-				+ " | " + quantity;
+		return menuItemName +" ---- "+ notes + " ---- $" + price 
+				+ " ---- " + quantity;
 	}
 	
 	public String toString2() {
