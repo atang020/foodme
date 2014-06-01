@@ -43,7 +43,6 @@ public class FoodItemFragment extends ListFragment{
         super.onStart();
 
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        getListView().setSelector(R.drawable.list_item_selector);
     }
     
     public void onAttach(Activity activity) {

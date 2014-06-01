@@ -64,7 +64,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
        subcategoryList.setOnItemClickListener(new SubcategoryItemClickListener());
        subcategoryLayout.openDrawer(Gravity.LEFT);
        
-       subcategoryList.setSelector(R.drawable.list_item_selector);
       // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
        // Set up the action bar.

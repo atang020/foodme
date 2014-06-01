@@ -59,9 +59,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 
 	   decorView.setSystemUiVisibility(mUIFlag);
 	   
-       subcategoryNames = getResources().getStringArray(R.array.test_names);
-       subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-       subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
       // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
