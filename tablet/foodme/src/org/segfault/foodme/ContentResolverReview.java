@@ -80,6 +80,7 @@ public class ContentResolverReview
             	num++;
             }
         }
+        System.out.println((avg_rating/num));
         if(num > 0)
         {
         	return (avg_rating/num);

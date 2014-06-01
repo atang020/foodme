@@ -1,7 +1,5 @@
 package org.segfault.foodme;
 
-import java.util.Date;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,12 +10,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +32,8 @@ public class FoodDetailsFragment extends Fragment{
 	ImageView foodImage;
 	Button submitButton;
 	Button addButton;
-	Spinner quantitySpinner;
 	EditText note;
+	short quantity;
 	
 	int lastMenuItemIndex = -1;
     @Override
@@ -63,13 +60,6 @@ public class FoodDetailsFragment extends Fragment{
     	note = (EditText) getActivity().findViewById(R.id.note);
     	price = (TextView) getActivity().findViewById(R.id.price);
     	
-    	quantitySpinner = (Spinner) getActivity().findViewById(R.id.quantity_spinner);
-    	ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-    	        R.array.quantity_number, android.R.layout.simple_spinner_item);
-    	// Specify the layout to use when the list of choices appears
-    	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    	// Apply the adapter to the spinner
-    	quantitySpinner.setAdapter(adapter);
     	ratingBar.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -84,8 +74,9 @@ public class FoodDetailsFragment extends Fragment{
 				
 				dialogBuilder.setTitle("Submit Rating");
 				dialogBuilder.setMessage("Are you sure you want to give this item this rating?");
+				
 				dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-
+				
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
@@ -104,6 +95,7 @@ public class FoodDetailsFragment extends Fragment{
 					}
 				});
 				AlertDialog submitDialog = dialogBuilder.create();
+				submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 				submitDialog.show();
 				
 			}
@@ -115,40 +107,34 @@ public class FoodDetailsFragment extends Fragment{
 			@Override
 			public void onClick(View arg0) {
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-				
-				dialogBuilder.setTitle("Add Item");
-				dialogBuilder.setMessage("Are you sure you want to add this item to your cart?");
-				dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						if(quantitySpinner.getSelectedItemPosition() != 0)
-						{
-							Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),"Added to cart",Toast.LENGTH_SHORT);
-							addConfirm.show();
-							System.out.println(note.getText().toString());
-							note.setText("");
-							TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), lastMenuItemIndex, 
-									(short)quantitySpinner.getSelectedItemPosition(),note.getText().toString(), (short) 0);
-							SplashScreenActivity.orders.add(test);
-							note.setText("");
-							quantitySpinner.setSelection(0);
-
-						}
-						else
-						{
-							Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Please select a quantity",Toast.LENGTH_SHORT);
-							notAdded.show();
-						}
-					}
-				});
-				dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			       getActivity().getWindow().getDecorView().setSystemUiVisibility(
+				    		View.SYSTEM_UI_FLAG_FULLSCREEN
+			                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+			                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+				dialogBuilder.setTitle("Quantity");
+				dialogBuilder.setItems( R.array.quantity_number, new DialogInterface.OnClickListener() {
+		               @Override
+		               public void onClick(DialogInterface dialog, int which) {
+		            	   	   String confirmString = (which +1) + " " + foodDetails.getName(lastMenuItemIndex) + "(s) added to cart";
+		                       Toast addConfirm = Toast.makeText(getActivity().getApplicationContext(),confirmString,Toast.LENGTH_LONG);
+		                       addConfirm.show();
+		                       TicketItem test = new TicketItem(SplashScreenActivity.ticket.ticketId, foodDetails.getMenuItemId(lastMenuItemIndex), 
+		                    		   lastMenuItemIndex, (short)(which+1),note.getText().toString(), (short) 0);
+		                       SplashScreenActivity.orders.add(test);
+		                       System.out.println(which);
+		                       note.setText("");
+		               }
+		           });
+				dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+	                       Toast notAdded = Toast.makeText(getActivity().getApplicationContext(),"Item NOT added to cart",Toast.LENGTH_SHORT);
+	                       notAdded.show();
 					}
 				});
 				AlertDialog submitDialog = dialogBuilder.create();
+				submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 				submitDialog.show();
 				
 			}
@@ -159,8 +145,6 @@ public class FoodDetailsFragment extends Fragment{
     }
     public void updateFoodDetails(int menuItemIndex)
     {
-
-
     	foodImage.setImageResource(R.drawable.dessert);
 		if(menuItemIndex == -1)
 		{
@@ -169,7 +153,6 @@ public class FoodDetailsFragment extends Fragment{
     		customerRating.setVisibility(View.GONE);
     		leaveARating.setVisibility(View.GONE);
     		submitButton.setVisibility(View.GONE);
-    		quantitySpinner.setVisibility(View.GONE);
     		addButton.setVisibility(View.GONE);
     		note.setVisibility(View.GONE);
     		ratingNumber.setVisibility(View.GONE);
@@ -183,12 +166,10 @@ public class FoodDetailsFragment extends Fragment{
     		customerRating.setVisibility(View.VISIBLE);
     		leaveARating.setVisibility(View.VISIBLE);
     		submitButton.setVisibility(View.VISIBLE);
-    		quantitySpinner.setVisibility(View.VISIBLE);
     		addButton.setVisibility(View.VISIBLE);
     		note.setVisibility(View.VISIBLE);
     		customerRating.setRating(0);
     		note.setText("");
-    		quantitySpinner.setSelection(0);
     		ratingNumber.setVisibility(View.VISIBLE);
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);

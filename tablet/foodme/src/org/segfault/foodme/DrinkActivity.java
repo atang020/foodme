@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -62,7 +63,6 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
                R.layout.test_layout, subcategoryNames));
        subcategoryList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
        subcategoryList.setOnItemClickListener(new SubcategoryItemClickListener());
-       
        subcategoryLayout.openDrawer(Gravity.LEFT);
        
       // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -181,6 +181,7 @@ public class DrinkActivity extends FragmentActivity implements ActionBar.TabList
 			}
 		});
 		AlertDialog dialog = dialogBuilder.create();
+		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 		dialog.show();
 	}
 	

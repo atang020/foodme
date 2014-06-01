@@ -3,6 +3,7 @@
 
     <string name="app_name">foodme</string>
     <string name="splashMessage">Touch Anywhere to Continue</string>
+    <string name="syncMessage">Syncing with database, please wait...</string>
     <string name="entree_button">Entree</string>
     <string name="drink_button">Drink</string>
     <string name="appetizer_button">Appetizer</string>
@@ -28,37 +29,11 @@
  	    sodjflsadjfasdfasdfj
  	    wpfp</string>
    	<string-array
-        name="test_names">
-        <item>test1</item>
-        <item>test2</item>
-        <item>test3</item>
-        <item>TESTFOUR</item>
-   	</string-array>
-   	<string-array
    	    name="quantity_number">
-   	    <item>Select Quantity</item>
    	    <item>1</item>
    	    <item>2</item>
    	    <item>3</item>
    	    <item>4</item>
    	    <item>5</item>
-   	</string-array>
-   	<string-array
-   	    name ="test_fragments">
-   	    <item>fooditem1</item>
-   	    <item>fooditem2</item>
-   	    <item>fooditem3</item>
-   	    <item>fooditem1</item>
-   	    <item>fooditem2</item>
-   	    <item>fooditem3</item>
-   	    <item>fooditem1</item>
-   	    <item>fooditem2</item>
-   	    <item>fooditem3</item>
-   	    <item>fooditem1</item>
-   	    <item>fooditem2</item>
-   	    <item>fooditem3</item>
-   	    <item>fooditem1</item>
-   	    <item>fooditem2</item>
-   	    <item>fooditem3</item>
    	</string-array>
 </resources>

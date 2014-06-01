@@ -6,12 +6,17 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.TextView;
@@ -27,9 +32,10 @@ public class SplashScreenActivity extends Activity
 	public static Ticket ticket;
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
 	Account myAccount;
-	TextView message;
 	static boolean x = false;
+	BroadcastReceiver syncReceiver;
 	View decorView;
+	ProgressDialog dialog;
 	
 	// Set Duration of the Splash Screen
 	long Delay = 8000;
@@ -39,9 +45,10 @@ public class SplashScreenActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		
+		syncReceiver = new SyncReceiver(this);
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+		dialog = new ProgressDialog(this);
 		// Get the view from splash_screen.xml
 		setContentView(R.layout.splash_screen);
 		
@@ -54,19 +61,8 @@ public class SplashScreenActivity extends Activity
 
 	    decorView.setSystemUiVisibility(mUIFlag);
 	   
-	    decorView.setOnTouchListener(new OnTouchListener() 
-	    {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) 
-	        {
-	    		Intent myIntent = new Intent(SplashScreenActivity.this,
-						MainMenuActivity.class);
-	    		startActivity(myIntent);
-	    		return true;
-	        }
-	    });
-	    message = (TextView) findViewById(R.id.textView1);
-	    message.setText("omg");
+	    dialog = ProgressDialog.show(SplashScreenActivity.this, "Syncing with the database", "Please wait", true, false, null);
+	    dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 	    // Sync adapter: create the account type and default account
 	    Account myAccount = new Account ("dummyAccount", "org.segfault.foodme");
 	    AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
@@ -78,9 +74,55 @@ public class SplashScreenActivity extends Activity
 	    bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 	    ContentResolver.requestSync (myAccount, "org.segfault.foodme.tabdbprovider", bundle);
 	    
+	    
 	    // Insert new Ticket into server table and retrieve ticketId
 	    ticket = new Ticket ();
 	    new CreateTicket().execute();
 	}
 	
+	@Override
+	public void onResume() {
+	    super.onResume();
+
+	    IntentFilter intentFilter = new IntentFilter();
+	    intentFilter.addAction(SyncAdapter.START_SYNC);
+	    intentFilter.addAction(SyncAdapter.FINISH_SYNC);
+	    registerReceiver(syncReceiver, intentFilter);  
+	}
+	
+	public void updateMessage(boolean display)
+	{
+		if(display)
+		{
+			dialog.dismiss();
+			
+		    decorView.setOnTouchListener(new OnTouchListener() 
+		    {
+		        @Override
+		        public boolean onTouch(View v, MotionEvent event) 
+		        {
+		    		Intent myIntent = new Intent(SplashScreenActivity.this,
+							MainMenuActivity.class);
+		    		startActivity(myIntent);
+		    		return true;
+		        }
+		    });
+		}
+	}
+	
+	private class SyncReceiver extends BroadcastReceiver {
+
+	    private SplashScreenActivity splashScreen;
+
+	    public SyncReceiver(SplashScreenActivity activity) {
+	    	splashScreen = activity;
+	    }
+
+	    @Override
+	    public void onReceive(Context context, Intent intent) {
+	    	if (intent.getAction().equals(SyncAdapter.FINISH_SYNC)) {
+	        	splashScreen.updateMessage(true);
+	        }
+	    }
+	}
 }

@@ -7,11 +7,13 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncResult;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,15 +26,17 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 {
 	private static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	private static final String PREFIX = "content://" + AUTHORITY;
+	public static final String START_SYNC = "sync in progress";
+	public static final String FINISH_SYNC = "done syncing";
 	
 	Context context;
 	ContentResolver myContentResolver;
+	
 	
 	public SyncAdapter(Context context, boolean autoInitialize) 
 	{
 		super(context, autoInitialize);
 		this.context = context;
-		
 		// Get an instance of the content resolver from incoming Context
 		myContentResolver = context.getContentResolver();
 	}
@@ -51,6 +55,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 	{
 		try 
 		{
+			Intent i = new Intent();
+			i.setAction(START_SYNC);
+			this.context.sendBroadcast(i);
 			android.util.Log.v("sync", "syncing with server database");
 			deleteMenuItems(provider);
 			insertMenuItems(provider);
@@ -61,6 +68,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter
 			deleteReviews(provider);
 			insertReviews(provider);
 			android.util.Log.v("sync", "reviews inserted");
+			Intent finishIntent = new Intent();
+			finishIntent.setAction(FINISH_SYNC);
+			this.context.sendBroadcast(finishIntent);
+			System.out.println("check");
 		} 
 		catch (RemoteException | IOException e) 
 		{

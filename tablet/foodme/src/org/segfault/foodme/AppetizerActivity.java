@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -48,6 +49,7 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 	   subcategoryNames = subcategoryProvider.getSubcategoryNamesByCategory(0);
        subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
        subcategoryList = (ListView) findViewById(R.id.left_drawer);
+
        
        // Set the adapter for the list view
        subcategoryList.setAdapter(new ArrayAdapter<String>(this,
@@ -154,6 +156,7 @@ public class AppetizerActivity extends FragmentActivity implements ActionBar.Tab
 		});
 		
 		AlertDialog dialog = dialogBuilder.create();
+		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 		dialog.show();
 	}
 

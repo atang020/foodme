@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -59,9 +60,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 
 	   decorView.setSystemUiVisibility(mUIFlag);
 	   
-       subcategoryNames = getResources().getStringArray(R.array.test_names);
-       subcategoryLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-       subcategoryList = (ListView) findViewById(R.id.left_drawer);
        
       // mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
@@ -340,6 +338,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			}
 		});
 		AlertDialog dialog = dialogBuilder.create();
+		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 		dialog.show();
 	}
 }

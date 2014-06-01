@@ -32,8 +32,10 @@ public class FoodItemFragment extends ListFragment{
         	int subcategoryID = test.getInt(ARG_SUBCATEGORY_NUMBER);
         	names = foodItemNames.getItemsBySubcategory(subcategoryID);
         }
+        
     	adapter = (new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_list_item_activated_1 , names ));
     	setListAdapter(adapter);
+    	
     }
     
     @Override

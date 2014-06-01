@@ -22,6 +22,7 @@
 	<TableRow >
 	    <RatingBar
         android:id="@+id/ratingBar"
+        style = "@style/MyRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"/>
@@ -52,20 +53,14 @@
 		<TextView
 		    android:id="@+id/price"
 		    android:layout_width="300dp"
-		    android:layout_height="wrap_content" />
+		    android:layout_height="wrap_content"
+		    android:text="Large Text" />
 		</TableRow>
 		
 		
 	<TableRow >
-	    <Spinner
-  		android:id="@+id/quantity_spinner"
-    	android:layout_width="150dip"
-    	android:layout_height="wrap_content"
-    	android:dropDownWidth="150dp" />
-	    
 	    <Button
 	        android:id="@+id/add_button"
-	        style="?android:attr/buttonStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:maxWidth="60dp"
@@ -77,6 +72,7 @@
 
 	   	<RatingBar
         	android:id="@+id/customerRating"
+        	style = "@style/MyRatingBar"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:numStars="5"
