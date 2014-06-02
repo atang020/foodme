@@ -19,17 +19,15 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 
 // Takes an ArrayList of TicketItem and sends them to the server database using http POST
-public class SendTicketItems extends AsyncTask<ArrayList<TicketItem>, Void, Void> 
+public class SendTicketItems extends AsyncTask<TicketItem, Void, Void> 
 {
 	@Override
-	protected Void doInBackground(@SuppressWarnings("unchecked") ArrayList<TicketItem>... passing) 
+	protected Void doInBackground(@SuppressWarnings("unchecked") TicketItem... passing) 
 	{
-		ArrayList<TicketItem> passed = passing[0];
+		TicketItem passed = passing[0];
 		
 		// Convert each TicketItem to JSONObject and send to server
-		for (int index = 0; index < passed.size(); index++) {
-			postJsonObject ("http://jdelaney.org/api/ticketitems", passed.get(index));
-		}
+		postJsonObject ("http://jdelaney.org/api/ticketitems", passed);
 		return null;
 	}
 	
