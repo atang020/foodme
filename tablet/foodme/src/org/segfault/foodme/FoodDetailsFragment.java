@@ -82,7 +82,8 @@ public class FoodDetailsFragment extends Fragment{
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
 				
 				dialogBuilder.setTitle("Submit Rating");
-				dialogBuilder.setMessage("Are you sure you want to give this item this rating?");
+				dialogBuilder.setMessage("Are you sure you want to give this item a rating of " + customerRating.getRating() + "?");
+				 
 				
 				dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
 				
@@ -275,7 +276,6 @@ public class FoodDetailsFragment extends Fragment{
 						       AlertDialog submitDialog = test1.create();
 								submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 								submitDialog.show();
-								submitDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 						}
 						else
 						{
