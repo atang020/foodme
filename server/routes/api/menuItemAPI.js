@@ -35,14 +35,13 @@ router.post('/', function (req, res) {
 });
 
 router.post('/:menuItemId/photo', function (req, res) {
-	console.log(JSON.stringify(req.files));
 	menuItemModel.updatePhoto(req.params.menuItemId, req.files.file.name, function (err, path) {
 		if (err) {
 			return routeHelper.jsonError(res, err);
 		}
 
 		res.send(path);
-	})
+	});
 });
 
 router.put('/', function (req, res) {
