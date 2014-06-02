@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/background">
     
-	<ImageView
+	<WebView
 	    android:id="@+id/food_image"
 	            android:layout_width="wrap_content"
         android:layout_height="wrap_content"

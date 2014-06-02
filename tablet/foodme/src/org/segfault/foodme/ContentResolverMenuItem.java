@@ -76,7 +76,8 @@ public class ContentResolverMenuItem
 
     public String getPicturePath(int index)
     {
-        return menuItems.get(index).getPicturePath();
+    	String s = "http://jdelaney.org/uploads/"+menuItems.get(index).getPicturePath();
+        return s;
     }
     
     public Bitmap getPicture(int index)
@@ -145,7 +146,7 @@ public class ContentResolverMenuItem
         boolean picNotFound=false;
         try
         {
-            picUrl= new URL("http://jdelaney.org/uploads/"+picturePath);
+            picUrl= new URL("http://jdelaney.org/uploads/sample.jpg");
             bmp = BitmapFactory.decodeStream(picUrl.openConnection().getInputStream());
             System.out.println("URL: " + picUrl);
             System.out.println("Fuck yeah this works");

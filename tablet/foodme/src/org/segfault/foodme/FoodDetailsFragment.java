@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ public class FoodDetailsFragment extends Fragment{
 	TextView foodDescription;
 	TextView leaveARating;
 	TextView price;
-	ImageView foodImage;
+	WebView foodImage;
 	Button submitButton;
 	Button addButton;
 	Button getReview;
@@ -55,11 +56,12 @@ public class FoodDetailsFragment extends Fragment{
     
     @Override
     public void onStart() {
+    	//stuff
         super.onStart();
         foodDetails = ContentResolverMenuItem.getInstance(this.getActivity());
         foodReview = ContentResolverReview.getInstance(this.getActivity());
     	foodDescription = (TextView) getActivity().findViewById(R.id.food_description);
-		foodImage = (ImageView)getActivity().findViewById(R.id.food_image);
+		foodImage = (WebView)getActivity().findViewById(R.id.food_image);
 		ratingNumber = (TextView) getActivity().findViewById(R.id.review_number);
     	ratingBar = (RatingBar) getActivity().findViewById(R.id.ratingBar);
     	customerRating = (RatingBar) getActivity().findViewById(R.id.customerRating);
@@ -374,7 +376,7 @@ public class FoodDetailsFragment extends Fragment{
     }
     public void updateFoodDetails(int menuItemIndex)
     {
-    	foodImage.setImageResource(R.drawable.dessert);
+    	
 		if(menuItemIndex == -1)
 		{
 			foodDescription.setVisibility(View.GONE);
@@ -401,6 +403,7 @@ public class FoodDetailsFragment extends Fragment{
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);
     		getReview.setVisibility(View.VISIBLE);
+    		foodImage.loadUrl(foodDetails.getPicturePath(menuItemIndex));
 			foodDescription.setText(foodDetails.getDescription(menuItemIndex));
 			int menuItemId = foodDetails.getMenuItemId(menuItemIndex);
 			float rating = (float)foodReview.getAvgRating(menuItemId);
