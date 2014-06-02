@@ -20,7 +20,7 @@ block content
 									- if(i !== currentSettings.sortBy.menu_index)
 										li
 											a(href='/statistics?sortBy=#{menuOptions.sortBy[i].val}&cutoff=#{currentSettings.cutoff.val}&ascending=#{currentSettings.ascending.val}') #{menuOptions.sortBy[i].name}
-					div.btn.group
+					div.btn-group
 						div.dropdown(id='cutoffDropdown')
 							button.btn.btn-success(type='button',data-toggle='dropdown') #{currentSettings.cutoff.name} 
 								span.caret
@@ -29,7 +29,7 @@ block content
 									- if(i !== currentSettings.cutoff.menu_index)
 										li
 											a(href='/statistics?sortBy=#{currentSettings.sortBy.val}&cutoff=#{menuOptions.cutoff[i].val}&ascending=#{currentSettings.ascending.val}') #{menuOptions.cutoff[i].name}
-					div.btn.group
+					div.btn-group
 						div.dropdown(id='ascendingDropdown')
 							button.btn.btn-success(type='button',data-toggle='dropdown') #{currentSettings.ascending.name} 
 								span.caret
