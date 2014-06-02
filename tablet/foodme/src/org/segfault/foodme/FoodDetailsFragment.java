@@ -140,7 +140,6 @@ public class FoodDetailsFragment extends Fragment{
 									System.out.println(customerRating.getRating());
 									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
 											"", "");
-
 									new SendReview().execute(customerReview);
 									customerRating.setRating(0);
 
@@ -324,15 +323,24 @@ public class FoodDetailsFragment extends Fragment{
 				ArrayList<String>customerRatings = new ArrayList<String>();
 				String customerName;
 				String customerReview;
+				Short customerRating;
 				if(reviews.size() > 0)
 				{
 					for(int i = 0; i < reviews.size(); i++)
 					{
 						customerName = reviews.get(i).getReviewer();
 						customerReview = reviews.get(i).getReviewText();
-						if(!customerName.equals(""))
+						customerRating = reviews.get(i).getRating();
+						if(customerRating != 0)
 						{
-							customerRatings.add(reviews.get(i).getReviewer() + ":\n" + reviews.get(i).getReviewText());
+							if(customerName.length() > 0 && customerReview.length()>0)
+							{
+								customerRatings.add("Name: " + customerName + "\nReview: " + customerReview + "\nRating: " + customerRating);
+							}
+							else
+							{
+								customerRatings.add("Name: Anomoyomous \nReview: None \nRating: " + customerRating);
+							}
 						}
 					}
 				}
