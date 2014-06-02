@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -39,6 +38,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 
 	private ViewPager mViewPager;
 	ArrayList<TicketItem> item = SplashScreenActivity.orders;
+	ArrayList<TicketItem> sentItems = new ArrayList<TicketItem>();
 	ArrayAdapter<String> adapter; 
 	private AlertDialog.Builder dialogBuild;
 	private AlertDialog.Builder dialogBuild1;
@@ -157,12 +157,13 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 				Toast makeText = Toast.makeText(getApplicationContext(),"Successfully checked out. A waiter will be with you shortly", Toast.LENGTH_SHORT);
 				makeText.show();
 				item = null;
-				SplashScreenActivity.orders = null;
 				adapter = null;
+				
 				Intent homeIntent = new Intent(MyOrderActivity.this,
-						MainMenuActivity.class);
+						SplashScreenActivity.class);
 				homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-				startActivity(homeIntent); 
+				
+				startActivity(homeIntent);
 			}
 	 });
 	     
@@ -187,15 +188,25 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which)
 			{
+				String sentString;
 				new SendTicketItems().execute(item);
 				Toast makeText = Toast.makeText(getApplicationContext(),"Order has been sent to the kitchen", Toast.LENGTH_SHORT);
 				makeText.show();
 				
-				// TODO Grey out items after pressing Send To Kitchen
-				//adapter.remove(item.get(position).toString());
-				String s1 = item.get(0).toString2();
+				// TODO Grey out or remove items after pressing Send To Kitchen
+				// adapter.remove(item.get(position).toString());
+				/*String s1 = item.get(0).toString2();
 				adapter.remove(item.get(0).toString());
-				adapter.add(s1);
+				adapter.add(s1);*/
+				
+				for(int i = 0; i < item.size(); i++)
+				{
+				  //sentItems.add(item.get(i));
+				  //sentString = sentItems.get(i).toString2();
+				  //adapter.add(sentString);
+				  adapter.remove(item.get(i).toString());
+				  item.remove(i);
+				}
 				
 				//adapter.remove(item.get(position).toString());
 				//item.remove(position);
@@ -209,6 +220,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			// TODO Auto-generated method stub
 				Toast makeText = Toast.makeText(getApplicationContext(),"Order has not been sent to kitchen.", Toast.LENGTH_SHORT);
 				makeText.show();
+
 			}
 		});
 			AlertDialog dialogConfirm = dialogBuild1.create();
@@ -301,9 +313,9 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		BigDecimal sum = new BigDecimal("0");
 		for (int i = 0; i < item.size(); i++)
 		{
-		//	sum += item.get(i).getPrice() * item.get(i).getQuantity();
+			sum.add(new BigDecimal(item.get(i).getPrice() * item.get(i).getQuantity()));
 		}
-		return "Subtotal: "+ sum;
+		return "Subtotal: "+ 200;
 	}
 	
 
