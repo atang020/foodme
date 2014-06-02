@@ -3,36 +3,41 @@ extends layout
 block header
 	script(src='/js/orders.js')
 
-block content
+block content					
 	div.container
 		div.jumbotron
 			h1 Statistics
 			div.panel.panel-default
 				div.panel-heading.clearfix
 					h4.panel-title
-						p menu items: 
-						div.button-group.pull-left
-							div.dropdown(id='sortingDropdown')
-								button.btn.btn-default(type='button',data-toggle='dropdown') most popular &#9660;
-								ul.dropdown-menu(role='menu')
-									li
-										a most popular
-									li
-										a top rated
-									li
-										a most profitable
-							div.dropdown(id='timeDropdown')
-								button.btn.btn-default(type='button',data-toggle='dropdown') this week &#9660;	
-								ul.dropdown-menu(role='menu')
-									li
-										a today
-									li
-										a this week
-									li
-										a this month
-									li
-										a this year
-				div.panel-body
+						p menu items:
+					div.btn-group
+						div.dropdown(id='sortByDropdown')
+							button.btn.btn-success(type='button',data-toggle='dropdown') #{currentSettings.sortBy.name} 
+								span.caret
+							ul.dropdown-menu(role='menu')
+								- for (var i = 0; i < menuOptions.sortBy.length; ++i)
+									- if(i !== currentSettings.sortBy.menu_index)
+										li
+											a(href='/statistics?sortBy=#{menuOptions.sortBy[i].val}&cutoff=#{currentSettings.cutoff.val}&ascending=#{currentSettings.ascending.val}') #{menuOptions.sortBy[i].name}
+					div.btn-group
+						div.dropdown(id='cutoffDropdown')
+							button.btn.btn-success(type='button',data-toggle='dropdown') #{currentSettings.cutoff.name} 
+								span.caret
+							ul.dropdown-menu(role='menu')
+								- for (var i = 0; i < menuOptions.cutoff.length; ++i)
+									- if(i !== currentSettings.cutoff.menu_index)
+										li
+											a(href='/statistics?sortBy=#{currentSettings.sortBy.val}&cutoff=#{menuOptions.cutoff[i].val}&ascending=#{currentSettings.ascending.val}') #{menuOptions.cutoff[i].name}
+					div.btn-group
+						div.dropdown(id='ascendingDropdown')
+							button.btn.btn-success(type='button',data-toggle='dropdown') #{currentSettings.ascending.name} 
+								span.caret
+							ul.dropdown-menu(role='menu')
+								- for (var i = 0; i < menuOptions.sortBy.length; ++i)
+									- if(i !== currentSettings.ascending.menu_index)
+										li
+											a(href='/statistics?sortBy=#{currentSettings.sortBy.val}&cutoff=#{currentSettings.cutoff.val}&ascending=#{menuOptions.ascending[i].val}') #{menuOptions.ascending[i].name}
 					table.table
 						thead
 							tr

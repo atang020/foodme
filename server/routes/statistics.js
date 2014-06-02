@@ -24,7 +24,38 @@ router.get('/', function (req, res) {
 				if (err) {
 					res.send(500, 'error connecting to database');
 				}
-				res.render('statistics', {user: {email: req.cookies.email}, items: menu_items});
+				//set the options available to the user
+				var menuOptions = {sortBy:[{name: 'most popular', val : 'numberOrdered'},{name: 'most profitable', val : 'profit'}],
+								cutoff: [{name: 'today', val : null},{name: 'this week', val : null}, {name: 'this month', val : null}],
+								ascending: [{name: 'ascending', val : true},{name: 'descending', val : false}]};
+				
+				//figure out which one of the options we are currently on
+				var currentSortBy = {name: sortBy, val: sortBy, menu_index : -1};
+				for(var i = 0; i < menuOptions.sortBy.length; i++) {
+					if(currentSortBy.val === menuOptions.sortBy[i].val) {
+						currentSortBy.name = menuOptions.sortBy[i].name;
+						currentSortBy.menu_index = i;
+						break;
+					}
+				}
+				
+				var currentCutoff = {name: cutoff, val: cutoff, menu_index : -1};
+				for(var i = 0; i < menuOptions.cutoff.length; i++) {
+					if(currentCutoff.val === menuOptions.cutoff[i].val) {
+						currentCutoff.name = menuOptions.cutoff[i].name;
+						currentCutoff.menu_index = i;
+						break;
+					}
+				}
+				
+				var currentAscending = {name: 'descending', val: false, menu_index : 1};
+				if(ascending)
+					currentAscending = {name: 'ascending', val: true, menu_index : 0};
+				
+					
+				var currentSettings = {cutoff : currentCutoff, sortBy : currentSortBy, ascending: currentAscending};
+				
+				res.render('statistics', {user: {email: req.cookies.email}, items: menu_items, currentSettings : currentSettings, menuOptions : menuOptions});
 			});
 		}
 	});
