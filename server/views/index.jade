@@ -7,4 +7,4 @@ block content
 			p Welcome to FoodMe!
 			- if(!user)
 				p Sign in to get started
-				button(class='btn btn-primary btn-lg', type='button', data-toggle='modal', data-target='#loginModal') sign in
+				button(class='btn btn-primary btn-lg', type='button', onclick='showLoginModal(\'#{redirect}\')') sign in

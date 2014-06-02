@@ -25,7 +25,7 @@ exports.isValidUser = function (email, password, callback) {
 exports.redirectIfLoggedOut = function (req, res, callback) {
 	routeHelper.isValidUser(req.cookies.email, req.cookies.password, function (err, isUser, user) {
 		if (err || !isUser) {
-			res.redirect('/');
+			res.redirect('/?redirect=' + encodeURIComponent(req.originalUrl));
 			callback(false);
 		}
 		else {
