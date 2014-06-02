@@ -2,8 +2,10 @@ package org.segfault.foodme;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,10 +17,12 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +41,7 @@ public class FoodDetailsFragment extends Fragment{
 	ImageView foodImage;
 	Button submitButton;
 	Button addButton;
+	Button getReview;
 	BigDecimal itemPrice;
 	short quantity = 0;
 	
@@ -62,7 +67,7 @@ public class FoodDetailsFragment extends Fragment{
     	submitButton = (Button) getActivity().findViewById(R.id.submit_button);
     	addButton = (Button) getActivity().findViewById(R.id.add_button);
     	price = (TextView) getActivity().findViewById(R.id.price);
-    	
+    	getReview = (Button) getActivity().findViewById(R.id.get_review);
     	ratingBar.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -108,12 +113,21 @@ public class FoodDetailsFragment extends Fragment{
 								
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
-									ratingConfirm.show();
-									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), name.getText().toString(), 
-											(short)customerRating.getRating(), review.getText().toString(), "");
-									new SendReview().execute(customerReview);
-									customerRating.setRating(0);
+									if(name.getText().toString().length() > 0 && review.getText().toString().length() > 0)
+									{
+										Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
+										ratingConfirm.show();
+										Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), name.getText().toString(), 
+												(short)customerRating.getRating(), review.getText().toString(), "");
+										new SendReview().execute(customerReview);
+										customerRating.setRating(0);
+									}
+									else
+									{
+										Toast empty = Toast.makeText(getActivity().getApplicationContext(),"Name and/or review empty",Toast.LENGTH_SHORT);
+										empty.show();
+										customerRating.setRating(0);
+									}
 
 								}
 							});
@@ -126,7 +140,6 @@ public class FoodDetailsFragment extends Fragment{
 									System.out.println(customerRating.getRating());
 									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
 											"", "");
-
 									new SendReview().execute(customerReview);
 									customerRating.setRating(0);
 
@@ -286,6 +299,75 @@ public class FoodDetailsFragment extends Fragment{
 				
 			}
     	});
+    	
+    	getReview.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+				
+				
+				dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener()
+				{
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						
+					}
+					
+				});
+
+				
+				ArrayList<Review> reviews = foodReview.getReviewByMenuItemId(foodDetails.getMenuItemId(lastMenuItemIndex));
+				
+				ArrayList<String>customerRatings = new ArrayList<String>();
+				String customerName;
+				String customerReview;
+				Short customerRating;
+				if(reviews.size() > 0)
+				{
+					for(int i = 0; i < reviews.size(); i++)
+					{
+						customerName = reviews.get(i).getReviewer();
+						customerReview = reviews.get(i).getReviewText();
+						customerRating = reviews.get(i).getRating();
+						if(customerRating != 0)
+						{
+							if(customerName.length() > 0 && customerReview.length()>0)
+							{
+								customerRatings.add("Name: " + customerName + "\nReview: " + customerReview + "\nRating: " + customerRating);
+							}
+							else
+							{
+								customerRatings.add("Name: Anonymous \nReview: Not available \nRating: " + customerRating);
+							}
+						}
+					}
+				}
+				else
+				{
+					customerRatings.add("No customer reviews available");
+				}
+				ArrayAdapter<String> hi = new ArrayAdapter<String>(getActivity(),
+		                android.R.layout.simple_list_item_1,
+		                customerRatings);
+				dialogBuilder.setTitle("Customer Ratings");
+				dialogBuilder.setAdapter(hi, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+				AlertDialog dialog = dialogBuilder.create();
+				dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+				dialog.show();
+			}
+    		
+    	});
     	ratingBar.setFocusable(false);
     	
         updateFoodDetails(lastMenuItemIndex);
@@ -304,6 +386,7 @@ public class FoodDetailsFragment extends Fragment{
     		ratingNumber.setVisibility(View.GONE);
     		ratingBar.setVisibility(View.GONE);
     		price.setVisibility(View.GONE);
+    		getReview.setVisibility(View.GONE);
 		}
 		else
 		{
@@ -317,6 +400,7 @@ public class FoodDetailsFragment extends Fragment{
     		ratingNumber.setVisibility(View.VISIBLE);
     		ratingBar.setVisibility(View.VISIBLE);
     		price.setVisibility(View.VISIBLE);
+    		getReview.setVisibility(View.VISIBLE);
 			foodDescription.setText(foodDetails.getDescription(menuItemIndex));
 			int menuItemId = foodDetails.getMenuItemId(menuItemIndex);
 			float rating = (float)foodReview.getAvgRating(menuItemId);
@@ -335,5 +419,6 @@ public class FoodDetailsFragment extends Fragment{
 			price.setText("Price: $" +  itemPrice.toString());
 		}
 		lastMenuItemIndex = menuItemIndex;
+		System.out.println(lastMenuItemIndex + "asdf");
     }
 }
