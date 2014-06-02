@@ -339,7 +339,7 @@ public class FoodDetailsFragment extends Fragment{
 							}
 							else
 							{
-								customerRatings.add("Name: Anomoyomous \nReview: None \nRating: " + customerRating);
+								customerRatings.add("Name: Anonymous \nReview: Not available \nRating: " + customerRating);
 							}
 						}
 					}
