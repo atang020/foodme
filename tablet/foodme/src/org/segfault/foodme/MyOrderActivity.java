@@ -153,7 +153,11 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 					short a = 1;
 					item.get(i).setKitchenStatus(a);
 				}
-				new SendTicketItems().execute(item);
+
+				for(int i = 0; i < item.size(); i++) {
+					new SendTicketItems().execute(item.get(i));
+				}
+				
 				Toast makeText = Toast.makeText(getApplicationContext(),"Successfully checked out. A waiter will be with you shortly", Toast.LENGTH_SHORT);
 				makeText.show();
 				item = null;
@@ -188,8 +192,13 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which)
 			{
-				String sentString;
-				new SendTicketItems().execute(item);
+				for(int i = 0; i < item.size(); i++) {
+					short a = 1;
+					item.get(i).setKitchenStatus(a);
+				}
+				for(int i = 0; i < item.size(); i++) {
+					new SendTicketItems().execute(item.get(i));
+				}
 				Toast makeText = Toast.makeText(getApplicationContext(),"Order has been sent to the kitchen", Toast.LENGTH_SHORT);
 				makeText.show();
 				
@@ -198,14 +207,17 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 				/*String s1 = item.get(0).toString2();
 				adapter.remove(item.get(0).toString());
 				adapter.add(s1);*/
-				
-				for(int i = 0; i < item.size(); i++)
-				{
+				System.out.println("item size: " + item.size());
+				int itemSize = item.size();
+				for(int i = 0; i < itemSize; i++)
+				{	
+					System.out.println("item name: " + item.get(0).getMenuItemName());
+					System.out.println("ITEM SIZEX: " + item.size());
 				  //sentItems.add(item.get(i));
 				  //sentString = sentItems.get(i).toString2();
 				  //adapter.add(sentString);
-				  adapter.remove(item.get(i).toString());
-				  item.remove(i);
+				  adapter.remove(item.get(0).toString());
+				  item.remove(0);
 				}
 				
 				//adapter.remove(item.get(position).toString());
@@ -310,12 +322,17 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 	
 	public String subTotal()
 	{
-		BigDecimal sum = new BigDecimal("0");
+		BigDecimal sum = new BigDecimal(0);
+		BigDecimal bg1, bg2, bg3;
 		for (int i = 0; i < item.size(); i++)
 		{
-			sum.add(new BigDecimal(item.get(i).getPrice() * item.get(i).getQuantity()));
+			bg1 = new BigDecimal(item.get(i).getPrice());
+			bg2 = new BigDecimal(item.get(i).getQuantity());
+			bg3 = bg2.multiply(bg1);
+			sum = sum.add(bg3);
 		}
-		return "Subtotal: "+ 200;
+		sum = sum.setScale(2);
+		return "Subtotal: "+ sum;
 	}
 	
 

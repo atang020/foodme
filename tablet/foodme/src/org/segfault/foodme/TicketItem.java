@@ -1,5 +1,7 @@
 package org.segfault.foodme;
 
+import java.math.BigDecimal;
+
 public class TicketItem {
 	
 	int ticketItemId = -1;
@@ -52,8 +54,10 @@ public class TicketItem {
 	
 	@Override
 	public String toString() {
-		return menuItemName +" ---- "+ notes + " ---- $" + price 
-				+ " ---- " + quantity;
+		BigDecimal bigPrice = new BigDecimal(price);
+		bigPrice = bigPrice.setScale(2);
+		return menuItemName +" ---- "+ notes + " ---- $" + bigPrice
+		+ " ---- " + quantity;
 	}
 	
 	public String toString2() {
