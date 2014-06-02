@@ -5,8 +5,8 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -21,9 +21,7 @@ import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +60,7 @@ public class FoodDetailsFragment extends Fragment{
         foodReview = ContentResolverReview.getInstance(this.getActivity());
     	foodDescription = (TextView) getActivity().findViewById(R.id.food_description);
 		foodImage = (WebView)getActivity().findViewById(R.id.food_image);
+		foodImage.setBackgroundColor(Color.TRANSPARENT);
 		ratingNumber = (TextView) getActivity().findViewById(R.id.review_number);
     	ratingBar = (RatingBar) getActivity().findViewById(R.id.ratingBar);
     	customerRating = (RatingBar) getActivity().findViewById(R.id.customerRating);
@@ -422,6 +421,5 @@ public class FoodDetailsFragment extends Fragment{
 			price.setText("Price: $" +  itemPrice.toString());
 		}
 		lastMenuItemIndex = menuItemIndex;
-		System.out.println(lastMenuItemIndex + "asdf");
     }
 }
