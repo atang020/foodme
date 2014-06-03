@@ -98,6 +98,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
   		button.setOnClickListener(new View.OnClickListener(){
   			public void onClick(View v){
   				confirmation();
+  				
+  				// TODO Sync with database again here
   			}
   		});
   		
@@ -256,16 +258,28 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which)
 			{		
+				String readyString = "Ready to send!";
+				String inString;
 				short showMessage = 0;
-				// Set kitchen status for checked items
+				
+				// Set kitchen status for items that are ready to send
 				for(int i = 0; i < item.size(); i++) {
-					short a = 1;		
-					item.get(i).setKitchenStatus(a);
+					
+					inString = item.get(i).getCheckStatus();
+					
+					if(readyString.compareTo(inString) == 0) {
+						short a = 1;		
+						item.get(i).setKitchenStatus(a);
+					}
 				}
 				
-				// Executed send for checked items
+				// Executed send for items that are ready to send
 				for(int i = 0; i < item.size(); i++) {
+					inString = item.get(i).getCheckStatus();
+					
+					if(readyString.compareTo(inString) == 0) {
 						new SendTicketItems().execute(item.get(i));
+					}
 				}
 				
 				int itemSize = item.size();
@@ -276,8 +290,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 				// Clear sent items from ListView
 				for(int i = 0; i < itemSize; i++)
 				{	 
-					String readyString = "Ready to send!";
-					String inString = item.get(incr).getCheckStatus();
+					inString = item.get(incr).getCheckStatus();
 					
 					if(readyString.compareTo(inString) == 0)
 					{
