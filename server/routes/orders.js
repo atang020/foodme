@@ -7,7 +7,14 @@ routeHelper = require('../routes/routeHelper');
 router.get('/', function (req, res) {
 	routeHelper.redirectIfLoggedOut(req, res, function (loggedIn) {
 		if (loggedIn) {
-			ticketModel.search({call_waiter_status: 1}, function(err, tickets) {
+			//ticketModel.search({call_waiter_status: 1}, function(err, tickets) {
+			ticketModel.getAll(function(err, tickets) {
+				for(var i = 0; i < tickets.length; i++) {
+					if(tickets[i].call_waiter_status === 0)
+						array.splice(i, 1);
+				}
+				if(err)
+					res.send(500, 'database problem');
 				ticketItemModel.getActiveOrders(function (err, orders) {
 					if (err) {
 						res.send(500, 'error connecting to database');
