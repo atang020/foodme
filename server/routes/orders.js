@@ -8,7 +8,6 @@ router.get('/', function (req, res) {
 	routeHelper.redirectIfLoggedOut(req, res, function (loggedIn) {
 		if (loggedIn) {
 			ticketModel.search({call_waiter_status: 1}, function(err, tickets) {
-				tickets = [{table: 15, ticket_id: 1}, {table: 13, ticket_id: 2}, {table: 7, ticket_id: 5}, {table: 2, ticket_id: 6}, {table: 8, ticket_id: 16}];
 				ticketItemModel.getActiveOrders(function (err, orders) {
 					if (err) {
 						res.send(500, 'error connecting to database');
