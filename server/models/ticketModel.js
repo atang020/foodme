@@ -5,7 +5,6 @@ function verify(ticket) {
 	if (ticket.table_number === undefined || ticket.table_number === null) {
 		return new Error('No table number specified.');
 	}
-
 	return null;
 }
 
@@ -52,7 +51,7 @@ exports.get = function (ticketId, callback) {
  *
  */
 exports.search = function (params, callback) {
-	database.query('SELECT * FROM user WHERE ?', params, function (err, rows) {
+	database.query('SELECT * FROM ticket WHERE ?', params, function (err, rows) {
 		if (err) {
 			return callback(err, null);
 		}

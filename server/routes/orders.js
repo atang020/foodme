@@ -1,16 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var ticketItemModel = require('../models/ticketItemModel');
+var ticketModel = require('../models/ticketModel');
 routeHelper = require('../routes/routeHelper');
 
 router.get('/', function (req, res) {
 	routeHelper.redirectIfLoggedOut(req, res, function (loggedIn) {
 		if (loggedIn) {
-			ticketItemModel.getActiveOrders(function (err, orders) {
-				if (err) {
-					res.send(500, 'error connecting to database');
-				}
-				res.render('orders', {user: {email: req.cookies.email}, ticket_items: orders});
+			ticketModel.search({call_waiter_status: 1}, function(err, tickets) {
+				if(err)
+					res.send(500, 'database problem');
+				ticketItemModel.getActiveOrders(function (err, orders) {
+					if (err) {
+						res.send(500, 'error connecting to database');
+					}
+					res.render('orders', {user: {email: req.cookies.email}, ticket_items: orders, tickets: tickets});
+				});
 			});
 		}
 	});

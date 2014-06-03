@@ -14,7 +14,7 @@ router.get('/', function(req, res){
 });
 
 router.get('/needwaiter', function (req, res) {
-	ticketModel.search({call_waiter_status: 1}, function (err, tickets) {
+	ticketModel.search({'call_waiter_status': 1}, function (err, tickets) {
 		if (err) {
 			return routeHelper.jsonError(res, err);
 		}

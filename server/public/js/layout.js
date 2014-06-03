@@ -1,3 +1,5 @@
+var redirect;
+
 /*
  * Sets up the document
  *
@@ -15,7 +17,10 @@ $(document).ready(function () {
 			setCookie('password', splitData[splitData.length - 1]);
 			//console.log('cookie: ' + splitData[splitData.length - 1]);
 			setCookie('email', loginData.split('=')[1].split('&')[0].replace('%40', '@'));
-			window.location.assign('/orders');
+			if(redirect)
+				window.location.assign(redirect);
+			else
+				window.location.assign('/orders');
 		}).fail(function (textStatus, errorThrown) {
 			$('#loginError').stop().fadeIn(100).fadeOut(3000).text('Invalid email/password');
 		});
@@ -45,4 +50,12 @@ function getCookie(cname) {
 function setCookie(cname, cvalue) {
 	document.cookie = cname + "=" + cvalue + ";"
 }
+
+function showLoginModal(redirectUrl) {
+	if(redirectUrl !== 'undefined') {
+		redirect = decodeURIComponent(redirectUrl);
+	}
+	$('#loginModal').modal();
+}
+
 

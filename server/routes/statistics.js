@@ -11,7 +11,9 @@ router.get('/', function (req, res) {
 				sortBy = req.query.sortBy;
 			}
 			if(req.query.cutoff && req.query.cutoff !== '') {
-				//TODO something with cutoff
+				cutoff = req.query.cutoff;
+				if(cutoff === 'null')
+					cutoff = null;
 			}
 			
 			if(req.query.ascending === 'true'){
@@ -26,7 +28,7 @@ router.get('/', function (req, res) {
 				}
 				//set the options available to the user
 				var menuOptions = {sortBy:[{name: 'most popular', val : 'numberOrdered'},{name: 'most profitable', val : 'profit'}],
-								cutoff: [{name: 'today', val : null},{name: 'this week', val : null}, {name: 'this month', val : null}],
+								cutoff: [{name: 'today', val : 'day'},{name: 'this week', val : 'week'}, {name: 'this month', val : 'month'}, {name: 'this year', val : 'year'},{name: 'all time', val : null}],
 								ascending: [{name: 'ascending', val : true},{name: 'descending', val : false}]};
 				
 				//figure out which one of the options we are currently on

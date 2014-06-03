@@ -9,6 +9,7 @@ public class TicketItem {
 	int menuItemIndex;
 	int menuItemId;
 	short quantity;
+	String sendStatus;
 	String notes;
 	short kitchenStatus;
 	ContentResolverMenuItem foodDetails;
@@ -38,6 +39,18 @@ public class TicketItem {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+	public String getCheckStatus() {
+		return sendStatus;
+	}
+		
+	public void setCheckStatusReady() {
+		this.sendStatus = "Ready to send!";
+	}
+	
+	public void setCheckStatusNotReady() {
+		this.sendStatus = "Not ready to send.";
+	}
 
 	public TicketItem(int orderId, int menuItemId, int menuItemIndex, short quantity,
 			String notes, short kitchenStatus, String menuItemName, double price) 
@@ -50,6 +63,7 @@ public class TicketItem {
 		this.kitchenStatus = kitchenStatus;
 		this.menuItemName = menuItemName;
 		this.price = price;
+		this.sendStatus = "Ready to send!";
 	}
 	
 	@Override
@@ -57,14 +71,14 @@ public class TicketItem {
 		BigDecimal bigPrice = new BigDecimal(price);
 		bigPrice = bigPrice.setScale(2);
 		return menuItemName +" ---- "+ notes + " ---- $" + bigPrice
-		+ " ---- " + quantity;
+		+ " ---- " + quantity + " ---- " + sendStatus;
 	}
 	
 	public String toString2() {
 		// <font color=#80808080>
 		//String s1 = menuItemName +" | "+ notes + " | $" + price 
 		//		+ " | " + quantity;
-	    String s1 = menuItemName;
+	    String s1 = menuItemName + " --- Delivered!";
 		return s1;
 	}
 
