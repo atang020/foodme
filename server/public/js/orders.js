@@ -2,6 +2,10 @@ var confirmCallback;
 
 //page loaded
 $(document).ready(function () {
+	//auto-refresh
+	setInterval(function() {
+		window.location.reload();
+	}, 10000); 
 });
 
 
@@ -56,4 +60,24 @@ function showConfirmModal(text) {
 	var dialog = $('#confirmModal').find('.confirm-description');
 	dialog.text(text);
 	$('#confirmModal').modal();
+}
+
+//answers a call for a waiter
+function answerTable(ticket_id){
+	$.get('/api/tickets/' + ticket_id, function (data) {
+		data.call_waiter_status = 0;
+		$.ajax({
+			url: '/api/tickets/',
+			type: 'PUT',
+			data: data,
+			success: function (response) {
+				var item = $('#table' + ticket_id);
+				item.fadeOut(300, function () { item.remove(); });
+				closeConfirmModal();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert('something went wrong: ' + thrownError);
+			}
+		});
+	});
 }

@@ -5,7 +5,6 @@ function verify(ticket) {
 	if (ticket.table_number === undefined || ticket.table_number === null) {
 		return new Error('No table number specified.');
 	}
-
 	return null;
 }
 
