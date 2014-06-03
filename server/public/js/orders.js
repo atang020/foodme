@@ -66,8 +66,9 @@ function showConfirmModal(text) {
 function answerTable(ticket_id){
 	$.get('/api/tickets/' + ticket_id, function (data) {
 		data.call_waiter_status = 0;
-		//j delete this line
-		delete data.ticket_date;
+		//format date correctly
+		if(data.ticket_date.indexOf(".") !== -1)
+		data.ticket_date = data.ticket_date.substring(0, data.ticket_date.indexOf("."));
 		$.ajax({
 			url: '/api/tickets/',
 			type: 'PUT',
