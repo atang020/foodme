@@ -2,6 +2,7 @@ var database = require('./database');
 var async = require('async');
 var subcategoryModel = require('./subcategoryModel');
 var ticketItemModel = require('./ticketItemModel');
+var ticketModel = require('./ticketModel');
 
 function verify(menuItem) {
 	// name, description, and price must be NOT NULL
@@ -73,6 +74,21 @@ exports.get = function (orderId, callback) {
  *
  */
 exports.getAllWithStatistics = function (cutoffDate, sortBy, ascending, callback) {
+	var date = new Date();
+	if(cutoffDate !== null) {
+		if(cutoffDate === 'year') {
+			date.setFullYear(date.getFullYear() - 1);
+		}
+		else if(cutoffDate === 'month') {
+			date.setFullYear(date.getFullYear(), date.getMonth() - 1);
+		}
+		else if(cutoffDate === 'week') {
+			date.setFullYear(date.getFullYear(), date.getMonth(), date.getDay() - 6);
+		}
+		else if(cutoffDate === 'day') {
+			date.setFullYear(date.getFullYear(), date.getMonth(), date.getDay() );
+		}
+	}
 	exports.getAll(function (err, menu_items) {
 		if (err) {
 			return callback(err);
@@ -85,15 +101,39 @@ exports.getAllWithStatistics = function (cutoffDate, sortBy, ascending, callback
 						return asyncCallback(err);
 					}
 					var numberOrdered = 0;
-					for(var i = 0; i < ticketItems.length; i++) {
-						numberOrdered += ticketItems[i].quantity;
-					}
-					menu_item.numberOrdered = numberOrdered;
-					//it sure would be nice if the price per item were stored in the ticket table so if it
-					//changed the historical data would remain unchanged...
-					menu_item.profit = numberOrdered * menu_item.price;
-					//TODO also get rating information
-					return asyncCallback(null);
+						async.eachLimit(ticketItems, 5,
+							function (ticket_item, asyncCallback) {
+							if(cutoffDate !== null){
+								//get ticket for this ticket item
+								ticketModel.get(ticket_item.ticket_id, function(err, ticket) {
+									if(err) {
+										return asyncCallback(err);
+									}
+									var ticketDate = new Date(Date.parse(ticket.ticket_date));
+									if(ticketDate > date) {
+										numberOrdered += ticket_item.quantity;
+									}
+									return asyncCallback(null);
+								});
+								
+							}
+							else {
+								numberOrdered += ticket_item.quantity;
+								return asyncCallback(null);
+							}
+						}, function(err) {
+							if (err) {
+								return asyncCallback(err);
+							}
+							menu_item.numberOrdered = numberOrdered;
+							//it sure would be nice if the price per item were stored in the ticket table so if it
+							//changed the historical data would remain unchanged...
+							menu_item.profit = numberOrdered * menu_item.price;
+							//TODO also get rating information
+							return asyncCallback(null);
+							
+						});
+					
 				});
 			},
 			function (err) {
