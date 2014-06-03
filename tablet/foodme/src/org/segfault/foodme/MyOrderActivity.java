@@ -370,7 +370,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			adapter.add(item.get((item.size()-1)).toString());
 			subtotalVal = subTotal();
 			subtotal.setText(subtotalVal);
-			Toast makeText = Toast.makeText(getApplicationContext(),"Order has been edited." + item.get(position).toString(), Toast.LENGTH_SHORT);
+			Toast makeText = Toast.makeText(getApplicationContext(),"Order has been edited.", Toast.LENGTH_SHORT);
 			makeText.show();
 		}
 		});
@@ -381,8 +381,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			{
 				adapter.remove(item.get(position).toString());
 				item.remove(position);
-				//Toast makeText = Toast.makeText(getApplicationContext(),"Deleted at Index: " + position, Toast.LENGTH_SHORT);
-				Toast makeText = Toast.makeText(getApplicationContext(),"Item deleted." + position, Toast.LENGTH_SHORT);
+				Toast makeText = Toast.makeText(getApplicationContext(),"Item has been deleted." + position, Toast.LENGTH_SHORT);
 				makeText.show();
 			}
 		});

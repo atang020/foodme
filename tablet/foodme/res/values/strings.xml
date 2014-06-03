@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">foodme</string>
-    <string name="splashMessage">Touch Anywhere to Continue</string>
+    <string name="splashMessage">Touch Anywhere To Continue</string>
     <string name="syncMessage">Syncing with database, please wait...</string>
     <string name="entree_button">Entree</string>
     <string name="drink_button">Drink</string>
@@ -19,19 +19,19 @@
     <string name="quantity_string">Quantity</string>
     <string name="remove_string">Remove</string>
     <string name="subtotal_string">Subtotal: </string>
-    <string name="add">Add to Order</string>
+    <string name="add">Add To Order</string>
     <string name="dummy1">dummy1</string>
    	<string name="dummy2">dummy2</string>
  	<string name="dummy3">dummy3</string>
- 	<string name="note">Add a note for this item</string>
- 	<string name="get_review">Read reviews</string>
+ 	<string name="note">Add a note for this item.</string>
+ 	<string name="get_review">Read Reviews</string>
  	<string name="some_description">Welcome To FoodMe!\n\n
  	    Choose from Drinks, Appetizers, Entrees, and Desserts to view and order items.\n\n
  	    Press "My Order" to view the items you wish to send to kitchen:\n
  	    Tap any item to edit notes or quantity, or to delete item from active orders.\n
  	    Tap and hold an item to change its status.\n
  	    By changing an item\'s status, you can send certain items to the kitchen.\n\n
- 	    If you have any questions, please press "Call Waiter".\n\n
+ 	    If you have any questions, or prefer human interaction, please press "Call Waiter".\n\n
  	    Enjoy!</string>
    	<string-array
    	    name="quantity_number">
