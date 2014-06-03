@@ -19,13 +19,12 @@ block content
 			h3 requested waiter:
 			h7 table:
 			- for(var i = 0; i < tickets.length; i++)
-				-if(tickets[i].call_waiter_status === 1)
-					div.btn-group(id='table#{tickets[i].ticket_id}')
-						div.dropdown
-							button.btn-default(type='button',data-toggle='dropdown') #{tickets[i].table}
-							ul.dropdown-menu(role='menu')
-								li
-									a(onclick='answerTable(\'#{tickets[i].ticket_id}\')') mark answered
+				div.btn-group(id='table#{tickets[i].ticket_id}')
+					div.dropdown
+						button.btn-default(type='button',data-toggle='dropdown') #{tickets[i].table_number}
+						ul.dropdown-menu(role='menu')
+							li
+								a(onclick='answerTable(\'#{tickets[i].ticket_id}\')') mark answered
 			h1 active orders
 			div.jumbotron(style='background-color:white;')
 				table.table
