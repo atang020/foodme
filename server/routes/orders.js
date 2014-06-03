@@ -9,10 +9,8 @@ router.get('/', function (req, res) {
 		if (loggedIn) {
 			//ticketModel.search({call_waiter_status: 1}, function(err, tickets) {
 			ticketModel.getAll(function(err, tickets) {
-				for(var i = 0; i < tickets.length; i++) {
-					if(tickets[i].call_waiter_status === 0)
-						tickets.splice(i, 1);
-				}
+				tickets.push({table: 12, ticket_id: 1, call_waiter_status: 0});
+				tickets.push({table: 2, ticket_id: 2, call_waiter_status: 0});
 				if(err)
 					res.send(500, 'database problem');
 				ticketItemModel.getActiveOrders(function (err, orders) {
