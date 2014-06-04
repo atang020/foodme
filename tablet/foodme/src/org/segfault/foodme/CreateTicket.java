@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.RemoteException;
+import android.widget.Toast;
 
 // Send HttpPost request to insert new Ticket into table and receive the id
 public class CreateTicket extends AsyncTask<Void, Void, Void> 
@@ -77,8 +78,23 @@ public class CreateTicket extends AsyncTask<Void, Void, Void>
 			if (inputStream != null)
 			{
 	 	    	result = convertInputStreamToString(inputStream);
-	 	    	SplashScreenActivity.ticket.ticketId = Integer.parseInt(result);
-	 	    	android.util.Log.v("splash", "successfully created table");
+	 	    	
+	 	    	try {
+		 	    	SplashScreenActivity.ticket.ticketId = Integer.parseInt(result);
+		 	    	android.util.Log.v("splash", "successfully created table");
+	 	    	}
+	 	    	
+	 	    	catch(NumberFormatException e) {
+					Toast makeText = Toast.makeText(null, "Error syncing with database. Please check your internet connection.",Toast.LENGTH_SHORT);
+					makeText.show();
+	 	    	}
+	 	    	
+	 	    	catch(ArrayIndexOutOfBoundsException e) {
+					Toast makeText = Toast.makeText(null, "Error syncing. Please check your internet connection.",Toast.LENGTH_SHORT);
+					makeText.show();
+	 	    	}
+	 	    	
+
 			}
 		} 
 		catch (UnsupportedEncodingException e) 

@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 // Takes an ArrayList of TicketItem and sends them to the server database using http POST
 public class SendTicketItems extends AsyncTask<TicketItem, Void, Void> 
@@ -63,8 +64,20 @@ public class SendTicketItems extends AsyncTask<TicketItem, Void, Void>
 			if (inputStream != null)
 			{
 	 	    	result = convertInputStreamToString(inputStream);
-	 	    	ticketItem.ticketItemId = Integer.parseInt (result);
-	 	    	android.util.Log.v("order", "inserted ticket item with id: " + result + " into table");
+	 	    	try {
+	 	    		ticketItem.ticketItemId = Integer.parseInt (result);
+	 	    		android.util.Log.v("order", "inserted ticket item with id: " + result + " into table");
+	 	    	}
+	 	    	
+	 	    	catch(NumberFormatException e) {
+					Toast makeText = Toast.makeText(null, "Error syncing with database. Please check your internet connection.",Toast.LENGTH_SHORT);
+					makeText.show();
+	 	    	}
+	 	    	
+	 	    	catch(ArrayIndexOutOfBoundsException e) {
+					Toast makeText = Toast.makeText(null, "Error syncing. Please check your internet connection.",Toast.LENGTH_SHORT);
+					makeText.show();
+	 	    	}
 			}
 		} 
 		catch (UnsupportedEncodingException e) 

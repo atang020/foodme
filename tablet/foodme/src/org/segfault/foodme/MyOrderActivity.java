@@ -417,7 +417,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 
 						// Check for valid quantity
 						if ((quantityVal.length() > 0) && (eligibleUpdate == 1)) {
-							System.out.println("REACH HERE");
 							try {
 								quantityNum = Short.parseShort(quantityVal);
 							}
