@@ -107,7 +107,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 
 		list.setAdapter(adapter);
 		subtotal.setText(subtotalVal);
-
+		total.setText(totalString(SplashScreenActivity.total));
 		// "Send To Kitchen"
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -326,19 +326,18 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 
 							if (readyString.compareTo(inString) == 0) {
 								adapter.remove(item.get(incr).toString());
+								totalValue(item.get(incr).getQuantity(), item
+										.get(incr).getPrice());
 								adapter.add(item.get(incr).toString2());
 								item.remove(incr);
-								SplashScreenActivity.orders.remove(incr);
 								subtotal.setText(subTotal());
-								totalValue();
-								total.setText(totalString(SplashScreenActivity.total));
 								showMessage = 1;
 							}
 
 							else
 								incr++;
 						}
-
+						total.setText(totalString(SplashScreenActivity.total));
 						if (showMessage == 1) {
 							Toast makeText = Toast.makeText(
 									getApplicationContext(),
@@ -444,13 +443,13 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 										.get(position).getPrice());
 						adapter.remove(item.get(position).toString());
 						item.remove(position);
-						SplashScreenActivity.orders.remove(position);
+						//SplashScreenActivity.orders.remove(position);
 						item.add(temp);
-						SplashScreenActivity.orders.add(temp);
+						//SplashScreenActivity.orders.add(temp);
 						adapter.add(item.get((item.size() - 1)).toString());
 						subtotalVal = subTotal();
 						subtotal.setText(subtotalVal);
-						
+
 						if ((quantityIsEdited == 1) || (noteIsEdited == 1)) {
 							Toast makeText = Toast
 									.makeText(getApplicationContext(),
@@ -518,17 +517,15 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		return " | Total: " + total;
 	}
 
-	public void totalValue() {
+	public void totalValue(short q, double p) {
 		BigDecimal sum = new BigDecimal(0);
 		BigDecimal bg1, bg2, bg3;
-		for (int i = 0; i < SplashScreenActivity.orders.size(); i++) {
-			bg1 = new BigDecimal(SplashScreenActivity.orders.get(i).getPrice());
-			bg2 = new BigDecimal(SplashScreenActivity.orders.get(i).getQuantity());
-			bg3 = bg2.multiply(bg1);
-			sum = sum.add(bg3);
-		}
+		bg1 = new BigDecimal(p);
+		bg2 = new BigDecimal(q);
+		bg3 = bg2.multiply(bg1);
+		sum = sum.add(bg3);
 		sum = sum.setScale(2);
-		SplashScreenActivity.total = sum;
+		SplashScreenActivity.total = SplashScreenActivity.total.add(sum);
 	}
 
 	/*
