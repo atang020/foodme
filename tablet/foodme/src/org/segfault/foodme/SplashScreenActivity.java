@@ -49,6 +49,7 @@ public class SplashScreenActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		orders.clear();
 		total = new BigDecimal(0);
 		total = total.setScale(2);
 		syncReceiver = new SyncReceiver(this);
