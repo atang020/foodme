@@ -1,5 +1,6 @@
 package org.segfault.foodme;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import android.accounts.Account;
@@ -16,9 +17,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -32,6 +33,7 @@ public class SplashScreenActivity extends Activity
 	public static Ticket ticket;
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
 	public static Account myAccount;
+	public static BigDecimal total = new BigDecimal(0);
 	static boolean x = false;
 	ContentResolverMenuItem foodDetails;
 	ContentResolverReview foodReviews;
@@ -47,7 +49,7 @@ public class SplashScreenActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		
+		total = total.setScale(2);
 		syncReceiver = new SyncReceiver(this);
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
