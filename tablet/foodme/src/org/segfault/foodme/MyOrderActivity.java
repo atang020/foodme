@@ -354,9 +354,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			short eligibleUpdate = 1;
 			short quantityIsEdited = 1;
 			short noteIsEdited = 0;
-			
-			//System.out.println("VALUE IS " + value);
-			
+						
 			// Change notes if user inputed something
 			if(value.compareTo(blankStr) != 0) {
 				notesVal = value;
