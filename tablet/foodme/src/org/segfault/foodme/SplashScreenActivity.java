@@ -32,9 +32,12 @@ public class SplashScreenActivity extends Activity
 	public static final int TABLE_NUMBER = 12;
 	public static Ticket ticket;
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
+	public static Account myAccount;
 	public static BigDecimal total = new BigDecimal(0);
-	Account myAccount;
 	static boolean x = false;
+	ContentResolverMenuItem foodDetails;
+	ContentResolverReview foodReviews;
+	ContentResolverSubcategory foodList;
 	BroadcastReceiver syncReceiver;
 	View decorView;
 	ProgressDialog dialog;
@@ -86,6 +89,9 @@ public class SplashScreenActivity extends Activity
 	    bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 	    ContentResolver.requestSync (myAccount, "org.segfault.foodme.tabdbprovider", bundle);
 	    
+	    foodDetails = ContentResolverMenuItem.getInstance(this);
+	    foodList =  ContentResolverSubcategory.getInstance(this);
+	    foodReviews = ContentResolverReview.getInstance(this);
 	    
 	    // Insert new Ticket into server table and retrieve ticketId
 	    ticket = new Ticket ();
@@ -107,7 +113,9 @@ public class SplashScreenActivity extends Activity
 		if(display)
 		{
 			dialog.dismiss();
-			
+			foodDetails.update();
+			foodList.update();
+			foodReviews.update();
 		    decorView.setOnTouchListener(new OnTouchListener() 
 		    {
 		        @Override
