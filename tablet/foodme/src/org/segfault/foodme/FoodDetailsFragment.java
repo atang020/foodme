@@ -127,7 +127,7 @@ public class FoodDetailsFragment extends Fragment{
 								public void onClick(DialogInterface dialog, int which) {
 									if(name.getText().toString().length() > 0 && review.getText().toString().length() > 0)
 									{
-										Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
+										Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item.",Toast.LENGTH_SHORT);
 										ratingConfirm.show();
 										Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), name.getText().toString(), 
 												(short)customerRating.getRating(), review.getText().toString(), "");
@@ -150,7 +150,7 @@ public class FoodDetailsFragment extends Fragment{
 								
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item",Toast.LENGTH_SHORT);
+									Toast ratingConfirm = Toast.makeText(getActivity().getApplicationContext(),"Thank you for rating this item.",Toast.LENGTH_SHORT);
 									ratingConfirm.show();
 								
 									Review customerReview =  new Review(0, foodDetails.getMenuItemId(lastMenuItemIndex), "", (short)customerRating.getRating(), 
@@ -477,7 +477,14 @@ public class FoodDetailsFragment extends Fragment{
 	    @Override
 	    public void onReceive(Context context, Intent intent) {
 	    	if (intent.getAction().equals(SyncAdapter.FINISH_SYNC)) {
-	    		foodDetails.updateThings();
+				try {
+					foodDetails.updateThings();
+				}
+
+				catch(ArrayIndexOutOfBoundsException e) {
+					Toast makeText = Toast.makeText(getActivity().getApplicationContext(),"Error syncing with databse. Please check your internet connection.",Toast.LENGTH_SHORT);
+					makeText.show();
+				}
 	        }
 	    }
 	}
