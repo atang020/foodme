@@ -100,6 +100,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice);
 		subtotalVal = subTotal();
+		
 		// Display items that were added to order
 		for (int i = 0; i < item.size(); i++) {
 			adapter.add(item.get(i).toString());
@@ -108,12 +109,11 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		list.setAdapter(adapter);
 		subtotal.setText(subtotalVal);
 		total.setText(totalString(SplashScreenActivity.total));
+		
 		// "Send To Kitchen"
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				confirmation();
-
-				// TODO Sync with database again here
 			}
 		});
 
@@ -124,15 +124,12 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 			}
 		});
 
-		// Array that determines if an item is checked or not
-		// checkArray = new int[item.size()];
-
 		// Methods for items in the list
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			public void onItemSelected(AdapterView parentView, View childView,
 					int position, long id) {
-				// TODO
+				// Do nothing
 			}
 
 			public void onNothingSelected(AdapterView parentView) {
@@ -148,8 +145,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 			}
 		});
 
+		// Hold-clicking on an item allows you to toggle its send status
 		list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-			// Clicking on an item prompts an edit option to display
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -162,12 +159,11 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 
 	private void toggleStatus(final int position) {
 		dialogBuilder = new AlertDialog.Builder(this);
-
 		dialogBuilder.setTitle("Change Send Status");
 		dialogBuilder.setMessage("Would you like to change status of item?");
+		
 		dialogBuilder.setPositiveButton("Yes",
 				new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						String s1 = item.get(position).getCheckStatus();
@@ -211,7 +207,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 
 		dialogBuilder.setNegativeButton("No",
 				new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Toast waiterConfirm = Toast.makeText(
@@ -236,6 +231,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		dialogBuild1.setTitle("Check Please");
 		dialogBuild1.setMessage("Are you sure you want your check? "
 				+ totalString(SplashScreenActivity.total));
+		
 		dialogBuild1.setPositiveButton("Yes",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -247,6 +243,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 						for (int i = 0; i < item.size(); i++) {
 							new SendTicketItems().execute(item.get(i));
 						}
+						
 						Toast makeText = Toast
 								.makeText(
 										getApplicationContext(),
@@ -336,6 +333,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 							else
 								incr++;
 						}
+						
 						total.setText(totalString(SplashScreenActivity.total));
 						if (showMessage == 1) {
 							Toast makeText = Toast.makeText(
@@ -366,7 +364,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
+		// Do nothing
 	}
 
 	// This is prompted when user clicks on an item in the ListView
@@ -382,9 +380,9 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		layout.addView(quantity);
 		dialogBuild.setTitle("Edit Item");
 		dialogBuild.setView(layout);
+		
 		dialogBuild.setPositiveButton("Done",
 				new DialogInterface.OnClickListener() {
-
 					public void onClick(DialogInterface dialog, int which) {
 						short quantityNum = item.get(position).getQuantity();
 						String notesVal = item.get(position).getNotes();
@@ -465,6 +463,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 						}
 					}
 				});
+		
 		dialogBuild.setNeutralButton("Delete Item",
 				new DialogInterface.OnClickListener() {
 
@@ -501,12 +500,14 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 	public String subTotal() {
 		BigDecimal sum = new BigDecimal(0);
 		BigDecimal bg1, bg2, bg3;
+		
 		for (int i = 0; i < item.size(); i++) {
 			bg1 = new BigDecimal(item.get(i).getPrice());
 			bg2 = new BigDecimal(item.get(i).getQuantity());
 			bg3 = bg2.multiply(bg1);
 			sum = sum.add(bg3);
 		}
+		
 		sum = sum.setScale(2);
 		return "Subtotal: " + sum;
 	}
@@ -526,12 +527,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		SplashScreenActivity.total = SplashScreenActivity.total.add(sum);
 	}
 
-	/*
-	 * public void onItemClick1(AdapterView<?> parent, View view, int position,
-	 * long id) { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 */
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		String tabChosen = tab.getText().toString();
