@@ -47,7 +47,7 @@
 		    android:id="@+id/price"
 		    android:layout_width="300dp"
 		    android:layout_height="wrap_content"
-		    android:text="Large Text" />
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	    <Button
 	        android:id="@+id/add_button"

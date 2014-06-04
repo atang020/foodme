@@ -34,7 +34,7 @@ public class SplashScreenActivity extends Activity
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
 	public static Account myAccount;
 	public static BigDecimal total = new BigDecimal(0);
-	static boolean x = false;
+	static boolean x = false;	
 	ContentResolverMenuItem foodDetails;
 	ContentResolverReview foodReviews;
 	ContentResolverSubcategory foodList;
