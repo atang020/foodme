@@ -27,7 +27,7 @@
  	<string name="get_review">Read Reviews</string>
  	<string name="some_description">Welcome To FoodMe!\n\n
  	    Choose from Drinks, Appetizers, Entrees, and Desserts to view and order items.\n\n
- 	    Press "My Order" to view the items you wish to send to kitchen:\n\n
+ 	    Press "My Order" to view the items you wish to send to kitchen.\n\n
  	    Tap any item to edit notes or quantity, or to delete item from active orders.\n\n
  	    Tap and hold an item to change its status.\n\n
  	    By changing an item\'s status, you can send certain items to the kitchen.\n\n
