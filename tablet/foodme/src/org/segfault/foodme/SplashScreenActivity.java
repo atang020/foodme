@@ -30,7 +30,7 @@ public class SplashScreenActivity extends Activity
 	public static final String ACCOUNT_TYPE = "org.segfault.foodme.datasync";
 	public static final String ACCOUNT = "default_account";
 	public static final int TABLE_NUMBER = 12;
-	public static Ticket ticket;
+	public static Ticket ticket	= new Ticket ();
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
 	public static Account myAccount;
 	public static BigDecimal total = new BigDecimal(0);
@@ -94,7 +94,6 @@ public class SplashScreenActivity extends Activity
 	    foodReviews = ContentResolverReview.getInstance(this);
 	    
 	    // Insert new Ticket into server table and retrieve ticketId
-	    ticket = new Ticket ();
 	    new CreateTicket().execute();
 	}
 	
