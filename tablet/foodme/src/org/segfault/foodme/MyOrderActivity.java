@@ -247,7 +247,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 						for (int i = 0; i < item.size(); i++) {
 							new SendTicketItems().execute(item.get(i));
 						}
-
 						Toast makeText = Toast
 								.makeText(
 										getApplicationContext(),
