@@ -287,7 +287,7 @@ public class FoodDetailsFragment extends Fragment{
 									}
 								});
 						       AlertDialog submitDialog = test1.create();
-								submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+						//		submitDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 								submitDialog.show();
 						}
 						else
