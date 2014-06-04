@@ -443,9 +443,9 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 										.get(position).getPrice());
 						adapter.remove(item.get(position).toString());
 						item.remove(position);
-						SplashScreenActivity.orders.remove(position);
+						//SplashScreenActivity.orders.remove(position);
 						item.add(temp);
-						SplashScreenActivity.orders.add(temp);
+						//SplashScreenActivity.orders.add(temp);
 						adapter.add(item.get((item.size() - 1)).toString());
 						subtotalVal = subTotal();
 						subtotal.setText(subtotalVal);
