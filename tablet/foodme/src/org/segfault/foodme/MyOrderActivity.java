@@ -62,8 +62,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
        // Set up the action bar.
        final ActionBar actionBar = getActionBar();
 
-       // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-       // parent.
+       // Specify that the Home/Up button should not be enabled, since there is no hierarchical parent
        actionBar.setHomeButtonEnabled(false);
 
        // Display tabs in the action bar.
@@ -98,6 +97,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
   		button.setOnClickListener(new View.OnClickListener(){
   			public void onClick(View v){
   				confirmation();
+  				// TODO Sync with database again here
   			}
   		});
   		
@@ -107,9 +107,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
   				final_checkout();
   			}
   		});
-  		
-  		// Array that determines if an item is checked or not
-  		//checkArray = new int[item.size()];
   		
   		// Methods for items in the list
   		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
@@ -184,6 +181,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 				item.add(temp);
 				adapter.add(item.get((item.size()-1)).toString());
 				
+				
+				
 				Toast toggleConfirm= Toast.makeText(getApplicationContext(),"Item status has been changed.",Toast.LENGTH_SHORT);
 				toggleConfirm.show();
 			}
@@ -256,16 +255,28 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		dialogBuild1.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which)
 			{		
+				String readyString = "Ready to send!";
+				String inString;
 				short showMessage = 0;
-				// Set kitchen status for checked items
+				
+				// Set kitchen status for items that are ready to send
 				for(int i = 0; i < item.size(); i++) {
-					short a = 1;		
-					item.get(i).setKitchenStatus(a);
+					
+					inString = item.get(i).getCheckStatus();
+					
+					if(readyString.compareTo(inString) == 0) {
+						short a = 1;		
+						item.get(i).setKitchenStatus(a);
+					}
 				}
 				
-				// Executed send for checked items
+				// Executed send for items that are ready to send
 				for(int i = 0; i < item.size(); i++) {
+					inString = item.get(i).getCheckStatus();
+					
+					if(readyString.compareTo(inString) == 0) {
 						new SendTicketItems().execute(item.get(i));
+					}
 				}
 				
 				int itemSize = item.size();
@@ -276,8 +287,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 				// Clear sent items from ListView
 				for(int i = 0; i < itemSize; i++)
 				{	 
-					String readyString = "Ready to send!";
-					String inString = item.get(incr).getCheckStatus();
+					inString = item.get(incr).getCheckStatus();
 					
 					if(readyString.compareTo(inString) == 0)
 					{
@@ -337,29 +347,42 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			String notesVal = item.get(position).getNotes();
 			String value = input.getText().toString();
 			String quantityVal = quantity.getText().toString();
-			
-			try {
-				quantityNum = Short.parseShort(quantityVal);
+			String blankStr = "";
+			short eligibleUpdate = 1;
+			short quantityIsEdited = 1;
+			short noteIsEdited = 0;
+						
+			// Change notes if user inputed something
+			if(value.compareTo(blankStr) != 0) {
+				notesVal = value;
+				noteIsEdited = 1;
 			}
 			
-			catch(NumberFormatException e) {
-				Toast makeText1 = Toast.makeText(getApplicationContext(),"Please enter a valid integer.", Toast.LENGTH_SHORT);
-				makeText1.show();
-				quantityNum = item.get(position).getQuantity();
-			}
-			
-			if(value.startsWith("-")) {
+			// Ensure quantity is positive
+			if(quantityVal.startsWith("-")) {
 				Toast negInput = Toast.makeText(getApplicationContext(),"Please enter a positive integer.", Toast.LENGTH_SHORT);
 				negInput.show();
+				quantityIsEdited = 0;
+				eligibleUpdate = 0;
 			}
 			
-			else if(value.trim().length() <= 0) {
-				Toast realInput = Toast.makeText(getApplicationContext(),"Please enter something.", Toast.LENGTH_SHORT);
-				realInput.show();
-			}
+			if(quantityVal.length() <= 0)
+				quantityIsEdited = 0;
 			
-			else
-				notesVal = value;
+			// Check for valid quantity
+			if((quantityVal.length() > 0) && (eligibleUpdate == 1)) {
+				System.out.println("REACH HERE");
+				try {
+					quantityNum = Short.parseShort(quantityVal);
+				}
+
+				catch(NumberFormatException e) {
+					Toast makeText1 = Toast.makeText(getApplicationContext(),"Please enter a valid integer.", Toast.LENGTH_SHORT);
+					makeText1.show();
+					quantityNum = item.get(position).getQuantity();
+					quantityIsEdited = 0;
+				}
+			}
 			
 			TicketItem temp = new TicketItem(item.get(position).getOrderId(), item.get(position).getMenuItemId(), 
 					item.get(position).getMenuItemIndex(), quantityNum,
@@ -370,8 +393,16 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			adapter.add(item.get((item.size()-1)).toString());
 			subtotalVal = subTotal();
 			subtotal.setText(subtotalVal);
-			Toast makeText = Toast.makeText(getApplicationContext(),"Order has been edited.", Toast.LENGTH_SHORT);
-			makeText.show();
+			
+			if((quantityIsEdited == 1) || (noteIsEdited == 1)) {
+				Toast makeText = Toast.makeText(getApplicationContext(),"Item has been edited.", Toast.LENGTH_SHORT);
+				makeText.show();
+			}
+			
+			else {
+				Toast makeText = Toast.makeText(getApplicationContext(),"Item has NOT been edited.", Toast.LENGTH_SHORT);
+				makeText.show();
+			}
 		}
 		});
 		dialogBuild.setNeutralButton("Delete Item", new DialogInterface.OnClickListener() {
@@ -381,12 +412,12 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 			{
 				adapter.remove(item.get(position).toString());
 				item.remove(position);
-				Toast makeText = Toast.makeText(getApplicationContext(),"Item has been deleted." + position, Toast.LENGTH_SHORT);
+				Toast makeText = Toast.makeText(getApplicationContext(),"Item has been deleted.", Toast.LENGTH_SHORT);
 				makeText.show();
+				subtotalVal = subTotal();
+				subtotal.setText(subtotalVal);
 			}
 		});
-		
-		
 		
 		dialogBuild.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
 
@@ -417,12 +448,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		return "Subtotal: "+ sum;
 	}
 	
-
-	/*public void onItemClick1(AdapterView<?> parent, View view, int position,
-			long id) {
-		// TODO Auto-generated method stub
-		
-	}*/
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		String tabChosen = tab.getText().toString();
