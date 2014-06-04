@@ -107,7 +107,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 
 		list.setAdapter(adapter);
 		subtotal.setText(subtotalVal);
-		subtotal.setText(totalString(SplashScreenActivity.total));
+		total.setText(totalString(SplashScreenActivity.total));
 		// "Send To Kitchen"
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
