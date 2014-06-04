@@ -482,7 +482,7 @@ public class FoodDetailsFragment extends Fragment{
 				}
 
 				catch(ArrayIndexOutOfBoundsException e) {
-					Toast makeText = Toast.makeText(getActivity().getApplicationContext(),"Error syncing with databse. Please check your internet connection.",Toast.LENGTH_SHORT);
+					Toast makeText = Toast.makeText(getActivity().getApplicationContext(),"Error syncing with database. Please check your internet connection.",Toast.LENGTH_SHORT);
 					makeText.show();
 				}
 	        }
