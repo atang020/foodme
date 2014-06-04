@@ -234,7 +234,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 	private void final_checkout() {
 		dialogBuild1 = new AlertDialog.Builder(this);
 		dialogBuild1.setTitle("Check Please");
-		dialogBuild1.setMessage("Are you sure you want your check?"
+		dialogBuild1.setMessage("Are you sure you want your check? "
 				+ totalString(SplashScreenActivity.total));
 		dialogBuild1.setPositiveButton("Yes",
 				new DialogInterface.OnClickListener() {
@@ -513,7 +513,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 	}
 
 	public String totalString(BigDecimal total) {
-		return " | Total: " + total;
+		return "| Total: " + total;
 	}
 
 	public void totalValue(short q, double p) {
