@@ -1,7 +1,7 @@
 package org.segfault.foodme;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Random;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -29,10 +29,10 @@ public class SplashScreenActivity extends Activity
 	public static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	public static final String ACCOUNT_TYPE = "org.segfault.foodme.datasync";
 	public static final String ACCOUNT = "default_account";
+	public static final int TABLE_NUMBER = 12;
 	public static Ticket ticket;
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
-	public static Random r = new Random();
-	public static int TABLE_NUMBER = r.nextInt(12);
+	public static BigDecimal total = new BigDecimal(0);
 	Account myAccount;
 	static boolean x = false;
 	BroadcastReceiver syncReceiver;
@@ -46,7 +46,7 @@ public class SplashScreenActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		
+		total = total.setScale(2);
 		syncReceiver = new SyncReceiver(this);
 		// Remove the Title Bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
