@@ -236,7 +236,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		dialogBuild1.setTitle("Check Please");
 		dialogBuild1.setMessage("Are you sure you want your check?"
 				+ totalString(SplashScreenActivity.total));
-		dialogBuild1.setNegativeButton("Yes",
+		dialogBuild1.setPositiveButton("Yes",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						for (int i = 0; i < item.size(); i++) {
@@ -265,7 +265,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 					}
 				});
 
-		dialogBuild1.setPositiveButton("No",
+		dialogBuild1.setNegativeButton("No",
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -287,7 +287,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		dialogBuild1.setTitle("Send To Kitchen");
 		dialogBuild1.setMessage("Are you sure?");
 
-		dialogBuild1.setNegativeButton("Yes",
+		dialogBuild1.setPositiveButton("Yes",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						String readyString = "Ready to send!";
@@ -347,7 +347,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 					}
 				});
 
-		dialogBuild1.setPositiveButton("No",
+		dialogBuild1.setNegativeButton("No",
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -382,7 +382,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 		layout.addView(quantity);
 		dialogBuild.setTitle("Edit Item");
 		dialogBuild.setView(layout);
-		dialogBuild.setNegativeButton("Done",
+		dialogBuild.setPositiveButton("Done",
 				new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
@@ -482,7 +482,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 					}
 				});
 
-		dialogBuild.setPositiveButton("Cancel",
+		dialogBuild.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 
 					@Override
