@@ -1,6 +1,7 @@
 package org.segfault.foodme;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -16,9 +17,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -28,9 +29,10 @@ public class SplashScreenActivity extends Activity
 	public static final String AUTHORITY = "org.segfault.foodme.tabdbprovider";
 	public static final String ACCOUNT_TYPE = "org.segfault.foodme.datasync";
 	public static final String ACCOUNT = "default_account";
-	public static final int TABLE_NUMBER = 12;
 	public static Ticket ticket;
 	public static ArrayList<TicketItem> orders = new ArrayList<TicketItem>();
+	public static Random r = new Random();
+	public static int TABLE_NUMBER = r.nextInt(12);
 	Account myAccount;
 	static boolean x = false;
 	BroadcastReceiver syncReceiver;
