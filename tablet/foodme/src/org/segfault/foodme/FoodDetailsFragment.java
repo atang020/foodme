@@ -78,6 +78,7 @@ public class FoodDetailsFragment extends Fragment{
     	addButton = (Button) getActivity().findViewById(R.id.add_button);
     	price = (TextView) getActivity().findViewById(R.id.price);
     	getReview = (Button) getActivity().findViewById(R.id.get_review);
+    	dialog = new ProgressDialog(getActivity());
     	syncReceiver = new SyncReceiver(this);
     	ratingBar.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
