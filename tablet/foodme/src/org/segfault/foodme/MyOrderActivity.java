@@ -62,8 +62,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
        // Set up the action bar.
        final ActionBar actionBar = getActionBar();
 
-       // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-       // parent.
+       // Specify that the Home/Up button should not be enabled, since there is no hierarchical parent
        actionBar.setHomeButtonEnabled(false);
 
        // Display tabs in the action bar.
@@ -98,7 +97,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
   		button.setOnClickListener(new View.OnClickListener(){
   			public void onClick(View v){
   				confirmation();
-  				
   				// TODO Sync with database again here
   			}
   		});
@@ -109,9 +107,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
   				final_checkout();
   			}
   		});
-  		
-  		// Array that determines if an item is checked or not
-  		//checkArray = new int[item.size()];
   		
   		// Methods for items in the list
   		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
@@ -185,6 +180,8 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 				item.remove(position);
 				item.add(temp);
 				adapter.add(item.get((item.size()-1)).toString());
+				
+				
 				
 				Toast toggleConfirm= Toast.makeText(getApplicationContext(),"Item status has been changed.",Toast.LENGTH_SHORT);
 				toggleConfirm.show();
@@ -451,12 +448,6 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener, 
 		return "Subtotal: "+ sum;
 	}
 	
-
-	/*public void onItemClick1(AdapterView<?> parent, View view, int position,
-			long id) {
-		// TODO Auto-generated method stub
-		
-	}*/
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		String tabChosen = tab.getText().toString();
