@@ -85,4 +85,29 @@ public class ContentResolverSubcategory
         }
         return subcategoryNames;
     }
+	
+	public void update() {
+		this.context = context;
+	    ContentResolver cr = context.getContentResolver();
+	    String[] projection = new String[]{TabletContentProvider.KEY_ID,
+	    								   TabletContentProvider.KEY_NAME,
+	    								   TabletContentProvider.KEY_CATEGORY};
+	    Cursor cursor = cr.query(TabletContentProvider.SUBCATEGORY_CONTENT_URI, projection, null, null, null);
+	    subcategories.clear();
+	    // use cursor to insert rows from table into ArrayList
+	    if (cursor.moveToFirst())
+        {
+			do 
+			{
+				int subcategoryId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_ID));
+				String name = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_NAME));
+				int category = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_CATEGORY));
+				subcategories.add(new Subcategory (subcategoryId, name, category));
+			}
+            while (cursor.moveToNext());
+		}
+	    
+	    cursor.close();
+	    android.util.Log.v("CRMenuItem", "menuItem data processed");
+	}
 }

@@ -196,4 +196,37 @@ public class ContentResolverMenuItem
             e.printStackTrace();
         }
     }
+    
+    public void update()
+    {
+		this.context = context;
+	    ContentResolver cr = context.getContentResolver();
+	    String[] projection = new String[]{TabletContentProvider.KEY_ID, 
+	    								   TabletContentProvider.KEY_SUBCATEGORY_ID,
+	    								   TabletContentProvider.KEY_NAME,
+	    								   TabletContentProvider.KEY_DESCRIPTION,
+	    								   TabletContentProvider.KEY_PICTURE_PATH,
+	    								   TabletContentProvider.KEY_PRICE};
+	    Cursor cursor = cr.query(TabletContentProvider.MENU_ITEM_CONTENT_URI, projection, null, null, null);
+	    menuItems.clear();
+	    // use cursor to insert rows from table into ArrayList
+	    if (cursor.moveToFirst())
+        {
+			do 
+			{
+				int menuItemId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_ID));
+				int subcategoryId = cursor.getInt(cursor.getColumnIndex(TabletContentProvider.KEY_SUBCATEGORY_ID));
+				String name = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_NAME));
+				String description = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_DESCRIPTION));
+				String picturePath = cursor.getString(cursor.getColumnIndex(TabletContentProvider.KEY_PICTURE_PATH));
+				double price = cursor.getDouble(cursor.getColumnIndex(TabletContentProvider.KEY_PRICE));
+				menuItems.add(new MenuItem (menuItemId, subcategoryId, name, description, picturePath, price));
+                //downloadFood(picturePath);
+			}
+            while (cursor.moveToNext());
+		}
+	    
+	    cursor.close();
+	    android.util.Log.v("CRMenuItem", "menuItem data processed");
+    }
 }
