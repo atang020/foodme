@@ -33,7 +33,7 @@ function setConfirmModal(id) {
 //marks an order as been delivered (kitchen_status of 10)
 function markDelivered(id) {
 	$.get('/api/ticketitems/' + id, function (data) {
-		data.kitchen_status = 10;
+		data.kitchen_status = 0;
 		$.ajax({
 			url: '/api/ticketitems/',
 			type: 'PUT',
