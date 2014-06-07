@@ -12,20 +12,28 @@ public class EntreeActivityTest extends ActivityInstrumentationTestCase2<EntreeA
 		super(activityClass);
 	}
 
-	TextView textview = null;
 	Activity entreeActivity = null;
+	
+	// Names for buttons on details page
+	TextView textview = null;
+	TextView textview2 = null;
+	TextView textview3 = null;
 
-	// MenuItem entree;
 	protected void setUp() throws Exception {
 		super.setUp();
 		entreeActivity = this.getActivity();
 
-		// Checks add button text
+		// Store button names
 		textview = (TextView) entreeActivity.findViewById(org.segfault.foodme.R.id.add_button);
+		textview2 = (TextView) entreeActivity.findViewById(org.segfault.foodme.R.id.submit_button);
+		textview3 = (TextView) entreeActivity.findViewById(org.segfault.foodme.R.id.get_review);
 	}
 
 	public void testEntree() {
+		// Make sure buttons have correct names
 		assertEquals(textview.toString(), "Add To Order");
+		assertEquals(textview2.toString(), "Submit Rating");
+		assertEquals(textview3.toString(), "Read Reviews");
 	}
 
 	protected void tearDown() throws Exception {
