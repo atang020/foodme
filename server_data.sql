@@ -36,7 +36,7 @@ INSERT INTO `menu_item` VALUES
 (12,8,'Crayfish Taco','Mu','ed4128041dd831c5229dd1e5200c2853.jpg',4.00,0),
 (13,9,'Burrito Bowl','Nu','f2b5594aaa1857c3f0913d2a2222eb6a.jpg',6.75,0),
 (14,10,'PB Cake','Xi','400bf4167ebfadb30075240d70eafedf.jpg',7.99,0),
-(15,12,'Dutch Apple Pie','Omnicron','954d0ab50048778d798da75e17d06a48.jpg',4.99,0)
+(15,12,'Dutch Apple Pie','Omnicron','954d0ab50048778d798da75e17d06a48.jpg',4.99,0),
 (16,11,'Brownie Sundae','Pi','68b8d2932b5d2410815fd31881d1d37f.jpg',8.99,0);
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
