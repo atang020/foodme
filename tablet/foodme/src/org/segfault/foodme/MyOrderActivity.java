@@ -236,7 +236,7 @@ public class MyOrderActivity extends Activity implements ActionBar.TabListener,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						for (int i = 0; i < item.size(); i++) {
-							short a = 1;
+							short a = 0;
 							item.get(i).setKitchenStatus(a);
 						}
 
