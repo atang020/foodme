@@ -3,9 +3,11 @@ var confirmCallback;
 //page loaded
 $(document).ready(function () {
 	//auto-refresh
+	/*
 	setInterval(function() {
 		window.location.reload();
 	}, 10000); 
+	*/
 });
 
 
