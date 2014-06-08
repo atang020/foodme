@@ -23,6 +23,9 @@
 +                             INSTALLATION INSTRUCTIONS                            +
 ====================================================================================
 
+    ** A strong internet connection is required to connect to the database and for
+       successful installation.
+
     1) Ensure the latest version of Java is currently installed on your system.
 
     2) Download the correct Android SDK for your platform from the following link:
