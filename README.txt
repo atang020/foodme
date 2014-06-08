@@ -17,7 +17,7 @@
 
 
 ====================================================================================
-+                             INSTALLATION INSTRUCITONS                            +
++                             INSTALLATION INSTRUCTIONS                            +
 ====================================================================================
 
 ********** The following instructions are intended for a Windows platform **********
