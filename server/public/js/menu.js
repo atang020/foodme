@@ -200,6 +200,9 @@ function setInputModalAddSubcat(catId) {
 	showInputModal('new subcategory', 'name', true);
 
 	inputCallback = function (field) {
+		if(field === '' || field === ' ') {
+			field = '(no name)';
+		}
 		$.ajax({
 			url: '/api/subcategories/',
 			type: 'POST',
